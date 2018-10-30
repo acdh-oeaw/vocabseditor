@@ -1,0 +1,101 @@
+{% extends "webpage/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2">
+                    {% if object.get_prev %}
+                        <h2>
+                            <a href="{% url 'vocabs:skosconceptscheme_detail' pk=object.get_prev %}">
+                                <i class="fas fa-chevron-left" title="previous"></i>
+                            </a>
+                        </h2>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <h1 style="text-align: center;">
+                        <small>skos:ConceptScheme</small> {{ object }}
+                        {% if user.is_authenticated %}
+                            <small>
+                                <a href="{% url 'vocabs:skosconceptscheme_update' pk=object.id %}">
+                                    <i class="far fa-edit" title="edit"></i>
+                                </a>
+                            </small>
+                            |
+                            <small>
+                                <a href="{% url 'vocabs:skosconceptscheme_delete' pk=object.id %}">
+                                    <i class="far fa-trash-alt" title="delete"></i>
+                                </a>
+                            </small>
+                        {% endif %}
+                    </h1>
+                </div>
+            <div class="col-md-2">
+                <h2>
+                    {% if object.get_next %}
+                    <a href="{% url 'vocabs:skosconceptscheme_detail' pk=object.get_next %}" style="float:right">
+                        <i class="fas fa-chevron-right" title="next"></i>
+                    </a>
+                </h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+        <table class="table">
+        {% if object.dc_title %}
+        <tr>
+            <th class="w-25">dc:title{% if object.dc_title_lang %} @{{object.dc_title_lang}}{% endif %}</th>
+            <td>{{object.dc_title}}</td>
+        </tr>
+        {% endif %}
+        {% if object.dc_creator %}
+        <tr>
+        <th class="w-25">dc:creator</th>
+        <td>
+        {% for creator in object.dc_creator_as_list %}
+        <li>{{creator}}</li>
+        {% endfor %}
+        </td>
+        </tr>
+        {% endif %}
+        {% if object.dc_description %}
+        <tr>
+            <th>dc:description{% if object.dc_description_lang %} @{{object.dc_description_lang}}{% endif %}</th>
+            <td>{{object.dc_description}}</td>
+        </tr>
+        {% endif %}
+        {% if object.legacy_id %}
+        <tr>
+            <th>legacy ID</th>
+            <td>{{object.legacy_id}}</td>
+        </tr>
+        {% endif %}
+        {% if object.date_created %}
+         <tr>
+            <th>dct:created</th>
+            <td>{{object.date_created}}</td>
+        </tr>
+        {% endif %}
+        {% if object.date_modified %}
+         <tr>
+            <th>dct:modified</th>
+            <td>{{object.date_modified}}</td>
+        </tr>
+        {% endif %}
+        {% if object.has_concepts.all %}
+        <tr>
+        <th>concepts skos:inScheme</th>
+        <td>
+        {% for x in object.has_concepts.all %}
+            <li>
+                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+            </li>
+        {% endfor %}
+        </td>
+        <tr>
+        {% endif %}
+        </table>       
+    </div>
+</div>
+{% endblock %}

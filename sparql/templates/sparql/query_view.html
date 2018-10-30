@@ -1,0 +1,72 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% load webpage_extras %}
+{% block title %} SPARQL {% endblock %}
+{% block content %}
+<link href='//cdn.jsdelivr.net/yasqe/2.11.10/yasqe.min.css' rel='stylesheet' type='text/css'/>
+<link href='//cdn.jsdelivr.net/g/yasqe@2.2(yasqe.min.css),yasr@2.4(yasr.min.css)' rel='stylesheet' type='text/css'/>
+<script src='//cdn.jsdelivr.net/yasr/2.4/yasr.bundled.min.js'></script>
+<script src='//cdn.jsdelivr.net/yasqe/2.11.10/yasqe.bundled.min.js'></script>
+<div class="container">
+   
+<!--new-->
+  <div>
+    <h2 style="text-align:center">SPARQL Endpoint</h2>
+  </div>
+
+{% if examples %}
+ <div id="examples">
+    <h3>Example-Queries</h3>
+    <hr/>
+{% for x in examples %}
+<button  type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#see-example-{{ x.id }}" id="see-example-btn-{{ x.id }}">{{ x.title }}</button>
+
+     <div id="see-example-{{ x.id }}" class="collapse">
+     <h5>{{ x.title }}: {{ x.description }}</abbr></h5>
+            <code>{{ x.query }}</code>
+     </div>
+     <br>
+ {% endfor %}
+ </div>
+ {% endif %}
+
+ <br>
+
+ <div id="query-editor">
+    {% crispy form %}
+</div>
+<br>
+<div id="sparql-results">
+    <h3>Results</h3>
+        <hr/>
+    <div id="yasr"></div>
+</div>
+<br>
+<div class="card border-info mb-3">
+      <div class="card-header"><i class="fas fa-info-circle"></i>  Credits</div>
+      <div class="card-body">SPARQL endpoint interface is built with <a href="http://about.yasgui.org/">YASGUI</a> package.</div>
+</div>
+
+
+</div>
+
+<script>
+var yasqe = YASQE.fromTextArea(document.getElementById('id_query'),{
+    sparql: {
+		showQueryButton: true,
+        endpoint: "{% url 'sparql:tunnel' %}",
+        requestMethod: 'GET'
+	}
+});
+
+var yasr = YASR(document.getElementById("yasr"), {
+	//this way, the URLs in the results are prettified using the defined prefixes in the query
+	getUsedPrefixes: yasqe.getPrefixesFromQuery
+});
+
+yasqe.options.sparql.callbacks.complete = yasr.setResponse;
+
+</script>
+
+{% endblock %}

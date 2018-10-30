@@ -1,0 +1,135 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% block title %}Resource{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="card procustom-panel-create">
+        {% block repo_header %}
+        {% endblock %}
+    <div class="card-body">
+        <legend>Basic Info</legend>
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>
+                    acdh:hasTitle
+                </th>
+                <td>
+                    {{ object.has_title }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    acdh:hasIdentifier
+                </th>
+                <td>
+                    {{ object.acdh_id }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    description
+                </th>
+                <td>
+                    {{ object.description }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    checked?
+                </th>
+                <td>
+                    {{ object.checked }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    acdh:hasLicense
+                </th>
+                <td>
+                    {{ object.has_license }}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    acdh:hasCategory
+                </th>
+                <td>
+                    <a href="{{ object.has_category }}">{{ object.has_category }}</a>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    acdh:hasLifeCycleStatus
+                </th>
+                <td>
+                    <a href="{{ object.has_lcs }}">{{ object.has_lcs }}</a>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    acdh:hasAccessRestriction
+                </th>
+                <td>
+                    <a href="{{ object.has_access_restriction }}">{{ object.has_access_restriction }}</a>
+                </td>
+            </tr>
+        </table>
+        <legend>Related Person</legend>
+        <table class="table table-bordered table-hover">
+            {% if object.has_principal.all %}
+                <tr>
+                    <th>
+                        acdh:has_principal
+                    </th>
+                    <td>
+                        {% for x in object.has_principal.all %}
+                            <li>
+                                <a href="{{x.get_absolute_url}}">{{ x }}</a>
+                            </li>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endif %}
+            {% if object.has_creator.all %}
+                <tr>
+                    <th>
+                        acdh:has_creator
+                    </th>
+                    <td>
+                        {% for x in object.has_creator.all %}
+                            <li>
+                                <a href="{{x.get_absolute_url}}">{{ x }}</a>
+                            </li>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endif %}
+            {% if object.has_contributor.all %}
+                <tr>
+                    <th>
+                        acdh:hasContributor(s)
+                    </th>
+                    <td>
+                        {% for x in object.has_contributor.all %}
+                            <li>
+                                <a href="{{x.get_absolute_url}}">{{ x }}</a>
+                            </li>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endif %}
+        </table>
+        {% block more_info %}
+        {% endblock %}
+        {% block related_objects %}
+        {% endblock %}
+
+    </div>
+    <div class="panel-footer">
+        {{ object.label }}
+    </div>
+
+</div>
+</div>
+{% endblock %}

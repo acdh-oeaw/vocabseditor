@@ -1,0 +1,137 @@
+{% extends "webpage/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2">
+                    {% if object.get_prev %}
+                        <h2>
+                            <a href="{% url 'vocabs:skoscollection_detail' pk=object.get_prev %}">
+                                <i class="fas fa-chevron-left" title="previous"></i>
+                            </a>
+                        </h2>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <h1 style="text-align: center;">
+                        <small>skos:Collection</small> {{ object }}
+                        {% if user.is_authenticated %}
+                            <small>
+                                <a href="{% url 'vocabs:skoscollection_update' pk=object.id %}">
+                                    <i class="far fa-edit" title="edit"></i>
+                                </a>
+                            </small>
+                            |
+                            <small>
+                                <a href="{% url 'vocabs:skoscollection_delete' pk=object.id %}">
+                                    <i class="far fa-trash-alt" title="delete"></i>
+                                </a>
+                            </small>
+                        {% endif %}
+                    </h1>
+                </div>
+            <div class="col-md-2">
+                <h2>
+                    {% if object.get_next %}
+                    <a href="{% url 'vocabs:skoscollection_detail' pk=object.get_next %}" style="float:right">
+                        <i class="fas fa-chevron-right" title="next"></i>
+                    </a>
+                </h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+        <table class="table">
+        {% if object.name %}
+        <tr>
+            <th class="w-25">skos:prefLabel {% if object.label_lang %}@{{object.label_lang}}{% endif %}</th>
+            <td>
+           {{ object.name }}
+            </td>
+        </tr>
+        {% endif %}
+        {% if object.creator %}
+         <tr>
+            <th class="w-25">dc:creator</th>
+            <td>
+            {% for creator in object.creator_as_list %}
+            <li>{{ creator }}</li>
+            {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
+
+        {% if object.skos_note %}
+         <tr>
+            <th>skos:note{% if object.skos_note_lang %} @{{object.skos_note_lang}}{% endif %}</th>
+            <td>{{object.skos_note}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.skos_scopenote %}
+         <tr>
+            <th>skos:scopeNote{% if object.skos_scopenote_lang %} @{{object.skos_scopenote_lang}}{% endif %}</th>
+            <td>{{object.skos_scopenote}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.skos_changenote %}
+         <tr>
+            <th>skos:changeNote</th>
+            <td>{{object.skos_changenote}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.skos_editorialnote %}
+         <tr>
+            <th>skos:editorialNote</th>
+            <td>{{object.skos_editorialnote}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.skos_example %}
+         <tr>
+            <th>skos:example</th>
+            <td>{{object.skos_example}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.skos_historynote %}
+         <tr>
+            <th>skos:historyNote</th>
+            <td>{{object.skos_historynote}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.date_created %}
+         <tr>
+            <th class="w-25">dct:created</th>
+            <td>{{object.date_created}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.date_modified %}
+         <tr>
+            <th class="w-25">dct:modified</th>
+            <td>{{object.date_modified}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.has_members.all %}
+        <tr>
+        <th class="w-25">skos:members</th>
+        <td>
+        {% for x in object.has_members.all %}
+            <li>
+                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+            </li>
+        {% endfor %}
+        </td>
+        </tr>
+        {% endif %}
+
+        </table>  
+    </div>
+</div>
+{% endblock %}

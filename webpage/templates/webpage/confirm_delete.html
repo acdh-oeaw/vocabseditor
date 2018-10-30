@@ -1,0 +1,28 @@
+{% extends "webpage/base.html" %}
+{% block content %}
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirm delete</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <h4>
+                        Are you sure you want to delete: <strong>{{ object }}</strong> ?
+                    </h4>
+                    <input  class="btn btn-danger" type="submit" value="Yes, I want to delete" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input  class="btn" type="submit" value="No, bring me back" onclick="goBack()" />
+            </div>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends "webpage/base.html" %}
+{% block Title %} Import SKOS {% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+<div class="card">
+    <div class="card-header">
+        <h1 style="text-align: center;">Import SKOS</h1>
+    </div>
+    <div class="card-body">
+        <h2 style="text-align: center;">{{ worked }}</h2><br />
+        {% crispy form %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

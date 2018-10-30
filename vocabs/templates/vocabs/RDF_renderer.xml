@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/">
+
+{% for object in data.results %}
+    <rdf:Description rdf:about="{{ object.url|slice:":-12" }}">
+        <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+        <skos:prefLabel xml:lang="{{ object.pref_label_lang}}">{{ object.pref_label}}</skos:prefLabel>
+        {% for x in object.scheme %}
+            <skos:inScheme rdf:resource="{{x|slice:":-12"}}"/>
+        {% endfor %}
+        {% for x in object.skos_narrower %}
+            <skos:narrower rdf:resource="{{ x|slice:":-12"  }}"/>
+        {% endfor %}
+        {% for x in object.skos_broader %}
+            <skos:broader rdf:resource="{{ x|slice:":-12"  }}"/>
+        {% endfor %}
+        {% for x in object.broader %}
+            <skos:broader rdf:resource="{{ x|slice:":-12"  }}"/>
+        {% endfor %}
+        {% for x in object.narrower %}
+            <skos:narrower rdf:resource="{{ x|slice:":-12"  }}"/>
+        {% endfor %}
+        {% for x in object.skos_narrower %}
+            <skos:narrower rdf:resource="{{ x|slice:":-12"  }}"/>
+        {% endfor %}
+        {% if object.legacy_id %}<skos:exactMatch rdf:resource="{{ object.legacy_id }}"/>{% endif %}
+</rdf:Description>
+{% endfor %}
+
+</rdf:RDF>

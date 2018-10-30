@@ -1,0 +1,80 @@
+{% extends "arche/repo_object_base.html" %}
+{% load staticfiles %}
+{% block title %}Resource{% endblock %}
+{% block repo_header %}
+
+
+        <div class="card-header procustom-panel-heading">
+            <div class="row">
+                <div class="col-md-2">
+                    {% if object.get_prev %}
+                        <h2>
+                            <a href="{% url 'arche:resource_detail' pk=object.get_prev %}">
+                                <i class="fas fa-chevron-left" title="previous"></i>
+                            </a>
+                        </h2>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <h1 >
+                        <small>resource:</small> {{ object|truncatechars:25 }}
+                        {% if user.is_authenticated %}
+                            <small>
+                                <a href="{% url 'arche:resource_edit' pk=object.id %}">
+                                    <i class="far fa-edit" title="edit"></i>
+                                </a>
+                            </small>
+                            |
+                            <small>
+                                <a href="{% url 'arche:resource_delete' pk=object.id %}">
+                                    <i class="far fa-trash-alt" title="delete"></i>
+                                </a>
+                            </small>
+                            |
+                            <small>
+                                <a href="{% url 'arche:resource_copy' %}?class-name=arche&id={{ object.id }}&class-name=resource">
+                                    <i class="far fa-copy" title="copy object"></i>
+                                </a>
+                            </small>
+                        {% endif %}
+                    </h1>
+                </div>
+            <div class="col-md-2">
+                <h2>
+                    {% if object.get_next %}
+                    <a href="{% url 'arche:resource_detail' pk=object.get_next %}" style="float:right">
+                        <i class="fas fa-chevron-right" title="next"></i>
+                    </a>
+                </h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block more_info %}
+    <legend>More Info</legend>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>
+                acdh:has_filetype
+            </th>
+            <td>
+                {{ object.has_filetype }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                acdh:file_size
+            </th>
+            <td>
+                {{ object.file_size }}
+            </td>
+        </tr>
+    </table>
+{% endblock %}
+
+{% block related_objects %}
+    <legend>Part Of</legend>
+    <a href="{{ object.part_of.get_absolute_url }}">{{ object.part_of }}</a>
+{% endblock %}

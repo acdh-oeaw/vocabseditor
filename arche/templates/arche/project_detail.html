@@ -1,0 +1,114 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% block title %}Project{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="card procustom-panel-create">
+        <div class="card-header procustom-panel-heading">
+            <div class="row">
+                <div class="col-md-2">
+                    {% if object.get_prev %}
+                        <h2>
+                            <a href="{% url 'arche:project_detail' pk=object.get_prev %}">
+                                <i class="fas fa-chevron-left" title="previous"></i>
+                            </a>
+                        </h2>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <h1 style="text-align: center;">
+                        <small>project:</small> {{ object }}
+                        {% if user.is_authenticated %}
+                            <small>
+                                <a href="{% url 'arche:project_edit' pk=object.id %}">
+                                    <i class="far fa-edit" title="edit"></i>
+                                </a>
+                            </small>
+                            |
+                            <small>
+                                <a href="{% url 'arche:project_delete' pk=object.id %}">
+                                   <i class="far fa-trash-alt" title="delete"></i>
+                                </a>
+                            </small>
+                        {% endif %}
+                    </h1>
+                </div>
+            <div class="col-md-2">
+                <h2>
+                    {% if object.get_next %}
+                    <a href="{% url 'arche:project_detail' pk=object.get_next %}" style="float:right">
+                        <i class="fas fa-chevron-right" title="next"></i>
+                    </a>
+                </h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <legend>About</legend>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            acdh:hasTitle
+                        </th>
+                        <td>
+                            {{ object.has_title }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            description
+                        </th>
+                        <td>
+                            {{ object.description }}
+                        </td>
+                    </tr>
+                </table>
+                <legend>Related Person</legend>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            acdh:has_principal
+                        </th>
+                        <td>
+                            {% for x in object.has_principal.all %}
+                                <li>
+                                    <a href="{{x.get_absolute_url}}">{{ x }}</a>
+                                </li>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            acdh:hasContributor(s)
+                        </th>
+                        <td>
+                            {% for x in object.has_contributor.all %}
+                                <li>
+                                    <a href="{{x.get_absolute_url}}">{{ x }}</a>
+                                </li>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <legend>Related Collection</legend>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <td>
+                            {% for x in object.related_collection.all %}
+                                <a href="{{x.get_absolute_url}}">{{ x }}</a>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

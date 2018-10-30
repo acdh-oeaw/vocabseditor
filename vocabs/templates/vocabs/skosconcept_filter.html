@@ -1,0 +1,14 @@
+{% extends "vocabs/generic_list.html" %}
+{% block list_title %}Browse SkosConcepts{% endblock %}
+{% block create_button %}
+{% if user.is_authenticated %}
+<div>
+    <a class ="btn btn-primary"  href="{% url 'vocabs:skosconcept_create' %}">
+        create new concept
+    </a>
+</div>
+{% endif %}
+{% endblock %}
+{% block reset_button %}
+    <a class ="btn btn-outline-secondary" href="{% url 'vocabs:browse_vocabs' %}">reset search</a>
+{% endblock %}

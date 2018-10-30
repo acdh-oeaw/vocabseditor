@@ -1,0 +1,148 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% block Title %}Edit Places{% endblock %}
+
+{% block scriptHeader %}
+<!-- In case you are using any autocomplete-functions, don´t forget to
+    include 'autocomplete_light/static.html
+-->
+<!--leafletjs -->
+    <link rel="stylesheet" href="{% static 'webpage/libraries/leaflet/leaflet.css' %}" />
+    <script src="{% static 'webpage/libraries/leaflet/leaflet.js' %}"></script>
+        <style>
+            #map { height: 500px; }
+        </style>
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+{% if object %}
+<div class="row">
+    <div class="col-md-4">
+{% endif %}
+        <div class="card">
+            <div class="card-header">
+                  <h3>{%if object %} Edit {% else %} Create {% endif %}</h3>
+            </div>
+            <div class="card-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% crispy form %}
+                    {% if object %}
+                    <a class="btn btn-default btn-block" target="_blank">Check<span id="currentID"></span></a>
+                    {% endif %}
+                    <input class="btn btn-primary btn-block" type="submit" value="Save" />
+                    {% if object %}
+                    <a class ="btn btn-danger btn-sm" href="{% url 'entities:place_delete' pk=object.id %}">delete</a>
+                    {% endif %}
+                </form>
+           </div>
+       </div>
+{% if object %}
+   </div>
+    <div class ="col-md-8">
+        <div class="card card-default">
+            <div class="card-header">
+                <form class="form-group">
+                    <select class="form-control" id="geonamesSELECT">
+                            {% if object.geonames_id or object.lat %}
+                                <option id="geonamesOption" value="{{ object.name }}_{{ object.lat }}_{{ object.lng }}_{{ object.geonames_id }}">DB-Entry | {{ object.name }} | {{ object.lat }} | {{ object.lng }} | {{ object.geonames_id }}</option>
+                            {% endif %}
+                            {% for dict in responseJSON %}
+                            <option id="geonamesOption" value="{{ dict.countryName }}_{{ dict.name }}_{{ dict.lat }}_{{ dict.lng }}_{{ dict.geonameId }}"> {{ dict.countryName }} | {{ dict.name }} | {{ dict.lat }} | {{ dict.lng }} | {{ dict.geonameId }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+            </div>
+            <div class="card-body">
+                <div id="parentMap"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% if object %}
+<script type="text/javascript">
+    $( document ).ready(function() {
+        $("#map").remove()
+        $("#parentMap").append("<div id='map'></div>");
+        var placeName = $("#geonamesSELECT option:selected").text();
+        var gps1 = placeName.split(/\|/)[2];
+        var gps2 = placeName.split(/\|/)[3];
+        var map = L.map('map').setView([gps1, gps2], 10);
+
+       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.light',
+        accessToken: 'pk.eyJ1Ijoic2VubmllcmVyIiwiYSI6ImNpbHk1YWV0bDAwZnB2dW01d2l1Y3phdmkifQ.OljQLEhqeAygai2y6VoSwQ'
+        }).addTo(map);
+
+        L.marker([gps1, gps2]).addTo(map)
+        .bindPopup(placeName)
+        .openPopup();
+        });
+</script>
+
+
+<script type="text/javascript">
+    $( document ).ready(function(){
+        var placeName = $("#geonamesSELECT option:selected").text();
+        var gps1 = placeName.split(/\|/)[2];
+        var gps2 = placeName.split(/\|/)[3];
+        var geonameId = placeName.split(/\|/)[4];
+        $('#id_lat').val(parseFloat(gps1));
+        $('#id_lng').val(parseFloat(gps2));
+        $('#id_geonames_id').val(geonameId);
+        console.log(geonameId)
+        if (String(geonameId).startsWith('http')) {
+            var gndURL = geonameId.trim();
+        }   else {
+            gndURL = "http://www.geonames.org/"+geonameId.trim();
+        }
+        var lookupButton = $("#currentID");
+        $(lookupButton).text(gndURL);
+        $(lookupButton).parent().attr("href", gndURL);
+
+    });
+</script>
+
+<script type="text/javascript">
+    $("#geonamesSELECT").change(function(){
+        $("#map").remove()
+        $("#parentMap").append("<div id='map'></div>");
+        var placeName = $("#geonamesSELECT option:selected").text();
+        var gps1 = placeName.split(/\|/)[2];
+        var gps2 = placeName.split(/\|/)[3];
+        var map = L.map('map').setView([gps1, gps2], 15);
+        var geonameId = placeName.split(/\|/)[4].trim();
+        $('#id_lat').val(parseFloat(gps1));
+        $('#id_lng').val(parseFloat(gps2));
+        $('#id_geonames_id').val((geonameId));
+        if (String(geonameId).startsWith('http')) {
+            var gndURL = geonameId.trim();
+        }   else {
+            gndURL = "http://www.geonames.org/"+geonameId.trim();
+        }
+        var lookupButton = $("#currentID");
+        $(lookupButton).text(gndURL);
+        $(lookupButton).parent().attr("href", gndURL);
+
+       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.light',
+        accessToken: 'pk.eyJ1Ijoic2VubmllcmVyIiwiYSI6ImNpbHk1YWV0bDAwZnB2dW01d2l1Y3phdmkifQ.OljQLEhqeAygai2y6VoSwQ'
+        }).addTo(map);
+
+        L.marker([gps1, gps2]).addTo(map)
+            .bindPopup(placeName)
+            .openPopup();
+});
+</script>
+{% endif %}
+</div>
+{% endblock %}

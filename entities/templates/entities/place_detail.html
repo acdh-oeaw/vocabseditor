@@ -1,0 +1,180 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% block Title %}Edit Places{% endblock %}
+
+{% block scriptHeader %}
+<!-- In case you are using any autocomplete-functions, don´t forget to
+include 'autocomplete_light/static.html
+-->
+<!--leafletjs -->
+<link rel="stylesheet" href="{% static 'webpage/libraries/leaflet/leaflet.css' %}" />
+<script src="{% static 'webpage/libraries/leaflet/leaflet.js' %}"></script>
+<style>
+#map { height: 500px; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card procustom-panel-create">
+        <div class="card-header procustom-panel-heading">
+            <div class="row">
+                <div class="col-md-2">
+                    {% if object.get_prev %}
+                    <h2>
+                        <a href="{% url 'entities:place_detail' pk=object.get_prev %}">
+                        <i class="fas fa-chevron-left" title="previous"></i>
+                        </a>
+                    </h2>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <h1 style="text-align: center;">
+                        <small>place:</small> {{ object.name }}
+                        {% if user.is_authenticated %}
+                        <small>
+                        <a href="{% url 'entities:place_edit' pk=object.id %}">
+                            <i class="far fa-edit" title="edit"></i>
+                        </a>
+                        </small>
+                        |
+                        <small>
+                        <a href="{% url 'entities:place_delete' pk=object.id %}">
+                            <i class="far fa-trash-alt" title="delete"></i>
+                        </a>
+                        </small>
+                    {% endif %}
+                </h1>
+            </div>
+            <div class="col-md-2">
+                <h2>
+                    {% if object.get_next %}
+                    <a href="{% url 'entities:place_detail' pk=object.get_next %}" style="float:right">
+                        <i class="fas fa-chevron-right" title="next"></i>
+                    </a>
+                </h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <legend>About</legend>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <td>
+                            {{ object.name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            geonames_id
+                        </th>
+                        <td>
+                            {{ object.geonames_id }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Coordinates
+                        </th>
+                        <td>
+                            <abbr title="lat">{{ object.lat|truncatechars:8  }}</abbr>
+                        <br/>
+                        <abbr title="lng">{{ object.lng }}</abbr>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Alternative Names
+                    </th>
+                    <td>
+                        <ul>
+                            {% for x in object.alternative_name.all %}
+                            {% if x.id %}
+                            <li><a href="{% url 'entities:alternativename_detail' pk=x.id %}">{{ x }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Part of
+                    </th>
+                    <td>
+                        {% if object.part_of %}
+
+                        <a href="{% url 'entities:place_detail' pk=object.part_of.id %}">{{ object.part_of }}</a>
+                        {% else %}
+                        No entry
+                        {% endif %}
+                    </td>
+
+                </tr>
+                <tr>
+                    <th>has child</th>
+                    <td>
+                        <ul>
+                            {% for x in object.has_child.all %}
+                            {% if x.id %}
+                            <li><a href="{% url 'entities:place_detail' pk=x.id %}">{{ x }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--change history collapse button-->
+        {% if user.is_authenticated %}
+        {% if history %}
+        <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#changeHistory" aria-expanded="false" aria-controls="changeHistory">
+        Change history
+        </button>
+        <div class="collapse" id="changeHistory">
+            <div class="card card-body">
+                   {% for x in history %}
+                    <li>
+                   {{ x.revision.date_created }} changed by {{ x.revision.user }} 
+                   </li>
+                   {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+        <!--change history ends here-->
+    </div>
+    <div class="col-md-6">
+        <div id="map"/>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+    var placeName = "{{ object.name }}"
+    var lat = "{{ object.lat }}"
+    var lng = "{{ object.lng }}"
+    var map = L.map('map').setView([lat, lng], 10);
+
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.light',
+        accessToken: 'pk.eyJ1Ijoic2VubmllcmVyIiwiYSI6ImNpbHk1YWV0bDAwZnB2dW01d2l1Y3phdmkifQ.OljQLEhqeAygai2y6VoSwQ'
+    }).addTo(map);
+
+    L.marker([lat, lng]).addTo(map)
+    .bindPopup(placeName)
+    .openPopup();
+});
+</script>
+{% endblock %}

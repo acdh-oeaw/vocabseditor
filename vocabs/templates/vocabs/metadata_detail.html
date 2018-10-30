@@ -1,0 +1,127 @@
+{% extends "webpage/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="card">
+    <div class="card-header">
+        <h1 style="text-align: center;">Metadata {{ object.title }}
+        {% if user.is_authenticated %}
+            <small>
+                <a href="{% url 'vocabs:metadata_update' pk=object.id %}">
+                    <i class="far fa-edit" title="edit"></i>
+                </a>
+            </small>
+                |
+            <small>
+                <a href="{% url 'vocabs:metadata_delete' pk=object.id %}">
+                    <i class="far fa-trash-alt" title="delete"></i>
+                </a>
+            </small>
+         {% endif %}
+        </h1>
+    </div>
+        <table class="table">
+        <tr>
+        	<th class="w-25">Title</th>
+        	<td>{{object.title}}</td>
+        </tr>
+        <tr>
+        	<th>Indentifier</th>
+        	<td>{{object.indentifier}}</td>
+        </tr>
+        <tr>
+        	<th>Description</th>
+        	<td>{{object.description}}</td>
+        </tr>
+        <tr>
+        	<th>Description language</th>
+        	<td>{{object.description_lang}}</td>
+        </tr>
+        <tr>
+        	<th>Language</th>
+        	<td>
+            {% if object.language %}
+        	{% for language in object.language_as_list %}
+    		<li>{{ language }}</li>
+			{% endfor %}
+            {% endif %}
+			</td>
+        </tr>
+        <tr>
+        	<th>Version</th>
+        	<td>{{object.version}}</td>
+        </tr>
+        <tr>
+        	<th>Creator</th>
+        	<td>
+            {% if object.creator %}
+            {% for creator in object.creator_as_list %}
+            <li>{{ creator }}</li>
+            {% endfor %}
+            {% endif %}  
+            </td>
+        </tr>
+        <tr>
+        	<th>Contributor</th>
+        	<td>
+            {% if object.contributor %}
+             {% for contributor in object.contributor_as_list %}
+            <li>{{ contributor }}</li>
+            {% endfor %}
+            {% endif %}   
+            </td>
+        </tr>
+        <tr>
+        	<th>Subject</th>
+        	<td>
+            {% if object.subject %}
+        	{% for subject in object.subject_as_list %}
+    		<li>{{ subject }}</li>
+			{% endfor %}
+            {% endif %}
+			</td>
+        </tr>
+        <tr>
+        	<th>Owner</th>
+        	<td>{{object.owner}}</td>
+        </tr>
+        <tr>
+        	<th>License</th>
+        	<td>{{object.license}}</td>
+        </tr>
+        <tr>
+        	<th>Date created</th>
+        	<td>{{object.date_created}}</td>
+        </tr>
+        <tr>
+        	<th>Date modified</th>
+        	<td>{{object.date_modified}}</td>
+        </tr>
+        <tr>
+        	<th>Date issued</th>
+        	<td>{{object.date_issued}}</td>
+        </tr>
+        <tr>
+        	<th>Relation</th>
+        	<td>{{object.relation}}</td>
+        </tr>
+        {% if topConcepts %}
+        <tr>
+            <th>has Top Concepts</th>
+            <td>
+                {% for x in topConcepts %}
+                <li><a href="{{ x.get_absolute_url }}">{{x}}</a></li>
+                {% endfor %}
+            </td> 
+        </tr>
+        {% endif %}
+        <tr>
+            <th>Download</th>
+            <td>
+            <li><a href="{% url 'vocabs:vocabs-download' %}">RDF/XML</a></li>
+            <li><a href="{% url 'vocabs:vocabs-download' %}?format=turtle">Turtle</a></li>
+            </td>
+        </tr>
+        </table>
+   	</div>
+</div>
+{% endblock %}

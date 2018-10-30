@@ -1,0 +1,75 @@
+{% extends "arche/repo_object_base.html" %}
+{% load staticfiles %}
+{% load arche_filters %}
+{% block title %}Collection{% endblock %}
+{% block repo_header %}
+
+
+    <div class="card-header procustom-panel-heading">
+        <div class="row">
+            <div class="col-md-2">
+                {% if object.get_prev %}
+                    <h2>
+                        <a href="{% url 'arche:collection_detail' pk=object.get_prev %}">
+                            <i class="fas fa-chevron-left" title="previous"></i>
+                        </a>
+                    </h2>
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <h1 style="text-align: center;">
+                    <small>collection:</small> {{ object.has_title|truncate_inverse }}
+                        {% if user.is_authenticated %}
+                            <small>
+                                <a href="{% url 'arche:collection_edit' pk=object.id %}">
+                                    <i class="far fa-edit" title="edit"></i>
+                                </a>
+                            </small>
+                            |
+                            <small>
+                                <a href="{% url 'arche:collection_delete' pk=object.id %}">
+                                    <i class="far fa-trash-alt" title="delete"></i>
+                                </a>
+                            </small>
+                            <small>
+                                <a href="{% url 'arche:resource_inherit' %}?part_of={{ object.id }}">
+                                    propragate properties
+                                </a>
+                            </small>
+
+                    {% endif %}
+                </h1>
+            </div>
+            <div class="col-md-2">
+                <h2>
+                    {% if object.get_next %}
+                        <a href="{% url 'arche:collection_detail' pk=object.get_next %}" style="float:right">
+                            <i class="fas fa-chevron-right" title="next"></i>
+                        </a>
+                    {% endif %}
+                </h2>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block related_objects %}
+    <legend>Part Of</legend>
+    <a href="{{ object.part_of.get_absolute_url }}">{{ object.part_of }}</a>
+
+    <legend>Children</legend>
+    <h4>Collection(s)</h4>
+    {% for x in object.has_part.all %}
+        <li>
+            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+        </li>
+    {% endfor %}
+    <h4>Resources(s)</h4>
+    {% for x in object.has_part_resource.all %}
+        <li>
+            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+        </li>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,3 @@
+*.pyc
+__pycache__
+static/webpage/libraries/jquery-ui-1.11.4/images/

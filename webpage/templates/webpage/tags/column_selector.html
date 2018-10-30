@@ -1,0 +1,16 @@
+{% if columns %}
+    <select class="selectpicker" multiple data-selected-text-format="count > 2" name="columns" id="column_selector">
+        {% for x in columns %}
+        <option value="{{ x }}">{{ x|title }}</option>
+        {% endfor %}
+    </select>
+
+    <script>
+        $('#column_selector').on('loaded.bs.select', function(e) {
+            var url = new URL(window.location.href);
+            var columns = url.searchParams.getAll("columns");
+            $('#column_selector').selectpicker('val', columns);
+        });
+    </script>
+{% else %}
+{% endif %}

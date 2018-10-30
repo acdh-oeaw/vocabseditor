@@ -1,0 +1,258 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% load django_tables2 %}
+{% load browsing_extras %}
+{% load i18n %}
+{% load crispy_forms_field %}
+{% load crispy_forms_tags %}
+{% block title %} Browse {{ class_name }} {% endblock %}
+{% block scriptHeader %}
+
+{% endblock %}
+{% block content %}
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+    var fetchedParameter = "{{ table.page.number }}";
+    $("#goto option").each(function() {
+        if($(this).text() == fetchedParameter) {
+            $(this).attr('selected', 'selected');
+        }
+    });
+    });
+    </script>
+    <style>
+
+    </style>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="margin-bottom:15px;">
+                             Browse {% class_definition %} {% block list_title %}{% endblock %}
+                        </h3>
+                        {% if get_arche_dump %}
+                            <a class ="btn btn-outline-secondary"  href="{{ get_arche_dump}}{% querystring %}">Dump as RDF</a>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            {% if create_view_link  %}
+                                <a class ="btn btn-outline-secondary"  href="{{ create_view_link }}">Create new {{class_name}}</a>
+                            {% endif %}
+                        {% endif %}
+                        {% block customView %}{% endblock %}
+                        {% block create_button %}{% endblock %}
+                        <!--Search mask-->
+                        {% load django_tables2 crispy_forms_tags %}
+                        <form action="." class="uniForm" method="get">
+                            {% if togglable_colums %}
+                                <legend>Select additional columns</legend>
+                                {% column_selector  %}
+                            {% endif %}
+                            <br/>
+                            {% crispy filter.form filter.form.helper %}
+                        </form>
+                        {% block reset_button %}
+                            <a class ="btn btn-outline-secondary"  href=".">Reset search</a>
+                            {% if vis_list %}
+                                <div class="btn-group">
+                                    <button class="btn btn-default dropdown-toggle dropdown-custom" type="button" id="dropdownMenuVis" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Visualize <span class="caret"></span>
+                                    </button>
+                                    <div class="dropdown-menu" role="menu">
+                                        {% for x in vis_list %}
+                                            <li>
+                                                {% for y in x.chart_types.all %}
+                                                    <a class="dropdown-item" title="{{ x.help_text }}" href="?{{ request.GET.urlencode }}&charttype={{ y }}&property={{ x.field_path }}">{{ x.label }} {{ y.icon|safe }}</a>
+                                                {% endfor %}
+                                            </li>
+                                            <hr/>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if vis_list %}
+                                {% if data %}
+                                    <div class="card">
+                                        <div class="card-heading" style="text-align:center;">
+                                            <h1>{{ data.title }}</h1>
+                                            <legend>{{ data.items }}</legend>
+                                            <button  type="button" class="btn btn-default" data-toggle="collapse" data-target="#howtocite" id="howtocite-btn">JSON data</button>
+                                            <div id="howtocite" class="collapse">
+                                                <p>{{data}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="bar"></div>
+                                        </div>
+                                        {% if error %}
+                                            <h4>{{ error_msg|safe }}</h4>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endblock %}
+                </div>
+            </div>
+            </div>
+            <div class="col-md-8" id="results">
+                <div class="card">
+                    <div class="card-body">
+                        {% with table.paginator.count as total %}
+                        <legend>Total results: {{ total }}</legend>
+                            {% if entity == "skosconcept" %}
+                            <div class="btn-group" role="group" style="padding-bottom: 10px;">
+                              <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="The file will contain only search results">
+                                <i class="fas fa-download"></i> Download
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <a class="dropdown-item" href="{% url 'vocabs:vocabs-download' %}{% querystring %}">RDF/XML</a>
+                                <a class="dropdown-item" href="{% url 'vocabs:vocabs-download' %}?format=turtle&{% querystring %}">Turtle</a>
+                              </div>
+                            </div>
+                            {% endif %}
+                            {% if conf_items %}
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle dropdown-custom" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <i class="fas fa-download"></i>
+                                        Download
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li><a class="dropdown-item" href="{% querystring %}&sep=comma">"," separated</a></li>
+                                        <li><a class="dropdown-item" href="{% querystring %}&sep=semicolon">";" separated</a></li>
+                                        <li><a class="dropdown-item" href="{% querystring %}&sep=tab">"tab" separated</a></li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        {% block table %}
+                            <table class="table" {% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>
+              {% block table.thead %}
+              {% if table.show_header %}
+              <thead>
+                  <tr>
+                  {% for column in table.columns %}
+                      {% if column.orderable %}
+                      <th {{ column.attrs.th.as_html }}><a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header }}</a></th>
+                      {% else %}
+                      <th {{ column.attrs.th.as_html }}>{{ column.header }}</th>
+                      {% endif %}
+                  {% endfor %}
+                  </tr>
+              </thead>
+              {% endif %}
+              {% endblock table.thead %}
+              {% block table.tbody %}
+              <tbody>
+                  {% for row in table.page.object_list|default:table.rows %} {# support pagination #}
+                  {% block table.tbody.row %}
+                  <tr {{ row.attrs.as_html }}>
+                      {% for column, cell in row.items %}
+                      <td {{ column.attrs.td.as_html }}>{% if column.localize == None %}{{ cell }}{% else %}{% if column.localize %}{{ cell|localize }}{% else %}{{ cell|unlocalize }}{% endif %}{% endif %}</td>
+
+                      {% endfor %}
+                  </tr>
+                  {% endblock table.tbody.row %}
+                  {% empty %}
+                  {% if table.empty_text %}
+                  {% block table.tbody.empty_text %}
+                  <tr><td colspan="{{ table.columns|length }}">{{ table.empty_text }}</td></tr>
+                  {% endblock table.tbody.empty_text %}
+                  {% endif %}
+                  {% endfor %}
+              </tbody>
+              {% endblock table.tbody %}
+              {% block table.tfoot %}
+              {% if table.has_footer %}
+              <tfoot>
+                  <tr>
+                  {% for column in table.columns %}
+                      <td>{{ column.footer }}</td>
+                  {% endfor %}
+                  </tr>
+              </tfoot>
+              {% endif %}
+              {% endblock table.tfoot %}
+          </table>
+                        {% endblock table %}
+                        {% block pagination.allpages %}
+                            <div>
+                                {% with table.page.object_list|length as count %}
+                                    <p>Page total: {{ count }}</p>
+                                {% endwith %}
+                            </div>
+                            <ul class="pagination">
+                                {% if table.paginator.page_range|length > 10 %}
+                                    {% if table.page.has_previous %}
+                                        {% block pagination.previous.goto %}
+                                            <li class="previous">
+                                                <a style="margin-right: 10px;"  href="{% querystring table.prefixed_page_field=table.page.previous_page_number %}">{% trans "Previous" %}</a>
+                                            </li>
+                                        {% endblock pagination.previous.goto %}
+                                    {% endif %}
+                                {% if table.page.has_previous or table.page.has_next %}
+                                    {% block pagination.cardinality %}
+                                        {% blocktrans with table.page.number as current and table.paginator.num_pages as total %}
+                                            <p>Page {{ current }} of {{ total }}</p>
+                                        {% endblocktrans %}
+                                    {% endblock pagination.cardinality %}
+                                {% endif %}
+                                {% if table.page.has_next %}
+                                    {% block pagination.next.goto %}
+                                        <li class="next">
+                                            <a style="margin-left: 10px;" href="{% querystring table.prefixed_page_field=table.page.next_page_number %}" style="border-radius: 0px;">{% trans "Next" %}</a>
+                                        </li>
+                                    {% endblock pagination.next.goto %}
+                                {% endif %}
+                            </ul>
+                            <div class="form-group" style="width: 20%;">
+                                <label for="goto">Go to page</label>
+                                <select class="form-control" id="goto" onchange="javascript:location.href = this.value;">
+                                    {% for p in table.paginator.page_range %}
+                                        <option value="{% querystring table.prefixed_page_field=p %}">{{ p }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            {% else %}
+                                {% if table.page.has_previous %}
+                                    {% block pagination.previous %}
+                                        <li class="previous">
+                                            <a style="margin-right: 10px;"  href="{% querystring table.prefixed_page_field=table.page.previous_page_number %}">{% trans "Previous" %}</a>
+                                        </li>
+                                    {% endblock pagination.previous %}
+                                {% endif %}
+                                {% for p in table.paginator.page_range %}
+                                    {% if p == table.page.number %}
+                                        <li>
+                                            <a href="{% querystring table.prefixed_page_field=p %}" style="background-color:#007bff; border-color: #2e6da4; color: #ffffff; padding: 5px 10px 5px 10px;">{{ p }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <a href="{% querystring table.prefixed_page_field=p %}" style="padding: 5px 10px 5px 10px;"> {{ p }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if table.page.has_next %}
+                                    {% block pagination.next %}
+                                        <li class="next">
+                                            <a style="margin-left: 10px;"  href="{% querystring table.prefixed_page_field=table.page.next_page_number %}">{% trans "Next" %}</a>
+                                        </li>
+                                    {% endblock pagination.next %}
+                                {% endif %}
+
+                            </ul>
+                            {% endif %}
+                        {% endblock pagination.allpages %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if 'entities' in APPS %}
+        {% endif %}
+    </div>
+
+{% endblock %}
+{% block scripts2 %}
+
+{% endblock scripts2 %}

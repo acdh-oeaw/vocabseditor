@@ -1,0 +1,155 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %} Imprint {% endblock %}
+{% block content %}
+<div class="container">
+<div class="card imprint">
+<div class="card-header">
+    <h1>Impressum | imprint</h1>
+</div>
+<div class="card-body">
+    <div lang="de">
+        <h1>Offenlegung gemäß §§ 24, 25 Mediengesetz und § 5 E-Commerce-Gesetz</h1>
+        <h2>Medieninhaberin, Herausgeberin, inhaltliche und redaktionelle Verantwortung, Dienstanbieterin:</h2>
+        <p>
+            <a href="http://www.oeaw.ac.at">Österreichische Akademie der Wissenschaften</a><br/>
+            Juristische Person öffentlichen Rechts (BGBl 569/1921 idF BGBl I 130/2003)<br/>
+            <a href="https://acdh.oeaw.ac.at">Austrian Centre for Digital Humanities (ACDH)</a><br/>
+            Dr. Ignaz Seipel-Platz 2, 1010 Wien, Österreich<br/>
+            E-Mail: <a href="mailto:acdh-tech@oeaw.ac.att" style="color:black">acdh-tech@oeaw.ac.at</a>
+        </p>
+        <h2>Unternehmensgegenstand:</h2>
+        <p>
+            Die Österreichische Akademie der Wissenschaften (ÖAW) hat den gesetzlichen Auftrag, die
+            Wissenschaft in jeder Hinsicht zu fördern. Als Gelehrtengesellschaft pflegt die ÖAW den
+            Diskurs und die Zusammenarbeit der Wissenschaft mit Öffentlichkeit, Politik und
+            Wirtschaft. <br/>
+            Das Austrian Centre for Digital Humanities (ACDH) ist ein Institut der ÖAW, das mit dem
+            Ziel gegründet wurde, digitale Methoden und Ansätze in den geisteswissenschaftlichen
+            Disziplinen zu fördern. Das ACDH unterstützt digitale Forschung in vielfältiger Weise.
+            <br/>
+            {% projects_metadata 'purpose_de' %}
+
+        </p>
+        <h2>Vertretungsbefugte Organe:</h2>
+        <p>
+            Präsident: Univ.-Prof. Dr. Anton Zeilinger<br/>
+            Vizepräsident: Univ.-Doz. Dr. phil. Michael Alram<br/>
+            Klassenpräsidentin: Univ.-Prof. Dr. Brigitte Mazohl, <br/>
+            Klassenpräsident: Univ.-Prof. Dipl.-Ing. Dr.techn. Georg Brasseur<br/>
+            Als Aufsichtsorgan besteht der Akademierat. Siehe mehr dazu unter
+            <a href="http://www.oeaw.ac.at/die-oeaw/gremien-der-oeaw/akademierat/">
+                http://www.oeaw.ac.at/die-oeaw/gremien-der-oeaw/akademierat/
+            </a>
+        </p>
+        <h2>Grundlegende Richtung:</h2>
+        <p>
+            {% projects_metadata 'purpose_de' %}
+        </p>
+        <h2>Haftungsausschluss:</h2>
+        <p>
+            Die Österreichische Akademie der Wissenschaften übernimmt keinerlei Gewähr für die
+            Aktualität, Korrektheit, Vollständigkeit oder Qualität der bereitgestellten
+            Informationen.<br/>
+            Im Falle des Bestehens von Links auf Webseiten anderer Medieninhaber, für deren Inhalt
+            die ÖAW weder direkt oder indirekt mitverantwortlich ist, übernimmt die ÖAW keine
+            Haftung für deren Inhalte und schließt jegliche Haftung hierfür aus.
+        </p>
+        <!-- <h2>Urheberrechtlicher Hinweis:</h2>
+            <p>
+                Diese Seite und ihre Inhalte sind, sofern nicht anders gekennzeichnet, unter der
+                creative commons Lizenz
+                <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a>
+                International lizensiert (Namensnennung – Weitergabe unter gleichen Bedingungen).
+            </p> -->
+        <h2>Datenschutzrechtlicher Hinweis:</h2>
+        <p>
+            Wir weisen darauf hin, dass zum Zwecke der Systemsicherheit und der Übersicht über das
+            Nutzungsverhalten der Besuchenden im Rahmen von Cookies diverse personenbezogene Daten
+            (Besuchszeitraum, Betriebssystem, Browserversion, innere Auflösung des Browserfensters,
+            Herkunft nach Land, wievielter Besuch seit Beginn der Aufzeichnung) mittels
+            <a href="http://piwik.org/">Piwik-Tracking</a> gespeichert werden. Die Daten werden bis
+            auf weiteres gespeichert. Soweit dies erfolgt, werden diese Daten nicht ohne Ihre
+            ausdrückliche Zustimmung an Dritte weitergegeben.<br/>
+            Durch die Nutzung der Website erklären Sie sich mit der Art und Weise sowie dem Zweck
+            der Datenverarbeitung einverstanden. Durch eine entsprechende Einstellung in Ihrem
+            Browser können Sie die Speicherung der Cookies verhindern. In diesem
+            Fall stehen Ihnen aber gegebenenfalls nicht alle Funktionen der Website zur
+            Verfügung.<br/>
+            Die im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten dürfen von
+            Dritten nicht zur Übersendung von nicht ausdrücklich angeforderter Werbung und
+            Informationsmaterialien verwendet werden. Einer derartigen Verwendung wird
+            hiermit ausdrücklich widersprochen.
+        </p>
+    </div>
+    <hr/>
+    <div lang="en">
+        <h1>Legal disclosure according to §§ 24, 25 Austrian media law and § 5 E-Commerce law</h1>
+        <h2>Media owner, publisher, responsible for content and editorial office, service provider:</h2>
+        <p>
+            <a href="http://www.oeaw.ac.at">Austrian Academy of Sciences</a>
+            <br/>
+            Corporate body organized under public law (BGBl 569/1921 idF BGBl I 130/2003)<br/>
+            <a href="https://acdh.oeaw.ac.at">Austrian Centre for Digital Humanities (ACDH)</a>
+            <br/>
+            Dr. Ignaz Seipel-Platz 2, 1010 Vienna, Austria<br/>
+            E-Mail: <a href="mailto:acdh-tech@oeaw.ac.att" style="color:black">acdh-tech@oeaw.ac.at</a>
+        </p>
+        <h2>Nature and purpose of the business:</h2>
+        <p>
+            The Austrian Academy of Sciences (OEAW) has the legal duty to support the
+            sciences and humanities in every respect. As a learned society, the OEAW fosters
+            discourse and cooperation between science and society, politics and economy.<br/>
+            The Austrian Centre for Digital Humanities (ACDH) is an OEAW institute founded with
+            the goal to support digital methods in arts and humanities disciplines.
+            The ACDH supports digital research in manifold ways.<br/>
+            {% projects_metadata 'purpose_en' %}
+        </p>
+        <h2>Signing power:</h2>
+        <p>
+            President: Univ.-Prof. Dr. Anton Zeilinger<br/>
+            Vice president: Univ.-Doz. Dr. phil. Michael Alram<br/>
+            Class presidents: Univ.-Prof. Dr. Brigitte Mazohl, Univ.-Prof. Dipl.-Ing. Dr.techn. Georg Brasseur<br/>
+            Supervisory body:  Academy council. For more information, please visit
+            <a href="http://www.oeaw.ac.at/die-oeaw/gremien-der-oeaw/akademierat/">
+                http://www.oeaw.ac.at/die-oeaw/gremien-der-oeaw/akademierat/
+            </a>
+        </p>
+        <h2>Main aim:</h2>
+        <p>
+            {% projects_metadata 'purpose_en' %}
+        </p>
+        <h2>Disclaimer:</h2>
+        <p>
+            The Austrian Academy of Sciences does not take responsibility for the nature, accuracy,
+            entirety or quality of the provided information.<br/>
+            In the case of links to websites of other media owners, whose content the OEAW is
+            neither directly nor indirectly responsible for, the OEAW does not assume liability for
+            their content and excludes any liability in this case.
+        </p>
+        <!-- <h2>Copyright notice:</h2>
+        <p>
+            This website and its content is, unless indicated otherwise, licensed under a creative
+            commons <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a>
+            International license (Attribution – Share alike).
+        </p> -->
+        <h2>Data privacy notice:</h2>
+        <p>
+            This is a notice to indicate that for reasons of system security and overview of user
+            behavior, personal data of users of this website (visiting period, operating system,
+            browser version, browser resolution, country of origin, number of visits) will be stored
+            using cookies and <a href="http://piwik.org/">piwik tracking</a>. Data will be stored
+            until further notice. Data will not be disseminated without your explicit consent.<br/>
+            By using this website, you agree to the manner and purposes of data processing. You can
+            disable cookies in your browser settings. However, this might limit functionality of
+            this website.<br/>
+            The contact data published in the context of the imprint duty may not be used to send
+            promotional or informational material not explicitly requested. We explicitly disagree
+            with this usage.
+        </p>
+    </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% block Title %}List of Places{% endblock %}
+
+{% block scriptHeader %}<!--leafletjs -->
+    <link rel="stylesheet" href="{% static 'webpage/libraries/leaflet/leaflet.css' %}" />
+    <script src="{% static 'webpage/libraries/leaflet/leaflet.js' %}"></script>
+        <style>
+            #map { height: 500px; }
+        </style>
+{% endblock %}
+{% block content %}
+{% if object_list %}
+  <div class="row">
+    <div class="col-md-4">
+        <div class="card panel-fixed" >
+            <div class="card-header" style="text-align:center;">
+                <h3>Places</h3>
+          {% if user.is_authenticated %}
+            <a href="{% url 'entities:place_create' %}">(add another Place)</a>
+          {% endif %}
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>GeoNames</th>
+                        </th>
+                    </thead>
+                    <tbody>
+                        {% for object in object_list %}
+                        <tr>
+                            <td>
+                {% if user.is_authenticated %}
+                  <a href="{% url 'entities:place_edit' pk=object.id %}">{{ object }} (edit)</a>
+                  {% else %}
+                  {{ object }}
+                {% endif %}
+              </td>
+                            <td>{{ object.geonames_id }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header" style="text-align:center;">
+                <h3>Geovisualisation</h3>
+            </div>
+            <div class="card-body">
+                <div id="parentMap"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+         $("#map").remove()
+        $("#parentMap").append("<div id='map'></div>");
+
+        var map = L.map('map').setView([48.69096, 9.14062], 5);
+
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.light',
+        accessToken: 'pk.eyJ1Ijoic2VubmllcmVyIiwiYSI6ImNpbHk1YWV0bDAwZnB2dW01d2l1Y3phdmkifQ.OljQLEhqeAygai2y6VoSwQ'
+        }).addTo(map);
+
+        {% for object in object_list %}
+        {% if object.lat %}
+        L.marker([{{ object.lat }}, {{ object.lng }}])
+        .addTo(map)
+        .bindPopup("<h1>{{ object.name }}</h1> <table class='table table-striped'> <tr> <td>Name: </td> <td>{{ object.name }}</td> </tr> </table>");
+        {% endif %}
+        {% endfor %}
+        });
+</script>
+{% else %}
+
+  {% if user.is_authenticated %}
+  <div class="card">
+        <div class="card-header">
+            <h1>Places</h1>
+            <div>
+                <a class="btn btn-primary" href="{% url 'entities:place_create' %}" role="button">
+                    crate a new location/place
+                </a>
+            </div>
+            <br />
+        </div>
+        <div class="card-body">
+        </div>
+    </div>
+
+  {% endif %}
+{% endif %}
+{% endblock %}

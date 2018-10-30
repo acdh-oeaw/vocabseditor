@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="A little Application">
+        <meta name="author" content="ACDH">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+        <!-- custom css -->
+        <link rel="stylesheet" href="{% static 'webpage/css/style.css' %}" />
+        <!-- custom font -->
+        <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:400,500" rel="stylesheet">
+    </head>
+    <body  role="document">
+        <div id="content" class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div id="footer">
+            <div class="container"></div>
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+        {% block scripts %}
+        {% endblock %}
+    </body>
+</html>

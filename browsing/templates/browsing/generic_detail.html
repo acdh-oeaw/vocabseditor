@@ -1,0 +1,67 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %}{{ object.name }}{% endblock %}
+{% block content %}
+<!-- <div class="container"> -->
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2">
+                    {% if object.get_prev %}
+                        <h2>
+                            <a href="{{ object.get_prev }}">
+                                <i class="fas fa-chevron-left" title="previous"></i>
+                            </a>
+                        </h2>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <h2 style="text-align: center;">
+                        {{ object }}
+                        {% if user.is_authenticated %}
+                            <small>
+                                <a href="{{ object.get_edit_url }}">
+                                    <i class="far fa-edit" title="edit"></i>
+                                </a>
+                            </small>
+                            |
+                            <small>
+                                <a href="{{ object.get_delete_url }}">
+                                    <i class="far fa-trash-alt" title="delete"></i>
+                                </a>
+                            </small>
+                        {% endif %}
+                    </h2>
+                </div>
+            <div class="col-md-2">
+                <h2>
+                    {% if object.get_next %}
+                    <a href="{{ object.get_next }}" style="float:right">
+                        <i class="fas fa-chevron-right" title="next"></i>
+                    </a>
+                </h2>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        {% block custom %}
+            <legend>Basic Information</legend>
+            {{ object.field_dict }}
+
+                <table class="table table-bordered table-hover">
+                    {% for key, value in object.field_dict.items %}
+                        <tr>
+                            <th>
+                                {{ key }}
+                            </th>
+                            <td>
+                                {{ value }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endblock custom %}
+{% endblock %}

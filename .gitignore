@@ -1,0 +1,38 @@
+
+# Byte-compiled
+__pycache__/
+*.pyc
+
+# sqlite
+/*.sqlite3
+
+# test coverage
+.coverage
+cover/
+
+# IDE
+.idea
+
+# migrations
+vocabs/migrations/*
+bib/migrations/*
+webpage/migrations/*
+places/migrations/*
+
+
+# Ipython Notebook checkpoints
+.ipynb_checkpoints
+
+# production(like) settings files
+mysql.py
+server.py
+postgres.py
+dev_secret.py
+
+# documentation build files
+
+/docs/_*/*
+/vocabs/data/spreadsheets/cv_burial.xlsx
+/Untitled.ipynb
+/arche/data/fileType.json
+/arche/data/fileList.json

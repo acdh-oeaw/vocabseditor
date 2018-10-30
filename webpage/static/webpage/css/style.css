@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
+
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    font-family: 'Fira Sans' !important;
+}
+
+/*remove round corners everywhere*/
+/** {
+  border-radius: 0 !important;
+}*/
+
+header {
+    flex: 0 0 auto;
+}
+
+.main-content{
+    flex: 1 0 auto;
+}
+
+footer {
+    flex: 0 0 auto;
+    left: 0;
+    right: 0;
+    margin-top: 20px;
+}
+
+
+.card {
+    overflow: visible;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #88dbdf;
+}
+.help-block {
+	font-size: 0.9em;
+}
+.create-label {
+	font-weight: 700;
+}
