@@ -154,7 +154,7 @@ class SkosConceptScheme(models.Model):
         help_text="If more than one list all using a semicolon ;"
     )
     dc_contributor = models.TextField(
-        blank=True, verbose_name="dc:contributor"
+        blank=True, verbose_name="dc:contributor",
         help_text="A Person or Organisation that made contributions to the vocabulary<br>"
         "If more than one list all using a semicolon ;"
     )
