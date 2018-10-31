@@ -260,6 +260,14 @@ class SkosConceptSchemeCreate(BaseCreateView):
     model = SkosConceptScheme
     form_class = SkosConceptSchemeForm
 
+    # save the creator of Concept Scheme automatically when CS is created
+    # the user can't change it, but this can be changed in admin
+    def form_valid(self, form):
+        object = form.save(commit=False)
+        object.user_manager = self.request.user
+        object.save()
+        return super(SkosConceptSchemeCreate, self).form_valid(form)
+
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(SkosConceptSchemeCreate, self).dispatch(*args, **kwargs)

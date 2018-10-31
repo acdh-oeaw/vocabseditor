@@ -175,7 +175,8 @@ class SkosConceptForm(forms.ModelForm):
 class SkosConceptSchemeForm(forms.ModelForm):
     class Meta:
         model = SkosConceptScheme
-        fields = "__all__"
+        #fields = "__all__"
+        exclude = ['user_manager', ]
 
     def __init__(self, *args, **kwargs):
         super(SkosConceptSchemeForm, self).__init__(*args, **kwargs)

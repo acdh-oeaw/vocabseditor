@@ -49,6 +49,12 @@
             <td>{{object.dc_title}}</td>
         </tr>
         {% endif %}
+        {% if object.indentifier %}
+        <tr>
+            <th class="w-25">indentifier</th>
+            <td>{{object.indentifier}}</td>
+        </tr>
+        {% endif %}
         {% if object.dc_creator %}
         <tr>
         <th class="w-25">dc:creator</th>
@@ -59,10 +65,95 @@
         </td>
         </tr>
         {% endif %}
+        {% if object.dc_contributor %}
+        <tr>
+        <th class="w-25">dc:contributor</th>
+        <td>
+        {% for contributor in object.dc_contributor_as_list %}
+        <li>{{contributor}}</li>
+        {% endfor %}
+        </td>
+        </tr>
+        {% endif %}
         {% if object.dc_description %}
         <tr>
             <th>dc:description{% if object.dc_description_lang %} @{{object.dc_description_lang}}{% endif %}</th>
             <td>{{object.dc_description}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.dc_language %}
+        <tr>
+        <th class="w-25">dc:language</th>
+        <td>
+        {% for language in object.dc_language_as_list %}
+        <li>{{language}}</li>
+        {% endfor %}
+        </td>
+        </tr>
+        {% endif %}
+
+        {% if object.dc_subject %}
+        <tr>
+        <th class="w-25">dc:subject</th>
+        <td>
+        {% for subject in object.dc_subject_as_list %}
+        <li>{{subject}}</li>
+        {% endfor %}
+        </td>
+        </tr>
+        {% endif %}
+
+        {% if object.version %}
+        <tr>
+            <th>Version</th>
+            <td>{{object.version}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.dc_publisher %}
+        <tr>
+            <th>dc:publisher</th>
+            <td>{{object.dc_publisher}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.dc_source %}
+        <tr>
+            <th>dc:source</th>
+            <td>{{object.dc_source}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.dc_rights %}
+        <tr>
+            <th>dc:rights</th>
+            <td>{{object.dc_rights}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.owner %}
+        <tr>
+            <th>Owner</th>
+            <td>{{object.owner}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.dc_relation %}
+        <tr>
+            <th>dc:relation</th>
+            <td>{{object.dc_relation}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.dc_coverage %}
+        <tr>
+        <th class="w-25">dc:coverage</th>
+        <td>
+        {% for coverage in object.dc_coverage_as_list %}
+        <li>{{coverage}}</li>
+        {% endfor %}
+        </td>
         </tr>
         {% endif %}
         {% if object.legacy_id %}
@@ -83,18 +174,34 @@
             <td>{{object.date_modified}}</td>
         </tr>
         {% endif %}
-        {% if object.has_concepts.all %}
-        <tr>
-        <th>concepts skos:inScheme</th>
-        <td>
-        {% for x in object.has_concepts.all %}
-            <li>
-                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-            </li>
-        {% endfor %}
-        </td>
-        <tr>
+        {% if object.date_issued %}
+         <tr>
+            <th>dct:issued</th>
+            <td>{{object.date_issued}}</td>
+        </tr>
         {% endif %}
+        {% if user.is_authenticated %}
+        {% if object.user_manager %}
+         <tr>
+            <th>user manager</th>
+            <td>{{object.user_manager}}</td>
+        </tr>
+        {% endif %}
+
+        {% if object.user_curator.all %}
+         <tr>
+            <th>user curator</th>
+            <td>
+                {% for curator in object.user_curator.all %}
+                <li>{{curator}}</li>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
+
+
+        {% endif %}
+        
         </table>       
     </div>
 </div>
