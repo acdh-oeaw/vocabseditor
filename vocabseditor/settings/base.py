@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reversion',
+    'guardian',
     'crispy_forms',
     'django_filters',
     'django_tables2',
@@ -80,6 +81,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'vocabseditor.wsgi.application'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', # this is default
+    'guardian.backends.ObjectPermissionBackend',
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

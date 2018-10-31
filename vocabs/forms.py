@@ -76,7 +76,7 @@ class MetadataForm(forms.ModelForm):
 class SkosCollectionForm(forms.ModelForm):
     class Meta:
         model = SkosCollection
-        fields = "__all__"
+        exclude = ['created_by', ]
 
     def __init__(self, *args, **kwargs):
         super(SkosCollectionForm, self).__init__(*args, **kwargs)
@@ -176,7 +176,7 @@ class SkosConceptSchemeForm(forms.ModelForm):
     class Meta:
         model = SkosConceptScheme
         #fields = "__all__"
-        exclude = ['user_manager', ]
+        exclude = ['created_by', ]
 
     def __init__(self, *args, **kwargs):
         super(SkosConceptSchemeForm, self).__init__(*args, **kwargs)

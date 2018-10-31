@@ -127,6 +127,12 @@ class SkosCollectionCreate(BaseCreateView):
     model = SkosCollection
     form_class = SkosCollectionForm
 
+    def form_valid(self, form):
+        object = form.save(commit=False)
+        object.created_by = self.request.user
+        object.save()
+        return super(SkosCollectionCreate, self).form_valid(form)
+
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(SkosCollectionCreate, self).dispatch(*args, **kwargs)
@@ -264,7 +270,7 @@ class SkosConceptSchemeCreate(BaseCreateView):
     # the user can't change it, but this can be changed in admin
     def form_valid(self, form):
         object = form.save(commit=False)
-        object.user_manager = self.request.user
+        object.created_by = self.request.user
         object.save()
         return super(SkosConceptSchemeCreate, self).form_valid(form)
 

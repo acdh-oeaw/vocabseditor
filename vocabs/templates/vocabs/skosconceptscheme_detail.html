@@ -181,18 +181,18 @@
         </tr>
         {% endif %}
         {% if user.is_authenticated %}
-        {% if object.user_manager %}
+        {% if object.created_by %}
          <tr>
-            <th>user manager</th>
-            <td>{{object.user_manager}}</td>
+            <th>created by</th>
+            <td>{{object.created_by}}</td>
         </tr>
         {% endif %}
 
-        {% if object.user_curator.all %}
+        {% if object.curator.all %}
          <tr>
-            <th>user curator</th>
+            <th>curator(s)</th>
             <td>
-                {% for curator in object.user_curator.all %}
+                {% for curator in object.curator.all %}
                 <li>{{curator}}</li>
                 {% endfor %}
             </td>

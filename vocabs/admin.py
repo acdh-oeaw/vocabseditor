@@ -13,5 +13,5 @@ admin.site.register(SkosNamespace)
 # class SkosConceptSchemeAdmin(admin.ModelAdmin):
 
 # 	def save_model(self, request, obj, form, change):
-# 		obj.user_manager = request.user
+# 		obj.created_by = request.user
 # 		super().save_model(request, obj, form, change)

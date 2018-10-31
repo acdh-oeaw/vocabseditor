@@ -222,12 +222,12 @@ class SkosConceptScheme(models.Model):
         blank=True, null=True,
         help_text="Date of official resource publication<br>YYYY-MM-DD"
     )
-    user_manager = models.ForeignKey(
-        User, related_name="skos_cs_managed",
+    created_by = models.ForeignKey(
+        User, related_name="skos_cs_created",
         blank=True, null=True,
         on_delete=models.SET_NULL
     )
-    user_curator = models.ManyToManyField(
+    curator = models.ManyToManyField(
         User, related_name="skos_cs_curated",
         blank=True
     )
@@ -360,6 +360,11 @@ class SkosCollection(models.Model):
     )
     date_modified = models.DateTimeField(
         editable=False, default=timezone.now
+    )
+    created_by = models.ForeignKey(
+        User, related_name="skos_collection_created",
+        blank=True, null=True,
+        on_delete=models.SET_NULL
     )
 
     def save(self, *args, **kwargs):
