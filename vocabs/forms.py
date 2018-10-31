@@ -91,8 +91,7 @@ class SkosCollectionForm(forms.ModelForm):
 class SkosConceptForm(forms.ModelForm):
     class Meta:
         model = SkosConcept
-        fields = "__all__"
-        # exclude = ('broader_concept', )
+        exclude = ['created_by', ]
         widgets = {
             'other_label': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skoslabel-autocomplete'),
@@ -209,7 +208,7 @@ class SkosConceptSchemeFormHelper(FormHelper):
 class SkosLabelForm(forms.ModelForm):
     class Meta:
         model = SkosLabel
-        fields = "__all__"
+        exclude = ['created_by', ]
 
     def __init__(self, *args, **kwargs):
         super(SkosLabelForm, self).__init__(*args, **kwargs)

@@ -186,6 +186,12 @@ class SkosConceptCreate(BaseCreateView):
     model = SkosConcept
     form_class = SkosConceptForm
 
+    def form_valid(self, form):
+        object = form.save(commit=False)
+        object.created_by = self.request.user
+        object.save()
+        return super(SkosConceptCreate, self).form_valid(form)
+
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(SkosConceptCreate, self).dispatch(*args, **kwargs)
@@ -348,6 +354,12 @@ class SkosLabelCreate(BaseCreateView):
 
     model = SkosLabel
     form_class = SkosLabelForm
+
+    def form_valid(self, form):
+        object = form.save(commit=False)
+        object.created_by = self.request.user
+        object.save()
+        return super(SkosLabelCreate, self).form_valid(form)
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):

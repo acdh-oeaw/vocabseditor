@@ -376,6 +376,14 @@
             <td>{{object.skos_example}}</td>
         </tr>
         {% endif %}
+        {% if user.is_authenticated %}
+        {% if object.created_by %}
+         <tr>
+            <th class="w-25">created by</th>
+            <td>{{object.created_by}}</td>
+        </tr>
+        {% endif %}
+        {% endif %}
         <tr>
             <th>download this concept</th>
             <td>

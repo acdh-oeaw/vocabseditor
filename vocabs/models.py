@@ -419,6 +419,11 @@ class SkosLabel(models.Model):
         max_length=30, blank=True, choices=LABEL_TYPES, help_text="The type of the label.")
     isoCode = models.CharField(
         max_length=3, blank=True, help_text="The ISO 639-3 code for the label's language.")
+    created_by = models.ForeignKey(
+        User, related_name="skos_label_created",
+        blank=True, null=True,
+        on_delete=models.SET_NULL
+    )
 
     @classmethod
     def get_listview_url(self):
@@ -629,6 +634,11 @@ class SkosConcept(models.Model):
     date_modified = models.DateTimeField(
         editable=False, default=timezone.now,
         verbose_name="dct:modified"
+    )
+    created_by = models.ForeignKey(
+        User, related_name="skos_concept_created",
+        blank=True, null=True,
+        on_delete=models.SET_NULL
     )
 
     def get_broader(self):
