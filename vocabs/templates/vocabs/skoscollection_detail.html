@@ -51,6 +51,12 @@
             </td>
         </tr>
         {% endif %}
+        {% if object.scheme %}
+         <tr>
+            <th>skos:ConceptScheme</th>
+            <td>{{object.scheme}}</td>
+        </tr>
+        {% endif %}
         {% if object.creator %}
          <tr>
             <th class="w-25">dc:creator</th>

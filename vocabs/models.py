@@ -303,6 +303,14 @@ class SkosCollection(models.Model):
         default=DEFAULT_LANG,
         verbose_name="skos:prefLabel language"
     )
+    # relation to SkosConceptScheme to inherit the permissions
+    scheme = models.ForeignKey(SkosConceptScheme,
+        related_name="skos_collections",
+        verbose_name="skos:ConceptScheme",
+        help_text="which Skos:ConceptScheme current collection belongs to",
+        blank=True, null=True,
+        on_delete=models.SET_NULL
+    )
     creator = models.TextField(
         blank=True, verbose_name="dc:creator",
         help_text="A Person or Organisation that created a current collection<br>"
@@ -384,7 +392,9 @@ class SkosCollection(models.Model):
         return False
 
     def __str__(self):
-        return "{}".format(self.name)
+        if not self.name:
+            return self.id
+        return self.name
 
     def creator_as_list(self):
         return self.creator.split(';')
