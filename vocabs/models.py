@@ -7,6 +7,10 @@ from django.utils.text import slugify
 from django.utils.functional import cached_property
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save, m2m_changed
+from guardian.shortcuts import assign_perm, remove_perm
+from django.dispatch import receiver
+from django.contrib.auth.models import Permission
 
 
 try:
@@ -738,4 +742,37 @@ def get_all_children(self, include_self=True):
         if 0 < len(_r):
             r.extend(_r)
     return r
+
+#############################################################################
+#
+# Permissions on signals
+#
+#############################################################################
+
+@receiver(post_save, sender=SkosConceptScheme, dispatch_uid="create_permissions_created_by")
+def create_permissions_created_by(sender, instance, **kwargs):
+    assign_perm('delete_skosconceptscheme', instance.created_by, instance)
+    assign_perm('change_skosconceptscheme', instance.created_by, instance)
+    assign_perm('view_skosconceptscheme', instance.created_by, instance)
+
+
+@receiver(post_save, sender=SkosCollection, dispatch_uid="create_permissions_created_by")
+def create_permissions_created_by(sender, instance, **kwargs):
+    assign_perm('delete_skoscollection', instance.created_by, instance)
+    assign_perm('change_skoscollection', instance.created_by, instance)
+    assign_perm('view_skoscollection', instance.created_by, instance)
+
+
+@receiver(post_save, sender=SkosConcept, dispatch_uid="create_permissions_created_by")
+def create_permissions_created_by(sender, instance, **kwargs):
+    assign_perm('delete_skosconcept', instance.created_by, instance)
+    assign_perm('change_skosconcept', instance.created_by, instance)
+    assign_perm('view_skosconcept', instance.created_by, instance)
+
+
+@receiver(post_save, sender=SkosLabel, dispatch_uid="create_permissions_created_by")
+def create_permissions_created_by(sender, instance, **kwargs):
+    assign_perm('delete_skoslabel', instance.created_by, instance)
+    assign_perm('change_skoslabel', instance.created_by, instance)
+    assign_perm('view_skoslabel', instance.created_by, instance)
 
