@@ -139,90 +139,100 @@ class SkosConceptScheme(models.Model):
     dc_title = models.CharField(
         max_length=300, blank=True,
         help_text="Title of a Concept Scheme",
-        verbose_name="dc:title")
+        verbose_name="dc:title"
+    )
     dc_title_lang = models.CharField(
         max_length=3, blank=True,
-        verbose_name="dc:title language", default=DEFAULT_LANG)
-    namespace = models.ForeignKey(
-        SkosNamespace,
-        blank=True, null=True,
-        on_delete=models.SET_NULL
+        verbose_name="dc:title language", default=DEFAULT_LANG
     )
     indentifier = models.URLField(
-        blank=True, default=DEFAULT_NAMESPACE, help_text="URI")
+        blank=True, default=DEFAULT_NAMESPACE,
+        help_text="URI"
+    )
     dc_creator = models.TextField(
         blank=True, verbose_name="dc:creator",
-        help_text="If more than one list all using a semicolon ;")
+        help_text="If more than one list all using a semicolon ;"
+    )
     dc_contributor = models.TextField(
-        blank=True,
+        blank=True, verbose_name="dc:contributor"
         help_text="A Person or Organisation that made contributions to the vocabulary<br>"
-        "If more than one list all using a semicolon ;")
+        "If more than one list all using a semicolon ;"
+    )
     dc_description = models.TextField(
-        blank=True, help_text="Description of current vocabulary",
-        verbose_name="dc:description")
+        blank=True, verbose_name="dc:description",
+        help_text="Description of current vocabulary"
+    )
     dc_description_lang = models.CharField(
         max_length=3, blank=True,
-        verbose_name="dc:description language", default=DEFAULT_LANG)
+        verbose_name="dc:description language",
+        default=DEFAULT_LANG
+    )
     dc_language = models.TextField(
         blank=True, verbose_name="dc:language",
         help_text="Language(s) used in Concept Scheme<br>"
-        "If more than one list all using a semicolon ;")
+        "If more than one list all using a semicolon ;"
+    )
     dc_subject = models.TextField(
         blank=True, verbose_name="dc:subject",
         help_text="The subject of the vocabulary<br>"
-        "If more than one list all using a semicolon ;")
+        "If more than one list all using a semicolon ;"
+    )
     version = models.CharField(
         max_length=300, blank=True,
-        help_text="Current version")
+        help_text="Current version"
+    )
     dc_publisher = models.CharField(
         max_length=300, blank=True,
         help_text="An Organisation responsible for making the vocabulary available",
-        verbose_name="dc:publisher")
+        verbose_name="dc:publisher"
+    )
     dc_source = models.CharField(
         max_length=500, blank=True,
         help_text="A related resource a vocabulary based or derived from.",
-        verbose_name="dc:source")
+        verbose_name="dc:source"
+    )
     dc_rights = models.CharField(
         max_length=300, blank=True,
         verbose_name="dc:rights",
         help_text="Information about license or rights applied to a vocabulary"
-        )
+    )
     owner = models.CharField(
         max_length=300, blank=True,
-        help_text="A Person or Organisation that own rights for the vocabulary")
+        help_text="A Person or Organisation that own rights for the vocabulary"
+    )
     dc_relation = models.URLField(
         blank=True, verbose_name="dc:relation",
-        help_text="e.g. in case of relation to a project, add link to a project website")
+        help_text="e.g. in case of relation to a project, add link to a project website"
+    )
     dc_coverage = models.TextField(
         blank=True, verbose_name="dc:coverage",
         help_text="The spatial or temporal coverage of a vocabulary<br>"
-        "If more than one list all using a semicolon ;")
+        "If more than one list all using a semicolon ;"
+    )
     legacy_id = models.CharField(
-        max_length=200, blank=True)
+        max_length=200, blank=True
+    )
     date_created = models.DateTimeField(
-        editable=False, default=timezone.now)
+        editable=False, default=timezone.now
+    )
     date_modified = models.DateTimeField(
-        editable=False, default=timezone.now)
+        editable=False, default=timezone.now
+    )
     date_issued = models.DateField(
         blank=True, null=True,
-        help_text="Date of official resource publication<br>YYYY-MM-DD")
+        help_text="Date of official resource publication<br>YYYY-MM-DD"
+    )
     user_manager = models.ForeignKey(
         User, related_name="skos_cs_managed",
         blank=True, null=True,
-        on_delete=models.SET_NULL)
+        on_delete=models.SET_NULL
+    )
     user_curator = models.ManyToManyField(
         User, related_name="skos_cs_curated",
-        blank=True)
+        blank=True
+    )
 
     def save(self, *args, **kwargs):
-        if self.namespace is None:
-            temp_namespace, _ = SkosNamespace.objects.get_or_create(
-                namespace=DEFAULT_NAMESPACE, prefix=DEFAULT_PREFIX)
-            temp_namespace.save()
-            self.namespace = temp_namespace
-        else:
-            pass
-
         if not self.id:
             self.date_created = timezone.now()
         self.date_modified = timezone.now()
@@ -268,7 +278,9 @@ class SkosConceptScheme(models.Model):
         return False
 
     def __str__(self):
-        return "{}:{}".format(self.namespace, self.dc_title)
+        if not self.dc_title:
+            return self.id
+        return self.dc_title
 
 
 class SkosCollection(models.Model):
