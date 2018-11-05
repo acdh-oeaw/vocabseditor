@@ -221,6 +221,12 @@ class SkosConceptDelete(DeleteView):
 #   ConceptScheme
 #####################################################
 
+from guardian.shortcuts import get_objects_for_user, get_perms_for_model
+from guardian.core import ObjectPermissionChecker
+from django.contrib.auth.decorators import login_required, permission_required
+from guardian.decorators import permission_required_or_403
+from django.contrib.auth.mixins import UserPassesTestMixin
+
 
 class SkosConceptSchemeListView(GenericListView):
     model = SkosConceptScheme
@@ -231,6 +237,20 @@ class SkosConceptSchemeListView(GenericListView):
         'id',
         'dc_title',
     ]
+
+    def get_queryset(self, **kwargs):
+        qs = get_objects_for_user(self.request.user,
+            perms=[
+            'view_skosconceptscheme',
+            'change_skosconceptscheme',
+            'delete_skosconceptscheme'
+            ],
+            klass=SkosConceptScheme)
+
+        #qs = super(SkosConceptSchemeListView, self).get_queryset()
+        self.filter = self.filter_class(self.request.GET, queryset=qs)
+        self.filter.form.helper = self.formhelper_class()
+        return self.filter.qs
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
@@ -257,6 +277,7 @@ class SkosConceptSchemeListView(GenericListView):
 
 
 class SkosConceptSchemeDetailView(DetailView):
+    # add get_objects_for_user or permission checker
 
     model = SkosConceptScheme
     template_name = 'vocabs/skosconceptscheme_detail.html'
@@ -286,6 +307,7 @@ class SkosConceptSchemeCreate(BaseCreateView):
 
 
 class SkosConceptSchemeUpdate(BaseUpdateView):
+    # add get_objects_for_user or permission checker
 
     model = SkosConceptScheme
     form_class = SkosConceptSchemeForm
@@ -296,6 +318,7 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
 
 
 class SkosConceptSchemeDelete(DeleteView):
+    # add get_objects_for_user or permission checker
     model = SkosConceptScheme
     template_name = 'webpage/confirm_delete.html'
     success_url = reverse_lazy('vocabs:browse_schemes')

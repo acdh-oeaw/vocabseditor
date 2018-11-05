@@ -749,36 +749,36 @@ def get_all_children(self, include_self=True):
 #
 #############################################################################
 
-@receiver(post_save, sender=User, dispatch_uid="add_user_to_group")
-def add_user_to_group(sender, instance=None, created=False, **kwargs):
-    if created:
-        g = Group.objects.get(name='general')
-        g.user_set.add(instance)
+# @receiver(post_save, sender=User, dispatch_uid="add_user_to_group")
+# def add_user_to_group(sender, instance=None, created=False, **kwargs):
+#     if created:
+#         g = Group.objects.get(name='general')
+#         g.user_set.add(instance)
 
 
-@receiver(post_save, sender=SkosConceptScheme, dispatch_uid="create_permissions_created_by")
-def create_permissions_created_by(sender, instance, **kwargs):
+@receiver(post_save, sender=SkosConceptScheme, dispatch_uid="create_perms_cs_created_by")
+def create_perms_cs_created_by(sender, instance, **kwargs):
     assign_perm('delete_skosconceptscheme', instance.created_by, instance)
     assign_perm('change_skosconceptscheme', instance.created_by, instance)
     assign_perm('view_skosconceptscheme', instance.created_by, instance)
 
 
-@receiver(post_save, sender=SkosCollection, dispatch_uid="create_permissions_created_by")
-def create_permissions_created_by(sender, instance, **kwargs):
+@receiver(post_save, sender=SkosCollection, dispatch_uid="create_perms_collection_created_by")
+def create_perms_collection_created_by(sender, instance, **kwargs):
     assign_perm('delete_skoscollection', instance.created_by, instance)
     assign_perm('change_skoscollection', instance.created_by, instance)
     assign_perm('view_skoscollection', instance.created_by, instance)
 
 
-@receiver(post_save, sender=SkosConcept, dispatch_uid="create_permissions_created_by")
-def create_permissions_created_by(sender, instance, **kwargs):
+@receiver(post_save, sender=SkosConcept, dispatch_uid="create_perms_concept_created_by")
+def create_perms_concept_created_by(sender, instance, **kwargs):
     assign_perm('delete_skosconcept', instance.created_by, instance)
     assign_perm('change_skosconcept', instance.created_by, instance)
     assign_perm('view_skosconcept', instance.created_by, instance)
 
 
-@receiver(post_save, sender=SkosLabel, dispatch_uid="create_permissions_created_by")
-def create_permissions_created_by(sender, instance, **kwargs):
+@receiver(post_save, sender=SkosLabel, dispatch_uid="create_perms_label_created_by")
+def create_perms_label_created_by(sender, instance, **kwargs):
     assign_perm('delete_skoslabel', instance.created_by, instance)
     assign_perm('change_skoslabel', instance.created_by, instance)
     assign_perm('view_skoslabel', instance.created_by, instance)

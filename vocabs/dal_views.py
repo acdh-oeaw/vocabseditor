@@ -1,6 +1,7 @@
 from dal import autocomplete
 from .models import SkosLabel, SkosConcept, SkosConceptScheme, SkosCollection
 from django.db.models import Q
+from guardian.shortcuts import get_objects_for_user
 
 
 class SpecificConcepts(autocomplete.Select2QuerySetView):
@@ -102,7 +103,10 @@ class SkosConceptPrefLabalAC(autocomplete.Select2ListView):
 
 class SkosConceptSchemeAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        qs = SkosConceptScheme.objects.all()
+        qs = get_objects_for_user(self.request.user,
+            'view_skosconceptscheme',
+            klass=SkosConceptScheme)
+        #qs = SkosConceptScheme.objects.all()
 
         if self.q:
             qs = qs.filter(dc_title__icontains=self.q)
