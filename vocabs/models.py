@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.functional import cached_property
 from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db.models.signals import post_save, m2m_changed
 from guardian.shortcuts import assign_perm, remove_perm
 from django.dispatch import receiver
@@ -748,6 +748,13 @@ def get_all_children(self, include_self=True):
 # Permissions on signals
 #
 #############################################################################
+
+@receiver(post_save, sender=User, dispatch_uid="add_user_to_group")
+def add_user_to_group(sender, instance=None, created=False, **kwargs):
+    if created:
+        g = Group.objects.get(name='general')
+        g.user_set.add(instance)
+
 
 @receiver(post_save, sender=SkosConceptScheme, dispatch_uid="create_permissions_created_by")
 def create_permissions_created_by(sender, instance, **kwargs):
