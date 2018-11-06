@@ -18,6 +18,12 @@ from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef, RDFS, Conjunct
 from rdflib.namespace import DC, FOAF, RDFS, SKOS
 import time
 import datetime
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from guardian.shortcuts import get_objects_for_user, get_perms_for_model
+from guardian.core import ObjectPermissionChecker
+from django.contrib.auth.decorators import login_required, permission_required
+from guardian.decorators import permission_required_or_403
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 #####################################################
@@ -164,13 +170,6 @@ class SkosConceptDelete(DeleteView):
 #   ConceptScheme
 #####################################################
 
-from guardian.shortcuts import get_objects_for_user, get_perms_for_model
-from guardian.core import ObjectPermissionChecker
-from django.contrib.auth.decorators import login_required, permission_required
-from guardian.decorators import permission_required_or_403
-from django.contrib.auth.mixins import UserPassesTestMixin
-
-
 class SkosConceptSchemeListView(GenericListView):
     model = SkosConceptScheme
     table_class = SkosConceptSchemeTable
@@ -180,20 +179,6 @@ class SkosConceptSchemeListView(GenericListView):
         'id',
         'dc_title',
     ]
-
-    def get_queryset(self, **kwargs):
-        qs = get_objects_for_user(self.request.user,
-            perms=[
-            'view_skosconceptscheme',
-            'change_skosconceptscheme',
-            'delete_skosconceptscheme'
-            ],
-            klass=SkosConceptScheme)
-
-        #qs = super(SkosConceptSchemeListView, self).get_queryset()
-        self.filter = self.filter_class(self.request.GET, queryset=qs)
-        self.filter.form.helper = self.formhelper_class()
-        return self.filter.qs
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())
@@ -224,6 +209,16 @@ class SkosConceptSchemeDetailView(DetailView):
 
     model = SkosConceptScheme
     template_name = 'vocabs/skosconceptscheme_detail.html'
+
+    # def get_queryset(self, **kwargs):
+    #     qs = get_objects_for_user(self.request.user,
+    #         perms=[
+    #         'view_skosconceptscheme',
+    #         'change_skosconceptscheme',
+    #         'delete_skosconceptscheme'
+    #         ],
+    #         klass=SkosConceptScheme)
+    #     return qs
 
     def get_context_data(self, **kwargs):
         context = super(SkosConceptSchemeDetailView, self).get_context_data(**kwargs)

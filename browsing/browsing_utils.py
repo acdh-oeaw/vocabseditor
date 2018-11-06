@@ -11,8 +11,9 @@ from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
-
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from . models import BrowsConf
+from guardian.shortcuts import get_objects_for_user
 
 if 'charts' in settings.INSTALLED_APPS:
     from charts.models import ChartConfig
@@ -83,7 +84,14 @@ class GenericListView(django_tables2.SingleTableView):
         return all_cols
 
     def get_queryset(self, **kwargs):
-        qs = super(GenericListView, self).get_queryset()
+        qs = get_objects_for_user(self.request.user,
+            perms=[
+            'view_{}'.format(self.model.__name__.lower()),
+            'change_{}'.format(self.model.__name__.lower()),
+            'delete_{}'.format(self.model.__name__.lower()),
+            ],
+            klass=self.model)
+        #qs = super(GenericListView, self).get_queryset()
         self.filter = self.filter_class(self.request.GET, queryset=qs)
         self.filter.form.helper = self.formhelper_class()
         return self.filter.qs
