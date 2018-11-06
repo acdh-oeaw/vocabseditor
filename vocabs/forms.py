@@ -130,13 +130,14 @@ class SkosConceptForm(forms.ModelForm):
                 '',
                 'pref_label',
                 'pref_label_lang',
+                'scheme',
+                'top_concept',
                 'collection',
                 'definition',
                 'definition_lang',
                 'broader_concept',
                 'dc_creator',
                 'source_description',
-                'top_concept',
                 'same_as_external',
                 css_id="basic_skos_fields"
                 ),
@@ -164,7 +165,6 @@ class SkosConceptForm(forms.ModelForm):
                     'skos_example',
                     'skos_historynote',
                     'namespace',
-                    'scheme',
                     css_id="advanced_skos_fields"
                 ),
                 )

@@ -484,10 +484,13 @@ class SkosConcept(models.Model):
         verbose_name="member of skos:Collection",
         related_name="has_members",
     )
-    scheme = models.ManyToManyField(
+    scheme = models.ForeignKey(
         SkosConceptScheme, blank=True,
-        verbose_name="skos:ConceptScheme",
-        related_name="has_concepts"
+        null=True,
+        verbose_name="skos:inScheme",
+        related_name="has_concepts",
+        on_delete=models.SET_NULL,
+        help_text="Main Concept Scheme"
     )
     definition = models.TextField(
         blank=True, verbose_name="skos:definition",
@@ -521,7 +524,7 @@ class SkosConcept(models.Model):
     )
     top_concept = models.BooleanField(
         default=False,
-        help_text="Is this concept a top concept of main concept scheme?"
+        help_text="Is this concept a top concept of main Concept Scheme?"
     )
     same_as_external = models.TextField(
         blank=True,

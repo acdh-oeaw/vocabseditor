@@ -82,13 +82,11 @@
         </td>
         </tr>
         {% endif %}
-        {% if object.scheme.all %}
+        {% if object.scheme %}
         <tr>
         <th>skos:inScheme</th>
         <td>
-            {% for x in object.scheme.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
-            {% endfor %}
+            <a href="{{ x.get_absolute_url }}">{{object.scheme}}</a>
         </td>
         </tr>
         {% endif %}
