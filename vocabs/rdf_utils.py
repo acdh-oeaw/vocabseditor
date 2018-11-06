@@ -10,7 +10,7 @@ DC = Namespace("http://purl.org/dc/elements/1.1/")
 DCT = Namespace("http://purl.org/dc/terms/")
 RDFS = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 OWL = Namespace("http://www.w3.org/2002/07/owl#")
-VOCABS = Namespace("https://vocabs.acdh.oeaw.ac.at/testthesaurus/")
+VOCABS = Namespace("https://vocabs.acdh.oeaw.ac.at/create-concept-scheme/")
 
 
 def graph_construct(results):
@@ -166,45 +166,61 @@ def graph_construct(results):
 
 
 def graph_construct_qs(results):
-	metadata = Metadata.objects.all().first()
-	if metadata:
-		pass
-	else:
-		metadata = Metadata.objects.create(title="Provide some title")
 	g = rdflib.Graph()
 	g.bind('skos', SKOS)
 	g.bind('dc', DC)
 	g.bind('dct', DCT)
 	g.bind('rdfs', RDFS)
-	g.bind('owl', OWL)
-	for x in [metadata]:
-		mainConceptScheme = URIRef(x.indentifier)
-		g.add((mainConceptScheme, RDF.type, SKOS.ConceptScheme))
-		g.add((mainConceptScheme, DC.title, Literal(x.title)))
-		g.add((mainConceptScheme, RDFS.label, Literal(x.title)))
-		g.add((mainConceptScheme, DC.description, Literal(x.description, lang=x.description_lang)))
-		g.add((mainConceptScheme, OWL.versionInfo, Literal(x.version)))
-		g.add((mainConceptScheme, DC.rights, Literal(x.license)))
-		g.add((mainConceptScheme, DCT.created, Literal(x.date_created)))
-		g.add((mainConceptScheme, DCT.modified, Literal(x.date_modified, datatype=XSD.dateTime)))
-		if x.date_issued:
-			g.add((mainConceptScheme, DCT.issued, Literal(x.date_issued, datatype=XSD.dateTime)))
-		else:
-			g.add((mainConceptScheme, DCT.issued, Literal(timezone.now(), datatype=XSD.dateTime)))    
-		# accessing lists with ; in TextField
-		if x.language:
-			for i in x.language.split(';'):             
-				g.add((mainConceptScheme, DC.language, Literal(i.strip())))
-		if x.creator:
-			for i in x.creator.split(';'):              
-				g.add((mainConceptScheme, DC.creator, Literal(i.strip())))
-		if x.contributor:
-			for i in x.contributor.split(';'):              
-				g.add((mainConceptScheme, DC.contributor, Literal(i.strip())))
-		if x.subject:
-			for i in x.subject.split(';'):              
-				g.add((mainConceptScheme, DC.subject, Literal(i.strip())))                  
+	g.bind('owl', OWL)             
 	for obj in results:
+		# Creating Main Concept Scheme
+		if obj.scheme:
+			mainConceptScheme = URIRef(obj.scheme.indentifier)
+			g.add((mainConceptScheme, RDF.type, SKOS.ConceptScheme))
+			if obj.scheme.dc_title:
+				g.add((mainConceptScheme, DC.title, Literal(obj.scheme.dc_title, lang=obj.scheme.dc_title_lang)))
+				g.add((mainConceptScheme, RDFS.label, Literal(obj.scheme.dc_title, lang=obj.scheme.dc_title_lang)))
+			if obj.scheme.dc_description:
+				g.add((mainConceptScheme, DC.description, Literal(
+				obj.scheme.dc_description, lang=obj.scheme.dc_description_lang)
+				))			
+			g.add((mainConceptScheme, DCT.created, Literal(obj.scheme.date_created, datatype=XSD.dateTime)))
+			g.add((mainConceptScheme, DCT.modified, Literal(obj.scheme.date_modified, datatype=XSD.dateTime)))
+			if obj.scheme.date_issued:
+				g.add((mainConceptScheme, DCT.issued, Literal(obj.scheme.date_issued, datatype=XSD.dateTime)))
+			else:
+				g.add((mainConceptScheme, DCT.issued, Literal(timezone.now(), datatype=XSD.dateTime)))    
+		# accessing lists with ; in TextField
+			if obj.scheme.dc_language:
+				for i in obj.scheme.dc_language.split(';'):             
+					g.add((mainConceptScheme, DC.language, Literal(i.strip())))
+			if obj.scheme.dc_creator:
+				for i in obj.scheme.dc_creator.split(';'):              
+					g.add((mainConceptScheme, DC.creator, Literal(i.strip())))
+			if obj.scheme.dc_contributor:
+				for i in obj.scheme.dc_contributor.split(';'):              
+					g.add((mainConceptScheme, DC.contributor, Literal(i.strip())))
+			if obj.scheme.dc_subject:
+				for i in obj.scheme.dc_subject.split(';'):              
+					g.add((mainConceptScheme, DC.subject, Literal(i.strip())))
+			if obj.scheme.dc_coverage:
+				for i in obj.scheme.dc_coverage.split(';'):              
+					g.add((mainConceptScheme, DC.coverage, Literal(i.strip())))
+		# the rest of the properties
+			if obj.scheme.dc_rights:
+				g.add((mainConceptScheme, DC.rights, Literal(obj.scheme.dc_rights)))
+			if obj.scheme.version:
+				g.add((mainConceptScheme, OWL.versionInfo, Literal(obj.scheme.version)))
+			if obj.scheme.dc_publisher:
+				g.add((mainConceptScheme, DC.publisher, Literal(obj.scheme.dc_publisher)))
+			if obj.scheme.dc_source:
+				g.add((mainConceptScheme, DC.source, Literal(obj.scheme.dc_source)))
+			if obj.scheme.dc_relation:
+				g.add((mainConceptScheme, DC.relation, URIRef(obj.scheme.dc_relation)))
+		else:
+			mainConceptScheme = URIRef(VOCABS)
+			g.add((mainConceptScheme, RDF.type, SKOS.ConceptScheme))
+		# Concept
 		concept = URIRef(mainConceptScheme + "#concept" +str(obj.id))
 		g.add((concept, RDF.type, SKOS.Concept))
 		g.add((concept, SKOS.prefLabel, Literal(obj.pref_label, lang=obj.pref_label_lang)))
