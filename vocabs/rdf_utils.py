@@ -1,7 +1,6 @@
 import rdflib
 from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef, RDFS, ConjunctiveGraph, XSD
 from rdflib.namespace import DC, FOAF, RDFS, SKOS
-from .models import Metadata
 from django.utils import timezone
 
 
@@ -14,11 +13,6 @@ VOCABS = Namespace("https://vocabs.acdh.oeaw.ac.at/create-concept-scheme/")
 
 
 def graph_construct(results):
-	metadata = Metadata.objects.all().first()
-	if metadata:
-		pass
-	else:
-		metadata = Metadata.objects.create(title="Provide some title")
 	g = rdflib.Graph()
 	g.bind('skos', SKOS)
 	g.bind('dc', DC)
@@ -26,33 +20,8 @@ def graph_construct(results):
 	g.bind('rdfs', RDFS)
 	g.bind('owl', OWL)
 	# modelling main Schema relations
-	for x in [metadata]:
-		mainConceptScheme = URIRef(x.indentifier)
-		g.add((mainConceptScheme, RDF.type, SKOS.ConceptScheme))
-		g.add((mainConceptScheme, DC.title, Literal(x.title)))
-		g.add((mainConceptScheme, RDFS.label, Literal(x.title)))
-		g.add((mainConceptScheme, DC.description, Literal(x.description, lang=x.description_lang)))
-		g.add((mainConceptScheme, OWL.versionInfo, Literal(x.version)))
-		g.add((mainConceptScheme, DC.rights, Literal(x.license)))
-		g.add((mainConceptScheme, DCT.created, Literal(x.date_created)))
-		g.add((mainConceptScheme, DCT.modified, Literal(x.date_modified, datatype=XSD.dateTime)))
-		if x.date_issued:
-			g.add((mainConceptScheme, DCT.issued, Literal(x.date_issued, datatype=XSD.dateTime)))
-		else:
-			g.add((mainConceptScheme, DCT.issued, Literal(timezone.now(), datatype=XSD.dateTime)))		
-		# accessing lists with ; in TextField
-		if x.language:
-			for i in x.language.split(';'):				
-				g.add((mainConceptScheme, DC.language, Literal(i.strip())))
-		if x.creator:
-			for i in x.creator.split(';'):				
-				g.add((mainConceptScheme, DC.creator, Literal(i.strip())))
-		if x.contributor:
-			for i in x.contributor.split(';'):				
-				g.add((mainConceptScheme, DC.contributor, Literal(i.strip())))
-		if x.subject:
-			for i in x.subject.split(';'):				
-				g.add((mainConceptScheme, DC.subject, Literal(i.strip())))					
+	mainConceptScheme = URIRef(VOCABS)
+	g.add((mainConceptScheme, RDF.type, SKOS.ConceptScheme))				
 	for obj in results:
 		concept = URIRef(str(obj['url'][:-12]))
 		g.add((concept, RDF.type, SKOS.Concept))

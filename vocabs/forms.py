@@ -3,7 +3,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
 from crispy_forms.bootstrap import *
-from .models import SkosConcept, SkosConceptScheme, SkosLabel, SkosCollection, Metadata
+from .models import SkosConcept, SkosConceptScheme, SkosLabel, SkosCollection
 
 
 class GenericFilterFormHelper(FormHelper):
@@ -55,22 +55,6 @@ class SkosConceptFormHelper(FormHelper):
                     ),
                 )
             )
-
-
-class MetadataForm(forms.ModelForm):
-    class Meta:
-        model = Metadata
-        #fields = "__all__"
-        exclude = ('date_created', 'date_modified', )
-
-    def __init__(self, *args, **kwargs):
-        super(MetadataForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_tag = True
-        self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-md-3 create-label'
-        self.helper.field_class = 'col-md-9'
-        self.helper.add_input(Submit('submit', 'save'),)
 
 
 class SkosCollectionForm(forms.ModelForm):

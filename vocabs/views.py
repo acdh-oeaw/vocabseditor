@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django_tables2 import SingleTableView, RequestConfig
-from .models import SkosConcept, SkosConceptScheme, SkosLabel, SkosCollection, Metadata
+from .models import SkosConcept, SkosConceptScheme, SkosLabel, SkosCollection
 from .forms import *
 from .tables import *
 from .filters import SkosConceptListFilter, SkosConceptSchemeListFilter, SkosLabelListFilter, SkosCollectionListFilter
@@ -18,63 +18,6 @@ from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef, RDFS, Conjunct
 from rdflib.namespace import DC, FOAF, RDFS, SKOS
 import time
 import datetime
-
-
-#####################################################
-#   Metadata
-#####################################################
-
-
-class MetadataListView(ListView):
-
-    model = Metadata
-    template_name = 'vocabs/metadata_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(MetadataListView, self).get_context_data(**kwargs)
-        context["topConcepts"] = SkosConcept.objects.filter(top_concept=True)
-        return context
-
-
-class MetadataDetailView(DetailView):
-
-    model = Metadata
-    template_name = 'vocabs/metadata_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(MetadataDetailView, self).get_context_data(**kwargs)
-        context["topConcepts"] = SkosConcept.objects.filter(top_concept=True)
-        return context
-
-
-class MetadataCreate(BaseCreateView):
-
-    model = Metadata
-    form_class = MetadataForm
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(MetadataCreate, self).dispatch(*args, **kwargs)
-
-
-class MetadataUpdate(BaseUpdateView):
-
-    model = Metadata
-    form_class = MetadataForm
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(MetadataUpdate, self).dispatch(*args, **kwargs)
-
-
-class MetadataDelete(DeleteView):
-    model = Metadata
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('vocabs:metadata')
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(MetadataDelete, self).dispatch(*args, **kwargs)
 
 
 #####################################################

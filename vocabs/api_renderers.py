@@ -19,14 +19,14 @@ class RDFRenderer(renderers.BaseRenderer):
 		return data
 
 
-class SKOSRenderer(renderers.BaseRenderer):
-	media_type = 'text/xml'
-	format = 'rdf'
+# class SKOSRenderer(renderers.BaseRenderer):
+# 	media_type = 'text/xml'
+# 	format = 'rdf'
 
-	def render(self, data, media_type=None, renderer_context=None):
-		if 'results' in data:
-			g = graph_construct(data['results'])
-		else:
-			g = graph_construct([data])
-		result = g.serialize(format="pretty-xml")
-		return result
+# 	def render(self, data, media_type=None, renderer_context=None):
+# 		if 'results' in data:
+# 			g = graph_construct(data['results'])
+# 		else:
+# 			g = graph_construct([data])
+# 		result = g.serialize(format="pretty-xml")
+# 		return result

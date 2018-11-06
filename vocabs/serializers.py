@@ -2,13 +2,6 @@ from rest_framework import serializers
 from .models import *
 
 
-class MetadataSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = Metadata
-        fields = '__all__'
-
-
 class SkosLabelSerializer(serializers.HyperlinkedModelSerializer):
     #url = serializers.HyperlinkedIdentityField(view_name='skoslabel-detail')
     class Meta:
@@ -42,7 +35,6 @@ class SkosConceptSerializer(serializers.HyperlinkedModelSerializer):
     scheme = SkosConceptSchemeSerializer(many=True, read_only=True)
     other_label = SkosLabelSerializer(many=True, read_only=True)
     collection = SkosCollectionSerializer(many=True, read_only=True)
-    #language = MetadataSerializer
 
     class Meta:
         model = SkosConcept

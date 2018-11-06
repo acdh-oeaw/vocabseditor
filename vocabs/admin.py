@@ -19,7 +19,7 @@ class SkosCollectionAdmin(GuardedModelAdmin):
 class SkosConceptSchemeAdmin(GuardedModelAdmin):
     pass
 
-admin.site.register(Metadata)
+
 admin.site.register(SkosLabel, SkosLabelAdmin)
 admin.site.register(SkosConcept, SkosConceptAdmin)
 admin.site.register(SkosCollection, SkosCollectionAdmin)

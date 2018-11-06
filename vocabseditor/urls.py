@@ -12,7 +12,6 @@ if 'bib' in settings.INSTALLED_APPS:
 
 router = routers.DefaultRouter()
 # router.register(r'geojson', GeoJsonViewSet, base_name='places')
-router.register(r'metadata', api_views.MetadataViewSet)
 router.register(r'skoslabels', api_views.SkosLabelViewSet)
 router.register(r'skosnamespaces', api_views.SkosNamespaceViewSet)
 router.register(r'skosconceptschemes', api_views.SkosConceptSchemeViewSet)
