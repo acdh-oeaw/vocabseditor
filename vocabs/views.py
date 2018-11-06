@@ -26,6 +26,19 @@ from guardian.decorators import permission_required_or_403
 from django.contrib.auth.mixins import UserPassesTestMixin
 
 
+class BaseDetailView(DetailView):
+
+    def get_queryset(self, **kwargs):
+        qs = get_objects_for_user(self.request.user,
+            perms=[
+            'view_{}'.format(self.model.__name__.lower()),
+            'change_{}'.format(self.model.__name__.lower()),
+            'delete_{}'.format(self.model.__name__.lower()),
+            ],
+            klass=self.model)
+        return qs
+
+
 #####################################################
 #   SkosCollection
 #####################################################
@@ -65,7 +78,7 @@ class SkosCollectionListView(GenericListView):
         return table
 
 
-class SkosCollectionDetailView(DetailView):
+class SkosCollectionDetailView(BaseDetailView):
 
     model = SkosCollection
     template_name = 'vocabs/skoscollection_detail.html'
@@ -124,7 +137,7 @@ class SkosConceptListView(GenericListView):
     ]
 
 
-class SkosConceptDetailView(DetailView):
+class SkosConceptDetailView(BaseDetailView):
 
     model = SkosConcept
     template_name = 'vocabs/skosconcept_detail.html'
@@ -204,7 +217,7 @@ class SkosConceptSchemeListView(GenericListView):
         return table
 
 
-class SkosConceptSchemeDetailView(DetailView):
+class SkosConceptSchemeDetailView(BaseDetailView):
     # add get_objects_for_user or permission checker
 
     model = SkosConceptScheme
@@ -305,7 +318,7 @@ class SkosLabelListView(GenericListView):
         return table
 
 
-class SkosLabelDetailView(DetailView):
+class SkosLabelDetailView(BaseDetailView):
 
     model = SkosLabel
     template_name = 'vocabs/skoslabel_detail.html'
