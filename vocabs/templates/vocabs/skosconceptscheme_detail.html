@@ -199,6 +199,16 @@
         </tr>
         {% endif %}
         {% endif %}
+        {% if object.has_concepts.all %}
+        <tr>
+        <th class="w-25">concepts</th>
+        <td>
+        {% for concept in object.has_concepts.all %}
+        <li><a href="{{ concept.get_absolute_url }}">{{concept}}</a></li>
+        {% endfor %}
+        </td>
+        </tr>
+        {% endif %}
         
         </table>       
     </div>

@@ -86,7 +86,7 @@
         <tr>
         <th>skos:inScheme</th>
         <td>
-            <a href="{{ x.get_absolute_url }}">{{object.scheme}}</a>
+            <a href="{{ object.scheme.get_absolute_url }}">{{object.scheme}}</a>
         </td>
         </tr>
         {% endif %}
