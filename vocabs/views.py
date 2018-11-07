@@ -39,6 +39,20 @@ class BaseDetailView(DetailView):
         return qs
 
 
+class BaseDeleteView(DeleteView):
+
+    def get_queryset(self, **kwargs):
+        qs = get_objects_for_user(self.request.user,
+            perms=[
+            'view_{}'.format(self.model.__name__.lower()),
+            'change_{}'.format(self.model.__name__.lower()),
+            'delete_{}'.format(self.model.__name__.lower()),
+            ],
+            klass=self.model)
+        return qs
+
+
+
 #####################################################
 #   SkosCollection
 #####################################################
@@ -115,7 +129,7 @@ class SkosCollectionUpdate(BaseUpdateView):
         return super(SkosCollectionUpdate, self).dispatch(*args, **kwargs)
 
 
-class SkosCollectionDelete(DeleteView):
+class SkosCollectionDelete(BaseDeleteView):
     model = SkosCollection
     template_name = 'webpage/confirm_delete.html'
     success_url = reverse_lazy('vocabs:browse_skoscollections')
@@ -179,7 +193,7 @@ class SkosConceptUpdate(BaseUpdateView):
         return super(SkosConceptUpdate, self).dispatch(*args, **kwargs)
 
 
-class SkosConceptDelete(DeleteView):
+class SkosConceptDelete(BaseDeleteView):
     model = SkosConcept
     template_name = 'webpage/confirm_delete.html'
     success_url = reverse_lazy('vocabs:browse_vocabs')
@@ -271,7 +285,7 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
         return super(SkosConceptSchemeUpdate, self).dispatch(*args, **kwargs)
 
 
-class SkosConceptSchemeDelete(DeleteView):
+class SkosConceptSchemeDelete(BaseDeleteView):
     # add get_objects_for_user or permission checker
     model = SkosConceptScheme
     template_name = 'webpage/confirm_delete.html'
@@ -358,7 +372,7 @@ class SkosLabelUpdate(BaseUpdateView):
         return super(SkosLabelUpdate, self).dispatch(*args, **kwargs)
 
 
-class SkosLabelDelete(DeleteView):
+class SkosLabelDelete(BaseDeleteView):
     model = SkosLabel
     template_name = 'webpage/confirm_delete.html'
     success_url = reverse_lazy('vocabs:browse_skoslabels')
