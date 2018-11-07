@@ -11,6 +11,8 @@ from django.db.models.signals import post_save, m2m_changed
 from guardian.shortcuts import assign_perm, remove_perm
 from django.dispatch import receiver
 from django.contrib.auth.models import Permission
+from guardian.shortcuts import get_objects_for_user
+
 
 
 try:

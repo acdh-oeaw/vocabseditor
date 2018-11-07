@@ -104,6 +104,11 @@ class SkosCollectionUpdate(BaseUpdateView):
 
     model = SkosCollection
     form_class = SkosCollectionForm
+    permission_required = (
+        'view_skoscollection',
+        'change_skoscollection',
+        'delete_skoscollection',
+        )
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -163,6 +168,11 @@ class SkosConceptUpdate(BaseUpdateView):
 
     model = SkosConcept
     form_class = SkosConceptForm
+    permission_required = (
+        'view_skosconcept',
+        'change_skosconcept',
+        'delete_skosconcept',
+        )
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -218,20 +228,9 @@ class SkosConceptSchemeListView(GenericListView):
 
 
 class SkosConceptSchemeDetailView(BaseDetailView):
-    # add get_objects_for_user or permission checker
 
     model = SkosConceptScheme
     template_name = 'vocabs/skosconceptscheme_detail.html'
-
-    # def get_queryset(self, **kwargs):
-    #     qs = get_objects_for_user(self.request.user,
-    #         perms=[
-    #         'view_skosconceptscheme',
-    #         'change_skosconceptscheme',
-    #         'delete_skosconceptscheme'
-    #         ],
-    #         klass=SkosConceptScheme)
-    #     return qs
 
     def get_context_data(self, **kwargs):
         context = super(SkosConceptSchemeDetailView, self).get_context_data(**kwargs)
@@ -258,10 +257,14 @@ class SkosConceptSchemeCreate(BaseCreateView):
 
 
 class SkosConceptSchemeUpdate(BaseUpdateView):
-    # add get_objects_for_user or permission checker
 
     model = SkosConceptScheme
     form_class = SkosConceptSchemeForm
+    permission_required = (
+        'view_skosconceptscheme',
+        'change_skosconceptscheme',
+        'delete_skosconceptscheme',
+        )
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -344,6 +347,11 @@ class SkosLabelUpdate(BaseUpdateView):
 
     model = SkosLabel
     form_class = SkosLabelForm
+    permission_required = (
+        'view_skoslabel',
+        'change_skoslabel',
+        'delete_skoslabel',
+        )
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):

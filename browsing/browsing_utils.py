@@ -14,6 +14,7 @@ from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from . models import BrowsConf
 from guardian.shortcuts import get_objects_for_user
+from guardian.mixins import PermissionRequiredMixin
 
 if 'charts' in settings.INSTALLED_APPS:
     from charts.models import ChartConfig
@@ -203,10 +204,13 @@ class BaseCreateView(CreateView):
         return context
 
 
-class BaseUpdateView(UpdateView):
+class BaseUpdateView(PermissionRequiredMixin, UpdateView):
     model = None
     form_class = None
-    template_name = 'browsing/generic_create.html'
+    template_name = 'browsing/generic_create.html'    
+    permission_required = None
+    return_403 = True
+    # or raise_exception = True
 
     def get_context_data(self, **kwargs):
         context = super(BaseUpdateView, self).get_context_data()
