@@ -16,9 +16,14 @@ class SpecificConcepts(autocomplete.Select2QuerySetView):
         except KeyError:
             selected_scheme = None
         if selected_scheme:
-            qs = SkosConcept.objects.filter(scheme__in=selected_scheme)
+            qs = get_objects_for_user(self.request.user,
+            'view_skosconcept',
+            klass=SkosConcept)
+            qs = qs.filter(scheme__in=selected_scheme)
         else:
-            qs = SkosConcept.objects.all()
+            qs = get_objects_for_user(self.request.user,
+            'view_skosconcept',
+            klass=SkosConcept)
 
         if self.q:
             direct_match = qs.filter(pref_label__icontains=self.q)
@@ -71,7 +76,10 @@ class SKOSConstraintAC(autocomplete.Select2QuerySetView):
 
 class SkosLabelAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        qs = SkosLabel.objects.all()
+        qs = get_objects_for_user(self.request.user,
+            'view_skoslabel',
+            klass=SkosLabel)
+        #qs = SkosLabel.objects.all()
 
         if self.q:
             qs = qs.filter(name__icontains=self.q)
@@ -84,7 +92,10 @@ class SkosConceptAC(autocomplete.Select2QuerySetView):
         return "{}".format(item.label)
 
     def get_queryset(self):
-        qs = SkosConcept.objects.all()
+        qs = get_objects_for_user(self.request.user,
+            'view_skosconcept',
+            klass=SkosConcept)
+        #qs = SkosConcept.objects.all()
         if self.q:
             direct_match = qs.filter(pref_label__icontains=self.q)
             plus_narrower = qs.filter(broader_concept__in=direct_match) | direct_match
@@ -116,7 +127,10 @@ class SkosConceptSchemeAC(autocomplete.Select2QuerySetView):
 
 class SkosCollectionAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        qs = SkosCollection.objects.all()
+        qs = get_objects_for_user(self.request.user,
+            'view_skoscollection',
+            klass=SkosCollection)
+        #qs = SkosCollection.objects.all()
 
         if self.q:
             qs = qs.filter(name__icontains=self.q)
