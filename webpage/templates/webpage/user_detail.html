@@ -24,7 +24,7 @@
 	        <h2>Created skos:ConceptScheme ({{created_cs|length}})</h2>
 	        {% for y in created_cs %}
 	            <li>
-	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
+	                <a href="{{ y.get_absolute_url }}">{{ y }}</a>
 	            </li>
 	        {% endfor %}
 	        <br>
@@ -34,7 +34,7 @@
 	        <h2>Curated skos:ConceptScheme ({{curated_cs|length}})</h2>
 	        {% for y in curated_cs %}
 	            <li>
-	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
+	                <a href="{{ y.get_absolute_url }}">{{ y }}</a>
 	            </li>
 	        {% endfor %}
 	        <br>
@@ -44,7 +44,7 @@
 	        <h2>Created skos:Collection ({{created_collections|length}})</h2>
 	        {% for y in created_collections %}
 	            <li>
-	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
+	                <a href="{{ y.get_absolute_url }}">{{ y }}</a>
 	            </li>
 	        {% endfor %}
 	        <br>
@@ -54,7 +54,7 @@
 	        <h2>Created skos:Concepts ({{created_concepts|length}})</h2>
 	        {% for y in created_concepts %}
 	            <li>
-	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
+	                <a href="{{ y.get_absolute_url }}">{{ y }}</a>
 	            </li>
 	        {% endfor %}
 	        <br>
@@ -64,7 +64,7 @@
 	        <h2>Created Labels ({{created_labels|length}})</h2>
 	        {% for y in created_labels %}
 	            <li>
-	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
+	                <a href="{{ y.get_absolute_url }}">{{ y }}</a>
 	            </li>
 	        {% endfor %}
 	        {% endif %}

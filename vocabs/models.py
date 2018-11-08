@@ -348,11 +348,23 @@ class SkosLabel(models.Model):
     )
     isoCode = models.CharField(
         max_length=3, blank=True, help_text="The ISO 639-3 code for the label's language.")
+    date_created = models.DateTimeField(
+        editable=False, default=timezone.now
+    )
+    date_modified = models.DateTimeField(
+        editable=False, default=timezone.now
+    )
     created_by = models.ForeignKey(
         User, related_name="skos_label_created",
         blank=True, null=True,
         on_delete=models.SET_NULL
     )
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.date_created = timezone.now()
+        self.date_modified = timezone.now()
+        return super(SkosLabel, self).save(*args, **kwargs)
 
     @classmethod
     def get_listview_url(self):

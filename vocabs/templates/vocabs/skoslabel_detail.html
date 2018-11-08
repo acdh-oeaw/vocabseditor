@@ -59,6 +59,14 @@
                     <th>IsoCode</th>
                     <td>{{ object.isoCode }}</td>
                 </tr>
+                <tr>
+                    <th>dct:created</th>
+                    <td>{{ object.date_created }}</td>
+                </tr>
+                <tr>
+                    <th>dct:modified</th>
+                    <td>{{ object.date_modified }}</td>
+                </tr>
                 {% if user.is_authenticated %}
                 {% if object.created_by %}
                  <tr>
