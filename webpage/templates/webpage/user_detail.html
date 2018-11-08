@@ -1,0 +1,74 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %} Hello, {{ object}} {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+    	<div class="card-header">
+    	<h1>Hello,  {{ object }}</h1>
+    	</div>
+    	<div class="card-body">
+	        {% if versions %}
+	        <h2>List of latest changes</h2>
+	        {% for x in versions %}
+	            <li>
+	                <a href="{{ x.object.get_absolute_url }}">{{ x.revision.date_created }} {{ x }}</a>
+	            </li>
+	        {% endfor %}
+	        <br>
+	        {% endif %}
+
+	        {% if created_cs %}
+	        <h2>Created skos:ConceptScheme</h2>
+	        {% for y in created_cs %}
+	            <li>
+	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
+	            </li>
+	        {% endfor %}
+	        <br>
+	        {% endif %}
+
+	        {% if curated_cs %}
+	        <h2>Curated skos:ConceptScheme</h2>
+	        {% for y in curated_cs %}
+	            <li>
+	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
+	            </li>
+	        {% endfor %}
+	        <br>
+	        {% endif %}
+
+			{% if created_collections %}
+	        <h2>Created skos:Collection</h2>
+	        {% for y in created_collections %}
+	            <li>
+	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
+	            </li>
+	        {% endfor %}
+	        <br>
+	        {% endif %}
+
+			{% if created_concepts %}
+	        <h2>Created skos:Concepts</h2>
+	        {% for y in created_concepts %}
+	            <li>
+	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
+	            </li>
+	        {% endfor %}
+	        <br>
+	        {% endif %}
+
+			{% if created_labels %}
+	        <h2>Created Labels</h2>
+	        {% for y in created_labels %}
+	            <li>
+	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
+	            </li>
+	        {% endfor %}
+	        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

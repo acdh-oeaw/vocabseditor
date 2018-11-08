@@ -2,9 +2,14 @@ from django.conf import settings
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
-from django.views.generic import TemplateView
-from django.contrib.auth import authenticate, login, logout
+from django.views.generic import TemplateView, DetailView
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from .forms import form_user_login
+from reversion.models import Version
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from vocabs.models import *
+
 
 
 class GenericWebpageView(TemplateView):
@@ -24,6 +29,30 @@ class GenericWebpageView(TemplateView):
             template_name = "webpage/index.html"
         return [template_name]
 
+
+#################################################################
+#               User detail view                                #
+#################################################################
+
+class UserDetailView(DetailView):
+    model = get_user_model()
+    template_name = 'webpage/user_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data()
+        current_user = self.kwargs['pk']
+        versions = Version.objects.filter(revision__user__id=current_user)[:500]
+        context['versions'] = versions
+        context['created_cs'] = SkosConceptScheme.objects.filter(created_by=current_user)
+        context['curated_cs'] = SkosConceptScheme.objects.filter(curator=current_user)
+        context['created_collections'] = SkosCollection.objects.filter(created_by=current_user)
+        context['created_concepts'] = SkosConcept.objects.filter(created_by=current_user)
+        context['created_labels'] = SkosLabel.objects.filter(created_by=current_user)
+        return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(UserDetailView, self).dispatch(*args, **kwargs)
 
 #################################################################
 #               views for login/logout                          #

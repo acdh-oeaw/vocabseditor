@@ -104,6 +104,7 @@
                             {{ user.get_username }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
+                            <a class="nav-link" href="{% url 'webpage:user_detail' pk=user.id %}">My Page</a>
                             <a class="nav-link" href="{% url 'webpage:user_logout' %}">Log-Out</a>
                         </div>
                     </li>
