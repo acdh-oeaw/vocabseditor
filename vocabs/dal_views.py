@@ -104,6 +104,15 @@ class SkosConceptAC(autocomplete.Select2QuerySetView):
             return qs
 
 
+class SkosConceptNoBroaderTermAC(autocomplete.Select2QuerySetView):
+
+     def get_queryset(self):
+        qs = get_objects_for_user(self.request.user,
+            'view_skosconcept',
+            klass=SkosConcept)
+        return qs
+
+
 class SkosConceptPrefLabalAC(autocomplete.Select2ListView):
 
     def get_list(self):

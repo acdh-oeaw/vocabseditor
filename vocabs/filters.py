@@ -37,7 +37,9 @@ def generous_concept_filter(queryset, name, value):
 class SkosConceptListFilter(django_filters.FilterSet):
 
     pref_label = django_filters.ModelMultipleChoiceFilter(
-        widget=autocomplete.Select2Multiple(url='vocabs-ac:skosconcept-filter-autocomplete'),
+        widget=autocomplete.Select2Multiple(
+            url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'
+        ),
         queryset=SkosConcept.objects.all(),
         lookup_expr='icontains',
         label='skos:prefLabel',
@@ -45,10 +47,25 @@ class SkosConceptListFilter(django_filters.FilterSet):
     )
     collection = django_filters.ModelChoiceFilter(
         queryset=SkosCollection.objects.all(),
+        widget=autocomplete.ModelSelect2(
+            url='vocabs-ac:skoscollection-autocomplete',
+            attrs={
+            'data-placeholder': 'Start typing ...',
+            }
+        ),
+        help_text=False,
+    )
+    broader_concept = django_filters.ModelChoiceFilter(
+        widget=autocomplete.ModelSelect2(
+            url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'
+        ),
+        queryset=SkosConcept.objects.all(),
         help_text=False,
     )
     other_label = django_filters.ModelMultipleChoiceFilter(
-        widget=autocomplete.Select2Multiple(url='vocabs-ac:skoslabel-filter-autocomplete'),
+        widget=autocomplete.ModelSelect2Multiple(
+            url='vocabs-ac:skoslabel-filter-autocomplete'
+        ),
         queryset=SkosLabel.objects.all(),
         lookup_expr='icontains',
         help_text=False,
@@ -56,7 +73,7 @@ class SkosConceptListFilter(django_filters.FilterSet):
     other_label__isoCode = django_filters.CharFilter(
         lookup_expr='icontains',
         label="Other label iso code",
-        )
+    )
 
     class Meta:
         model = SkosConcept

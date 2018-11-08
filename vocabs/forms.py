@@ -41,13 +41,13 @@ class SkosConceptFormHelper(FormHelper):
                 'Basic search options',
                 'pref_label',
                 'collection',
+                'broader_concept',
                 'other_label',
                 css_id="basic_search_fields"
                 ),
             Accordion(
                 AccordionGroup(
                     'Advanced search',
-                    'broader_concept',
                     'top_concept',
                     'pref_label_lang',
                     'other_label__isoCode',
@@ -61,6 +61,10 @@ class SkosCollectionForm(forms.ModelForm):
     class Meta:
         model = SkosCollection
         exclude = ['created_by', ]
+        widgets ={
+            'scheme': autocomplete.ModelSelect2(
+                url='vocabs-ac:skosconceptscheme-autocomplete'),
+        }
 
     def __init__(self, *args, **kwargs):
         super(SkosCollectionForm, self).__init__(*args, **kwargs)
