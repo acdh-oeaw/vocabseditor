@@ -4,8 +4,8 @@
 PROJECT_METADATA = {
     'title': 'ACDH Vocabularies Editor',
     'author': 'Peter Andorfer, Ksenia Zaytseva',
-    'subtitle': 'A service to create, edit and export controlled vocabularies.',
-    'description': 'Create, edit and export controlled vocabularies.',
+    'subtitle': 'A service to create, edit and export SKOS model based controlled vocabularies.',
+    'description': 'Work collaboratively on controlled vocabularies for your project.',
     'github': 'https://github.com/acdh-oeaw',
     'purpose_de': 'Ziel von Django Base Project ist es, einen Dienst für kollaborative Arbeit zur Entwicklung von kontrolliertem Vokabular zur Verfügung zu stellen.',
     'purpose_en': 'The purpose of ACDH Vocabularies Editor is to provide a service for collaborative work on controlled vocabularies development.',
