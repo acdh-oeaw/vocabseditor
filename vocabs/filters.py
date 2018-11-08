@@ -45,6 +45,16 @@ class SkosConceptListFilter(django_filters.FilterSet):
         label='skos:prefLabel',
         help_text=False,
     )
+    scheme = django_filters.ModelChoiceFilter(
+        queryset=SkosConceptScheme.objects.all(),
+        widget=autocomplete.ModelSelect2(
+            url='vocabs-ac:skosconceptscheme-autocomplete',
+            attrs={
+            'data-placeholder': 'Start typing ...',
+            }
+        ),
+        help_text=False,
+    )
     collection = django_filters.ModelChoiceFilter(
         queryset=SkosCollection.objects.all(),
         widget=autocomplete.ModelSelect2(
@@ -130,6 +140,16 @@ class SkosCollectionListFilter(django_filters.FilterSet):
         lookup_expr='icontains',
         label=SkosCollection._meta.get_field('creator').verbose_name
         )
+    scheme = django_filters.ModelChoiceFilter(
+        queryset=SkosConceptScheme.objects.all(),
+        widget=autocomplete.ModelSelect2(
+            url='vocabs-ac:skosconceptscheme-autocomplete',
+            attrs={
+            'data-placeholder': 'Start typing ...',
+            }
+        ),
+        help_text=False,
+    )
     has_members__pref_label = django_filters.ModelMultipleChoiceFilter(
         widget=autocomplete.Select2Multiple(url='vocabs-ac:skosconcept-filter-autocomplete'),
         queryset=SkosConcept.objects.all(),
@@ -149,7 +169,17 @@ class SkosLabelListFilter(django_filters.FilterSet):
         help_text=SkosLabel._meta.get_field('name').help_text,
         label=SkosLabel._meta.get_field('name').verbose_name
         )
+    scheme = django_filters.ModelChoiceFilter(
+        queryset=SkosConceptScheme.objects.all(),
+        widget=autocomplete.ModelSelect2(
+            url='vocabs-ac:skosconceptscheme-autocomplete',
+            attrs={
+            'data-placeholder': 'Start typing ...',
+            }
+        ),
+        help_text=False,
+    )
 
     class Meta:
         model = SkosLabel
-        fields = '__all__'
+        exclude = ['created_by', ]

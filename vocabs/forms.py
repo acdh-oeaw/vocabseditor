@@ -88,21 +88,21 @@ class SkosConceptForm(forms.ModelForm):
             'other_label': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skoslabel-autocomplete'),
             'skos_broader': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-autocomplete'),
+                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_narrower': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-autocomplete'),
+                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_related': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-autocomplete'),
+                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_broadmatch': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-autocomplete'),
+                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_narrowmatch': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-autocomplete'),
+                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_exactmatch': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-autocomplete'),
+                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_relatedmatch': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-autocomplete'),
+                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_closematch': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-autocomplete'),
+                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'collection': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skoscollection-autocomplete')
         }
@@ -164,7 +164,6 @@ class SkosConceptForm(forms.ModelForm):
 class SkosConceptSchemeForm(forms.ModelForm):
     class Meta:
         model = SkosConceptScheme
-        #fields = "__all__"
         exclude = ['created_by', ]
 
     def __init__(self, *args, **kwargs):
@@ -199,6 +198,11 @@ class SkosLabelForm(forms.ModelForm):
     class Meta:
         model = SkosLabel
         exclude = ['created_by', ]
+        widgets = {
+            'scheme': autocomplete.ModelSelect2(
+                url='vocabs-ac:skosconceptscheme-autocomplete'
+            ),
+        }
 
     def __init__(self, *args, **kwargs):
         super(SkosLabelForm, self).__init__(*args, **kwargs)
@@ -234,6 +238,7 @@ class SkosCollectionFormHelper(FormHelper):
                 '',
                 'name',
                 'creator',
+                'scheme',
                 'has_members__pref_label',
                 css_id="basic_search_fields"
                 ),
