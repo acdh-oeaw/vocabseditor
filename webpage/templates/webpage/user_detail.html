@@ -11,7 +11,7 @@
     	</div>
     	<div class="card-body">
 	        {% if versions %}
-	        <h2>List of latest changes</h2>
+	        <h2>List of latest changes ({{versions|length}})</h2>
 	        {% for x in versions %}
 	            <li>
 	                <a href="{{ x.object.get_absolute_url }}">{{ x.revision.date_created }} {{ x }}</a>
@@ -21,7 +21,7 @@
 	        {% endif %}
 
 	        {% if created_cs %}
-	        <h2>Created skos:ConceptScheme</h2>
+	        <h2>Created skos:ConceptScheme ({{created_cs|length}})</h2>
 	        {% for y in created_cs %}
 	            <li>
 	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
@@ -31,7 +31,7 @@
 	        {% endif %}
 
 	        {% if curated_cs %}
-	        <h2>Curated skos:ConceptScheme</h2>
+	        <h2>Curated skos:ConceptScheme ({{curated_cs|length}})</h2>
 	        {% for y in curated_cs %}
 	            <li>
 	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
@@ -41,7 +41,7 @@
 	        {% endif %}
 
 			{% if created_collections %}
-	        <h2>Created skos:Collection</h2>
+	        <h2>Created skos:Collection ({{created_collections|length}})</h2>
 	        {% for y in created_collections %}
 	            <li>
 	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
@@ -51,7 +51,7 @@
 	        {% endif %}
 
 			{% if created_concepts %}
-	        <h2>Created skos:Concepts</h2>
+	        <h2>Created skos:Concepts ({{created_concepts|length}})</h2>
 	        {% for y in created_concepts %}
 	            <li>
 	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
@@ -61,7 +61,7 @@
 	        {% endif %}
 
 			{% if created_labels %}
-	        <h2>Created Labels</h2>
+	        <h2>Created Labels ({{created_labels|length}})</h2>
 	        {% for y in created_labels %}
 	            <li>
 	                <a href="{{ y.get_absolute_url }}">{{ y.revision.date_created }} {{ y }}</a>
