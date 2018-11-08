@@ -81,6 +81,10 @@ class SkosConceptForm(forms.ModelForm):
         model = SkosConcept
         exclude = ['created_by', ]
         widgets = {
+            'scheme': autocomplete.ModelSelect2(
+                url='vocabs-ac:skosconceptscheme-autocomplete'),
+            'broader_concept': autocomplete.ModelSelect2(
+                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'other_label': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skoslabel-autocomplete'),
             'skos_broader': autocomplete.ModelSelect2Multiple(
@@ -99,8 +103,6 @@ class SkosConceptForm(forms.ModelForm):
                 url='vocabs-ac:skosconcept-autocomplete'),
             'skos_closematch': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skosconcept-autocomplete'),
-            # 'scheme': autocomplete.ModelSelect2(
-            #     url='vocabs-ac:skosconceptscheme-autocomplete'),
             'collection': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skoscollection-autocomplete')
         }
