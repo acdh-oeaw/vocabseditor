@@ -1,22 +1,23 @@
 from django.contrib import admin
 from .models import *
 from guardian.admin import GuardedModelAdmin
+from reversion.admin import VersionAdmin
 
 
 # With object permissions support
-class SkosLabelAdmin(GuardedModelAdmin):
+class SkosLabelAdmin(GuardedModelAdmin, VersionAdmin):
     pass
 
 
-class SkosConceptAdmin(GuardedModelAdmin):
+class SkosConceptAdmin(GuardedModelAdmin, VersionAdmin):
     pass
 
 
-class SkosCollectionAdmin(GuardedModelAdmin):
+class SkosCollectionAdmin(GuardedModelAdmin, VersionAdmin):
     pass
 
 
-class SkosConceptSchemeAdmin(GuardedModelAdmin):
+class SkosConceptSchemeAdmin(GuardedModelAdmin, VersionAdmin):
     pass
 
 

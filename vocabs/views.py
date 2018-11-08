@@ -24,6 +24,7 @@ from guardian.core import ObjectPermissionChecker
 from django.contrib.auth.decorators import login_required, permission_required
 from guardian.decorators import permission_required_or_403
 from django.contrib.auth.mixins import UserPassesTestMixin
+from reversion.models import Version
 
 
 class BaseDetailView(DetailView):
@@ -37,6 +38,11 @@ class BaseDetailView(DetailView):
             ],
             klass=self.model)
         return qs
+
+    def get_context_data(self, **kwargs):
+        context = super(BaseDetailView, self).get_context_data(**kwargs)
+        context['history'] = Version.objects.get_for_object(self.object)
+        return context
 
 
 class BaseDeleteView(DeleteView):

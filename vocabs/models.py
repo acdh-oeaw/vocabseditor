@@ -12,6 +12,7 @@ from guardian.shortcuts import assign_perm, remove_perm
 from django.dispatch import receiver
 from django.contrib.auth.models import Permission
 from guardian.shortcuts import get_objects_for_user
+import reversion
 
 
 
@@ -46,6 +47,7 @@ class SkosNamespace(models.Model):
         return "{}".format(self.prefix)
 
 
+@reversion.register()
 class SkosConceptScheme(models.Model):
     """
     A SKOS concept scheme can be viewed as an aggregation of one or more SKOS concepts.
@@ -202,6 +204,7 @@ class SkosConceptScheme(models.Model):
         return self.dc_title
 
 
+@reversion.register()
 class SkosCollection(models.Model):
     """
     SKOS collections are labeled and/or ordered groups of SKOS concepts.
@@ -323,6 +326,7 @@ class SkosCollection(models.Model):
         return self.creator.split(';')
 
 
+@reversion.register()
 class SkosLabel(models.Model):
     """
     SKOS lexical labels are the expressions that are used to refer to concepts in natural language.
@@ -380,6 +384,7 @@ class SkosLabel(models.Model):
             return "{} @{}".format(self.name, self.isoCode)
 
 
+@reversion.register()
 class SkosConcept(models.Model):
     """
     A SKOS concept can be viewed as an idea or notion; a unit of thought.
