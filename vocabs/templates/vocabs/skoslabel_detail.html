@@ -68,6 +68,24 @@
                 {% endif %}
                 {% endif %}
             </table>
+            <!--change history collapse button-->
+            {% if user.is_authenticated %}
+            {% if history %}
+            <div class="col-md-4" style="margin-bottom: 20px;">
+            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#changeHistory" aria-expanded="false" aria-controls="changeHistory" style="margin-bottom: 20px;">
+            Change history
+            </button>
+            <div class="collapse" id="changeHistory">
+               {% for x in history %}
+                <li>
+               {{ x.revision.date_created }} changed by {{ x.revision.user }}
+               </li>
+               {% endfor %}
+            </div>
+            </div>
+            {% endif %}
+            {% endif %}
+            <!--change history ends here--> 
     </div>
 </div>
 {% endblock %}
