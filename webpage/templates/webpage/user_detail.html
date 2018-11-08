@@ -25,6 +25,17 @@
 	        {% for y in created_cs %}
 	            <li>
 	                <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+	                {% if y.curator.all %}
+	                <br>
+	                You share this Concept scheme with the following user(s):
+	                {% for i in y.curator.all %}
+	                {% if forloop.last %}
+				        {{ i }}
+				    {% else %}
+				        {{ i }},
+				    {% endif %}
+	                {% endfor %}
+	                {% endif %}
 	            </li>
 	        {% endfor %}
 	        <br>
@@ -35,6 +46,8 @@
 	        {% for y in curated_cs %}
 	            <li>
 	                <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+	                <br>
+	                This Concept Scheme is shared with you by the following user: {{y.created_by}}
 	            </li>
 	        {% endfor %}
 	        <br>

@@ -150,7 +150,7 @@ class SkosCollectionAC(autocomplete.Select2QuerySetView):
 
 class UserAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
-        qs = User.objects.all()
+        qs = User.objects.exclude(username=self.request.user)
         if self.q:
             qs = qs.filter(username__icontains=self.q)
 
