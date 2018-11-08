@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 from . import dal_views
 from .models import SkosLabel, SkosConcept, SkosConceptScheme, SkosCollection
+from django.contrib.auth.models import User
 
 app_name = 'vocabs'
 
@@ -63,5 +64,10 @@ urlpatterns = [
         r'specific-concept-ac/<str:scheme>', dal_views.SpecificConcepts.as_view(
             model=SkosConcept),
         name='specific-concept-ac',
-    )
+    ),
+    url(
+        r'^user-autocomplete/$', dal_views.UserAC.as_view(
+            model=User),
+        name='user-autocomplete',
+    ),
 ]

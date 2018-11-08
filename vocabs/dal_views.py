@@ -2,6 +2,7 @@ from dal import autocomplete
 from .models import SkosLabel, SkosConcept, SkosConceptScheme, SkosCollection
 from django.db.models import Q
 from guardian.shortcuts import get_objects_for_user
+from django.contrib.auth.models import User
 
 
 class SpecificConcepts(autocomplete.Select2QuerySetView):
@@ -143,5 +144,14 @@ class SkosCollectionAC(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(name__icontains=self.q)
+
+        return qs
+
+
+class UserAC(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = User.objects.all()
+        if self.q:
+            qs = qs.filter(username__icontains=self.q)
 
         return qs

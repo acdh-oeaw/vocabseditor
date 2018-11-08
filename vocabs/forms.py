@@ -200,9 +200,14 @@ class SkosCollectionFormHelper(FormHelper):
 
 
 class SkosConceptSchemeForm(forms.ModelForm):
+
     class Meta:
         model = SkosConceptScheme
         exclude = ['created_by', ]
+        widgets = {
+            'curator': autocomplete.ModelSelect2Multiple(
+                url='vocabs-ac:user-autocomplete'),
+        }
 
     def __init__(self, *args, **kwargs):
         super(SkosConceptSchemeForm, self).__init__(*args, **kwargs)
