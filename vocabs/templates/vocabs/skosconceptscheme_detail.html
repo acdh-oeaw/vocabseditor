@@ -209,6 +209,13 @@
         </td>
         </tr>
         {% endif %}
+        <tr>
+            <th>download</th>
+            <td>
+                <li><a href="{% url 'vocabs:vocabs-download' %}?scheme={{object.id}}">RDF/XML</a></li>
+                <li><a href="{% url 'vocabs:vocabs-download' %}?format=turtle&scheme={{object.id}}">Turtle</a></li>
+            </td>
+        </tr>
         
         </table>
         <!--change history collapse button-->

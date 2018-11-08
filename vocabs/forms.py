@@ -129,6 +129,7 @@ class SkosConceptFormHelper(FormHelper):
             Fieldset(
                 'Basic search options',
                 'pref_label',
+                'scheme',
                 'collection',
                 'broader_concept',
                 'other_label',
