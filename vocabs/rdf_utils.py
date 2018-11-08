@@ -158,7 +158,8 @@ def graph_construct_qs(results):
 			if obj.scheme.date_issued:
 				g.add((mainConceptScheme, DCT.issued, Literal(obj.scheme.date_issued, datatype=XSD.dateTime)))
 			else:
-				g.add((mainConceptScheme, DCT.issued, Literal(timezone.now(), datatype=XSD.dateTime)))    
+				pass
+				#g.add((mainConceptScheme, DCT.issued, Literal(timezone.now(), datatype=XSD.dateTime)))    
 		# accessing lists with ; in TextField
 			if obj.scheme.dc_language:
 				for i in obj.scheme.dc_language.split(';'):             
