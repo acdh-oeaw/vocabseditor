@@ -78,13 +78,16 @@
                             <span class="caret"/>
                             </a>
                                 <div class="dropdown-menu">
-                                    {% nav_menu app='vocabs' as links %}
-                                    {% for x in links %}
-                                        <a class="dropdown-item" href="{{ x.link }}">{{ x.name }}</a>
-                                    {% endfor %}
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{% url 'api-root' %}">Export SKOS (API)</a>
+                                <a class="dropdown-item" href="{% url 'vocabs:browse_schemes' %}">SKOS Concept Schemes</a>
+                                <a class="dropdown-item" href="{% url 'vocabs:browse_skoscollections' %}">SKOS Collections</a>
+                                <a class="dropdown-item" href="{% url 'vocabs:browse_vocabs' %}">SKOS Concepts</a>
+                                <a class="dropdown-item" href="{% url 'vocabs:browse_skoslabels' %}">SKOS Labels</a>   
                                 </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link navigation-font" href="{% url 'api-root' %}">
+                                API
+                                </a>
                             </li>
                         {% endif %}
                     {% endif %}

@@ -8,7 +8,7 @@ app_name = 'vocabs'
 
 urlpatterns = [
     url(r'^$', views.SkosConceptListView.as_view(), name='skosconcept_list'),
-    url(r'^concepts/browse/$', views.SkosConceptListView.as_view(), name='browse_vocabs'),
+    url(r'^concepts/$', views.SkosConceptListView.as_view(), name='browse_vocabs'),
     url(r'^(?P<pk>[0-9]+)$', views.SkosConceptDetailView.as_view(), name='skosconcept_detail'),
     url(r'^create/$', views.SkosConceptCreate.as_view(), name='skosconcept_create'),
     url(r'^update/(?P<pk>[0-9]+)$', views.SkosConceptUpdate.as_view(), name='skosconcept_update'),
