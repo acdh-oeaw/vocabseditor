@@ -32,8 +32,8 @@
                     </h1>
                 </div>
             <div class="col-md-2">
+                {% if object.get_next %}
                 <h2>
-                    {% if object.get_next %}
                     <a href="{% url 'vocabs:skosconceptscheme_detail' pk=object.get_next %}" style="float:right">
                         <i class="fas fa-chevron-right" title="next"></i>
                     </a>
@@ -106,7 +106,7 @@
 
         {% if object.version %}
         <tr>
-            <th>Version</th>
+            <th>version</th>
             <td>{{object.version}}</td>
         </tr>
         {% endif %}
@@ -134,7 +134,7 @@
 
         {% if object.owner %}
         <tr>
-            <th>Owner</th>
+            <th>owner</th>
             <td>{{object.owner}}</td>
         </tr>
         {% endif %}

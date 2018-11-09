@@ -84,14 +84,14 @@ class SkosConceptForm(forms.ModelForm):
                 'definition_lang',
                 'broader_concept',
                 'dc_creator',
-                'source_description',
+                'other_label',
                 'same_as_external',
+                'source_description',
                 css_id="basic_skos_fields"
                 ),
             Accordion(
                 AccordionGroup(
                     'Advanced fields',
-                    'other_label',
                     'notation',
                     'skos_broader',
                     'skos_narrower',

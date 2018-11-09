@@ -142,7 +142,8 @@ class SkosConceptScheme(models.Model):
     )
     curator = models.ManyToManyField(
         User, related_name="skos_cs_curated",
-        blank=True
+        blank=True,
+        help_text="The selected user(s) will be able to view and edit current Concept Scheme."
     )
 
     def save(self, *args, **kwargs):
@@ -433,7 +434,7 @@ class SkosConcept(models.Model):
     )
     other_label = models.ManyToManyField(
         SkosLabel, blank=True,
-        help_text="select other labels that represent this concept"
+        help_text="Select other labels that represent this concept"
     )
     notation = models.CharField(
         max_length=300, blank=True,
