@@ -25,7 +25,6 @@ admin.site.register(SkosLabel, SkosLabelAdmin)
 admin.site.register(SkosConcept, SkosConceptAdmin)
 admin.site.register(SkosCollection, SkosCollectionAdmin)
 admin.site.register(SkosConceptScheme, SkosConceptSchemeAdmin)
-admin.site.register(SkosNamespace)
 
 
 # @admin.register(SkosConceptScheme)

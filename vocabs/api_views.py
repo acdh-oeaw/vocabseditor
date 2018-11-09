@@ -20,12 +20,6 @@ class SkosLabelViewSet(viewsets.ModelViewSet):
     serializer_class = SkosLabelSerializer
 
 
-class SkosNamespaceViewSet(viewsets.ModelViewSet):
-
-    queryset = SkosNamespace.objects.all()
-    serializer_class = SkosNamespaceSerializer
-
-
 class SkosConceptSchemeViewSet(viewsets.ModelViewSet):
 
     queryset = SkosConceptScheme.objects.all()

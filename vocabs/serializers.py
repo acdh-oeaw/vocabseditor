@@ -9,12 +9,6 @@ class SkosLabelSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'name', 'label_type', 'isoCode')
 
 
-class SkosNamespaceSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = SkosNamespace
-        fields = ('namespace', 'prefix')
-
-
 class SkosConceptSchemeSerializer(serializers.HyperlinkedModelSerializer):
     has_concepts = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='skosconcept-detail')
 

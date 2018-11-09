@@ -39,14 +39,6 @@ LABEL_TYPES = (
 )
 
 
-class SkosNamespace(models.Model):
-    namespace = models.URLField(blank=True, default=DEFAULT_NAMESPACE)
-    prefix = models.CharField(max_length=50, blank=True, default=DEFAULT_PREFIX)
-
-    def __str__(self):
-        return "{}".format(self.prefix)
-
-
 @reversion.register()
 class SkosConceptScheme(models.Model):
     """
@@ -449,10 +441,6 @@ class SkosConcept(models.Model):
         help_text="A notation is a unique string used\
         to identify the concept in current vocabulary"
     )
-    namespace = models.ForeignKey(
-        SkosNamespace, blank=True, null=True,
-        on_delete=models.SET_NULL
-    )
     broader_concept = models.ForeignKey(
         'SkosConcept',
         verbose_name="Broader Term",
@@ -613,14 +601,6 @@ class SkosConcept(models.Model):
                 self.notation = temp_notation
             else:
                 self.notation = "{}-{}".format(temp_notation, concepts)
-        else:
-            pass
-
-        if self.namespace is None:
-            temp_namespace, _ = SkosNamespace.objects.get_or_create(
-                namespace=DEFAULT_NAMESPACE, prefix=DEFAULT_PREFIX)
-            temp_namespace.save()
-            self.namespace = temp_namespace
         else:
             pass
 

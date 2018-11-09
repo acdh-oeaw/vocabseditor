@@ -37,5 +37,5 @@ class SkosConceptTable(tables.Table):
 
     class Meta:
         model = SkosConcept
-        sequence = ['broader_concept', 'pref_label', 'all_schemes', 'namespace']
+        sequence = ['broader_concept', 'pref_label']
         attrs = {"class": "table table-hover table-striped table-condensed"}

@@ -111,7 +111,6 @@ class SkosConceptForm(forms.ModelForm):
                     'skos_editorialnote',
                     'skos_example',
                     'skos_historynote',
-                    'namespace',
                     css_id="advanced_skos_fields"
                 ),
                 )
