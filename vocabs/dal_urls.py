@@ -10,7 +10,7 @@ app_name = 'vocabs'
 urlpatterns = [
     url(
         r'^skoslabel-autocomplete/$', dal_views.SkosLabelAC.as_view(
-            model=SkosLabel, create_field='name',),
+            model=SkosLabel),
         name='skoslabel-autocomplete',
     ),
     url(
@@ -20,20 +20,17 @@ urlpatterns = [
     ),
     url(
         r'^skosconceptscheme-autocomplete/$', dal_views.SkosConceptSchemeAC.as_view(
-            model=SkosConceptScheme,
-            create_field='dc_title',),
+            model=SkosConceptScheme),
         name='skosconceptscheme-autocomplete',
     ),
     url(
         r'^skoscollection-autocomplete/$', dal_views.SkosCollectionAC.as_view(
-            model=SkosCollection,
-            create_field='name',),
+            model=SkosCollection),
         name='skoscollection-autocomplete',
     ),
     url(
         r'^skosconcept-autocomplete/$', dal_views.SpecificConcepts.as_view(
-            model=SkosConcept,
-            create_field='pref_label',),
+            model=SkosConcept),
         name='skosconcept-autocomplete',
     ),
     url(
