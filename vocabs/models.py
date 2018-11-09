@@ -331,7 +331,8 @@ class SkosLabel(models.Model):
         max_length=100, blank=True, help_text="The entities label or name.",
         verbose_name="Label")
     label_type = models.CharField(
-        max_length=30, blank=True, choices=LABEL_TYPES, help_text="The type of the label.")
+        max_length=30, blank=True, choices=LABEL_TYPES, 
+        help_text="The type of the label.")
     # relation to SkosConceptScheme to inherit all objects permissions
     scheme = models.ForeignKey(SkosConceptScheme,
         related_name="has_labels",
@@ -357,6 +358,10 @@ class SkosLabel(models.Model):
         if not self.id:
             self.date_created = timezone.now()
         self.date_modified = timezone.now()
+
+        if not self.label_type:
+            self.label_type = "altLabel"
+            
         return super(SkosLabel, self).save(*args, **kwargs)
 
     @classmethod
