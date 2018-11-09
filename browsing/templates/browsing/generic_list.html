@@ -32,9 +32,6 @@
                         <h3 style="margin-bottom:15px;">
                              Browse {% class_definition %} {% block list_title %}{% endblock %}
                         </h3>
-                        {% if get_arche_dump %}
-                            <a class ="btn btn-outline-secondary"  href="{{ get_arche_dump}}{% querystring %}">Dump as RDF</a>
-                        {% endif %}
                         {% if user.is_authenticated %}
                             {% if create_view_link  %}
                                 <a class ="btn btn-outline-secondary"  href="{{ create_view_link }}">Create new {{class_name}}</a>
@@ -248,8 +245,6 @@
                 </div>
             </div>
         </div>
-        {% if 'entities' in APPS %}
-        {% endif %}
     </div>
 
 {% endblock %}

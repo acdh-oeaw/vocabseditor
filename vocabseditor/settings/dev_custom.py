@@ -1,6 +1,6 @@
 from .base import *
 
-SPARQL_ENDPOINT = 'https://bgdefc.eos.arz.oeaw.ac.at/sparql'
+#SPARQL_ENDPOINT = ''
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '^mm-24*i-6iecm7c@z9l+7%^ns^4g^z!8=dgffg4ulggr-4=1%'
 

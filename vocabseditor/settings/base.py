@@ -32,14 +32,10 @@ INSTALLED_APPS = [
     'django_filters',
     'django_tables2',
     'rest_framework',
-    # 'idprovider',
     'webpage',
     'browsing',
     'vocabs',
-    # 'entities',
-    'sparql',
     'stats',
-    # 'arche',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap3"
@@ -140,3 +136,9 @@ VOCABS_SETTINGS = {
     'default_ns': "http://www.vocabs/{}/".format(VOCABS_DEFAULT_PEFIX),
     'default_lang': "en"
 }
+
+# Django guardian settings
+
+#ANONYMOUS_USER_NAME = 'public'
+
+# if ANONYMOUS_USER_NAME is set to None, anonymous user object permissions-are disabled.
