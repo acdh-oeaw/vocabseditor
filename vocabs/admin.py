@@ -25,11 +25,3 @@ admin.site.register(SkosLabel, SkosLabelAdmin)
 admin.site.register(SkosConcept, SkosConceptAdmin)
 admin.site.register(SkosCollection, SkosCollectionAdmin)
 admin.site.register(SkosConceptScheme, SkosConceptSchemeAdmin)
-
-
-# @admin.register(SkosConceptScheme)
-# class SkosConceptSchemeAdmin(admin.ModelAdmin):
-
-# 	def save_model(self, request, obj, form, change):
-# 		obj.created_by = request.user
-# 		super().save_model(request, obj, form, change)
