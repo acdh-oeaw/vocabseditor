@@ -209,6 +209,7 @@
         </td>
         </tr>
         {% endif %}
+        {% if object.has_concepts.all %}
         <tr>
             <th>download</th>
             <td>
@@ -216,6 +217,7 @@
                 <li><a href="{% url 'vocabs:vocabs-download' %}?format=turtle&scheme={{object.id}}">Turtle</a></li>
             </td>
         </tr>
+        {% endif %}
         
         </table>
         <!--change history collapse button-->

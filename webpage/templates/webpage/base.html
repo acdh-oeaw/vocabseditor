@@ -180,22 +180,22 @@
                 {% endif %}
             </div>
     </footer>
-        {% block scripts %}
-        <script src="https://fundament.acdh.oeaw.ac.at/dist/fundament/vendor/js/fontawesome-all.min.js"></script>
-        <script src="https://fundament.acdh.oeaw.ac.at/dist/fundament/js/fundament.min.js"></script>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css" />
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-        <script src="{% static 'webpage/libraries/scroll-to-top/js/ap-scroll-top.min.js'%}"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $.apScrollTop({'onInit': function(evt) {console.log('apScrollTop: init');}});
-            });
-        </script>
-        {% endblock %}
-        {% block scripts2 %}
-        {% endblock scripts2 %}
-        <noscript>
-            <img src="//piwik.apollo.arz.oeaw.ac.at/piwik.php?idsite=48" style="border:0;" alt=""/>
-        </noscript>
-        </body>
-        </html>
+    {% block scripts %}
+    <script src="https://fundament.acdh.oeaw.ac.at/dist/fundament/vendor/js/fontawesome-all.min.js"></script>
+    <script src="https://fundament.acdh.oeaw.ac.at/dist/fundament/js/fundament.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css" />
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script src="{% static 'webpage/libraries/scroll-to-top/js/ap-scroll-top.min.js'%}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.apScrollTop({'onInit': function(evt) {console.log('apScrollTop: init');}});
+        });
+    </script>
+    {% endblock %}
+    {% block scripts2 %}
+    {% endblock scripts2 %}
+    <noscript>
+        <img src="//piwik.apollo.arz.oeaw.ac.at/piwik.php?idsite=48" style="border:0;" alt=""/>
+    </noscript>
+</body>
+</html>

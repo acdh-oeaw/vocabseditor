@@ -402,8 +402,11 @@ class SkosConceptDL(GenericListView):
         timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H-%M-%S')
         response = HttpResponse(content_type='application/xml; charset=utf-8')
         filename = "download_{}".format(timestamp)
-        response['Content-Disposition'] = 'attachment; filename="{}.rdf"'.format(filename)
-        g = graph_construct_qs(self.get_queryset())
         get_format = self.request.GET.get('format', default='pretty-xml')
+        if get_format == 'turtle':
+            response['Content-Disposition'] = 'attachment; filename="{}.ttl"'.format(filename)
+        else:
+            response['Content-Disposition'] = 'attachment; filename="{}.rdf"'.format(filename)
+        g = graph_construct_qs(self.get_queryset()) 
         result = g.serialize(destination=response, format=get_format)
         return response
