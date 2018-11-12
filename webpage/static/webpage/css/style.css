@@ -49,3 +49,15 @@ a {
 .control-label {
     font-weight: 700;
 }
+
+/* override select2 css for select FK and select M2M */
+
+.select2 {
+  width: 100% !important; /* overrides computed width */
+}
+.select2-container--default .select2-selection--single {
+    height: 38px !important;
+}
+#div_id_top_concept > label {
+    font-weight: 700;
+}

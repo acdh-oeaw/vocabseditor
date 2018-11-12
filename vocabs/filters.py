@@ -151,7 +151,7 @@ class SkosCollectionListFilter(django_filters.FilterSet):
         help_text=False,
     )
     has_members__pref_label = django_filters.ModelMultipleChoiceFilter(
-        widget=autocomplete.Select2Multiple(url='vocabs-ac:skosconcept-filter-autocomplete'),
+        widget=autocomplete.Select2Multiple(url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
         queryset=SkosConcept.objects.all(),
         lookup_expr='icontains',
         help_text=False,
