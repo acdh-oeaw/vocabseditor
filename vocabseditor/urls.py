@@ -5,6 +5,7 @@ from rest_framework import routers
 from vocabs import api_views
 
 router = routers.DefaultRouter()
+# router.register(r'users', api_views.UserViewSet, base_name='user')
 router.register(r'skoslabels', api_views.SkosLabelViewSet)
 router.register(r'skosconceptschemes', api_views.SkosConceptSchemeViewSet)
 router.register(r'skoscollections', api_views.SkosCollectionViewSet)

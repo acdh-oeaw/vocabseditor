@@ -1,16 +1,20 @@
 from rest_framework import serializers
 from .models import *
+from django.contrib.auth.models import User
 
 
 class SkosLabelSerializer(serializers.HyperlinkedModelSerializer):
-    #url = serializers.HyperlinkedIdentityField(view_name='skoslabel-detail')
+    created_by = serializers.CharField(read_only=True)
+
     class Meta:
         model = SkosLabel
-        fields = ('url', 'name', 'label_type', 'isoCode')
+        fields = '__all__'
 
 
 class SkosConceptSchemeSerializer(serializers.HyperlinkedModelSerializer):
     has_concepts = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='skosconcept-detail')
+    created_by = serializers.CharField(read_only=True)
+    curator = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = SkosConceptScheme
@@ -19,6 +23,7 @@ class SkosConceptSchemeSerializer(serializers.HyperlinkedModelSerializer):
 
 class SkosCollectionSerializer(serializers.HyperlinkedModelSerializer):
     has_members = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='skosconcept-detail')
+    created_by = serializers.CharField(read_only=True)
 
     class Meta:
         model = SkosCollection
@@ -26,9 +31,7 @@ class SkosCollectionSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class SkosConceptSerializer(serializers.HyperlinkedModelSerializer):
-    scheme = SkosConceptSchemeSerializer(many=True, read_only=True)
-    other_label = SkosLabelSerializer(many=True, read_only=True)
-    collection = SkosCollectionSerializer(many=True, read_only=True)
+    created_by = serializers.CharField(read_only=True)
 
     class Meta:
         model = SkosConcept
@@ -52,4 +55,5 @@ class SkosConceptSerializer(serializers.HyperlinkedModelSerializer):
             'skos_changenote', 'skos_editorialnote', 'skos_example',
             'skos_historynote', 'dc_creator',
             'date_created', 'date_modified',
+            'created_by',
         )

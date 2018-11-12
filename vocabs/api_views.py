@@ -1,11 +1,14 @@
 from rest_framework import viewsets
-from rest_framework import pagination
+from rest_framework import pagination, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import *
 from .serializers import *
 from .filters import SkosConceptFilter
 from .api_renderers import RDFRenderer
 from rest_framework.settings import api_settings
+from django.contrib.auth.models import User
+from rest_framework.permissions import DjangoObjectPermissions
+
 
 
 class LargeResultsSetPagination(pagination.PageNumberPagination):
@@ -15,29 +18,36 @@ class LargeResultsSetPagination(pagination.PageNumberPagination):
 
 
 class SkosLabelViewSet(viewsets.ModelViewSet):
-
     queryset = SkosLabel.objects.all()
     serializer_class = SkosLabelSerializer
+    permission_classes = (DjangoObjectPermissions, )
+    filter_backends = (filters.DjangoObjectPermissionsFilter, )
+    pagination_class = LargeResultsSetPagination
 
 
 class SkosConceptSchemeViewSet(viewsets.ModelViewSet):
-
     queryset = SkosConceptScheme.objects.all()
     serializer_class = SkosConceptSchemeSerializer
+    permission_classes = (DjangoObjectPermissions, )
+    filter_backends = (filters.DjangoObjectPermissionsFilter, )
+    pagination_class = LargeResultsSetPagination
 
 
 class SkosCollectionViewSet(viewsets.ModelViewSet):
-
     queryset = SkosCollection.objects.all()
     serializer_class = SkosCollectionSerializer
+    permission_classes = (DjangoObjectPermissions, )
+    filter_backends = (filters.DjangoObjectPermissionsFilter, )
+    pagination_class = LargeResultsSetPagination
 
 
 class SkosConceptViewSet(viewsets.ModelViewSet):
-
     queryset = SkosConcept.objects.all()
     serializer_class = SkosConceptSerializer
     filter_backends = (DjangoFilterBackend,)
     filter_class = SkosConceptFilter
     pagination_class = LargeResultsSetPagination
-
     renderer_classes = tuple(api_settings.DEFAULT_RENDERER_CLASSES) + (RDFRenderer, )
+    permission_classes = (DjangoObjectPermissions, )
+    filter_backends = (filters.DjangoObjectPermissionsFilter, )
+    pagination_class = LargeResultsSetPagination

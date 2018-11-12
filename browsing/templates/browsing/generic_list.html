@@ -43,10 +43,12 @@
                         {% load django_tables2 crispy_forms_tags %}
                         <form action="." class="uniForm" method="get">
                             {% if togglable_colums %}
+                            <div style="margin-top: 15px;">
                                 <legend>Select additional columns</legend>
                                 {% column_selector  %}
+                            </div>
                             {% endif %}
-                            <br/>
+                            <br>
                             {% crispy filter.form filter.form.helper %}
                         </form>
                         {% block reset_button %}
