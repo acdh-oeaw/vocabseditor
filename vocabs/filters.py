@@ -182,4 +182,4 @@ class SkosLabelListFilter(django_filters.FilterSet):
 
     class Meta:
         model = SkosLabel
-        exclude = ['created_by', ]
+        exclude = ['created_by', 'date_created', 'date_modified', ]

@@ -115,7 +115,7 @@ class SkosConceptScheme(models.Model):
     )
     dc_relation = models.URLField(
         blank=True, verbose_name="dc:relation",
-        help_text="e.g. in case of relation to a project, add link to a project website"
+        help_text="E.g. in case of relation to a project, add link to a project website"
     )
     dc_coverage = models.TextField(
         blank=True, verbose_name="dc:coverage",
@@ -222,7 +222,7 @@ class SkosCollection(models.Model):
     scheme = models.ForeignKey(SkosConceptScheme,
         related_name="has_collections",
         verbose_name="skos:ConceptScheme",
-        help_text="which Skos:ConceptScheme current collection belongs to",
+        help_text="Which Skos:ConceptScheme current collection belongs to",
         on_delete=models.CASCADE
     )
     creator = models.TextField(
@@ -337,7 +337,7 @@ class SkosLabel(models.Model):
     scheme = models.ForeignKey(SkosConceptScheme,
         related_name="has_labels",
         verbose_name="skos:ConceptScheme",
-        help_text="which Skos:ConceptScheme current collection belongs to",
+        help_text="Which Skos:ConceptScheme current collection belongs to",
         on_delete=models.CASCADE
     )
     isoCode = models.CharField(
