@@ -61,3 +61,10 @@ a {
 #div_id_top_concept > label {
     font-weight: 700;
 }
+
+
+#workflow > img {
+   display: block;
+   margin: auto auto;
+   width: 80%;
+}

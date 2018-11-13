@@ -6,13 +6,26 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h1 class="card-title">{% projects_metadata 'title' %}</h1>
+            <h1 class="card-title">About {% projects_metadata 'title' %}</h1>
         </div>
         <div class="card-body">
-            <div>
+            <div style="text-align: justify;">
                 <p>
-                    {% projects_metadata 'description' %}
+                    {% projects_metadata 'purpose_en' %}
                 </p>
+                <p>
+                    The editor follows SKOS data model for the main elements of a controlled vocabulary.
+                    Dublin core schema is used to capture the metadata (such as date created, date modified, creator, contributor, source and other) about each element.
+                </p>
+                <p>
+                    The user management system allows a user to share a created Concept Scheme with other users (called 'curators') to create new, edit and delete Concepts, Collections and Labels within this Concept Scheme.
+                    Each user can find all created elements and latest activity on user's page.
+                </p>
+            </div>
+            <div id="workflow">
+                <h2>The workflow</h2>
+                <br>
+                <img src="{% static 'webpage/img/workflow.png' %}">          
             </div>
         </div>
     </div>
