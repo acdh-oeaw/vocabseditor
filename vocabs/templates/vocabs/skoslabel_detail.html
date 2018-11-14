@@ -86,7 +86,7 @@
             <div class="collapse" id="changeHistory">
                {% for x in history %}
                 <li>
-                {% if forloop.first %}
+                {% if forloop.last %}
                 {{ x.revision.date_created }} created by {{ x.revision.user }}
                 {% else %}
                 {{ x.revision.date_created }} changed by {{ x.revision.user }}
