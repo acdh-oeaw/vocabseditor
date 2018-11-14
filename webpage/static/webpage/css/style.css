@@ -68,3 +68,7 @@ a {
    margin: auto auto;
    width: 80%;
 }
+
+#main_accordion > .panel >.panel-heading {
+  margin: 15px 15px 15px 15px;
+}

@@ -91,8 +91,7 @@ class SkosConceptForm(forms.ModelForm):
                 ),
             Accordion(
                 AccordionGroup(
-                    'Advanced fields',
-                    'notation',
+                    'SKOS semantic relationships',
                     'skos_broader',
                     'skos_narrower',
                     'skos_related',
@@ -102,7 +101,12 @@ class SkosConceptForm(forms.ModelForm):
                     'skos_relatedmatch',
                     'skos_closematch',
                     'legacy_id',
+                    'notation',
                     'name_reverse',
+                    css_id="advanced_skos_fields"
+                ),
+                 AccordionGroup(
+                    'SKOS Documentary notes',
                     'skos_note',
                     'skos_note_lang',
                     'skos_scopenote',
@@ -111,9 +115,9 @@ class SkosConceptForm(forms.ModelForm):
                     'skos_editorialnote',
                     'skos_example',
                     'skos_historynote',
-                    css_id="advanced_skos_fields"
+                    css_id="doc_skos_fields"
                 ),
-                )
+                css_id="main_accordion")
             )
 
 class SkosConceptFormHelper(FormHelper):
