@@ -676,12 +676,6 @@ def get_all_children(self, include_self=True):
 #
 #############################################################################
 
-# @receiver(post_save, sender=User, dispatch_uid="add_user_to_group")
-# def add_user_to_group(sender, instance=None, created=False, **kwargs):
-#     if created:
-#         g = Group.objects.get(name='general')
-#         g.user_set.add(instance)
-
 
 @receiver(post_save, sender=SkosConceptScheme, dispatch_uid="create_perms_cs_created_by")
 def create_perms_cs_created_by(sender, instance, **kwargs):
@@ -776,12 +770,3 @@ def create_perms_curator(sender, instance, **kwargs):
                 remove_perm('view_'+obj.__class__.__name__.lower(), curator, obj)
                 remove_perm('change_'+obj.__class__.__name__.lower(), curator, obj)
                 remove_perm('delete_'+obj.__class__.__name__.lower(), curator, obj)
-
-
-
-
-
-
-
-
-
