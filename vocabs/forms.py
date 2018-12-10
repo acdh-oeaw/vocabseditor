@@ -27,6 +27,45 @@ class UploadFileForm(forms.Form):
         self.helper.field_class = 'col-md-9'
         self.helper.add_input(Submit('submit', 'import'),)
 
+
+
+
+######################################################################
+#
+# SkosLabel
+#
+######################################################################
+
+
+class SkosLabelForm(forms.ModelForm):
+    class Meta:
+        model = SkosLabel
+        exclude = ['created_by', ]
+        widgets = {
+            'scheme': autocomplete.ModelSelect2(
+                url='vocabs-ac:skosconceptscheme-autocomplete'
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(SkosLabelForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-3 create-label'
+        self.helper.field_class = 'col-md-9'
+        self.helper.add_input(Submit('submit', 'save'),)
+
+
+class SkosLabelFormHelper(FormHelper):
+    def __init__(self, *args, **kwargs):
+        super(SkosLabelFormHelper, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.form_class = 'genericFilterForm'
+        self.form_method = 'GET'
+        self.helper.form_tag = False
+        self.add_input(Submit('Filter', 'Search'))
+
 ######################################################################
 #
 # SkosConcept
@@ -119,6 +158,7 @@ class SkosConceptForm(forms.ModelForm):
                 ),
                 css_id="main_accordion")
             )
+
 
 class SkosConceptFormHelper(FormHelper):
     def __init__(self, *args, **kwargs):
@@ -239,40 +279,3 @@ class SkosConceptSchemeFormHelper(FormHelper):
                 css_id="basic_search_fields"
                 ),
             )
-
-
-######################################################################
-#
-# SkosLabel
-#
-######################################################################
-
-
-class SkosLabelForm(forms.ModelForm):
-    class Meta:
-        model = SkosLabel
-        exclude = ['created_by', ]
-        widgets = {
-            'scheme': autocomplete.ModelSelect2(
-                url='vocabs-ac:skosconceptscheme-autocomplete'
-            ),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(SkosLabelForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_tag = True
-        self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-md-3 create-label'
-        self.helper.field_class = 'col-md-9'
-        self.helper.add_input(Submit('submit', 'save'),)
-
-
-class SkosLabelFormHelper(FormHelper):
-    def __init__(self, *args, **kwargs):
-        super(SkosLabelFormHelper, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.form_class = 'genericFilterForm'
-        self.form_method = 'GET'
-        self.helper.form_tag = False
-        self.add_input(Submit('Filter', 'Search'))

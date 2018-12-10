@@ -388,6 +388,28 @@ class SkosLabelDelete(BaseDeleteView):
         return super(SkosLabelDelete, self).dispatch(*args, **kwargs)
 
 
+@login_required
+def add_label(request):
+    if request.method == "POST":
+        form = SkosLabelForm(request.POST)
+        if form.is_valid():
+            action = form.save(commit=False)
+            action.created_by = request.user
+            action.save()
+        return HttpResponse("""<html><body><h1>saved</h1>
+                <script type="text/javascript">
+                    function closeWindow() {
+                        setTimeout(function() {
+                        window.close();
+                        }, 1000);
+                        }
+                        window.onload = closeWindow();
+                </script></body></html>""")
+    else:
+        form = SkosLabelForm()
+        return render(request, 'browsing/generic_create.html', {'form': form})
+
+
 ###################################################
 # SkosConcepts download as one ConceptScheme
 ###################################################
