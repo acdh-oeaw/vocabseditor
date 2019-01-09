@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import RequestContext, loader
 from django.views.generic import TemplateView, DetailView
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -9,6 +9,8 @@ from reversion.models import Version
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from vocabs.models import *
+from .metadata import PROJECT_METADATA as PM
+from copy import deepcopy
 
 
 
@@ -80,3 +82,26 @@ def user_logout(request):
 
 def handler404(request, exception):
     return render(request, 'webpage/404-error.html', locals())
+
+
+#################################################################
+#                    project info view                          #
+#################################################################
+
+
+def project_info(request):
+
+    """
+    returns a dict providing metadata about the current project
+    """
+
+    info_dict = deepcopy(PM)
+
+    if request.user.is_authenticated:
+        pass
+    else:
+        del info_dict['matomo_id']
+        del info_dict['matomo_url']
+    info_dict['base_tech'] = 'django'
+    info_dict['framework'] = 'djangobaseproject'
+    return JsonResponse(info_dict)

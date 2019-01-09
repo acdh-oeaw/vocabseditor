@@ -7,7 +7,7 @@ PROJECT_METADATA = {
     'subtitle': 'A service to create, edit and export SKOS model based controlled vocabularies.',
     'description': 'Work collaboratively on controlled vocabularies for your project.',
     'github': 'https://github.com/acdh-oeaw',
-    'purpose_de': 'Ziel von Django Base Project ist es, einen Dienst für kollaborative Arbeit zur\
+    'purpose_de': 'Ziel von ACDH Vocabularies Editor ist es, einen Dienst für kollaborative Arbeit zur\
     Entwicklung von kontrolliertem Vokabular zur Verfügung zu stellen.',
     'purpose_en': 'The purpose of ACDH Vocabularies Editor is to provide a service for\
     collaborative work on controlled vocabularies development.',
@@ -18,5 +18,6 @@ PROJECT_METADATA = {
     'social_media': [
         ('fab fa-twitter fa-2x', 'https://twitter.com/ACDH_OeAW'),
         ('fab fa-youtube fa-2x', 'https://www.youtube.com/channel/UCgaEMaMbPkULYRI5u6gvG-w'),
-    ]
+    ],
+    'app_type': 'database',
 }
