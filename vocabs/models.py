@@ -15,7 +15,6 @@ from guardian.shortcuts import get_objects_for_user
 import reversion
 
 
-
 try:
     DEFAULT_NAMESPACE = settings.VOCABS_SETTINGS['default_nsgg']
 except KeyError:

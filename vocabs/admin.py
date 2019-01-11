@@ -6,19 +6,19 @@ from reversion.admin import VersionAdmin
 
 # With object permissions support
 class SkosLabelAdmin(GuardedModelAdmin, VersionAdmin):
-    pass
+	pass
 
 
 class SkosConceptAdmin(GuardedModelAdmin, VersionAdmin):
-    pass
+	pass
 
 
 class SkosCollectionAdmin(GuardedModelAdmin, VersionAdmin):
-    pass
+	pass
 
 
 class SkosConceptSchemeAdmin(GuardedModelAdmin, VersionAdmin):
-    pass
+	pass
 
 
 admin.site.register(SkosLabel, SkosLabelAdmin)
