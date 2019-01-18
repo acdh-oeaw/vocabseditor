@@ -38,6 +38,13 @@ LABEL_TYPES = (
 )
 
 
+
+######################################################################
+#
+# SkosConceptScheme
+#
+######################################################################
+
 @reversion.register()
 class SkosConceptScheme(models.Model):
     """
@@ -196,6 +203,45 @@ class SkosConceptScheme(models.Model):
         return self.dc_title
 
 
+######################################################################
+#   Classes  to store translations for ConceptScheme
+######################################################################
+
+class ConceptSchemeTitle(models.Model):
+    concept_scheme = models.ForeignKey(SkosConceptScheme,
+        related_name="has_titles",
+        verbose_name="skos:ConceptScheme",
+        help_text="Which Skos:ConceptScheme current Title belongs to",
+        on_delete=models.CASCADE
+    )
+    name = models.CharField(max_length=500, verbose_name="dc:title")
+    language = models.CharField(max_length=3)
+
+    def __str__(self):
+        return "{}".format(self.name)
+
+
+class ConceptSchemeDescription(models.Model):
+    concept_scheme = models.ForeignKey(SkosConceptScheme,
+        related_name="has_descriptions",
+        verbose_name="skos:ConceptScheme",
+        help_text="Which Skos:ConceptScheme current Description belongs to",
+        on_delete=models.CASCADE
+    )
+    name = models.TextField(verbose_name="dc:description")
+    language = models.CharField(max_length=3)
+
+    def __str__(self):
+        return self.name
+
+
+
+######################################################################
+#
+# SkosCollection
+#
+######################################################################
+
 @reversion.register()
 class SkosCollection(models.Model):
     """
@@ -318,6 +364,12 @@ class SkosCollection(models.Model):
         return self.creator.split(';')
 
 
+######################################################################
+#
+# SkosLabel
+#
+######################################################################
+
 @reversion.register()
 class SkosLabel(models.Model):
     """
@@ -392,6 +444,12 @@ class SkosLabel(models.Model):
         else:
             return "{} @{}".format(self.name, self.isoCode)
 
+
+######################################################################
+#
+# SkosConcept
+#
+######################################################################
 
 @reversion.register()
 class SkosConcept(models.Model):
