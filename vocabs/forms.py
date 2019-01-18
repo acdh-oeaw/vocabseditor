@@ -179,7 +179,27 @@ class SkosCollectionForm(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-md-3 create-label'
         self.helper.field_class = 'col-md-9'
-        self.helper.add_input(Submit('submit', 'save'),)
+        self.helper.layout = Layout(
+            Div(
+                Field('name'),
+                Field('label_lang'),
+                Fieldset('Add more labels in other languages',
+                    Formset('labels'))
+                ,
+                Field('scheme'),
+                Field('creator'),
+                Field('legacy_id'),
+                # should have it or rely on a separate Class
+                Field('skos_note'),
+                Field('skos_note_lang'),
+                Fieldset('Add more documentary notes',
+                    Formset('notes'))
+                ,
+                ButtonHolder(Submit('submit', 'save')),
+            )
+            )
+        self.helper.render_required_fields = True
+
 
 
 class SkosCollectionFormHelper(FormHelper):

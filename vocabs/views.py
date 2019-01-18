@@ -61,158 +61,6 @@ class BaseDeleteView(DeleteView):
 
 ######################################################################
 #
-# SkosCollection
-#
-######################################################################
-
-class SkosCollectionListView(GenericListView):
-    model = SkosCollection
-    table_class = SkosCollectionTable
-    filter_class = SkosCollectionListFilter
-    formhelper_class = SkosCollectionFormHelper
-    init_columns = [
-        'id',
-        'name',
-    ]
-
-    def get_all_cols(self):
-        all_cols = list(self.table_class.base_columns.keys())
-        return all_cols
-
-    def get_context_data(self, **kwargs):
-        context = super(SkosCollectionListView, self).get_context_data()
-        context[self.context_filter_name] = self.filter
-        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
-        context['togglable_colums'] = togglable_colums
-        return context
-
-    def get_table(self, **kwargs):
-        table = super(GenericListView, self).get_table()
-        RequestConfig(self.request, paginate={
-            'page': 1, 'per_page': self.paginate_by
-        }).configure(table)
-        default_cols = self.init_columns
-        all_cols = self.get_all_cols()
-        selected_cols = self.request.GET.getlist("columns") + default_cols
-        exclude_vals = [x for x in all_cols if x not in selected_cols]
-        table.exclude = exclude_vals
-        return table
-
-
-class SkosCollectionDetailView(BaseDetailView):
-
-    model = SkosCollection
-    template_name = 'vocabs/skoscollection_detail.html'
-
-
-class SkosCollectionCreate(BaseCreateView):
-
-    model = SkosCollection
-    form_class = SkosCollectionForm
-
-    def form_valid(self, form):
-        object = form.save(commit=False)
-        object.created_by = self.request.user
-        object.save()
-        return super(SkosCollectionCreate, self).form_valid(form)
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(SkosCollectionCreate, self).dispatch(*args, **kwargs)
-
-
-class SkosCollectionUpdate(BaseUpdateView):
-
-    model = SkosCollection
-    form_class = SkosCollectionForm
-    permission_required = (
-        'view_skoscollection',
-        'change_skoscollection',
-        'delete_skoscollection',
-        )
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(SkosCollectionUpdate, self).dispatch(*args, **kwargs)
-
-
-class SkosCollectionDelete(BaseDeleteView):
-    model = SkosCollection
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('vocabs:browse_skoscollections')
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(SkosCollectionDelete, self).dispatch(*args, **kwargs)
-
-
-######################################################################
-#
-# SkosConcept
-#
-######################################################################
-
-class SkosConceptListView(GenericListView):
-    model = SkosConcept
-    table_class = SkosConceptTable
-    filter_class = SkosConceptListFilter
-    formhelper_class = SkosConceptFormHelper
-    init_columns = [
-        'id',
-        'pref_label',
-        'broader_concept',
-    ]
-
-
-class SkosConceptDetailView(BaseDetailView):
-
-    model = SkosConcept
-    template_name = 'vocabs/skosconcept_detail.html'
-
-
-class SkosConceptCreate(BaseCreateView):
-
-    model = SkosConcept
-    form_class = SkosConceptForm
-
-    def form_valid(self, form):
-        object = form.save(commit=False)
-        object.created_by = self.request.user
-        object.save()
-        return super(SkosConceptCreate, self).form_valid(form)
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(SkosConceptCreate, self).dispatch(*args, **kwargs)
-
-
-class SkosConceptUpdate(BaseUpdateView):
-
-    model = SkosConcept
-    form_class = SkosConceptForm
-    permission_required = (
-        'view_skosconcept',
-        'change_skosconcept',
-        'delete_skosconcept',
-        )
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(SkosConceptUpdate, self).dispatch(*args, **kwargs)
-
-
-class SkosConceptDelete(BaseDeleteView):
-    model = SkosConcept
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('vocabs:browse_vocabs')
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(SkosConceptDelete, self).dispatch(*args, **kwargs)
-
-
-######################################################################
-#
 # SkosConceptScheme
 #
 ######################################################################
@@ -303,18 +151,6 @@ class SkosConceptSchemeCreate(BaseCreateView):
     def dispatch(self, *args, **kwargs):
         return super(SkosConceptSchemeCreate, self).dispatch(*args, **kwargs)
 
-    # save the creator of Concept Scheme automatically when CS is created
-    # the user can't change it, but this can be changed in admin
-    # def form_valid(self, form):
-    #     object = form.save(commit=False)
-    #     object.created_by = self.request.user
-    #     object.save()
-    #     return super(SkosConceptSchemeCreate, self).form_valid(form)
-
-    # @method_decorator(login_required)
-    # def dispatch(self, *args, **kwargs):
-    #     return super(SkosConceptSchemeCreate, self).dispatch(*args, **kwargs)
-
 
 class SkosConceptSchemeUpdate(BaseUpdateView):
 
@@ -330,8 +166,12 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
     def get_context_data(self, **kwargs):
         data = super(SkosConceptSchemeUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['titles'] = ConceptSchemeTitleFormSet(self.request.POST, instance=self.object)
-            data['descriptions'] = ConceptSchemeDescriptionFormSet(self.request.POST, instance=self.object)
+            data['titles'] = ConceptSchemeTitleFormSet(
+                self.request.POST, instance=self.object
+                )
+            data['descriptions'] = ConceptSchemeDescriptionFormSet(
+                self.request.POST, instance=self.object
+                )
         else:
             data['titles'] = ConceptSchemeTitleFormSet(instance=self.object)
             data['descriptions'] = ConceptSchemeDescriptionFormSet(instance=self.object)
@@ -359,10 +199,6 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(SkosConceptSchemeUpdate, self).dispatch(*args, **kwargs)
 
-    # @method_decorator(login_required)
-    # def dispatch(self, *args, **kwargs):
-    #     return super(SkosConceptSchemeUpdate, self).dispatch(*args, **kwargs)
-
 
 class SkosConceptSchemeDelete(BaseDeleteView):
     # add get_objects_for_user or permission checker
@@ -373,6 +209,227 @@ class SkosConceptSchemeDelete(BaseDeleteView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(SkosConceptSchemeDelete, self).dispatch(*args, **kwargs)
+
+
+######################################################################
+#
+# SkosCollection
+#
+######################################################################
+
+class SkosCollectionListView(GenericListView):
+    model = SkosCollection
+    table_class = SkosCollectionTable
+    filter_class = SkosCollectionListFilter
+    formhelper_class = SkosCollectionFormHelper
+    init_columns = [
+        'id',
+        'name',
+    ]
+
+    def get_all_cols(self):
+        all_cols = list(self.table_class.base_columns.keys())
+        return all_cols
+
+    def get_context_data(self, **kwargs):
+        context = super(SkosCollectionListView, self).get_context_data()
+        context[self.context_filter_name] = self.filter
+        togglable_colums = [x for x in self.get_all_cols() if x not in self.init_columns]
+        context['togglable_colums'] = togglable_colums
+        return context
+
+    def get_table(self, **kwargs):
+        table = super(GenericListView, self).get_table()
+        RequestConfig(self.request, paginate={
+            'page': 1, 'per_page': self.paginate_by
+        }).configure(table)
+        default_cols = self.init_columns
+        all_cols = self.get_all_cols()
+        selected_cols = self.request.GET.getlist("columns") + default_cols
+        exclude_vals = [x for x in all_cols if x not in selected_cols]
+        table.exclude = exclude_vals
+        return table
+
+
+class SkosCollectionDetailView(BaseDetailView):
+
+    model = SkosCollection
+    template_name = 'vocabs/skoscollection_detail.html'
+
+
+class SkosCollectionCreate(BaseCreateView):
+
+    model = SkosCollection
+    form_class = SkosCollectionForm
+    success_url = None
+
+    def get_context_data(self, **kwargs):
+        data = super(SkosCollectionCreate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['labels'] = CollectionLabelFormSet(self.request.POST)
+            data['notes'] = CollectionNoteFormSet(self.request.POST)
+        else:
+            data['labels'] = CollectionLabelFormSet()
+            data['notes'] = CollectionNoteFormSet()
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        labels = context['labels']
+        notes = context['notes']
+        with transaction.atomic():
+            form.instance.created_by = self.request.user
+            self.object = form.save()
+            if labels.is_valid():
+                labels.instance = self.object
+                labels.save()
+            if notes.is_valid():
+                notes.instance = self.object
+                notes.save()
+            # else:
+            #     raise forms.ValidationError('check')
+
+        return super(SkosCollectionCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('vocabs:skoscollection_detail', kwargs={'pk': self.object.pk})
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SkosCollectionCreate, self).dispatch(*args, **kwargs)
+
+    # def form_valid(self, form):
+    #     object = form.save(commit=False)
+    #     object.created_by = self.request.user
+    #     object.save()
+    #     return super(SkosCollectionCreate, self).form_valid(form)
+
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super(SkosCollectionCreate, self).dispatch(*args, **kwargs)
+
+
+class SkosCollectionUpdate(BaseUpdateView):
+
+    model = SkosCollection
+    form_class = SkosCollectionForm
+    permission_required = (
+        'view_skoscollection',
+        'change_skoscollection',
+        'delete_skoscollection',
+        )
+    success_url = None
+
+    def get_context_data(self, **kwargs):
+        data = super(SkosCollectionUpdate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['labels'] = CollectionLabelFormSet(self.request.POST, instance=self.object)
+            data['notes'] = CollectionNoteFormSet(self.request.POST, instance=self.object)
+        else:
+            data['labels'] = CollectionLabelFormSet(instance=self.object)
+            data['notes'] = CollectionNoteFormSet(instance=self.object)
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        labels = context['labels']
+        notes = context['notes']
+        with transaction.atomic():
+            form.instance.created_by = self.request.user
+            self.object = form.save()
+            if labels.is_valid():
+                labels.instance = self.object
+                labels.save()
+            if notes.is_valid():
+                notes.instance = self.object
+                notes.save()
+        return super(SkosCollectionUpdate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('vocabs:skoscollection_detail', kwargs={'pk': self.object.pk})
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SkosCollectionUpdate, self).dispatch(*args, **kwargs)
+
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super(SkosCollectionUpdate, self).dispatch(*args, **kwargs)
+
+
+class SkosCollectionDelete(BaseDeleteView):
+    model = SkosCollection
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('vocabs:browse_skoscollections')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SkosCollectionDelete, self).dispatch(*args, **kwargs)
+
+
+######################################################################
+#
+# SkosConcept
+#
+######################################################################
+
+class SkosConceptListView(GenericListView):
+    model = SkosConcept
+    table_class = SkosConceptTable
+    filter_class = SkosConceptListFilter
+    formhelper_class = SkosConceptFormHelper
+    init_columns = [
+        'id',
+        'pref_label',
+        'broader_concept',
+    ]
+
+
+class SkosConceptDetailView(BaseDetailView):
+
+    model = SkosConcept
+    template_name = 'vocabs/skosconcept_detail.html'
+
+
+class SkosConceptCreate(BaseCreateView):
+
+    model = SkosConcept
+    form_class = SkosConceptForm
+
+    def form_valid(self, form):
+        object = form.save(commit=False)
+        object.created_by = self.request.user
+        object.save()
+        return super(SkosConceptCreate, self).form_valid(form)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SkosConceptCreate, self).dispatch(*args, **kwargs)
+
+
+class SkosConceptUpdate(BaseUpdateView):
+
+    model = SkosConcept
+    form_class = SkosConceptForm
+    permission_required = (
+        'view_skosconcept',
+        'change_skosconcept',
+        'delete_skosconcept',
+        )
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SkosConceptUpdate, self).dispatch(*args, **kwargs)
+
+
+class SkosConceptDelete(BaseDeleteView):
+    model = SkosConcept
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('vocabs:browse_vocabs')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(SkosConceptDelete, self).dispatch(*args, **kwargs)
 
 
 ######################################################################

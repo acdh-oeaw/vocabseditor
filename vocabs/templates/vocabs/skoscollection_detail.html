@@ -51,6 +51,18 @@
             </td>
         </tr>
         {% endif %}
+
+        <!--for inline added abels-->
+        {% if object.has_labels %}
+        {% for label in object.has_labels.all %}
+        <tr>
+            <th>skos:{{label.label_type}} @{{label.language}}</th>
+            <td>{{label.name}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->
+
         {% if object.scheme %}
          <tr>
             <th>skos:ConceptScheme</th>
@@ -74,6 +86,17 @@
             <td>{{object.skos_note}}</td>
         </tr>
         {% endif %}
+
+        <!--for inline added notes-->
+        {% if object.has_notes %}
+        {% for note in object.has_notes.all %}
+        <tr>
+            <th>skos:{{note.note_type}} @{{note.language}}</th>
+            <td>{{note.name}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->
 
         {% if object.skos_scopenote %}
          <tr>
