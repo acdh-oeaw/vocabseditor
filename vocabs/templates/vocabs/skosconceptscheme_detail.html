@@ -49,6 +49,18 @@
             <td>{{object.dc_title}}</td>
         </tr>
         {% endif %}
+
+        <!--for inline added titles-->
+        {% if object.has_titles %}
+        {% for title in object.has_titles.all %}
+        <tr>
+            <th>dc:title@{{title.language}}</th>
+            <td>{{title.name}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->
+
         {% if object.indentifier %}
         <tr>
             <th class="w-25">indentifier</th>
@@ -81,6 +93,17 @@
             <td>{{object.dc_description}}</td>
         </tr>
         {% endif %}
+
+        <!--for inline added descriptions-->
+        {% if object.has_descriptions %}
+        {% for desc in object.has_descriptions.all %}
+        <tr>
+            <th>dc:description@{{desc.language}}</th>
+            <td>{{desc.name}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->
 
         {% if object.dc_language %}
         <tr>

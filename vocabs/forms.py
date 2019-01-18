@@ -1,10 +1,11 @@
 from dal import autocomplete
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
+from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML, ButtonHolder
 from crispy_forms.bootstrap import *
 from .models import *
 from django.forms.models import inlineformset_factory
+from .custom_layout_object import *
 
 
 class GenericFilterFormHelper(FormHelper):
@@ -85,7 +86,27 @@ class SkosConceptSchemeForm(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-md-3 create-label'
         self.helper.field_class = 'col-md-9'
-        self.helper.add_input(Submit('submit', 'save'),)
+        #self.helper.add_input(Submit('submit', 'save'),)
+        self.helper.layout = Layout(
+            Div(
+                Field('dc_title'),
+                Field('dc_title_lang'),
+                Fieldset('Add titles in other languages',
+                    Formset('titles'))
+                ,
+                Field('dc_description'),
+                Field('dc_description_lang'),
+                Fieldset('Add descriptions in other languages',
+                    Formset('descriptions'))
+                ,
+                Field('indentifier'),
+                Field('dc_creator'),
+                Field('dc_contributor'),
+                Field('curator'),
+                ButtonHolder(Submit('submit', 'save')),
+            )
+            )
+        self.helper.render_required_fields = True
 
 
 class SkosConceptSchemeFormHelper(FormHelper):
