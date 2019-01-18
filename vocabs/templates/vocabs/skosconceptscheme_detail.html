@@ -54,7 +54,7 @@
         {% if object.has_titles %}
         {% for title in object.has_titles.all %}
         <tr>
-            <th>dc:title@{{title.language}}</th>
+            <th>dc:title @{{title.language}}</th>
             <td>{{title.name}}</td>
         </tr>
         {% endfor %}
@@ -98,7 +98,7 @@
         {% if object.has_descriptions %}
         {% for desc in object.has_descriptions.all %}
         <tr>
-            <th>dc:description@{{desc.language}}</th>
+            <th>dc:description @{{desc.language}}</th>
             <td>{{desc.name}}</td>
         </tr>
         {% endfor %}
