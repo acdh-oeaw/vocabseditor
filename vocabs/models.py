@@ -37,6 +37,16 @@ LABEL_TYPES = (
     ('hiddenLabel', 'hiddenLabel'),
 )
 
+NOTE_TYPES = (
+    ('note', 'note'),
+    ('scopeNote', 'scopeNote'),
+    ('changeNote', 'changeNote'),
+    ('editorialNote', 'editorialNote'),
+    ('historyNote', 'historyNote'),
+    ('definition', 'definition'),
+    ('example', 'example'),
+)
+
 
 
 ######################################################################
@@ -208,6 +218,10 @@ class SkosConceptScheme(models.Model):
 ######################################################################
 
 class ConceptSchemeTitle(models.Model):
+    """
+    A Class for ConceptScheme titles in other languages.
+    
+    """
     concept_scheme = models.ForeignKey(SkosConceptScheme,
         related_name="has_titles",
         verbose_name="skos:ConceptScheme",
@@ -222,6 +236,10 @@ class ConceptSchemeTitle(models.Model):
 
 
 class ConceptSchemeDescription(models.Model):
+    """
+    A Class for ConceptScheme descriptions in other languages.
+    
+    """
     concept_scheme = models.ForeignKey(SkosConceptScheme,
         related_name="has_descriptions",
         verbose_name="skos:ConceptScheme",
@@ -278,6 +296,7 @@ class SkosCollection(models.Model):
     legacy_id = models.CharField(
         max_length=200, blank=True
     )
+    # !!!!!! CAN BE DELETED !!!!!!!!!!
     # documentation properties
     skos_note = models.CharField(
         max_length=500, blank=True,
@@ -314,6 +333,7 @@ class SkosCollection(models.Model):
         verbose_name="skos:historyNote",
         help_text="Describe significant changes to a collection over a time"
     )
+    # meta
     date_created = models.DateTimeField(
         editable=False, default=timezone.now
     )
@@ -362,6 +382,51 @@ class SkosCollection(models.Model):
 
     def creator_as_list(self):
         return self.creator.split(';')
+
+
+#####################################################
+#   Classes  to store translations for Collection
+#####################################################
+
+
+class CollectionLabel(models.Model):
+    """
+    A Class for Collection labels/names in other languages.
+    
+    """
+    collection = models.ForeignKey(SkosCollection,
+        related_name="has_labels",
+        verbose_name="skos:Collection",
+        help_text="Which Skos:Collection current label belongs to",
+        on_delete=models.CASCADE
+    )
+    name = models.CharField(max_length=500, verbose_name="Label (Name)")
+    language = models.CharField(max_length=3)
+    label_type = models.CharField(choices=LABEL_TYPES, default='altLabel', max_length=12)
+
+    def __str__(self):
+        return "{}".format(self.name)
+
+
+class CollectionNote(models.Model):
+    """
+    A Class for SKOS documentary notes that are used
+    for general documentation pusposes.
+
+    """
+    collection = models.ForeignKey(SkosCollection,
+        related_name="has_notes",
+        verbose_name="skos:Collection",
+        help_text="Which Skos:Collection current documentary note belongs to",
+        on_delete=models.CASCADE
+    )
+    name = models.TextField(verbose_name="Note")
+    language = models.CharField(max_length=3)
+    note_type = models.CharField(choices=NOTE_TYPES, default='note',
+        max_length=15, verbose_name="Documentary note")
+
+    def __str__(self):
+        return "{}".format(self.name)
 
 
 ######################################################################
