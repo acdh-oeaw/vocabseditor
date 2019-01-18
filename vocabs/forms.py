@@ -3,7 +3,8 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
 from crispy_forms.bootstrap import *
-from .models import SkosConcept, SkosConceptScheme, SkosLabel, SkosCollection
+from .models import *
+from django.forms.models import inlineformset_factory
 
 
 class GenericFilterFormHelper(FormHelper):
@@ -26,6 +27,83 @@ class UploadFileForm(forms.Form):
         self.helper.label_class = 'col-md-3'
         self.helper.field_class = 'col-md-9'
         self.helper.add_input(Submit('submit', 'import'),)
+
+
+######################################################################
+#   Classes  to store titles and descriptions for ConceptScheme
+######################################################################
+
+class ConceptSchemeTitleForm(forms.ModelForm):
+    # name = forms.CharField(required=True,
+    #     widget=forms.TextInput(attrs={ 'required': 'true' }))
+    class Meta:
+        model = ConceptSchemeTitle
+        exclude = ()
+
+
+ConceptSchemeTitleFormSet = inlineformset_factory(
+    SkosConceptScheme, ConceptSchemeTitle,
+    form=ConceptSchemeTitleForm,
+    fields=['name', 'language'], extra=1, can_delete=True
+    )
+
+
+class ConceptSchemeDescriptionForm(forms.ModelForm):
+    class Meta:
+        model = ConceptSchemeDescription
+        exclude = ()
+
+
+ConceptSchemeDescriptionFormSet = inlineformset_factory(
+    SkosConceptScheme, ConceptSchemeDescription,
+    form=ConceptSchemeDescriptionForm,
+    fields=['name', 'language'], extra=1, can_delete=True
+    )
+
+
+######################################################################
+#
+# SkosConceptScheme
+#
+######################################################################
+
+
+class SkosConceptSchemeForm(forms.ModelForm):
+
+    class Meta:
+        model = SkosConceptScheme
+        exclude = ['created_by', ]
+        widgets = {
+            'curator': autocomplete.ModelSelect2Multiple(
+                url='vocabs-ac:user-autocomplete'),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(SkosConceptSchemeForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-3 create-label'
+        self.helper.field_class = 'col-md-9'
+        self.helper.add_input(Submit('submit', 'save'),)
+
+
+class SkosConceptSchemeFormHelper(FormHelper):
+    def __init__(self, *args, **kwargs):
+        super(SkosConceptSchemeFormHelper, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.form_class = 'genericFilterForm'
+        self.form_method = 'GET'
+        self.helper.form_tag = False
+        self.add_input(Submit('Filter', 'Search'))
+        self.layout = Layout(
+            Fieldset(
+                '',
+                'dc_title',
+                'dc_creator',
+                css_id="basic_search_fields"
+                ),
+            )
 
 
 
@@ -231,51 +309,6 @@ class SkosCollectionFormHelper(FormHelper):
                 'creator',
                 'scheme',
                 'has_members__pref_label',
-                css_id="basic_search_fields"
-                ),
-            )
-
-
-######################################################################
-#
-# SkosConceptScheme
-#
-######################################################################
-
-
-class SkosConceptSchemeForm(forms.ModelForm):
-
-    class Meta:
-        model = SkosConceptScheme
-        exclude = ['created_by', ]
-        widgets = {
-            'curator': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:user-autocomplete'),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(SkosConceptSchemeForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_tag = True
-        self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-md-3 create-label'
-        self.helper.field_class = 'col-md-9'
-        self.helper.add_input(Submit('submit', 'save'),)
-
-
-class SkosConceptSchemeFormHelper(FormHelper):
-    def __init__(self, *args, **kwargs):
-        super(SkosConceptSchemeFormHelper, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.form_class = 'genericFilterForm'
-        self.form_method = 'GET'
-        self.helper.form_tag = False
-        self.add_input(Submit('Filter', 'Search'))
-        self.layout = Layout(
-            Fieldset(
-                '',
-                'dc_title',
-                'dc_creator',
                 css_id="basic_search_fields"
                 ),
             )

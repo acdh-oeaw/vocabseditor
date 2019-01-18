@@ -204,7 +204,7 @@ class SkosConceptScheme(models.Model):
 
 
 ######################################################################
-#   Classes  to store translations for ConceptScheme
+#   Classes  to store titles and descriptions for ConceptScheme
 ######################################################################
 
 class ConceptSchemeTitle(models.Model):
