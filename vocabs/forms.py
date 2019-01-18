@@ -35,8 +35,7 @@ class UploadFileForm(forms.Form):
 ######################################################################
 
 class ConceptSchemeTitleForm(forms.ModelForm):
-    # name = forms.CharField(required=True,
-    #     widget=forms.TextInput(attrs={ 'required': 'true' }))
+
     class Meta:
         model = ConceptSchemeTitle
         exclude = ()
@@ -50,6 +49,7 @@ ConceptSchemeTitleFormSet = inlineformset_factory(
 
 
 class ConceptSchemeDescriptionForm(forms.ModelForm):
+
     class Meta:
         model = ConceptSchemeDescription
         exclude = ()
@@ -86,7 +86,6 @@ class SkosConceptSchemeForm(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-md-3 create-label'
         self.helper.field_class = 'col-md-9'
-        #self.helper.add_input(Submit('submit', 'save'),)
         self.helper.layout = Layout(
             Div(
                 Field('dc_title'),
@@ -127,6 +126,81 @@ class SkosConceptSchemeFormHelper(FormHelper):
             )
 
 
+######################################################################
+#   Classes  to store labels and notes for Collection
+######################################################################
+
+class CollectionLabelForm(forms.ModelForm):
+
+    class Meta:
+        model = CollectionLabel
+        exclude = ()
+
+
+CollectionLabelFormSet = inlineformset_factory(
+    SkosCollection, CollectionLabel, form=CollectionLabelForm,
+    fields=['name', 'label_type', 'language'],
+    extra=1, can_delete=True
+    )
+
+
+class CollectionNoteForm(forms.ModelForm):
+
+    class Meta:
+        model = CollectionNote
+        exclude = ()
+
+
+CollectionNoteFormSet = inlineformset_factory(
+    SkosCollection, CollectionNote, form=CollectionNoteForm,
+    fields=['name', 'note_type', 'language'],
+    extra=1, can_delete=True
+    )
+
+######################################################################
+#
+# SkosCollection
+#
+######################################################################
+
+class SkosCollectionForm(forms.ModelForm):
+    class Meta:
+        model = SkosCollection
+        exclude = ['created_by', ]
+        widgets ={
+            'scheme': autocomplete.ModelSelect2(
+                url='vocabs-ac:skosconceptscheme-autocomplete'),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(SkosCollectionForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-3 create-label'
+        self.helper.field_class = 'col-md-9'
+        self.helper.add_input(Submit('submit', 'save'),)
+
+
+class SkosCollectionFormHelper(FormHelper):
+
+    def __init__(self, *args, **kwargs):
+        super(SkosCollectionFormHelper, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.form_class = 'genericFilterForm'
+        self.form_method = 'GET'
+        self.helper.form_tag = False
+        self.add_input(Submit('Filter', 'Search'))
+        self.layout = Layout(
+            Fieldset(
+                '',
+                'name',
+                'creator',
+                'scheme',
+                'has_members__pref_label',
+                css_id="basic_search_fields"
+                ),
+            )
 
 
 ######################################################################
@@ -286,50 +360,4 @@ class SkosConceptFormHelper(FormHelper):
                     css_id="more"
                     ),
                 )
-            )
-
-
-######################################################################
-#
-# SkosCollection
-#
-######################################################################
-
-class SkosCollectionForm(forms.ModelForm):
-    class Meta:
-        model = SkosCollection
-        exclude = ['created_by', ]
-        widgets ={
-            'scheme': autocomplete.ModelSelect2(
-                url='vocabs-ac:skosconceptscheme-autocomplete'),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super(SkosCollectionForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_tag = True
-        self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-md-3 create-label'
-        self.helper.field_class = 'col-md-9'
-        self.helper.add_input(Submit('submit', 'save'),)
-
-
-class SkosCollectionFormHelper(FormHelper):
-
-    def __init__(self, *args, **kwargs):
-        super(SkosCollectionFormHelper, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.form_class = 'genericFilterForm'
-        self.form_method = 'GET'
-        self.helper.form_tag = False
-        self.add_input(Submit('Filter', 'Search'))
-        self.layout = Layout(
-            Fieldset(
-                '',
-                'name',
-                'creator',
-                'scheme',
-                'has_members__pref_label',
-                css_id="basic_search_fields"
-                ),
             )

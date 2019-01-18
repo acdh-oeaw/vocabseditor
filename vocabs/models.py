@@ -394,9 +394,9 @@ class SkosCollection(models.Model):
         return self.creator.split(';')
 
 
-#####################################################
-#   Classes  to store translations for Collection
-#####################################################
+######################################################################
+#   Classes  to store labels and notes for Collection
+######################################################################
 
 
 class CollectionLabel(models.Model):
