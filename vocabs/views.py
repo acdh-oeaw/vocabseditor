@@ -25,6 +25,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from guardian.decorators import permission_required_or_403
 from django.contrib.auth.mixins import UserPassesTestMixin
 from reversion.models import Version
+from django.db import transaction
 
 
 class BaseDetailView(DetailView):
@@ -58,11 +59,11 @@ class BaseDeleteView(DeleteView):
         return qs
 
 
-
-#####################################################
-#   SkosCollection
-#####################################################
-
+######################################################################
+#
+# SkosCollection
+#
+######################################################################
 
 class SkosCollectionListView(GenericListView):
     model = SkosCollection
@@ -145,10 +146,11 @@ class SkosCollectionDelete(BaseDeleteView):
         return super(SkosCollectionDelete, self).dispatch(*args, **kwargs)
 
 
-#####################################################
-#   Concept
-#####################################################
-
+######################################################################
+#
+# SkosConcept
+#
+######################################################################
 
 class SkosConceptListView(GenericListView):
     model = SkosConcept
@@ -209,9 +211,11 @@ class SkosConceptDelete(BaseDeleteView):
         return super(SkosConceptDelete, self).dispatch(*args, **kwargs)
 
 
-#####################################################
-#   ConceptScheme
-#####################################################
+######################################################################
+#
+# SkosConceptScheme
+#
+######################################################################
 
 class SkosConceptSchemeListView(GenericListView):
     model = SkosConceptScheme
@@ -262,18 +266,54 @@ class SkosConceptSchemeCreate(BaseCreateView):
 
     model = SkosConceptScheme
     form_class = SkosConceptSchemeForm
+    success_url = None
 
-    # save the creator of Concept Scheme automatically when CS is created
-    # the user can't change it, but this can be changed in admin
+    def get_context_data(self, **kwargs):
+        data = super(SkosConceptSchemeCreate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['titles'] = ConceptSchemeTitleFormSet(self.request.POST)
+            data['descriptions'] = ConceptSchemeDescriptionFormSet(self.request.POST)
+        else:
+            data['titles'] = ConceptSchemeTitleFormSet()
+            data['descriptions'] = ConceptSchemeDescriptionFormSet()
+        return data
+
     def form_valid(self, form):
-        object = form.save(commit=False)
-        object.created_by = self.request.user
-        object.save()
+        context = self.get_context_data()
+        titles = context['titles']
+        descriptions = context['descriptions']
+        with transaction.atomic():
+            form.instance.created_by = self.request.user
+            self.object = form.save()
+            if titles.is_valid():
+                titles.instance = self.object
+                titles.save()
+            if descriptions.is_valid():
+                descriptions.instance = self.object
+                descriptions.save()
+            # else:
+            #     raise forms.ValidationError('check')
+
         return super(SkosConceptSchemeCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('vocabs:skosconceptscheme_detail', kwargs={'pk': self.object.pk})
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(SkosConceptSchemeCreate, self).dispatch(*args, **kwargs)
+
+    # save the creator of Concept Scheme automatically when CS is created
+    # the user can't change it, but this can be changed in admin
+    # def form_valid(self, form):
+    #     object = form.save(commit=False)
+    #     object.created_by = self.request.user
+    #     object.save()
+    #     return super(SkosConceptSchemeCreate, self).form_valid(form)
+
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super(SkosConceptSchemeCreate, self).dispatch(*args, **kwargs)
 
 
 class SkosConceptSchemeUpdate(BaseUpdateView):
@@ -285,10 +325,43 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
         'change_skosconceptscheme',
         'delete_skosconceptscheme',
         )
+    success_url = None
+
+    def get_context_data(self, **kwargs):
+        data = super(SkosConceptSchemeUpdate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['titles'] = ConceptSchemeTitleFormSet(self.request.POST, instance=self.object)
+            data['descriptions'] = ConceptSchemeDescriptionFormSet(self.request.POST, instance=self.object)
+        else:
+            data['titles'] = ConceptSchemeTitleFormSet(instance=self.object)
+            data['descriptions'] = ConceptSchemeDescriptionFormSet(instance=self.object)
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        titles = context['titles']
+        descriptions = context['descriptions']
+        with transaction.atomic():
+            form.instance.created_by = self.request.user
+            self.object = form.save()
+            if titles.is_valid():
+                titles.instance = self.object
+                titles.save()
+            if descriptions.is_valid():
+                descriptions.instance = self.object
+                descriptions.save()
+        return super(SkosConceptSchemeUpdate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('vocabs:skosconceptscheme_detail', kwargs={'pk': self.object.pk})
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(SkosConceptSchemeUpdate, self).dispatch(*args, **kwargs)
+
+    # @method_decorator(login_required)
+    # def dispatch(self, *args, **kwargs):
+    #     return super(SkosConceptSchemeUpdate, self).dispatch(*args, **kwargs)
 
 
 class SkosConceptSchemeDelete(BaseDeleteView):
@@ -302,9 +375,11 @@ class SkosConceptSchemeDelete(BaseDeleteView):
         return super(SkosConceptSchemeDelete, self).dispatch(*args, **kwargs)
 
 
-###################################################
+######################################################################
+#
 # SkosLabel
-###################################################
+#
+######################################################################
 
 
 class SkosLabelListView(GenericListView):
