@@ -222,14 +222,19 @@ class ConceptSchemeTitle(models.Model):
     A Class for ConceptScheme titles in other languages.
     
     """
-    concept_scheme = models.ForeignKey(SkosConceptScheme,
+    concept_scheme = models.ForeignKey(
+        SkosConceptScheme,
         related_name="has_titles",
         verbose_name="skos:ConceptScheme",
         help_text="Which Skos:ConceptScheme current Title belongs to",
         on_delete=models.CASCADE
     )
-    name = models.CharField(max_length=500, verbose_name="dc:title")
-    language = models.CharField(max_length=3)
+    name = models.CharField(
+        max_length=500, verbose_name="dc:title"
+    )
+    language = models.CharField(
+        max_length=3
+    )
 
     def __str__(self):
         return "{}".format(self.name)
@@ -240,14 +245,19 @@ class ConceptSchemeDescription(models.Model):
     A Class for ConceptScheme descriptions in other languages.
     
     """
-    concept_scheme = models.ForeignKey(SkosConceptScheme,
+    concept_scheme = models.ForeignKey(
+        SkosConceptScheme,
         related_name="has_descriptions",
         verbose_name="skos:ConceptScheme",
         help_text="Which Skos:ConceptScheme current Description belongs to",
         on_delete=models.CASCADE
     )
-    name = models.TextField(verbose_name="dc:description")
-    language = models.CharField(max_length=3)
+    name = models.TextField(
+        verbose_name="dc:description"
+    )
+    language = models.CharField(
+        max_length=3
+    )
 
     def __str__(self):
         return self.name
@@ -394,15 +404,23 @@ class CollectionLabel(models.Model):
     A Class for Collection labels/names in other languages.
     
     """
-    collection = models.ForeignKey(SkosCollection,
+    collection = models.ForeignKey(
+        SkosCollection,
         related_name="has_labels",
         verbose_name="skos:Collection",
         help_text="Which Skos:Collection current label belongs to",
         on_delete=models.CASCADE
     )
-    name = models.CharField(max_length=500, verbose_name="Label (Name)")
-    language = models.CharField(max_length=3)
-    label_type = models.CharField(choices=LABEL_TYPES, default='altLabel', max_length=12)
+    name = models.CharField(
+        max_length=500, verbose_name="Label (Name)"
+    )
+    language = models.CharField(
+        max_length=3
+    )
+    label_type = models.CharField(
+        choices=LABEL_TYPES, default='altLabel',
+        max_length=12
+    )
 
     def __str__(self):
         return "{}".format(self.name)
@@ -414,16 +432,23 @@ class CollectionNote(models.Model):
     for general documentation pusposes.
 
     """
-    collection = models.ForeignKey(SkosCollection,
+    collection = models.ForeignKey(
+        SkosCollection,
         related_name="has_notes",
         verbose_name="skos:Collection",
         help_text="Which Skos:Collection current documentary note belongs to",
         on_delete=models.CASCADE
     )
-    name = models.TextField(verbose_name="Note")
-    language = models.CharField(max_length=3)
-    note_type = models.CharField(choices=NOTE_TYPES, default='note',
-        max_length=15, verbose_name="Documentary note")
+    name = models.TextField(
+        verbose_name="Documentary note"
+    )
+    language = models.CharField(
+        max_length=3
+    )
+    note_type = models.CharField(
+        choices=NOTE_TYPES, default='note',
+        max_length=15
+    )
 
     def __str__(self):
         return "{}".format(self.name)
