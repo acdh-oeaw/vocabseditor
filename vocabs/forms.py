@@ -259,6 +259,53 @@ class SkosLabelFormHelper(FormHelper):
         self.helper.form_tag = False
         self.add_input(Submit('Filter', 'Search'))
 
+
+######################################################################
+#   Classes  to store labels, notes and sources for Concept
+######################################################################
+
+class ConceptLabelForm(forms.ModelForm):
+
+    class Meta:
+        model = ConceptLabel
+        exclude = ()
+
+
+ConceptLabelFormSet = inlineformset_factory(
+    SkosConcept, ConceptLabel, form=ConceptLabelForm,
+    fields=['name', 'label_type', 'language'],
+    extra=1, can_delete=True
+    )
+
+
+class ConceptNoteForm(forms.ModelForm):
+
+    class Meta:
+        model = ConceptNote
+        exclude = ()
+
+
+ConceptNoteFormSet = inlineformset_factory(
+    SkosConcept, ConceptNote, form=ConceptNoteForm,
+    fields=['name', 'note_type', 'language'],
+    extra=1, can_delete=True
+    )
+
+
+class ConceptSourceForm(forms.ModelForm):
+
+    class Meta:
+        model = ConceptSource
+        exclude = ()
+
+
+ConceptSourceFormSet = inlineformset_factory(
+    SkosConcept, ConceptSource, form=ConceptSourceForm,
+    fields=['name', 'language'],
+    extra=1, can_delete=True
+    )
+
+
 ######################################################################
 #
 # SkosConcept

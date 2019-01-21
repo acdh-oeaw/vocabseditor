@@ -182,8 +182,6 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
         titles = context['titles']
         descriptions = context['descriptions']
         with transaction.atomic():
-            form.instance.created_by = self.request.user
-            self.object = form.save()
             if titles.is_valid():
                 titles.instance = self.object
                 titles.save()
@@ -298,16 +296,6 @@ class SkosCollectionCreate(BaseCreateView):
     def dispatch(self, *args, **kwargs):
         return super(SkosCollectionCreate, self).dispatch(*args, **kwargs)
 
-    # def form_valid(self, form):
-    #     object = form.save(commit=False)
-    #     object.created_by = self.request.user
-    #     object.save()
-    #     return super(SkosCollectionCreate, self).form_valid(form)
-
-    # @method_decorator(login_required)
-    # def dispatch(self, *args, **kwargs):
-    #     return super(SkosCollectionCreate, self).dispatch(*args, **kwargs)
-
 
 class SkosCollectionUpdate(BaseUpdateView):
 
@@ -335,8 +323,6 @@ class SkosCollectionUpdate(BaseUpdateView):
         labels = context['labels']
         notes = context['notes']
         with transaction.atomic():
-            form.instance.created_by = self.request.user
-            self.object = form.save()
             if labels.is_valid():
                 labels.instance = self.object
                 labels.save()
@@ -389,6 +375,7 @@ class SkosConceptDetailView(BaseDetailView):
 
     model = SkosConcept
     template_name = 'vocabs/skosconcept_detail.html'
+    success_url = None
 
 
 class SkosConceptCreate(BaseCreateView):
@@ -396,11 +383,42 @@ class SkosConceptCreate(BaseCreateView):
     model = SkosConcept
     form_class = SkosConceptForm
 
+    def get_context_data(self, **kwargs):
+        data = super(SkosConceptCreate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['labels'] = ConceptLabelFormSet(self.request.POST)
+            data['notes'] = ConceptNoteFormSet(self.request.POST)
+            data['sources'] = ConceptSourceFormSet(self.request.POST)
+        else:
+            data['labels'] = ConceptLabelFormSet()
+            data['notes'] = ConceptNoteFormSet()
+            data['sources'] = ConceptSourceFormSet()
+        return data
+
     def form_valid(self, form):
-        object = form.save(commit=False)
-        object.created_by = self.request.user
-        object.save()
+        context = self.get_context_data()
+        labels = context['labels']
+        notes = context['notes']
+        sources = context['sources']
+        with transaction.atomic():
+            form.instance.created_by = self.request.user
+            self.object = form.save()
+            if labels.is_valid():
+                labels.instance = self.object
+                labels.save()
+            if notes.is_valid():
+                notes.instance = self.object
+                notes.save()
+            if sources.is_valid():
+                sources.instance = self.object
+                sources.save()
+            # else:
+            #     raise forms.ValidationError('check')
+
         return super(SkosConceptCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('vocabs:skosconcept_detail', kwargs={'pk': self.object.pk})
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -416,6 +434,39 @@ class SkosConceptUpdate(BaseUpdateView):
         'change_skosconcept',
         'delete_skosconcept',
         )
+    success_url = None
+
+    def get_context_data(self, **kwargs):
+        data = super(SkosConceptUpdate, self).get_context_data(**kwargs)
+        if self.request.POST:
+            data['labels'] = ConceptLabelFormSet(self.request.POST, instance=self.object)
+            data['notes'] = ConceptNoteFormSet(self.request.POST, instance=self.object)
+            data['sources'] = ConceptSourceFormSet(self.request.POST, instance=self.object)
+        else:
+            data['labels'] = ConceptLabelFormSet(instance=self.object)
+            data['notes'] = ConceptNoteFormSet(instance=self.object)
+            data['sources'] = ConceptSourceFormSet(instance=self.object)
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        names = context['names']
+        notes = context['notes']
+        sources = context['sources']
+        with transaction.atomic():
+            if names.is_valid():
+                names.instance = self.object
+                names.save()
+            if notes.is_valid():
+                notes.instance = self.object
+                notes.save()
+            if sources.is_valid():
+                sources.instance = self.object
+                sources.save()
+        return super(SkosConceptUpdate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('vocabs:skosconcept_detail', kwargs={'pk': self.object.pk})
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
