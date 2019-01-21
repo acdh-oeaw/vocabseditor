@@ -707,6 +707,7 @@ class SkosConcept(models.Model):
         verbose_name="skos:historyNote",
         help_text="Describe significant changes to the meaning of a concept over a time"
     )
+    # meta
     dc_creator = models.TextField(
         blank=True, verbose_name="dc:creator",
         help_text="A Person or Organisation that created a current concept<br>"
@@ -804,6 +805,91 @@ class SkosConcept(models.Model):
 
     def __str__(self):
         return self.pref_label
+
+
+######################################################################
+#   Classes  to store labels and notes for Concept
+######################################################################
+
+
+class ConceptLabel(models.Model):
+    """
+    A Class for Concept labels of any type.
+    
+    """
+    concept = models.ForeignKey(
+        SkosConcept,
+        related_name="has_labels",
+        verbose_name="skos:Concept",
+        help_text="Which Skos:Concept current label belongs to",
+        on_delete=models.CASCADE
+    )
+    name = models.CharField(
+        max_length=500, verbose_name="Label"
+    )
+    language = models.CharField(
+        max_length=3
+    )
+    label_type = models.CharField(
+        choices=LABEL_TYPES, default='altLabel',
+        max_length=12
+    )
+
+    def __str__(self):
+        return "{}".format(self.name)
+    
+
+class ConceptNote(models.Model):
+    """
+    A Class for SKOS documentary notes that are used
+    for general documentation pusposes.
+
+    """
+    concept = models.ForeignKey(
+        SkosConcept,
+        related_name="has_notes",
+        verbose_name="skos:Concept",
+        help_text="Which Skos:Concept current documentary note belongs to",
+        on_delete=models.CASCADE
+    )
+    name = models.TextField(
+        verbose_name="Documentary note"
+    )
+    language = models.CharField(
+        max_length=3
+    )
+    note_type = models.CharField(
+        choices=NOTE_TYPES, default='note',
+        max_length=15
+    )
+
+    def __str__(self):
+        return "{}".format(self.name)
+
+
+class ConceptSource(models.Model):
+    """
+    A Class for Concept source information.
+    
+    """
+    concept = models.ForeignKey(
+        SkosConcept,
+        related_name="has_sources",
+        verbose_name="skos:Concept",
+        help_text="Which Skos:Concept current source belongs to",
+        on_delete=models.CASCADE
+    )
+    name = models.TextField(
+        verbose_name="Source",
+        help_text="A verbose description of the concept's source"
+    )
+    language = models.CharField(
+        max_length=3
+    )
+
+    def __str__(self):
+        return "{}".format(self.name)
+
 
 
 def get_all_children(self, include_self=True):
