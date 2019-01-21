@@ -450,13 +450,13 @@ class SkosConceptUpdate(BaseUpdateView):
 
     def form_valid(self, form):
         context = self.get_context_data()
-        names = context['names']
+        labels = context['labels']
         notes = context['notes']
         sources = context['sources']
         with transaction.atomic():
-            if names.is_valid():
-                names.instance = self.object
-                names.save()
+            if labels.is_valid():
+                labels.instance = self.object
+                labels.save()
             if notes.is_valid():
                 notes.instance = self.object
                 notes.save()

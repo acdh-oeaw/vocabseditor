@@ -350,25 +350,24 @@ class SkosConceptForm(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-md-3 create-label'
         self.helper.field_class = 'col-md-9'
-        self.helper.add_input(Submit('submit', 'save'),)
+        #self.helper.add_input(Submit('submit', 'save'),)
         self.helper.layout = Layout(
-            Fieldset(
-                '',
-                'pref_label',
-                'pref_label_lang',
-                'scheme',
-                'top_concept',
-                'collection',
-                'definition',
-                'definition_lang',
-                'broader_concept',
-                'dc_creator',
-                'other_label',
-                'same_as_external',
-                'source_description',
-                css_id="basic_skos_fields"
-                ),
-            Accordion(
+            Div(
+                Field('pref_label'),
+                Field('pref_label_lang'),
+                Fieldset('Add more labels',
+                    Formset('labels'))
+                ,
+                Field('scheme'),
+                Field('top_concept'),
+                Field('collection'),
+                Field('broader_concept'),
+                Field('dc_creator'),
+                Field('same_as_external'),
+                Fieldset('Add documentary notes',
+                    Formset('notes'))
+                ,
+                Accordion(
                 AccordionGroup(
                     'SKOS semantic relationships',
                     'skos_broader',
@@ -384,20 +383,14 @@ class SkosConceptForm(forms.ModelForm):
                     'name_reverse',
                     css_id="advanced_skos_fields"
                 ),
-                 AccordionGroup(
-                    'SKOS Documentary notes',
-                    'skos_note',
-                    'skos_note_lang',
-                    'skos_scopenote',
-                    'skos_scopenote_lang',
-                    'skos_changenote',
-                    'skos_editorialnote',
-                    'skos_example',
-                    'skos_historynote',
-                    css_id="doc_skos_fields"
                 ),
-                css_id="main_accordion")
+                Fieldset('Add source information',
+                    Formset('sources'))
+                ,
+                ButtonHolder(Submit('submit', 'save')),
             )
+            )
+        self.helper.render_required_fields = True
 
 
 class SkosConceptFormHelper(FormHelper):

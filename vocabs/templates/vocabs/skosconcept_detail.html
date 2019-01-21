@@ -50,6 +50,19 @@
             <td>{{ object.pref_label }}</td>
         </tr>
         {% endif %}
+
+
+        <!--for inline added abels-->
+        {% if object.has_labels %}
+        {% for label in object.has_labels.all %}
+        <tr>
+            <th>skos:{{label.label_type}} @{{label.language}}</th>
+            <td>{{label.name}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->
+
         {% if object.other_label.all %}
         {% for x in object.other_label.all %}
             <tr>
@@ -129,12 +142,32 @@
         </td>
         </tr>
         {% endif %}
+         <!--for inline added notes-->
+        {% if object.has_notes %}
+        {% for note in object.has_notes.all %}
+        <tr>
+            <th>skos:{{note.note_type}} @{{note.language}}</th>
+            <td>{{note.name}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->
          {% if object.source_description %}
          <tr>
             <th>source</th>
             <td>{{object.source_description}}</td>
         </tr>
         {% endif %}
+         <!--for inline added sources-->
+        {% if object.has_sources %}
+        {% for source in object.has_sources.all %}
+        <tr>
+            <th>dc:source @{{source.language}}</th>
+            <td>{{source.name}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->
 <!-- Mapping relationships -->
         {% if object.broader_concept %}
         <tr>
