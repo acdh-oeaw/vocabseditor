@@ -135,17 +135,10 @@
         </tr>
         {% endif %}
 
-        {% if object.dc_source %}
+        {% if object.license %}
         <tr>
-            <th>dc:source</th>
-            <td>{{object.dc_source}}</td>
-        </tr>
-        {% endif %}
-
-        {% if object.rights %}
-        <tr>
-            <th>dc:rights</th>
-            <td>{{object.rights}}</td>
+            <th>dct:license</th>
+            <td>{{object.license}}</td>
         </tr>
         {% endif %}
 

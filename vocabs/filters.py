@@ -72,18 +72,6 @@ class SkosConceptListFilter(django_filters.FilterSet):
         queryset=SkosConcept.objects.all(),
         help_text=False,
     )
-    other_label = django_filters.ModelMultipleChoiceFilter(
-        widget=autocomplete.ModelSelect2Multiple(
-            url='vocabs-ac:skoslabel-filter-autocomplete'
-        ),
-        queryset=SkosLabel.objects.all(),
-        lookup_expr='icontains',
-        help_text=False,
-    )
-    other_label__isoCode = django_filters.CharFilter(
-        lookup_expr='icontains',
-        label="Other label iso code",
-    )
 
     class Meta:
         model = SkosConcept

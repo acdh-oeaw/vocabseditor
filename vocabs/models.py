@@ -106,16 +106,10 @@ class SkosConceptScheme(models.Model):
         help_text="An Organisation responsible for making the vocabulary available",
         verbose_name="dc:publisher"
     )
-    ###### !!!!!!! delete
-    dc_source = models.CharField(
-        max_length=500, blank=True,
-        help_text="A related resource a vocabulary based or derived from.",
-        verbose_name="dc:source"
-    )
-    rights = models.CharField(
+    license = models.CharField(
         max_length=300, blank=True,
-        verbose_name="dc:rights",
-        help_text="Information about license or rights applied to a vocabulary"
+        verbose_name="dct:license",
+        help_text="Information about license applied to a vocabulary"
     )
     owner = models.CharField(
         max_length=300, blank=True,
@@ -253,6 +247,30 @@ class ConceptSchemeDescription(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ConceptSchemeSource(models.Model):
+    """
+    A Class for ConceptScheme source information.
+    
+    """
+    concept_scheme = models.ForeignKey(
+        SkosConceptScheme,
+        related_name="has_sources",
+        verbose_name="skos:ConceptScheme",
+        help_text="Which Skos:ConceptScheme current source belongs to",
+        on_delete=models.CASCADE
+    )
+    name = models.TextField(
+        verbose_name="Source",
+        help_text="A verbose description of the concept scheme's source"
+    )
+    language = models.CharField(
+        max_length=3
+    )
+
+    def __str__(self):
+        return "{}".format(self.name)
 
 
 
@@ -562,19 +580,6 @@ class SkosConcept(models.Model):
         on_delete=models.CASCADE,
         help_text="Main Concept Scheme"
     )
-    definition = models.TextField(
-        blank=True, verbose_name="skos:definition",
-        help_text="Provide a complete explanation of the intended meaning of a concept"
-    )
-    definition_lang = models.CharField(
-        max_length=3, blank=True,
-        verbose_name="skos:definition language",
-        default=DEFAULT_LANG
-    )
-    other_label = models.ManyToManyField(
-        SkosLabel, blank=True,
-        help_text="Select other labels that represent this concept"
-    )
     notation = models.CharField(
         max_length=300, blank=True,
         verbose_name="skos:notation",
@@ -597,11 +602,6 @@ class SkosConcept(models.Model):
         verbose_name="owl:sameAs",
         help_text="URL of an external Concept with the same meaning<br>"
         "If more than one list all using a semicolon ; ",
-    )
-    source_description = models.TextField(
-        blank=True,
-        verbose_name="Source",
-        help_text="A verbose description of the concept's source"
     )
     skos_broader = models.ManyToManyField(
         'SkosConcept', blank=True, related_name="narrower",
@@ -654,47 +654,6 @@ class SkosConcept(models.Model):
         'is sub-class of' vs. 'is super-class of'.",
         blank=True
     )
-    # documentation properties
-    skos_note = models.CharField(
-        max_length=500, blank=True,
-        verbose_name="skos:note",
-        help_text="Provide some partial information about the meaning of a concept"
-    )
-    skos_note_lang = models.CharField(
-        max_length=3, blank=True,
-        default=DEFAULT_LANG, verbose_name="skos:note language"
-    )
-    skos_scopenote = models.TextField(
-        blank=True, verbose_name="skos:scopeNote",
-        help_text="Provide more detailed information of the intended meaning of a concept"
-    )
-    skos_scopenote_lang = models.CharField(
-        max_length=3, blank=True,
-        default=DEFAULT_LANG, verbose_name="skos:scopeNote language"
-    )
-    skos_changenote = models.CharField(
-        max_length=500, blank=True,
-        verbose_name="skos:changeNote",
-        help_text="Document any changes to a concept"
-    )
-    skos_editorialnote = models.CharField(
-        max_length=500, blank=True,
-        verbose_name="skos:editorialNote",
-        help_text="Provide any administrative information, for the "
-        "purposes of administration and maintenance. E.g. comments on "
-        "reviewing this concept"
-    )
-    skos_example = models.CharField(
-        max_length=500, blank=True,
-        verbose_name="skos:example",
-        help_text="Provide an example of a concept usage"
-    )
-    skos_historynote = models.CharField(
-        max_length=500, blank=True,
-        verbose_name="skos:historyNote",
-        help_text="Describe significant changes to the meaning of a concept over a time"
-    )
-    # meta
     dc_creator = models.TextField(
         blank=True, verbose_name="dc:creator",
         help_text="A Person or Organisation that created a current concept<br>"

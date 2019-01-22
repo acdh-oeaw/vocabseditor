@@ -62,6 +62,20 @@ ConceptSchemeDescriptionFormSet = inlineformset_factory(
     )
 
 
+class ConceptSchemeSourceForm(forms.ModelForm):
+
+    class Meta:
+        model = ConceptSchemeSource
+        exclude = ()
+
+
+ConceptSchemeSourceFormSet = inlineformset_factory(
+    SkosConceptScheme, ConceptSchemeSource, form=ConceptSchemeSourceForm,
+    fields=['name', 'language'],
+    extra=1, can_delete=True
+    )
+
+
 ######################################################################
 #
 # SkosConceptScheme
@@ -97,16 +111,19 @@ class SkosConceptSchemeForm(forms.ModelForm):
                     Formset('descriptions'))
                 ,
                 Field('indentifier'),
+                Field('language'),
                 Field('creator'),
                 Field('contributor'),
-                Field('language'),
-                Field('subject'),
-                Field('version'),
                 Field('publisher'),
                 Field('rights'),
                 Field('owner'),
+                Field('subject'),
                 Field('relation'),
                 Field('coverage'),
+                Fieldset('Add source information',
+                    Formset('sources'))
+                ,
+                Field('version'),
                 Field('legacy_id'),
                 Field('date_issued'),
                 Field('curator'),
@@ -344,8 +361,6 @@ class SkosConceptForm(forms.ModelForm):
                 url='vocabs-ac:skosconceptscheme-autocomplete'),
             'broader_concept': autocomplete.ModelSelect2(
                 url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
-            'other_label': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skoslabel-autocomplete'),
             'skos_broader': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_narrower': autocomplete.ModelSelect2Multiple(
@@ -373,7 +388,6 @@ class SkosConceptForm(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-md-3 create-label'
         self.helper.field_class = 'col-md-9'
-        #self.helper.add_input(Submit('submit', 'save'),)
         self.helper.layout = Layout(
             Div(
                 Field('pref_label'),
@@ -431,7 +445,6 @@ class SkosConceptFormHelper(FormHelper):
                 'scheme',
                 'collection',
                 'broader_concept',
-                'other_label',
                 css_id="basic_search_fields"
                 ),
             Accordion(
@@ -439,7 +452,6 @@ class SkosConceptFormHelper(FormHelper):
                     'Advanced search',
                     'top_concept',
                     'pref_label_lang',
-                    'other_label__isoCode',
                     css_id="more"
                     ),
                 )

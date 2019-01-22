@@ -121,15 +121,18 @@ class SkosConceptSchemeCreate(BaseCreateView):
         if self.request.POST:
             data['titles'] = ConceptSchemeTitleFormSet(self.request.POST)
             data['descriptions'] = ConceptSchemeDescriptionFormSet(self.request.POST)
+            data['sources'] = ConceptSchemeSourceFormSet(self.request.POST)
         else:
             data['titles'] = ConceptSchemeTitleFormSet()
             data['descriptions'] = ConceptSchemeDescriptionFormSet()
+            data['sources'] = ConceptSchemeSourceFormSet()
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
         titles = context['titles']
         descriptions = context['descriptions']
+        sources = context['sources']
         with transaction.atomic():
             form.instance.created_by = self.request.user
             self.object = form.save()
@@ -139,6 +142,9 @@ class SkosConceptSchemeCreate(BaseCreateView):
             if descriptions.is_valid():
                 descriptions.instance = self.object
                 descriptions.save()
+            if sources.is_valid():
+                sources.instance = self.object
+                sources.save()
             # else:
             #     raise forms.ValidationError('check')
 
@@ -172,15 +178,20 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
             data['descriptions'] = ConceptSchemeDescriptionFormSet(
                 self.request.POST, instance=self.object
                 )
+            data['sources'] = ConceptSchemeSourceFormSet(
+                self.request.POST, instance=self.object
+                )
         else:
             data['titles'] = ConceptSchemeTitleFormSet(instance=self.object)
             data['descriptions'] = ConceptSchemeDescriptionFormSet(instance=self.object)
+            data['sources'] = ConceptSchemeSourceFormSet(instance=self.object)
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
         titles = context['titles']
         descriptions = context['descriptions']
+        sources = context['sources']
         with transaction.atomic():
             if titles.is_valid():
                 titles.instance = self.object
@@ -188,6 +199,9 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
             if descriptions.is_valid():
                 descriptions.instance = self.object
                 descriptions.save()
+            if sources.is_valid():
+                sources.instance = self.object
+                sources.save()
         return super(SkosConceptSchemeUpdate, self).form_valid(form)
 
     def get_success_url(self):

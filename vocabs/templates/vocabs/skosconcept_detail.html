@@ -46,7 +46,9 @@
     <table class="table">
         {% if object.pref_label %}
         <tr>
-            <th class="w-25">skos:prefLabel{% if object.pref_label_lang %} @{{object.pref_label_lang}}{% endif %}</th>
+            <th class="w-25">
+            skos:prefLabel{% if object.pref_label_lang %} @{{object.pref_label_lang}}{% endif %}
+            </th>
             <td>{{ object.pref_label }}</td>
         </tr>
         {% endif %}
@@ -63,43 +65,28 @@
         {% endif %}
         <!--end-->
 
-        {% if object.other_label.all %}
-        {% for x in object.other_label.all %}
-            <tr>
-                <th>skos:{{x.label_type}}{% if x.isoCode %} @{{x.isoCode}}{% endif %}</th>
-                <td>                  
-                {{ x.name }}            
-                </td>
-            </tr>
-        {% endfor %}
-        {% endif %}
-        {% if object.definition %}
-        <tr>
-            <th>skos:definition{% if object.definition_lang %} @{{object.definition_lang}}{% endif %}</th>
-            <td>{{ object.definition }}</td>
-        </tr>
-        {% endif %}
         {% if object.notation %}
         <tr>
         <th>skos:notation</th>
         <td>{{object.notation}}</td>
         </tr>
         {% endif %}
-        {% if object.collection.all %}
+       
+        {% if object.scheme %}
+        <tr>
+        <th>skos:inScheme</th>
+        <td>
+            <a href="{{ object.scheme.get_absolute_url }}">{{object.scheme}}</a>
+        </td>
+        </tr>
+        {% endif %}
+         {% if object.collection.all %}
         <tr>
         <th>member of skos:Collection</th>
         <td>
             {% for x in object.collection.all %}
             <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
             {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
-        {% if object.scheme %}
-        <tr>
-        <th>skos:inScheme</th>
-        <td>
-            <a href="{{ object.scheme.get_absolute_url }}">{{object.scheme}}</a>
         </td>
         </tr>
         {% endif %}
@@ -111,18 +98,6 @@
         <li>{{creator}}</li>
         {% endfor %}
         </td>
-        </tr>
-        {% endif %}
-        {% if object.date_created %}
-         <tr>
-            <th>dct:created</th>
-            <td>{{object.date_created}}</td>
-        </tr>
-        {% endif %}
-        {% if object.date_modified %}
-         <tr>
-            <th>dct:modified</th>
-            <td>{{object.date_modified}}</td>
         </tr>
         {% endif %}
         {% if object.top_concept == True %}
@@ -152,12 +127,7 @@
         {% endfor %}
         {% endif %}
         <!--end-->
-         {% if object.source_description %}
-         <tr>
-            <th>source</th>
-            <td>{{object.source_description}}</td>
-        </tr>
-        {% endif %}
+
          <!--for inline added sources-->
         {% if object.has_sources %}
         {% for source in object.has_sources.all %}
@@ -365,48 +335,19 @@
         </td>
         </tr>
         {% endif %}
-<!-- skos documentation properties -->
-        {% if object.skos_note %}
-        <tr>
-            <th>skos:note{% if object.skos_note_lang %} @{{object.skos_note_lang}}{% endif %}</th>
-            <td>{{object.skos_note}}</td>
+        {% if object.date_created %}
+         <tr>
+            <th>dct:created</th>
+            <td>{{object.date_created}}</td>
         </tr>
         {% endif %}
-<!-- skos:scopeNote -->
-        {% if object.skos_scopenote %}
-        <tr>
-            <th>skos:scopeNote{% if object.skos_note_lang %} @{{object.skos_scopenote_lang}}{% endif %}</th>
-            <td>{{object.skos_scopenote}}</td>
+        {% if object.date_modified %}
+         <tr>
+            <th>dct:modified</th>
+            <td>{{object.date_modified}}</td>
         </tr>
         {% endif %}
-<!-- skos:changeNote -->
-        {% if object.skos_changenote %}
-        <tr>
-            <th>skos:changeNote</th>
-            <td>{{object.skos_changenote}}</td>
-        </tr>
-        {% endif %}
-<!-- skos:editorialNote -->
-        {% if object.skos_editorialnote %}
-        <tr>
-            <th>skos:editorialNote</th>
-            <td>{{object.skos_editorialnote}}</td>
-        </tr>
-        {% endif %}
-<!-- skos:historyNote -->
-        {% if object.skos_historynote %}
-        <tr>
-            <th>skos:historyNote</th>
-            <td>{{object.skos_historynote}}</td>
-        </tr>
-        {% endif %}
-<!-- skos:example -->
-        {% if object.skos_example %}
-        <tr>
-            <th>skos:example</th>
-            <td>{{object.skos_example}}</td>
-        </tr>
-        {% endif %}
+
         {% if user.is_authenticated %}
         {% if object.created_by %}
          <tr>
