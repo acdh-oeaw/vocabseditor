@@ -338,10 +338,6 @@ class SkosCollectionUpdate(BaseUpdateView):
     def dispatch(self, *args, **kwargs):
         return super(SkosCollectionUpdate, self).dispatch(*args, **kwargs)
 
-    # @method_decorator(login_required)
-    # def dispatch(self, *args, **kwargs):
-    #     return super(SkosCollectionUpdate, self).dispatch(*args, **kwargs)
-
 
 class SkosCollectionDelete(BaseDeleteView):
     model = SkosCollection

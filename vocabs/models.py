@@ -284,7 +284,7 @@ class SkosCollection(models.Model):
     """
     name = models.CharField(
         max_length=300, blank=True, verbose_name="skos:prefLabel",
-        help_text="Collection title or name"
+        help_text="Collection label or name"
     )
     label_lang = models.CharField(
         max_length=3, blank=True,
@@ -303,47 +303,15 @@ class SkosCollection(models.Model):
         help_text="A Person or Organisation that created a current collection<br>"
         "If more than one list all using a semicolon ;"
     )
+    contributor = models.TextField(
+        blank=True, verbose_name="dc:contributor",
+        help_text="A Person or Organisation that made contributions to the collection<br>"
+        "If more than one list all using a semicolon ;"
+    )
     legacy_id = models.CharField(
         max_length=200, blank=True
     )
-    # !!!!!! CAN BE DELETED !!!!!!!!!!
-    # documentation properties
-    skos_note = models.CharField(
-        max_length=500, blank=True,
-        verbose_name="skos:note",
-        help_text="Provide some information about a collection"
-    )
-    skos_note_lang = models.CharField(
-        max_length=3, blank=True, default=DEFAULT_LANG,
-        verbose_name="skos:note language")
-    skos_scopenote = models.TextField(
-        blank=True, verbose_name="skos:scopeNote",
-        help_text="Provide detailed description of the collection purpose")
-    skos_scopenote_lang = models.CharField(
-        max_length=3, blank=True,
-        verbose_name="skos:scopeNote language", default=DEFAULT_LANG)
-    skos_changenote = models.CharField(
-        max_length=500, blank=True,
-        verbose_name="skos:changeNote",
-        help_text="Describe significant changes to a collection"
-    )
-    skos_editorialnote = models.CharField(
-        max_length=500, blank=True,
-        verbose_name="skos:editorialNote",
-        help_text="Provide any administrative information, for the "
-        "purposes of administration and maintenance. E.g. comments on "
-        "reviewing this collection"
-    )
-    skos_example = models.CharField(
-        max_length=500, blank=True,
-        verbose_name="skos:example"
-    )
-    skos_historynote = models.CharField(
-        max_length=500, blank=True,
-        verbose_name="skos:historyNote",
-        help_text="Describe significant changes to a collection over a time"
-    )
-    # meta
+    # meta autosaved fields
     date_created = models.DateTimeField(
         editable=False, default=timezone.now
     )
@@ -392,6 +360,9 @@ class SkosCollection(models.Model):
 
     def creator_as_list(self):
         return self.creator.split(';')
+
+    def contributor_as_list(self):
+        return self.contributor.split(';')
 
 
 ######################################################################

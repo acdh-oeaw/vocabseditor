@@ -79,11 +79,14 @@
             </td>
         </tr>
         {% endif %}
-
-        {% if object.skos_note %}
+        {% if object.contributor %}
          <tr>
-            <th>skos:note{% if object.skos_note_lang %} @{{object.skos_note_lang}}{% endif %}</th>
-            <td>{{object.skos_note}}</td>
+            <th class="w-25">dc:contributor</th>
+            <td>
+            {% for contributor in object.contributor_as_list %}
+            <li>{{ contributor }}</li>
+            {% endfor %}
+            </td>
         </tr>
         {% endif %}
 
@@ -97,41 +100,6 @@
         {% endfor %}
         {% endif %}
         <!--end-->
-
-        {% if object.skos_scopenote %}
-         <tr>
-            <th>skos:scopeNote{% if object.skos_scopenote_lang %} @{{object.skos_scopenote_lang}}{% endif %}</th>
-            <td>{{object.skos_scopenote}}</td>
-        </tr>
-        {% endif %}
-
-        {% if object.skos_changenote %}
-         <tr>
-            <th>skos:changeNote</th>
-            <td>{{object.skos_changenote}}</td>
-        </tr>
-        {% endif %}
-
-        {% if object.skos_editorialnote %}
-         <tr>
-            <th>skos:editorialNote</th>
-            <td>{{object.skos_editorialnote}}</td>
-        </tr>
-        {% endif %}
-
-        {% if object.skos_example %}
-         <tr>
-            <th>skos:example</th>
-            <td>{{object.skos_example}}</td>
-        </tr>
-        {% endif %}
-
-        {% if object.skos_historynote %}
-         <tr>
-            <th>skos:historyNote</th>
-            <td>{{object.skos_historynote}}</td>
-        </tr>
-        {% endif %}
 
         {% if object.date_created %}
          <tr>
