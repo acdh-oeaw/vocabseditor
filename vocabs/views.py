@@ -266,15 +266,18 @@ class SkosCollectionCreate(BaseCreateView):
         if self.request.POST:
             data['labels'] = CollectionLabelFormSet(self.request.POST)
             data['notes'] = CollectionNoteFormSet(self.request.POST)
+            data['sources'] = CollectionSourceFormSet(self.request.POST)
         else:
             data['labels'] = CollectionLabelFormSet()
             data['notes'] = CollectionNoteFormSet()
+            data['sources'] = CollectionSourceFormSet()
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
         labels = context['labels']
         notes = context['notes']
+        sources = context['sources']
         with transaction.atomic():
             form.instance.created_by = self.request.user
             self.object = form.save()
@@ -284,6 +287,9 @@ class SkosCollectionCreate(BaseCreateView):
             if notes.is_valid():
                 notes.instance = self.object
                 notes.save()
+            if sources.is_valid():
+                sources.instance = self.object
+                sources.save()
             # else:
             #     raise forms.ValidationError('check')
 
@@ -313,15 +319,18 @@ class SkosCollectionUpdate(BaseUpdateView):
         if self.request.POST:
             data['labels'] = CollectionLabelFormSet(self.request.POST, instance=self.object)
             data['notes'] = CollectionNoteFormSet(self.request.POST, instance=self.object)
+            data['sources'] = CollectionSourceFormSet(self.request.POST, instance=self.object)
         else:
             data['labels'] = CollectionLabelFormSet(instance=self.object)
             data['notes'] = CollectionNoteFormSet(instance=self.object)
+            data['sources'] = CollectionSourceFormSet(instance=self.object)
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
         labels = context['labels']
         notes = context['notes']
+        sources = context['sources']
         with transaction.atomic():
             if labels.is_valid():
                 labels.instance = self.object
@@ -329,6 +338,9 @@ class SkosCollectionUpdate(BaseUpdateView):
             if notes.is_valid():
                 notes.instance = self.object
                 notes.save()
+            if sources.is_valid():
+                sources.instance = self.object
+                sources.save()
         return super(SkosCollectionUpdate, self).form_valid(form)
 
     def get_success_url(self):

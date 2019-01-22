@@ -425,6 +425,30 @@ class CollectionNote(models.Model):
         return "{}".format(self.name)
 
 
+class CollectionSource(models.Model):
+    """
+    A Class for Collection source information.
+    
+    """
+    collection = models.ForeignKey(
+        SkosCollection,
+        related_name="has_sources",
+        verbose_name="skos:Collection",
+        help_text="Which Skos:Collection current source belongs to",
+        on_delete=models.CASCADE
+    )
+    name = models.TextField(
+        verbose_name="Source",
+        help_text="A verbose description of the collection's source"
+    )
+    language = models.CharField(
+        max_length=3
+    )
+
+    def __str__(self):
+        return "{}".format(self.name)
+
+
 ######################################################################
 #
 # SkosLabel

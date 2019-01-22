@@ -157,6 +157,20 @@ CollectionNoteFormSet = inlineformset_factory(
     extra=1, can_delete=True
     )
 
+
+class CollectionSourceForm(forms.ModelForm):
+
+    class Meta:
+        model = CollectionSource
+        exclude = ()
+
+
+CollectionSourceFormSet = inlineformset_factory(
+    SkosCollection, CollectionSource, form=CollectionSourceForm,
+    fields=['name', 'language'],
+    extra=1, can_delete=True
+    )
+
 ######################################################################
 #
 # SkosCollection
@@ -188,12 +202,13 @@ class SkosCollectionForm(forms.ModelForm):
                 ,
                 Field('scheme'),
                 Field('creator'),
+                Field('contributor'),
                 Field('legacy_id'),
-                # should have it or rely on a separate Class
-                Field('skos_note'),
-                Field('skos_note_lang'),
                 Fieldset('Add more documentary notes',
                     Formset('notes'))
+                ,
+                Fieldset('Add source information',
+                    Formset('sources'))
                 ,
                 ButtonHolder(Submit('submit', 'save')),
             )

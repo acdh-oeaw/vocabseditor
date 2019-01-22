@@ -101,6 +101,17 @@
         {% endif %}
         <!--end-->
 
+        <!--for inline added sources-->
+        {% if object.has_sources %}
+        {% for note in object.has_sources.all %}
+        <tr>
+            <th>skos:{{note.note_type}} @{{note.language}}</th>
+            <td>{{note.name}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->
+
         {% if object.date_created %}
          <tr>
             <th class="w-25">dct:created</th>
