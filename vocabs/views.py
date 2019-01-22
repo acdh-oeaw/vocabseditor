@@ -72,7 +72,7 @@ class SkosConceptSchemeListView(GenericListView):
     formhelper_class = SkosConceptSchemeFormHelper
     init_columns = [
         'id',
-        'dc_title',
+        'title',
     ]
 
     def get_all_cols(self):

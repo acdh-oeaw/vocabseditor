@@ -43,10 +43,10 @@
         </div>
     </div>
         <table class="table">
-        {% if object.dc_title %}
+        {% if object.title %}
         <tr>
-            <th class="w-25">dc:title{% if object.dc_title_lang %} @{{object.dc_title_lang}}{% endif %}</th>
-            <td>{{object.dc_title}}</td>
+            <th class="w-25">dc:title{% if object.title_lang %} @{{object.title_lang}}{% endif %}</th>
+            <td>{{object.title}}</td>
         </tr>
         {% endif %}
 
@@ -67,21 +67,21 @@
             <td>{{object.indentifier}}</td>
         </tr>
         {% endif %}
-        {% if object.dc_creator %}
+        {% if object.creator %}
         <tr>
         <th class="w-25">dc:creator</th>
         <td>
-        {% for creator in object.dc_creator_as_list %}
+        {% for creator in object.creator_as_list %}
         <li>{{creator}}</li>
         {% endfor %}
         </td>
         </tr>
         {% endif %}
-        {% if object.dc_contributor %}
+        {% if object.contributor %}
         <tr>
         <th class="w-25">dc:contributor</th>
         <td>
-        {% for contributor in object.dc_contributor_as_list %}
+        {% for contributor in object.contributor_as_list %}
         <li>{{contributor}}</li>
         {% endfor %}
         </td>
@@ -105,22 +105,22 @@
         {% endif %}
         <!--end-->
 
-        {% if object.dc_language %}
+        {% if object.language %}
         <tr>
         <th class="w-25">dc:language</th>
         <td>
-        {% for language in object.dc_language_as_list %}
+        {% for language in object.language_as_list %}
         <li>{{language}}</li>
         {% endfor %}
         </td>
         </tr>
         {% endif %}
 
-        {% if object.dc_subject %}
+        {% if object.subject %}
         <tr>
         <th class="w-25">dc:subject</th>
         <td>
-        {% for subject in object.dc_subject_as_list %}
+        {% for subject in object.subject_as_list %}
         <li>{{subject}}</li>
         {% endfor %}
         </td>
@@ -134,10 +134,10 @@
         </tr>
         {% endif %}
 
-        {% if object.dc_publisher %}
+        {% if object.publisher %}
         <tr>
             <th>dc:publisher</th>
-            <td>{{object.dc_publisher}}</td>
+            <td>{{object.publisher}}</td>
         </tr>
         {% endif %}
 
@@ -148,10 +148,10 @@
         </tr>
         {% endif %}
 
-        {% if object.dc_rights %}
+        {% if object.rights %}
         <tr>
             <th>dc:rights</th>
-            <td>{{object.dc_rights}}</td>
+            <td>{{object.rights}}</td>
         </tr>
         {% endif %}
 
@@ -162,18 +162,18 @@
         </tr>
         {% endif %}
 
-        {% if object.dc_relation %}
+        {% if object.relation %}
         <tr>
             <th>dc:relation</th>
-            <td>{{object.dc_relation}}</td>
+            <td>{{object.relation}}</td>
         </tr>
         {% endif %}
 
-        {% if object.dc_coverage %}
+        {% if object.coverage %}
         <tr>
         <th class="w-25">dc:coverage</th>
         <td>
-        {% for coverage in object.dc_coverage_as_list %}
+        {% for coverage in object.coverage_as_list %}
         <li>{{coverage}}</li>
         {% endfor %}
         </td>

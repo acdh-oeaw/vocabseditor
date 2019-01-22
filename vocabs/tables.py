@@ -13,11 +13,11 @@ class SkosLabelTable(tables.Table):
 
 
 class SkosConceptSchemeTable(tables.Table):
-    dc_title = tables.LinkColumn('vocabs:skosconceptscheme_detail', args=[A('pk')])
+    title = tables.LinkColumn('vocabs:skosconceptscheme_detail', args=[A('pk')])
 
     class Meta:
         model = SkosConceptScheme
-        sequence = ['id', 'dc_title']
+        sequence = ['id', 'title']
         attrs = {"class": "table table-hover table-striped table-condensed"}
 
 

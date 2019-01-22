@@ -65,12 +65,12 @@ class SkosConceptScheme(models.Model):
     Miles, Alistair, and Sean Bechhofer. "SKOS simple knowledge
     organization system reference. W3C recommendation (2009)."
     """
-    dc_title = models.CharField(
+    title = models.CharField(
         max_length=300, blank=True,
         help_text="Title of a Concept Scheme",
         verbose_name="dc:title"
     )
-    dc_title_lang = models.CharField(
+    title_lang = models.CharField(
         max_length=3, blank=True,
         verbose_name="dc:title language", default=DEFAULT_LANG
     )
@@ -78,15 +78,16 @@ class SkosConceptScheme(models.Model):
         blank=True, default=DEFAULT_NAMESPACE,
         help_text="URI"
     )
-    dc_creator = models.TextField(
+    creator = models.TextField(
         blank=True, verbose_name="dc:creator",
         help_text="If more than one list all using a semicolon ;"
     )
-    dc_contributor = models.TextField(
+    contributor = models.TextField(
         blank=True, verbose_name="dc:contributor",
         help_text="A Person or Organisation that made contributions to the vocabulary<br>"
         "If more than one list all using a semicolon ;"
     )
+    ###### !!!!!!! delete
     dc_description = models.TextField(
         blank=True, verbose_name="dc:description",
         help_text="Description of current vocabulary"
@@ -96,12 +97,12 @@ class SkosConceptScheme(models.Model):
         verbose_name="dc:description language",
         default=DEFAULT_LANG
     )
-    dc_language = models.TextField(
+    language = models.TextField(
         blank=True, verbose_name="dc:language",
         help_text="Language(s) used in Concept Scheme<br>"
         "If more than one list all using a semicolon ;"
     )
-    dc_subject = models.TextField(
+    subject = models.TextField(
         blank=True, verbose_name="dc:subject",
         help_text="The subject of the vocabulary<br>"
         "If more than one list all using a semicolon ;"
@@ -110,17 +111,18 @@ class SkosConceptScheme(models.Model):
         max_length=300, blank=True,
         help_text="Current version"
     )
-    dc_publisher = models.CharField(
+    publisher = models.CharField(
         max_length=300, blank=True,
         help_text="An Organisation responsible for making the vocabulary available",
         verbose_name="dc:publisher"
     )
+    ###### !!!!!!! delete
     dc_source = models.CharField(
         max_length=500, blank=True,
         help_text="A related resource a vocabulary based or derived from.",
         verbose_name="dc:source"
     )
-    dc_rights = models.CharField(
+    rights = models.CharField(
         max_length=300, blank=True,
         verbose_name="dc:rights",
         help_text="Information about license or rights applied to a vocabulary"
@@ -129,11 +131,11 @@ class SkosConceptScheme(models.Model):
         max_length=300, blank=True,
         help_text="A Person or Organisation that own rights for the vocabulary"
     )
-    dc_relation = models.URLField(
+    relation = models.URLField(
         blank=True, verbose_name="dc:relation",
         help_text="E.g. in case of relation to a project, add link to a project website"
     )
-    dc_coverage = models.TextField(
+    coverage = models.TextField(
         blank=True, verbose_name="dc:coverage",
         help_text="The spatial or temporal coverage of a vocabulary<br>"
         "If more than one list all using a semicolon ;"
@@ -169,20 +171,20 @@ class SkosConceptScheme(models.Model):
 
         super(SkosConceptScheme, self).save(*args, **kwargs)
 
-    def dc_creator_as_list(self):
-        return self.dc_creator.split(';')
+    def creator_as_list(self):
+        return self.creator.split(';')
 
-    def dc_contributor_as_list(self):
-        return self.dc_contributor.split(';')
+    def contributor_as_list(self):
+        return self.contributor.split(';')
 
-    def dc_language_as_list(self):
-        return self.dc_language.split(';')
+    def language_as_list(self):
+        return self.language.split(';')
 
-    def dc_subject_as_list(self):
-        return self.dc_subject.split(';')
+    def subject_as_list(self):
+        return self.subject.split(';')
 
-    def dc_coverage_as_list(self):
-        return self.dc_coverage.split(';')
+    def coverage_as_list(self):
+        return self.coverage.split(';')
 
     @classmethod
     def get_listview_url(self):
@@ -208,9 +210,9 @@ class SkosConceptScheme(models.Model):
         return False
 
     def __str__(self):
-        if not self.dc_title:
+        if not self.title:
             return self.id
-        return self.dc_title
+        return self.title
 
 
 ######################################################################
@@ -740,7 +742,7 @@ class SkosConcept(models.Model):
 
     @property
     def all_schemes(self):
-        return ', '.join([x.dc_title for x in self.scheme.all()])
+        return ', '.join([x.title for x in self.scheme.all()])
 
     def save(self, *args, **kwargs):
         if self.notation == "":

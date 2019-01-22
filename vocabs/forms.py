@@ -88,8 +88,8 @@ class SkosConceptSchemeForm(forms.ModelForm):
         self.helper.field_class = 'col-md-9'
         self.helper.layout = Layout(
             Div(
-                Field('dc_title'),
-                Field('dc_title_lang'),
+                Field('title'),
+                Field('title_lang'),
                 Fieldset('Add titles in other languages',
                     Formset('titles'))
                 ,
@@ -99,8 +99,18 @@ class SkosConceptSchemeForm(forms.ModelForm):
                     Formset('descriptions'))
                 ,
                 Field('indentifier'),
-                Field('dc_creator'),
-                Field('dc_contributor'),
+                Field('creator'),
+                Field('contributor'),
+                Field('language'),
+                Field('subject'),
+                Field('version'),
+                Field('publisher'),
+                Field('rights'),
+                Field('owner'),
+                Field('relation'),
+                Field('coverage'),
+                Field('legacy_id'),
+                Field('date_issued'),
                 Field('curator'),
                 ButtonHolder(Submit('submit', 'save')),
             )
@@ -119,8 +129,8 @@ class SkosConceptSchemeFormHelper(FormHelper):
         self.layout = Layout(
             Fieldset(
                 '',
-                'dc_title',
-                'dc_creator',
+                'title',
+                'creator',
                 css_id="basic_search_fields"
                 ),
             )

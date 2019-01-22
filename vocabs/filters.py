@@ -114,15 +114,15 @@ class SkosConceptFilter(django_filters.FilterSet):
 
 class SkosConceptSchemeListFilter(django_filters.FilterSet):
 
-    dc_title = django_filters.CharFilter(
+    title = django_filters.CharFilter(
         lookup_expr='icontains',
-        help_text=SkosConceptScheme._meta.get_field('dc_title').help_text,
-        label=SkosConceptScheme._meta.get_field('dc_title').verbose_name
+        help_text=SkosConceptScheme._meta.get_field('title').help_text,
+        label=SkosConceptScheme._meta.get_field('title').verbose_name
         )
-    dc_creator = django_filters.CharFilter(
+    creator = django_filters.CharFilter(
         lookup_expr='icontains',
         help_text=False,
-        label=SkosConceptScheme._meta.get_field('dc_creator').verbose_name
+        label=SkosConceptScheme._meta.get_field('creator').verbose_name
         )
 
     class Meta:

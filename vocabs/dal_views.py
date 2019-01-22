@@ -13,7 +13,7 @@ class SpecificConcepts(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         try:
             scheme = self.kwargs['scheme']
-            selected_scheme = SkosConceptScheme.objects.filter(dc_title__icontains=scheme)
+            selected_scheme = SkosConceptScheme.objects.filter(title__icontains=scheme)
         except KeyError:
             selected_scheme = None
         if selected_scheme:
@@ -39,7 +39,7 @@ class SKOSConstraintACNoHierarchy(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         scheme = self.request.GET.get('scheme')
         try:
-            selected_scheme = SkosConceptScheme.objects.get(dc_title=scheme)
+            selected_scheme = SkosConceptScheme.objects.get(title=scheme)
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
         except:
             qs = SkosConcept.objects.all()
@@ -62,7 +62,7 @@ class SKOSConstraintAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         scheme = self.request.GET.get('scheme')
         try:
-            selected_scheme = SkosConceptScheme.objects.get(dc_title=scheme)
+            selected_scheme = SkosConceptScheme.objects.get(title=scheme)
             qs = SkosConcept.objects.filter(scheme=selected_scheme)
         except:
             qs = SkosConcept.objects.all()
@@ -130,7 +130,7 @@ class SkosConceptSchemeAC(autocomplete.Select2QuerySetView):
         #qs = SkosConceptScheme.objects.all()
 
         if self.q:
-            qs = qs.filter(dc_title__icontains=self.q)
+            qs = qs.filter(title__icontains=self.q)
 
         return qs
 
