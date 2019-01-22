@@ -90,16 +90,28 @@
         </td>
         </tr>
         {% endif %}
-        {% if object.dc_creator %}
+        {% if object.creator %}
         <tr>
         <th>dc:creator</th>
         <td>
-        {% for creator in object.dc_creator_as_list %}
+        {% for creator in object.creator_as_list %}
         <li>{{creator}}</li>
         {% endfor %}
         </td>
         </tr>
         {% endif %}
+
+        {% if object.contributor %}
+        <tr>
+        <th>dc:contributor</th>
+        <td>
+        {% for contributor in object.contributor_as_list %}
+        <li>{{contributor}}</li>
+        {% endfor %}
+        </td>
+        </tr>
+        {% endif %}
+
         {% if object.top_concept == True %}
         <tr>
             <th>top Concept</th>

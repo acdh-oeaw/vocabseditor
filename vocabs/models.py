@@ -567,11 +567,6 @@ class SkosConcept(models.Model):
         help_text="Language code of preferred label according to ISO 639-3",
         default=DEFAULT_LANG
     )
-    collection = models.ManyToManyField(
-        SkosCollection, blank=True,
-        verbose_name="member of skos:Collection",
-        related_name="has_members",
-    )
     # relation to SkosConceptScheme to inherit all objects permissions
     scheme = models.ForeignKey(
         SkosConceptScheme,
@@ -580,11 +575,26 @@ class SkosConcept(models.Model):
         on_delete=models.CASCADE,
         help_text="Main Concept Scheme"
     )
+    top_concept = models.BooleanField(
+        default=False,
+        help_text="Is this concept a top concept of main Concept Scheme?"
+    )
+    collection = models.ManyToManyField(
+        SkosCollection, blank=True,
+        verbose_name="member of skos:Collection",
+        related_name="has_members",
+    )
     notation = models.CharField(
         max_length=300, blank=True,
         verbose_name="skos:notation",
         help_text="A notation is a unique string used\
         to identify the concept in current vocabulary"
+    )
+    same_as_external = models.TextField(
+        blank=True,
+        verbose_name="owl:sameAs",
+        help_text="URL of an external Concept with the same meaning<br>"
+        "If more than one list all using a semicolon ; ",
     )
     broader_concept = models.ForeignKey(
         'SkosConcept',
@@ -592,16 +602,6 @@ class SkosConcept(models.Model):
         blank=True, null=True, on_delete=models.SET_NULL,
         related_name="narrower_concepts",
         help_text="A concept with a broader meaning that a current concept inherits from"
-    )
-    top_concept = models.BooleanField(
-        default=False,
-        help_text="Is this concept a top concept of main Concept Scheme?"
-    )
-    same_as_external = models.TextField(
-        blank=True,
-        verbose_name="owl:sameAs",
-        help_text="URL of an external Concept with the same meaning<br>"
-        "If more than one list all using a semicolon ; ",
     )
     skos_broader = models.ManyToManyField(
         'SkosConcept', blank=True, related_name="narrower",
@@ -654,11 +654,16 @@ class SkosConcept(models.Model):
         'is sub-class of' vs. 'is super-class of'.",
         blank=True
     )
-    dc_creator = models.TextField(
+    creator = models.TextField(
         blank=True, verbose_name="dc:creator",
         help_text="A Person or Organisation that created a current concept<br>"
         "If more than one list all using a semicolon ;",
 
+    )
+    contributor = models.TextField(
+        blank=True, verbose_name="dc:contributor",
+        help_text="A Person or Organisation that made contributions to the concept<br>"
+        "If more than one list all using a semicolon ;"
     )
     date_created = models.DateTimeField(
         editable=False, default=timezone.now,
@@ -710,8 +715,11 @@ class SkosConcept(models.Model):
 
         super(SkosConcept, self).save(*args, **kwargs)
 
-    def dc_creator_as_list(self):
-        return self.dc_creator.split(';')
+    def creator_as_list(self):
+        return self.creator.split(';')
+
+    def contributor_as_list(self):
+        return self.contributor.split(';')
 
     def same_as_external_as_list(self):
         return self.same_as_external.split(';')

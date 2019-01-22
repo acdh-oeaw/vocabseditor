@@ -399,7 +399,8 @@ class SkosConceptForm(forms.ModelForm):
                 Field('top_concept'),
                 Field('collection'),
                 Field('broader_concept'),
-                Field('dc_creator'),
+                Field('creator'),
+                Field('contributor'),
                 Field('same_as_external'),
                 Fieldset('Add documentary notes',
                     Formset('notes'))
