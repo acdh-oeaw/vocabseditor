@@ -72,3 +72,6 @@ a {
 #main_accordion > .panel >.panel-heading {
   margin: 15px 15px 15px 15px;
 }
+textarea {
+  height: 38px;
+}

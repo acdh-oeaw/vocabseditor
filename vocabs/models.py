@@ -263,7 +263,7 @@ class ConceptSchemeSource(models.Model):
     )
     name = models.TextField(
         verbose_name="Source",
-        help_text="A verbose description of the concept scheme's source"
+        #help_text="A verbose description of the concept scheme's source"
     )
     language = models.CharField(
         max_length=3
@@ -449,7 +449,7 @@ class CollectionSource(models.Model):
     )
     name = models.TextField(
         verbose_name="Source",
-        help_text="A verbose description of the collection's source"
+        #help_text="A verbose description of the collection's source"
     )
     language = models.CharField(
         max_length=3
@@ -835,7 +835,7 @@ class ConceptSource(models.Model):
     )
     name = models.TextField(
         verbose_name="Source",
-        help_text="A verbose description of the concept's source"
+        #help_text="A verbose description of the concept's source"
     )
     language = models.CharField(
         max_length=3
