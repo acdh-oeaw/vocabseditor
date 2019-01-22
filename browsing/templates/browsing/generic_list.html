@@ -99,7 +99,7 @@
                     <div class="card-body">
                         {% with table.paginator.count as total %}
                         <legend>Total results: {{ total }}</legend>
-                            {% if entity == "skosconcept" %}
+                          <!--   {% if entity == "skosconcept" %}
                             <div class="btn-group" role="group" style="padding-bottom: 10px;">
                               <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="The file will contain only search results">
                                 <i class="fas fa-download"></i> Download
@@ -109,7 +109,7 @@
                                 <a class="dropdown-item" href="{% url 'vocabs:vocabs-download' %}?format=turtle&{% querystring %}">Turtle</a>
                               </div>
                             </div>
-                            {% endif %}
+                            {% endif %} -->
                             {% if conf_items %}
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle dropdown-custom" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
