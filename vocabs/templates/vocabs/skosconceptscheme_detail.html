@@ -87,12 +87,6 @@
         </td>
         </tr>
         {% endif %}
-        {% if object.dc_description %}
-        <tr>
-            <th>dc:description{% if object.dc_description_lang %} @{{object.dc_description_lang}}{% endif %}</th>
-            <td>{{object.dc_description}}</td>
-        </tr>
-        {% endif %}
 
         <!--for inline added descriptions-->
         {% if object.has_descriptions %}

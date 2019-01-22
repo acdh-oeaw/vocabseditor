@@ -87,16 +87,6 @@ class SkosConceptScheme(models.Model):
         help_text="A Person or Organisation that made contributions to the vocabulary<br>"
         "If more than one list all using a semicolon ;"
     )
-    ###### !!!!!!! delete
-    dc_description = models.TextField(
-        blank=True, verbose_name="dc:description",
-        help_text="Description of current vocabulary"
-    )
-    dc_description_lang = models.CharField(
-        max_length=3, blank=True,
-        verbose_name="dc:description language",
-        default=DEFAULT_LANG
-    )
     language = models.TextField(
         blank=True, verbose_name="dc:language",
         help_text="Language(s) used in Concept Scheme<br>"

@@ -93,9 +93,7 @@ class SkosConceptSchemeForm(forms.ModelForm):
                 Fieldset('Add titles in other languages',
                     Formset('titles'))
                 ,
-                Field('dc_description'),
-                Field('dc_description_lang'),
-                Fieldset('Add descriptions in other languages',
+                Fieldset('Add description',
                     Formset('descriptions'))
                 ,
                 Field('indentifier'),
