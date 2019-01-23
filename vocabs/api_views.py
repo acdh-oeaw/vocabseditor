@@ -17,14 +17,6 @@ class LargeResultsSetPagination(pagination.PageNumberPagination):
     max_page_size = 10000
 
 
-class SkosLabelViewSet(viewsets.ModelViewSet):
-    queryset = SkosLabel.objects.all()
-    serializer_class = SkosLabelSerializer
-    permission_classes = (DjangoObjectPermissions, )
-    filter_backends = (filters.DjangoObjectPermissionsFilter, )
-    pagination_class = LargeResultsSetPagination
-
-
 class SkosConceptSchemeViewSet(viewsets.ModelViewSet):
     queryset = SkosConceptScheme.objects.all()
     serializer_class = SkosConceptSchemeSerializer

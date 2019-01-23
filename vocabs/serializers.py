@@ -3,14 +3,6 @@ from .models import *
 from django.contrib.auth.models import User
 
 
-class SkosLabelSerializer(serializers.HyperlinkedModelSerializer):
-    created_by = serializers.CharField(read_only=True)
-
-    class Meta:
-        model = SkosLabel
-        fields = '__all__'
-
-
 class SkosConceptSchemeSerializer(serializers.HyperlinkedModelSerializer):
     has_concepts = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='skosconcept-detail')
     created_by = serializers.CharField(read_only=True)

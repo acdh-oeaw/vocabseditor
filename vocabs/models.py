@@ -461,87 +461,6 @@ class CollectionSource(models.Model):
 
 ######################################################################
 #
-# SkosLabel
-#
-######################################################################
-
-@reversion.register()
-class SkosLabel(models.Model):
-    """
-    SKOS lexical labels are the expressions that are used to refer to concepts in natural language.
-
-    Antoine Isaac and Ed Summers. "SKOS Simple Knowledge Organization System Primer.
-    W3C Working Group Note (2009)."
-    """
-    name = models.CharField(
-        max_length=100, blank=True, help_text="The entities label or name.",
-        verbose_name="Label")
-    label_type = models.CharField(
-        max_length=30, blank=True, choices=LABEL_TYPES, 
-        help_text="The type of the label.")
-    # relation to SkosConceptScheme to inherit all objects permissions
-    scheme = models.ForeignKey(SkosConceptScheme,
-        related_name="has_labels",
-        verbose_name="skos:ConceptScheme",
-        help_text="Which Skos:ConceptScheme current collection belongs to",
-        on_delete=models.CASCADE
-    )
-    isoCode = models.CharField(
-        max_length=3, blank=True, help_text="The ISO 639-3 code for the label's language.")
-    date_created = models.DateTimeField(
-        editable=False, default=timezone.now
-    )
-    date_modified = models.DateTimeField(
-        editable=False, default=timezone.now
-    )
-    created_by = models.ForeignKey(
-        User, related_name="skos_label_created",
-        blank=True, null=True,
-        on_delete=models.SET_NULL
-    )
-
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.date_created = timezone.now()
-        self.date_modified = timezone.now()
-
-        if not self.label_type:
-            self.label_type = "altLabel"
-            
-        return super(SkosLabel, self).save(*args, **kwargs)
-
-    @classmethod
-    def get_listview_url(self):
-        return reverse('vocabs:browse_skoslabels')
-
-    @classmethod
-    def get_createview_url(self):
-        return reverse('vocabs:skoslabel_create')
-
-    def get_absolute_url(self):
-        return reverse('vocabs:skoslabel_detail', kwargs={'pk': self.id})
-
-    def get_next(self):
-        next = SkosLabel.objects.filter(id__gt=self.id)
-        if next:
-            return next.first().id
-        return False
-
-    def get_prev(self):
-        prev = SkosLabel.objects.filter(id__lt=self.id).order_by('-id')
-        if prev:
-            return prev.first().id
-        return False
-
-    def __str__(self):
-        if self.label_type != "":
-            return "{} @{} ({})".format(self.name, self.isoCode, self.label_type)
-        else:
-            return "{} @{}".format(self.name, self.isoCode)
-
-
-######################################################################
-#
 # SkosConcept
 #
 ######################################################################
@@ -901,21 +820,6 @@ def create_perms_concept_created_by(sender, instance, **kwargs):
             assign_perm('view_skosconcept', instance.scheme.created_by, instance)
 
 
-@receiver(post_save, sender=SkosLabel, dispatch_uid="create_perms_label_created_by")
-def create_perms_label_created_by(sender, instance, **kwargs):
-    assign_perm('delete_skoslabel', instance.created_by, instance)
-    assign_perm('change_skoslabel', instance.created_by, instance)
-    assign_perm('view_skoslabel', instance.created_by, instance)
-    for curator in instance.scheme.curator.all():
-        assign_perm('delete_skoslabel', curator, instance)
-        assign_perm('change_skoslabel', curator, instance)
-        assign_perm('view_skoslabel', curator, instance)
-        if curator is not instance.scheme.created_by:
-            assign_perm('delete_skoslabel', instance.scheme.created_by, instance)
-            assign_perm('change_skoslabel', instance.scheme.created_by, instance)
-            assign_perm('view_skoslabel', instance.scheme.created_by, instance)
-
-
 ############### Adding new curator (user) to a Concept Scheme ###################
 ############### Only user who created a Concept Scheme can do it ################
 
@@ -935,10 +839,6 @@ def create_perms_curator(sender, instance, **kwargs):
                 assign_perm('view_'+obj.__class__.__name__.lower(), curator, obj)
                 assign_perm('change_'+obj.__class__.__name__.lower(), curator, obj)
                 assign_perm('delete_'+obj.__class__.__name__.lower(), curator, obj)
-            for obj in instance.has_labels.all():
-                assign_perm('view_'+obj.__class__.__name__.lower(), curator, obj)
-                assign_perm('change_'+obj.__class__.__name__.lower(), curator, obj)
-                assign_perm('delete_'+obj.__class__.__name__.lower(), curator, obj)
     elif kwargs['action'] == 'post_remove':
         for curator in User.objects.filter(pk__in=kwargs['pk_set']):
             remove_perm('view_skosconceptscheme', curator, instance)
@@ -950,10 +850,6 @@ def create_perms_curator(sender, instance, **kwargs):
                 remove_perm('change_'+obj.__class__.__name__.lower(), curator, obj)
                 remove_perm('delete_'+obj.__class__.__name__.lower(), curator, obj)
             for obj in instance.has_concepts.all():
-                remove_perm('view_'+obj.__class__.__name__.lower(), curator, obj)
-                remove_perm('change_'+obj.__class__.__name__.lower(), curator, obj)
-                remove_perm('delete_'+obj.__class__.__name__.lower(), curator, obj)
-            for obj in instance.has_labels.all():
                 remove_perm('view_'+obj.__class__.__name__.lower(), curator, obj)
                 remove_perm('change_'+obj.__class__.__name__.lower(), curator, obj)
                 remove_perm('delete_'+obj.__class__.__name__.lower(), curator, obj)

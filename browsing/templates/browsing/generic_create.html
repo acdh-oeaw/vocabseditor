@@ -11,17 +11,4 @@
             {{ class_name }}
         {% endif %}
     </h1>
-{% if class_name == 'SkosConcept' %}
-<script type="text/javascript">
-	function popupCreateName() {
-		var url = "{% url 'vocabs:add_label' %}";
-		var MyWindow = window.open(url,"","width=500, height=700");
-	}
-</script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#id_other_label").after('<button id="add_skoslabel" type="button" class="btn btn-sm btn-success" onclick="popupCreateName()" style="margin:10px 10px 10px 0px;" title="Add new label"><i class="fas fa-plus"></i></button>');
-	});
-</script>
-{% endif %}
 {% endblock %}

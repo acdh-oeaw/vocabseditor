@@ -1,5 +1,5 @@
 from dal import autocomplete
-from .models import SkosLabel, SkosConcept, SkosConceptScheme, SkosCollection
+from .models import SkosConcept, SkosConceptScheme, SkosCollection
 from django.db.models import Q
 from guardian.shortcuts import get_objects_for_user
 from django.contrib.auth.models import User
@@ -73,18 +73,6 @@ class SKOSConstraintAC(autocomplete.Select2QuerySetView):
             return plus_narrower
         else:
             return qs
-
-
-class SkosLabelAC(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-        qs = get_objects_for_user(self.request.user,
-            'view_skoslabel',
-            klass=SkosLabel)
-        #qs = SkosLabel.objects.all()
-
-        if self.q:
-            qs = qs.filter(name__icontains=self.q)
-        return qs
 
 
 class SkosConceptAC(autocomplete.Select2QuerySetView):

@@ -49,7 +49,6 @@ class UserDetailView(DetailView):
         context['curated_cs'] = SkosConceptScheme.objects.filter(curator=current_user)
         context['created_collections'] = SkosCollection.objects.filter(created_by=current_user)
         context['created_concepts'] = SkosConcept.objects.filter(created_by=current_user)
-        context['created_labels'] = SkosLabel.objects.filter(created_by=current_user)
         return context
 
     @method_decorator(login_required)

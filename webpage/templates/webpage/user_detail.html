@@ -11,10 +11,15 @@
     	</div>
     	<div class="card-body">
 	        {% if versions %}
-	        <h2>List of latest changes ({{versions|length}})</h2>
-	        {% for x in versions %}
+	        <h2>List of 10 latest changes (out of {{versions|length}})</h2>
+	        {% for x in versions|slice:":10" %}
 	            <li>
-	                <a href="{{ x.object.get_absolute_url }}">{{ x.revision.date_created }} {{ x }}</a>
+	            {% if x.object %}
+	                <a href="{{ x.object.get_absolute_url }}">
+	                {{ x.revision.date_created }} {{ x }}</a>
+	            {% else %}
+	                {{ x.revision.date_created }} {{ x }}
+				{% endif %}
 	            </li>
 	        {% endfor %}
 	        <br>
@@ -73,14 +78,6 @@
 	        <br>
 	        {% endif %}
 
-			{% if created_labels %}
-	        <h2>Created Labels ({{created_labels|length}})</h2>
-	        {% for y in created_labels %}
-	            <li>
-	                <a href="{{ y.get_absolute_url }}">{{ y }}</a>
-	            </li>
-	        {% endfor %}
-	        {% endif %}
         </div>
     </div>
 </div>

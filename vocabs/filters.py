@@ -1,6 +1,6 @@
 import django_filters
 from dal import autocomplete
-from .models import SkosConcept, SkosConceptScheme, get_all_children, SkosLabel, SkosCollection
+from .models import SkosConcept, SkosConceptScheme, get_all_children, SkosCollection
 
 
 django_filters.filters.LOOKUP_TYPES = [
@@ -148,26 +148,3 @@ class SkosCollectionListFilter(django_filters.FilterSet):
     class Meta:
         model = SkosCollection
         fields = '__all__'
-
-
-class SkosLabelListFilter(django_filters.FilterSet):
-
-    name = django_filters.CharFilter(
-        lookup_expr='icontains',
-        help_text=SkosLabel._meta.get_field('name').help_text,
-        label=SkosLabel._meta.get_field('name').verbose_name
-        )
-    scheme = django_filters.ModelChoiceFilter(
-        queryset=SkosConceptScheme.objects.all(),
-        widget=autocomplete.ModelSelect2(
-            url='vocabs-ac:skosconceptscheme-autocomplete',
-            attrs={
-            'data-placeholder': 'Start typing ...',
-            }
-        ),
-        help_text=False,
-    )
-
-    class Meta:
-        model = SkosLabel
-        exclude = ['created_by', 'date_created', 'date_modified', ]
