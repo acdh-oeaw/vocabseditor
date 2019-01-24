@@ -2,10 +2,12 @@ from django.contrib import admin
 from .models import *
 from guardian.admin import GuardedModelAdmin
 from reversion.admin import VersionAdmin
+from mptt.admin import MPTTModelAdmin
 
 
 # With object permissions support
-class SkosConceptAdmin(GuardedModelAdmin, VersionAdmin):
+@admin.register(SkosConcept)
+class SkosConceptAdmin(MPTTModelAdmin, GuardedModelAdmin, VersionAdmin):
 	pass
 
 
@@ -17,7 +19,7 @@ class SkosConceptSchemeAdmin(GuardedModelAdmin, VersionAdmin):
 	pass
 
 
-admin.site.register(SkosConcept, SkosConceptAdmin)
+#admin.site.register(SkosConcept, SkosConceptAdmin)
 admin.site.register(SkosCollection, SkosCollectionAdmin)
 admin.site.register(SkosConceptScheme, SkosConceptSchemeAdmin)
 admin.site.register(ConceptSchemeTitle)

@@ -13,6 +13,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import Permission
 from guardian.shortcuts import get_objects_for_user
 import reversion
+from mptt.models import MPTTModel, TreeForeignKey
 
 
 try:
@@ -466,7 +467,7 @@ class CollectionSource(models.Model):
 ######################################################################
 
 @reversion.register()
-class SkosConcept(models.Model):
+class SkosConcept(MPTTModel):
     """
     A SKOS concept can be viewed as an idea or notion; a unit of thought.
     However, what constitutes a unit of thought is subjective,
@@ -515,13 +516,20 @@ class SkosConcept(models.Model):
         help_text="URL of an external Concept with the same meaning<br>"
         "If more than one list all using a semicolon ; ",
     )
-    broader_concept = models.ForeignKey(
-        'SkosConcept',
-        verbose_name="Broader Term",
-        blank=True, null=True, on_delete=models.SET_NULL,
+    broader_concept = TreeForeignKey(
+        'self',
+        verbose_name="skos:broader",
+        blank=True, null=True, on_delete=models.CASCADE,
         related_name="narrower_concepts",
         help_text="A concept with a broader meaning that a current concept inherits from"
     )
+    ###!!!!!!!!!!!!!!!!!!! MTTP !!!!!!!!!!!!!!!!
+    # parent = TreeForeignKey(
+    #     'self',
+    #     blank=True, null=True, on_delete=models.CASCADE,
+    #     related_name="children",
+    #     help_text="A concept with a broader meaning that a current concept inherits from"
+    # )
     skos_broader = models.ManyToManyField(
         'SkosConcept', blank=True, related_name="narrower",
         verbose_name="skos:broader",
@@ -597,6 +605,10 @@ class SkosConcept(models.Model):
         blank=True, null=True,
         on_delete=models.SET_NULL
     )
+
+    class MPTTMeta:
+        order_insertion_by = ['pref_label']
+        parent_attr = 'broader_concept'
 
     def get_broader(self):
         broader = self.skos_broader.all()
