@@ -523,13 +523,6 @@ class SkosConcept(MPTTModel):
         related_name="narrower_concepts",
         help_text="A concept with a broader meaning that a current concept inherits from"
     )
-    ###!!!!!!!!!!!!!!!!!!! MTTP !!!!!!!!!!!!!!!!
-    # parent = TreeForeignKey(
-    #     'self',
-    #     blank=True, null=True, on_delete=models.CASCADE,
-    #     related_name="children",
-    #     help_text="A concept with a broader meaning that a current concept inherits from"
-    # )
     skos_broader = models.ManyToManyField(
         'SkosConcept', blank=True, related_name="narrower",
         verbose_name="skos:broader",
