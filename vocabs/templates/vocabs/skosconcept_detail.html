@@ -191,6 +191,32 @@
         </tr>
 
 <!-- Hierarchy END -->
+
+
+<!-- TEST -->
+{% if object.scheme %}
+        <tr>
+        <th>skos:ConceptScheme hierarchy</th>
+        <td>
+
+        {% for skosconcept,structure in object.scheme.has_concepts.all|tree_info %}
+        {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
+
+        {% if skosconcept.pref_label == object.pref_label %}
+        <strong>{{ skosconcept.pref_label }}</strong>
+        {% else %}
+        <a href="{{ skosconcept.get_absolute_url }}">{{ skosconcept.pref_label }}</a>
+        {% endif %}
+
+        {% for level in structure.closed_levels %}</li></ul>{% endfor %}
+        {% endfor %}
+        </td>
+        </tr>
+{% endif %}
+
+<!-- TEST -->
+
+
 <!-- skos:broader & skos:narrower -->
         {% if object.skos_broader.all %}
         <tr>
