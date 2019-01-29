@@ -140,7 +140,7 @@
 
         {% if object.has_members.all %}
         <tr>
-        <th class="w-25">hierarchy</th>
+        <th class="w-25">members</th>
         <td>
         {% for skosconcept,structure in object.has_members.all|tree_info %}
         {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
