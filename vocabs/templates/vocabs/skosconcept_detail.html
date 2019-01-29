@@ -1,4 +1,5 @@
 {% extends "webpage/base.html" %}
+{% load mptt_tags %}
 {% block Title %}{{ object }}{% endblock %}
 {% block content %}
 <div class="container">
@@ -171,6 +172,25 @@
         </td>
         </tr>
         {% endif %}
+<!-- Hierarchy location -->
+        <tr>
+        <th>hierarchy location</th>
+        <td>
+        {% drilldown_tree_for_node skosconcept as drilldown %}
+        {% for node,structure in drilldown|tree_info %}
+        {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
+        {% if node == skosconcept %}
+            <strong>{{ node.pref_label }}</strong>
+        {% else %}
+            <a href="{{ node.get_absolute_url }}">{{ node.pref_label }}</a>
+            {% if node.broader_concept.id == skosconcept.pk %}{% endif %}
+        {% endif %}
+        {% for level in structure.closed_levels %}</li></ul>{% endfor %}
+        {% endfor %}
+        </td>
+        </tr>
+
+<!-- Hierarchy END -->
 <!-- skos:broader & skos:narrower -->
         {% if object.skos_broader.all %}
         <tr>

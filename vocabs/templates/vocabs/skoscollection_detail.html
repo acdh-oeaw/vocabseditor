@@ -1,4 +1,5 @@
 {% extends "webpage/base.html" %}
+{% load mptt_tags %}
 {% block content %}
 <div class="container">
     <div class="card">
@@ -135,18 +136,21 @@
         {% endif %}
         {% endif %}
 
+         <!-- Hierarchy location -->
+
         {% if object.has_members.all %}
         <tr>
-        <th class="w-25">skos:members</th>
+        <th class="w-25">hierarchy</th>
         <td>
-        {% for x in object.has_members.all %}
-            <li>
-                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-            </li>
+        {% for skosconcept,structure in object.has_members.all|tree_info %}
+        {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
+        <a href="{{ skosconcept.get_absolute_url }}">{{ skosconcept.pref_label }}</a>
+        {% for level in structure.closed_levels %}</li></ul>{% endfor %}
         {% endfor %}
         </td>
         </tr>
         {% endif %}
+        <!-- Hierarchy END -->
 
         </table>
         <!--change history collapse button-->

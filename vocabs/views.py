@@ -399,6 +399,10 @@ class SkosConceptDetailView(BaseDetailView):
     template_name = 'vocabs/skosconcept_detail.html'
     success_url = None
 
+    def get_context_data(self, **kwargs):
+        context = super(SkosConceptDetailView, self).get_context_data(**kwargs)
+        return context
+
 
 class SkosConceptCreate(BaseCreateView):
 

@@ -1,4 +1,5 @@
 {% extends "webpage/base.html" %}
+{% load mptt_tags %}
 {% block content %}
 <div class="container">
     <div class="card">
@@ -209,16 +210,23 @@
         </tr>
         {% endif %}
         {% endif %}
+
+        <!-- Hierarchy location -->
+
         {% if object.has_concepts.all %}
         <tr>
-        <th class="w-25">concepts</th>
+        <th class="w-25">hierarchy</th>
         <td>
-        {% for concept in object.has_concepts.all %}
-        <li><a href="{{ concept.get_absolute_url }}">{{concept}}</a></li>
+        {% for skosconcept,structure in object.has_concepts.all|tree_info %}
+        {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
+        <a href="{{ skosconcept.get_absolute_url }}">{{ skosconcept.pref_label }}</a>
+        {% for level in structure.closed_levels %}</li></ul>{% endfor %}
         {% endfor %}
         </td>
         </tr>
         {% endif %}
+        <!-- Hierarchy END -->
+
         {% if object.has_concepts.all %}
         <tr>
             <th>download</th>
