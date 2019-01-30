@@ -3,6 +3,7 @@ from .models import SkosConcept, SkosConceptScheme, SkosCollection
 from django.db.models import Q
 from guardian.shortcuts import get_objects_for_user
 from django.contrib.auth.models import User
+from mptt.settings import DEFAULT_LEVEL_INDICATOR
 
 
 class SpecificConcepts(autocomplete.Select2QuerySetView):
@@ -95,10 +96,16 @@ class SkosConceptAC(autocomplete.Select2QuerySetView):
 
 class SkosConceptNoBroaderTermAC(autocomplete.Select2QuerySetView):
 
-     def get_queryset(self):
+    def get_result_label(self, item):
+        level_indicator = DEFAULT_LEVEL_INDICATOR * item.level
+        return level_indicator + ' ' + str(item)
+
+    def get_queryset(self):
         qs = get_objects_for_user(self.request.user,
             'view_skosconcept',
             klass=SkosConcept)
+        if self.q:
+            qs = qs.filter(pref_label__icontains=self.q)
         return qs
 
 

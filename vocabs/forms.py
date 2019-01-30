@@ -6,7 +6,7 @@ from crispy_forms.bootstrap import *
 from .models import *
 from django.forms.models import inlineformset_factory
 from .custom_layout_object import *
-
+from mptt.forms import TreeNodeChoiceField
 
 class GenericFilterFormHelper(FormHelper):
     def __init__(self, *args, **kwargs):
@@ -316,14 +316,19 @@ ConceptSourceFormSet = inlineformset_factory(
 ######################################################################
 
 class SkosConceptForm(forms.ModelForm):
+    broader_concept = TreeNodeChoiceField(
+        queryset=SkosConcept.objects.all(),
+        widget=autocomplete.ModelSelect2(url='vocabs-ac:skosconcept-nobroaderterm-autocomplete')
+    )
+
     class Meta:
         model = SkosConcept
         exclude = ['created_by', ]
         widgets = {
             'scheme': autocomplete.ModelSelect2(
                 url='vocabs-ac:skosconceptscheme-autocomplete'),
-            'broader_concept': autocomplete.ModelSelect2(
-                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
+            # 'broader_concept': autocomplete.ModelSelect2(
+            #     url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_broader': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_narrower': autocomplete.ModelSelect2Multiple(

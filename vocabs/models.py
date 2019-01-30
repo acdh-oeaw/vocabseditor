@@ -523,6 +523,7 @@ class SkosConcept(MPTTModel):
         related_name="narrower_concepts",
         help_text="A concept with a broader meaning that a current concept inherits from"
     )
+    #################
     skos_broader = models.ManyToManyField(
         'SkosConcept', blank=True, related_name="narrower",
         verbose_name="skos:broader",
@@ -533,6 +534,7 @@ class SkosConcept(MPTTModel):
         verbose_name="skos:narrower",
         help_text="A concept with a narrower meaning"
     )
+    ###################
     skos_related = models.ManyToManyField(
         'SkosConcept', blank=True, related_name="related",
         verbose_name="skos:related",

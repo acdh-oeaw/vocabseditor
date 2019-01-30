@@ -135,10 +135,10 @@
 
         <!--for inline added sources-->
         {% if object.has_sources %}
-        {% for note in object.has_sources.all %}
+        {% for source in object.has_sources.all %}
         <tr>
-            <th>skos:{{note.note_type}} @{{note.language}}</th>
-            <td>{{note.name}}</td>
+            <th>dc:source @{{source.language}}</th>
+            <td>{{source.name}}</td>
         </tr>
         {% endfor %}
         {% endif %}
