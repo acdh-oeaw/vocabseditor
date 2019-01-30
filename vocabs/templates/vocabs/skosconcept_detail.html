@@ -2,7 +2,35 @@
 {% load mptt_tags %}
 {% block Title %}{{ object }}{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container-fluid">
+<div class="row">
+<div class="col-4">
+    <div class="card">
+        <div class="card-header">
+        <h1>{{object.scheme}}</h1>
+        </div>
+    <div class="card-body">
+    <!-- Hierarchy -->
+    {% if object.scheme %}
+
+            {% for skosconcept,structure in object.scheme.has_concepts.all|tree_info %}
+            {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
+
+            {% if skosconcept.pref_label == object.pref_label %}
+            <strong>{{ skosconcept.pref_label }}</strong>
+            {% else %}
+            <a href="{{ skosconcept.get_absolute_url }}">{{ skosconcept.pref_label }}</a>
+            {% endif %}
+
+            {% for level in structure.closed_levels %}</li></ul>{% endfor %}
+            {% endfor %}
+
+    {% endif %}
+    <!-- Hierarchy END -->
+    </div>
+    </div>
+</div>
+<div class="col-8">
     <div class="card">
         <div class="card-header">
             <div class="row">
@@ -172,51 +200,6 @@
         </td>
         </tr>
         {% endif %}
-<!-- Hierarchy location -->
-        <tr>
-        <th>hierarchy location</th>
-        <td>
-        {% drilldown_tree_for_node skosconcept as drilldown %}
-        {% for node,structure in drilldown|tree_info %}
-        {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
-        {% if node == skosconcept %}
-            <strong>{{ node.pref_label }}</strong>
-        {% else %}
-            <a href="{{ node.get_absolute_url }}">{{ node.pref_label }}</a>
-            {% if node.broader_concept.id == skosconcept.pk %}{% endif %}
-        {% endif %}
-        {% for level in structure.closed_levels %}</li></ul>{% endfor %}
-        {% endfor %}
-        </td>
-        </tr>
-
-<!-- Hierarchy END -->
-
-
-<!-- TEST -->
-{% if object.scheme %}
-        <tr>
-        <th>skos:ConceptScheme hierarchy</th>
-        <td>
-
-        {% for skosconcept,structure in object.scheme.has_concepts.all|tree_info %}
-        {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
-
-        {% if skosconcept.pref_label == object.pref_label %}
-        <strong>{{ skosconcept.pref_label }}</strong>
-        {% else %}
-        <a href="{{ skosconcept.get_absolute_url }}">{{ skosconcept.pref_label }}</a>
-        {% endif %}
-
-        {% for level in structure.closed_levels %}</li></ul>{% endfor %}
-        {% endfor %}
-        </td>
-        </tr>
-{% endif %}
-
-<!-- TEST -->
-
-
 <!-- skos:broader & skos:narrower -->
         {% if object.skos_broader.all %}
         <tr>
@@ -445,5 +428,7 @@
         {% endif %}
         <!--change history ends here-->            
     </div>
+</div><!-- col-8 ends -->
+</div><!-- row ends -->
 </div>
 {% endblock content %}
