@@ -115,7 +115,7 @@ class SkosConceptSchemeForm(forms.ModelForm):
                 Field('creator'),
                 Field('contributor'),
                 Field('publisher'),
-                Field('rights'),
+                Field('license'),
                 Field('owner'),
                 Field('subject'),
                 Field('relation'),
@@ -127,6 +127,7 @@ class SkosConceptSchemeForm(forms.ModelForm):
                 Field('legacy_id'),
                 Field('date_issued'),
                 Field('curator'),
+                HTML("<br>"),
                 ButtonHolder(Submit('submit', 'save')),
             )
             )
@@ -235,6 +236,7 @@ class SkosCollectionForm(forms.ModelForm):
                 Fieldset('Add source information',
                     Formset('sources'))
                 ,
+                HTML("<br>"),
                 ButtonHolder(Submit('submit', 'save')),
             )
             )
@@ -318,7 +320,8 @@ ConceptSourceFormSet = inlineformset_factory(
 class SkosConceptForm(forms.ModelForm):
     broader_concept = TreeNodeChoiceField(
         queryset=SkosConcept.objects.all(),
-        widget=autocomplete.ModelSelect2(url='vocabs-ac:skosconcept-nobroaderterm-autocomplete')
+        widget=autocomplete.ModelSelect2(url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
+        help_text="A concept with a broader meaning that a current concept inherits from"
     )
 
     class Meta:
@@ -367,15 +370,19 @@ class SkosConceptForm(forms.ModelForm):
                 Field('top_concept'),
                 Field('collection'),
                 Field('broader_concept'),
-                Field('creator'),
-                Field('contributor'),
-                Field('same_as_external'),
                 Fieldset('Add documentary notes',
                     Formset('notes'))
                 ,
+                Field('creator'),
+                Field('contributor'),
+                Field('same_as_external'),
+                Field('notation'),
+                Fieldset('Add source information',
+                    Formset('sources'))
+                ,
                 Accordion(
                 AccordionGroup(
-                    'SKOS semantic relationships',
+                    'Add SKOS semantic relationships',
                     'skos_broader',
                     'skos_narrower',
                     'skos_related',
@@ -385,14 +392,11 @@ class SkosConceptForm(forms.ModelForm):
                     'skos_relatedmatch',
                     'skos_closematch',
                     'legacy_id',
-                    'notation',
                     'name_reverse',
                     css_id="advanced_skos_fields"
                 ),
                 ),
-                Fieldset('Add source information',
-                    Formset('sources'))
-                ,
+                HTML("<br>"),
                 ButtonHolder(Submit('submit', 'save')),
             )
             )
