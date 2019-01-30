@@ -38,7 +38,9 @@ footer {
 }
 
 a {
-    color: #88dbdf;
+    /*color: #88dbdf;*/
+    /*color: #3b89ad;*/
+    color: #1796d1;
 }
 .help-block {
 	font-size: 0.9em;

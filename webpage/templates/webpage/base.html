@@ -59,7 +59,7 @@
         <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white box-shadow">
         <div class="container">
             <a class="navbar-brand" href="/">
-                {% projects_metadata 'title' %}
+                <img src="{% static 'webpage/img/acdh-vocabs-logo.png' %}" alt="ACDH Vocabularies" title="ACDH Vocabularies"/>
             </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -68,13 +68,13 @@
                     <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link navigation-font" href="{% url 'webpage:staticpage' template='about' %}">
-                        About
+                        About Editor
                         </a>
                     </li>
                     {% if 'vocabs' in APPS %}
                         {% if user.is_authenticated %}
                             <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vocabs Curation
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Curation
                             <span class="caret"/>
                             </a>
                                 <div class="dropdown-menu">
