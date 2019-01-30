@@ -70,12 +70,22 @@ class SkosConceptListFilter(django_filters.FilterSet):
             url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'
         ),
         queryset=SkosConcept.objects.all(),
-        help_text=False,
+        help_text='Returns all narrower concepts of a selected concept(descendants)',
+        method='filter_get_descendants'
     )
 
     class Meta:
         model = SkosConcept
         fields = '__all__'
+
+    def filter_get_descendants(self, qs, name, value):
+        if value:
+            qs = SkosConcept.objects.get_queryset_descendants(
+                SkosConcept.objects.filter(pref_label=value),
+                include_self=False)
+        else:
+            qs
+        return qs
 
 
 class SkosConceptFilter(django_filters.FilterSet):
