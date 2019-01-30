@@ -1,7 +1,34 @@
 {% extends "webpage/base.html" %}
 {% load mptt_tags %}
 {% block content %}
-<div class="container">
+<div class="container-fluid">
+<div class="row">
+<div class="col-4">
+    <div class="card">
+        <div class="card-header">
+        <h1><small>Concepts in this Collection</small></h1>
+        </div>
+    <div class="card-body">
+     <!-- Hierarchy location -->
+
+        {% if object.has_members.all %}
+       
+        {% for skosconcept,structure in object.has_members.all|tree_info %}
+        {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
+        <a href="{{ skosconcept.get_absolute_url }}">{{ skosconcept.pref_label }}</a>
+        {% for level in structure.closed_levels %}</li></ul>{% endfor %}
+        {% endfor %}
+
+        {% else %}
+
+        <p>No concepts in this Collection</p>
+
+        {% endif %}
+        <!-- Hierarchy END -->
+    </div>
+    </div>
+</div>
+<div class="col-8">
     <div class="card">
         <div class="card-header">
             <div class="row">
@@ -67,7 +94,11 @@
         {% if object.scheme %}
          <tr>
             <th>skos:ConceptScheme</th>
-            <td>{{object.scheme}}</td>
+            <td>
+            <a href="{{ object.scheme.get_absolute_url }}">
+            {{object.scheme}}
+            </a>
+            </td>
         </tr>
         {% endif %}
         {% if object.creator %}
@@ -136,22 +167,6 @@
         {% endif %}
         {% endif %}
 
-         <!-- Hierarchy location -->
-
-        {% if object.has_members.all %}
-        <tr>
-        <th class="w-25">members</th>
-        <td>
-        {% for skosconcept,structure in object.has_members.all|tree_info %}
-        {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
-        <a href="{{ skosconcept.get_absolute_url }}">{{ skosconcept.pref_label }}</a>
-        {% for level in structure.closed_levels %}</li></ul>{% endfor %}
-        {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
-        <!-- Hierarchy END -->
-
         </table>
         <!--change history collapse button-->
         {% if user.is_authenticated %}
@@ -176,5 +191,7 @@
         {% endif %}
         <!--change history ends here-->  
     </div>
+</div><!-- col-8 ends -->
+</div><!-- row ends -->
 </div>
 {% endblock %}
