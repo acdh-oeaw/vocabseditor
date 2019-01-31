@@ -357,13 +357,13 @@
         </tr>
         {% endif %}
         {% endif %}
-       <!--  <tr>
+        <tr>
             <th>download this concept</th>
             <td>
                 <li><a href="{% url 'vocabs:vocabs-download' %}?pref_label={{object.id}}">RDF/XML</a></li>
                 <li><a href="{% url 'vocabs:vocabs-download' %}?format=turtle&pref_label={{object.id}}">Turtle</a></li>
             </td>
-        </tr> -->
+        </tr>
         </table>
         <!--change history collapse button-->
         {% if user.is_authenticated %}
