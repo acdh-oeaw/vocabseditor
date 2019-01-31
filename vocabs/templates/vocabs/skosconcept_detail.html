@@ -204,50 +204,6 @@
         </td>
         </tr>
         {% endif %}
-<!-- skos:broader & skos:narrower -->
-        {% if object.skos_broader.all %}
-        <tr>
-        <th>skos:broader</th>
-        <td>
-            {% for x in object.skos_broader.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
-            {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
-
-        {% if object.narrower.all %}
-        <tr>
-        <th>skos:narrower</th>
-        <td>
-            {% for x in object.narrower.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
-            {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
-<!-- skos:narrower & skos:broader -->
-        {% if object.skos_narrower.all %}
-        <tr>
-        <th>skos:narrower</th>
-        <td>
-            {% for x in object.skos_narrower.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
-            {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
-
-        {% if object.broader.all %}
-        <tr>
-        <th>skos:broader</th>
-        <td>
-            {% for x in object.broader.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
-            {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
 <!-- skos:related & reverse -->
         {% if object.skos_related.all %}
         <tr>

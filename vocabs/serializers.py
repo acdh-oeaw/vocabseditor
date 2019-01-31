@@ -35,7 +35,6 @@ class SkosConceptSerializer(serializers.HyperlinkedModelSerializer):
             'notation', 'top_concept',
             'broader_concept', 'narrower_concepts',
             'same_as_external',
-            'skos_broader', 'broader', 'skos_narrower', 'narrower',
             'skos_related', 'related',
             'skos_broadmatch', 'narrowmatch', 'skos_narrowmatch', 'broadmatch',
             'skos_exactmatch', 'exactmatch', 'skos_closematch', 'closematch',

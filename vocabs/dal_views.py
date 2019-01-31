@@ -53,29 +53,6 @@ class SKOSConstraintACNoHierarchy(autocomplete.Select2QuerySetView):
         return qs
 
 
-class SKOSConstraintAC(autocomplete.Select2QuerySetView):
-    def get_result_label(self, item):
-        if len(item.skos_broader.all()) > 0:
-            return "{} >> {}".format(item.skos_broader.all()[0], item.pref_label)
-        else:
-            return "{}".format(item.pref_label)
-
-    def get_queryset(self):
-        scheme = self.request.GET.get('scheme')
-        try:
-            selected_scheme = SkosConceptScheme.objects.get(title=scheme)
-            qs = SkosConcept.objects.filter(scheme=selected_scheme)
-        except:
-            qs = SkosConcept.objects.all()
-
-        if self.q:
-            direct_match = qs.filter(pref_label__icontains=self.q)
-            plus_narrower = direct_match | qs.filter(broader_concept__in=direct_match)
-            return plus_narrower
-        else:
-            return qs
-
-
 class SkosConceptAC(autocomplete.Select2QuerySetView):
 
     def get_result_label(self, item):

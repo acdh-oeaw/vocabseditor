@@ -343,10 +343,6 @@ class SkosConceptForm(forms.ModelForm):
         widgets = {
             'scheme': autocomplete.ModelSelect2(
                 url='vocabs-ac:skosconceptscheme-autocomplete'),
-            'skos_broader': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
-            'skos_narrower': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_related': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_broadmatch': autocomplete.ModelSelect2Multiple(
@@ -392,8 +388,6 @@ class SkosConceptForm(forms.ModelForm):
                 Accordion(
                 AccordionGroup(
                     'Add SKOS semantic relationships',
-                    'skos_broader',
-                    'skos_narrower',
                     'skos_related',
                     'skos_broadmatch',
                     'skos_narrowmatch',
