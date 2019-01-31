@@ -237,6 +237,7 @@ class SkosCollectionListView(GenericListView):
     init_columns = [
         'id',
         'name',
+        'scheme',
     ]
 
     def get_all_cols(self):
@@ -389,7 +390,7 @@ class SkosConceptListView(GenericListView):
     init_columns = [
         'id',
         'pref_label',
-        'broader_concept',
+        'scheme',
     ]
 
 

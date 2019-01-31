@@ -17,16 +17,16 @@ class SkosCollectionTable(tables.Table):
 
     class Meta:
         model = SkosCollection
-        sequence = ['id', 'name']
+        sequence = ['id', 'name', 'scheme']
         attrs = {"class": "table table-hover table-striped table-condensed"}
 
 
 class SkosConceptTable(tables.Table):
-    broader_concept = tables.Column(verbose_name='Broader Term')
+    #broader_concept = tables.Column(verbose_name='Broader Term')
     pref_label = tables.LinkColumn('vocabs:skosconcept_detail', args=[A('pk')])
     all_schemes = tables.Column(verbose_name='in SkosScheme', orderable=False)
 
     class Meta:
         model = SkosConcept
-        sequence = ['broader_concept', 'pref_label']
+        sequence = ['id', 'pref_label', 'scheme']
         attrs = {"class": "table table-hover table-striped table-condensed"}
