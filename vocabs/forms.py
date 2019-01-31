@@ -320,8 +320,21 @@ ConceptSourceFormSet = inlineformset_factory(
 class SkosConceptForm(forms.ModelForm):
     broader_concept = TreeNodeChoiceField(
         queryset=SkosConcept.objects.all(),
-        widget=autocomplete.ModelSelect2(url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
-        help_text="A concept with a broader meaning that a current concept inherits from"
+        widget=autocomplete.ModelSelect2(
+            url='vocabs-ac:skosconcept-nobroaderterm-autocomplete',
+            forward=['scheme']
+        ),
+        help_text="A concept with a broader meaning that a current concept inherits from",
+        required=False
+    )
+    collection = forms.ModelMultipleChoiceField(
+        queryset=SkosCollection.objects.all(),
+        widget=autocomplete.ModelSelect2Multiple(
+                url='vocabs-ac:skoscollection-autocomplete',
+                forward=['scheme']
+        ),
+        help_text="member of skos:Collection",
+        required=False
     )
 
     class Meta:
@@ -330,8 +343,6 @@ class SkosConceptForm(forms.ModelForm):
         widgets = {
             'scheme': autocomplete.ModelSelect2(
                 url='vocabs-ac:skosconceptscheme-autocomplete'),
-            # 'broader_concept': autocomplete.ModelSelect2(
-            #     url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_broader': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_narrower': autocomplete.ModelSelect2Multiple(
@@ -348,8 +359,6 @@ class SkosConceptForm(forms.ModelForm):
                 url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
             'skos_closematch': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
-            'collection': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skoscollection-autocomplete')
         }
 
     def __init__(self, *args, **kwargs):

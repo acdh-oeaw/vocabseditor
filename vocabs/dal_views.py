@@ -104,6 +104,9 @@ class SkosConceptNoBroaderTermAC(autocomplete.Select2QuerySetView):
         qs = get_objects_for_user(self.request.user,
             'view_skosconcept',
             klass=SkosConcept)
+        scheme = self.forwarded.get('scheme', None)
+        if scheme:
+            qs = qs.filter(scheme=scheme)
         if self.q:
             qs = qs.filter(pref_label__icontains=self.q)
         return qs
@@ -135,7 +138,9 @@ class SkosCollectionAC(autocomplete.Select2QuerySetView):
         qs = get_objects_for_user(self.request.user,
             'view_skoscollection',
             klass=SkosCollection)
-        #qs = SkosCollection.objects.all()
+        scheme = self.forwarded.get('scheme', None)
+        if scheme:
+            qs = qs.filter(scheme=scheme)
 
         if self.q:
             qs = qs.filter(name__icontains=self.q)

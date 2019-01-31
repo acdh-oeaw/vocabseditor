@@ -484,7 +484,7 @@ class SkosConcept(MPTTModel):
     pref_label_lang = models.CharField(
         max_length=3, blank=True,
         verbose_name="skos:prefLabel language",
-        help_text="Language code of preferred label according to ISO 639-3",
+        help_text="Language code of preferred label according to ISO 639-1",
         default=DEFAULT_LANG
     )
     # relation to SkosConceptScheme to inherit all objects permissions
