@@ -7,7 +7,11 @@
 <div class="container">
     <div class="card">
     	<div class="card-header">
-    	<h1>Hello,  {{ object }}</h1>
+    	<h1>Hello,  {% if object.first_name %}
+    	{{ object.first_name }}
+    	{% else %}
+    	{{ object }}
+    	{% endif %}</h1>
     	</div>
     	<div class="card-body">
 	        {% if versions %}
