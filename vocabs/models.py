@@ -559,6 +559,7 @@ class SkosConcept(MPTTModel):
     )
     ##########################################################
     legacy_id = models.CharField(max_length=200, blank=True)
+    # delete
     name_reverse = models.CharField(
         max_length=255,
         verbose_name="name reverse",

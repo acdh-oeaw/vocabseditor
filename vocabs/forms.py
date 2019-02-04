@@ -357,6 +357,10 @@ class SkosConceptForm(forms.ModelForm):
                 url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
         }
 
+    # class Media:
+    #     js = ('autocomplete.init.js')
+
+
     def __init__(self, *args, **kwargs):
         super(SkosConceptForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()

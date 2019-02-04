@@ -391,4 +391,23 @@
 </div><!-- col-8 ends -->
 </div><!-- row ends -->
 </div>
+<script type="text/javascript">
+//     $(document).ready(function() {
+//     // Bind on continent field change
+//     $(':select[name$=scheme]').on('change', function() {
+//         // Get the field prefix, ie. if this comes from a formset form
+//         // var prefix = $(this).getFormPrefix();
+
+//         // Clear the autocomplete with the same prefix
+//         $(':select[name$=collection]').val(null).trigger('change');
+//     });
+// });
+
+$(document).ready(function() {
+    $(':input[name$=scheme]').on('change', function() {
+        var prefix = $(this).getFormPrefix();
+        $(':input[name=' + prefix + 'collection]').val(null).trigger('change');
+    });
+});
+</script>
 {% endblock content %}

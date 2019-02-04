@@ -6,7 +6,10 @@
 <div class="col-4">
     <div class="card">
         <div class="card-header">
-        <h1><small>Hierarchy</small></h1>
+        <h1><small>Hierarchy</small>
+        {% if user.is_authenticated %}
+            <a class ="btn btn-outline-secondary"  href="{% url 'vocabs:skosconcept_create' %}">Add new concept</a>
+        {% endif %}</h1>
         </div>
     <div class="card-body">
     <!-- Hierarchy -->
@@ -17,6 +20,9 @@
     <a href="{{ skosconcept.get_absolute_url }}">{{ skosconcept.pref_label }}</a>
     {% for level in structure.closed_levels %}</li></ul>{% endfor %}
     {% endfor %}
+
+    {% else %}
+    <p>No concepts in this Concept Scheme</p>
 
     {% endif %}
     <!-- Hierarchy END -->
