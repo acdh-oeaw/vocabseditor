@@ -36,7 +36,7 @@
                 <div class="col-md-2">
                         <h2>
                             <a href="{% url 'vocabs:browse_schemes' %}">
-                                <i class="fas fa-chevron-left" title="previous"></i>
+                                <i class="fas fa-chevron-left" title="All Concept Schemes"></i>
                             </a>
                         </h2>
                 </div>
@@ -188,6 +188,16 @@
         <tr>
             <th>legacy ID</th>
             <td>{{object.legacy_id}}</td>
+        </tr>
+        {% endif %}
+        {% if object.has_collections.all %}
+         <tr>
+            <th>collections</th>
+            <td>
+                {% for collection in object.has_collections.all %}
+                <li><a href="{{ collection.get_absolute_url }}">{{collection}}</a></li>
+                {% endfor %}
+            </td>
         </tr>
         {% endif %}
         {% if object.date_created %}
