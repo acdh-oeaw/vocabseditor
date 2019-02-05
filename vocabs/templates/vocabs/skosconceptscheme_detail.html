@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container-fluid">
 <div class="row">
-<div class="col-4">
+<div class="col-md-4">
     <div class="card">
         <div class="card-header">
         <h1><small>Hierarchy</small>
@@ -29,18 +29,16 @@
     </div>
     </div>
 </div>
-<div class="col-8">
+<div class="col-md-8">
     <div class="card">
         <div class="card-header">
             <div class="row">
                 <div class="col-md-2">
-                    {% if object.get_prev %}
                         <h2>
-                            <a href="{% url 'vocabs:skosconceptscheme_detail' pk=object.get_prev %}">
+                            <a href="{% url 'vocabs:browse_schemes' %}">
                                 <i class="fas fa-chevron-left" title="previous"></i>
                             </a>
                         </h2>
-                    {% endif %}
                 </div>
                 <div class="col-md-8">
                     <h1 style="text-align: center;">
@@ -60,15 +58,6 @@
                         {% endif %}
                     </h1>
                 </div>
-            <div class="col-md-2">
-                {% if object.get_next %}
-                <h2>
-                    <a href="{% url 'vocabs:skosconceptscheme_detail' pk=object.get_next %}" style="float:right">
-                        <i class="fas fa-chevron-right" title="next"></i>
-                    </a>
-                </h2>
-                {% endif %}
-            </div>
         </div>
     </div>
         <table class="table">
