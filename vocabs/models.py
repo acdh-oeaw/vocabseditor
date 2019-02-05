@@ -532,29 +532,29 @@ class SkosConcept(MPTTModel):
     skos_broadmatch = models.ManyToManyField(
         'SkosConcept', blank=True, related_name="narrowmatch",
         verbose_name="skos:broadMatch",
-        help_text="A concept in an external ConceptSchema with a broader meaning"
+        help_text="A concept in an external Concept Scheme with a broader meaning"
     )
     skos_narrowmatch = models.ManyToManyField(
         'SkosConcept', blank=True, related_name="broadmatch",
         verbose_name="skos:narrowMatch",
-        help_text="A concept in an external ConceptSchema with a narrower meaning"
+        help_text="A concept in an external Concept Scheme with a narrower meaning"
     )
     skos_exactmatch = models.ManyToManyField(
         'SkosConcept', blank=True, related_name="exactmatch",
         verbose_name="skos:exactMatch",
-        help_text="A concept in an external ConceptSchema "
+        help_text="A concept in an external Concept Scheme "
         "that can be used interchangeably and has an exact same meaning"
     )
     skos_relatedmatch = models.ManyToManyField(
         'SkosConcept', blank=True, related_name="relatedmatch",
         verbose_name="skos:relatedMatch",
-        help_text="A concept in an external ConceptSchema that has an associative "
+        help_text="A concept in an external Concept Scheme that has an associative "
         "relationship with a current concept"
     )
     skos_closematch = models.ManyToManyField(
         'SkosConcept', blank=True, related_name="closematch",
         verbose_name="skos:closeMatch",
-        help_text="A concept in an external ConceptSchema that has a similar meaning"
+        help_text="A concept in an external Concept Scheme that has a similar meaning"
 
     )
     ##########################################################

@@ -336,6 +336,51 @@ class SkosConceptForm(forms.ModelForm):
         help_text="member of skos:Collection",
         required=False
     )
+    skos_broadmatch = forms.ModelMultipleChoiceField(
+        queryset=SkosConcept.objects.all(),
+        widget=autocomplete.ModelSelect2Multiple(
+                url='vocabs-ac:skosconcept-extmatch-autocomplete',
+                forward=['scheme']
+        ),
+        help_text=SkosConcept._meta.get_field('skos_broadmatch').help_text,
+        required=False
+    )
+    skos_narrowmatch = forms.ModelMultipleChoiceField(
+        queryset=SkosConcept.objects.all(),
+        widget=autocomplete.ModelSelect2Multiple(
+                url='vocabs-ac:skosconcept-extmatch-autocomplete',
+                forward=['scheme']
+        ),
+        help_text=SkosConcept._meta.get_field('skos_narrowmatch').help_text,
+        required=False
+    )
+    skos_exactmatch = forms.ModelMultipleChoiceField(
+        queryset=SkosConcept.objects.all(),
+        widget=autocomplete.ModelSelect2Multiple(
+                url='vocabs-ac:skosconcept-extmatch-autocomplete',
+                forward=['scheme']
+        ),
+        help_text=SkosConcept._meta.get_field('skos_exactmatch').help_text,
+        required=False
+    )
+    skos_relatedmatch = forms.ModelMultipleChoiceField(
+        queryset=SkosConcept.objects.all(),
+        widget=autocomplete.ModelSelect2Multiple(
+                url='vocabs-ac:skosconcept-extmatch-autocomplete',
+                forward=['scheme']
+        ),
+        help_text=SkosConcept._meta.get_field('skos_relatedmatch').help_text,
+        required=False
+    )
+    skos_closematch = forms.ModelMultipleChoiceField(
+        queryset=SkosConcept.objects.all(),
+        widget=autocomplete.ModelSelect2Multiple(
+                url='vocabs-ac:skosconcept-extmatch-autocomplete',
+                forward=['scheme']
+        ),
+        help_text=SkosConcept._meta.get_field('skos_closematch').help_text,
+        required=False
+    )
 
     class Meta:
         model = SkosConcept
@@ -344,16 +389,6 @@ class SkosConceptForm(forms.ModelForm):
             'scheme': autocomplete.ModelSelect2(
                 url='vocabs-ac:skosconceptscheme-autocomplete'),
             'skos_related': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
-            'skos_broadmatch': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
-            'skos_narrowmatch': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
-            'skos_exactmatch': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
-            'skos_relatedmatch': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
-            'skos_closematch': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
         }
 

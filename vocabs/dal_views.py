@@ -89,6 +89,24 @@ class SkosConceptNoBroaderTermAC(autocomplete.Select2QuerySetView):
         return qs
 
 
+class SkosConceptExternalMatchAC(autocomplete.Select2QuerySetView):
+
+    def get_result_label(self, item):
+        level_indicator = DEFAULT_LEVEL_INDICATOR * item.level
+        return level_indicator + ' ' + str(item)
+
+    def get_queryset(self):
+        qs = get_objects_for_user(self.request.user,
+            'view_skosconcept',
+            klass=SkosConcept)
+        scheme = self.forwarded.get('scheme', None)
+        if scheme:
+            qs = qs.exclude(scheme=scheme)
+        if self.q:
+            qs = qs.filter(pref_label__icontains=self.q)
+        return qs
+
+
 class SkosConceptPrefLabalAC(autocomplete.Select2ListView):
 
     def get_list(self):

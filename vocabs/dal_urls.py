@@ -34,6 +34,11 @@ urlpatterns = [
         name='skosconcept-nobroaderterm-autocomplete',
     ),
     url(
+        r'^skosconcept-extmatch-autocomplete/$', dal_views.SkosConceptExternalMatchAC.as_view(
+            model=SkosConcept),
+        name='skosconcept-extmatch-autocomplete',
+    ),
+    url(
         r'^skosconcept-pref-label-autocomplete/$',
         dal_views.SkosConceptPrefLabalAC.as_view(),
         name='skosconcept-label-ac',
