@@ -399,7 +399,6 @@ class SkosConceptForm(forms.ModelForm):
                     'skos_relatedmatch',
                     'skos_closematch',
                     'legacy_id',
-                    'name_reverse',
                     css_id="advanced_skos_fields"
                 ),
                 ),

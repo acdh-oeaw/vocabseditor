@@ -559,14 +559,6 @@ class SkosConcept(MPTTModel):
     )
     ##########################################################
     legacy_id = models.CharField(max_length=200, blank=True)
-    # delete
-    name_reverse = models.CharField(
-        max_length=255,
-        verbose_name="name reverse",
-        help_text="Inverse relation like: \
-        'is sub-class of' vs. 'is super-class of'.",
-        blank=True
-    )
     creator = models.TextField(
         blank=True, verbose_name="dc:creator",
         help_text="A Person or Organisation that created a current concept<br>"
@@ -661,18 +653,6 @@ class SkosConcept(MPTTModel):
 
     def get_absolute_url(self):
         return reverse('vocabs:skosconcept_detail', kwargs={'pk': self.id})
-
-    def get_next(self):
-        next = SkosConcept.objects.filter(id__gt=self.id)
-        if next:
-            return next.first().id
-        return False
-
-    def get_prev(self):
-        prev = SkosConcept.objects.filter(id__lt=self.id).order_by('-id')
-        if prev:
-            return prev.first().id
-        return False
 
     def __str__(self):
         return self.pref_label
