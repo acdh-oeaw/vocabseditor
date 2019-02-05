@@ -42,7 +42,7 @@ class SkosConceptListFilter(django_filters.FilterSet):
         ),
         queryset=SkosConcept.objects.all(),
         lookup_expr='icontains',
-        label='skos:prefLabel',
+        label='Skos:prefLabel',
         help_text=False,
     )
     scheme = django_filters.ModelChoiceFilter(
