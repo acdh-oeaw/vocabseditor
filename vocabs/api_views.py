@@ -3,7 +3,6 @@ from rest_framework import pagination, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import *
 from .serializers import *
-from .filters import SkosConceptFilter
 from .api_renderers import RDFRenderer
 from rest_framework.settings import api_settings
 from django.contrib.auth.models import User
@@ -36,10 +35,7 @@ class SkosCollectionViewSet(viewsets.ModelViewSet):
 class SkosConceptViewSet(viewsets.ModelViewSet):
     queryset = SkosConcept.objects.all()
     serializer_class = SkosConceptSerializer
-    filter_backends = (DjangoFilterBackend,)
-    filter_class = SkosConceptFilter
+    filter_backends = (DjangoFilterBackend, filters.DjangoObjectPermissionsFilter,)
     pagination_class = LargeResultsSetPagination
     renderer_classes = tuple(api_settings.DEFAULT_RENDERER_CLASSES) + (RDFRenderer, )
     permission_classes = (DjangoObjectPermissions, )
-    filter_backends = (filters.DjangoObjectPermissionsFilter, )
-    pagination_class = LargeResultsSetPagination

@@ -454,19 +454,12 @@ class SkosConceptFormHelper(FormHelper):
         self.add_input(Submit('Filter', 'Search'))
         self.layout = Layout(
             Fieldset(
-                'Basic search options',
+                '',
                 'pref_label',
                 'scheme',
+                'top_concept',
                 'collection',
                 'broader_concept',
                 css_id="basic_search_fields"
                 ),
-            Accordion(
-                AccordionGroup(
-                    'Advanced search',
-                    'top_concept',
-                    'pref_label_lang',
-                    css_id="more"
-                    ),
-                )
             )

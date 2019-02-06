@@ -149,6 +149,9 @@ class SkosConceptScheme(models.Model):
         help_text="The selected user(s) will be able to view and edit current Concept Scheme."
     )
 
+    class Meta:
+        ordering = ['id']
+
     def save(self, *args, **kwargs):
         if not self.id:
             self.date_created = timezone.now()
@@ -334,6 +337,9 @@ class SkosCollection(models.Model):
         blank=True, null=True,
         on_delete=models.SET_NULL
     )
+
+    class Meta:
+        ordering = ['id']
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -558,6 +564,7 @@ class SkosConcept(MPTTModel):
 
     )
     ##########################################################
+    # if using legacy_id as URI change it for URLField
     legacy_id = models.CharField(max_length=200, blank=True)
     creator = models.TextField(
         blank=True, verbose_name="dc:creator",
@@ -587,6 +594,7 @@ class SkosConcept(MPTTModel):
     class MPTTMeta:
         order_insertion_by = ['pref_label']
         parent_attr = 'broader_concept'
+        ordering = ['id']
 
     def get_broader(self):
         broader = self.skos_broader.all()

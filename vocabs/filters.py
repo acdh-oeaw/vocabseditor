@@ -88,28 +88,6 @@ class SkosConceptListFilter(django_filters.FilterSet):
         return qs
 
 
-class SkosConceptFilter(django_filters.FilterSet):
-
-    pref_label = django_filters.ModelMultipleChoiceFilter(
-        widget=autocomplete.Select2Multiple(url='vocabs-ac:skosconcept-autocomplete'),
-        queryset=SkosConcept.objects.all(),
-        lookup_expr='icontains',
-        label='PrefLabel',
-        help_text=False,
-    )
-
-    scheme = django_filters.ModelMultipleChoiceFilter(
-        queryset=SkosConceptScheme.objects.all(),
-        lookup_expr='icontains',
-        label='in SkosConceptScheme',
-        help_text=False,
-    )
-
-    class Meta:
-        model = SkosConcept
-        fields = '__all__'
-
-
 class SkosConceptSchemeListFilter(django_filters.FilterSet):
 
     title = django_filters.CharFilter(
