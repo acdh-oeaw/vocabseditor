@@ -79,6 +79,26 @@ textarea {
 }
 
 /*fixing the height of select2multiple field, overring fundament*/
+
 .modelselect2multiple, .select2multiple {
   padding: 0;
 }
+
+/*---------- css for dynamic forms ----------*/
+.add-row {
+
+}
+.delete-row {
+ 
+}
+.dynamic-form {
+  margin-bottom:20px;
+  padding-bottom:20px;
+  border-bottom:1px dotted #ccc;
+}
+
+.formset-div {
+  margin-bottom: 20px;
+  border-bottom: 1px dotted #ccc;
+}
+/*---------------------------------------------*/

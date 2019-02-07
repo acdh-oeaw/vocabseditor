@@ -36,6 +36,14 @@ class UploadFileForm(forms.Form):
 
 class ConceptSchemeTitleForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(ConceptSchemeTitleForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-2 create-label'
+        self.helper.field_class = 'col-md-10'
+
     class Meta:
         model = ConceptSchemeTitle
         exclude = ()
@@ -50,6 +58,14 @@ ConceptSchemeTitleFormSet = inlineformset_factory(
 
 class ConceptSchemeDescriptionForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(ConceptSchemeDescriptionForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-2 create-label'
+        self.helper.field_class = 'col-md-10'
+
     class Meta:
         model = ConceptSchemeDescription
         exclude = ()
@@ -63,6 +79,14 @@ ConceptSchemeDescriptionFormSet = inlineformset_factory(
 
 
 class ConceptSchemeSourceForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ConceptSchemeSourceForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-2 create-label'
+        self.helper.field_class = 'col-md-10'
 
     class Meta:
         model = ConceptSchemeSource
@@ -98,17 +122,17 @@ class SkosConceptSchemeForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = True
         self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-md-3 create-label'
-        self.helper.field_class = 'col-md-9'
+        self.helper.label_class = 'col-md-2 create-label'
+        self.helper.field_class = 'col-md-10'
         self.helper.layout = Layout(
             Div(
                 Field('title'),
                 Field('title_lang'),
                 Fieldset('Add titles in other languages',
-                    Formset('titles'))
+                    Formset('titles'), css_class="formset-div")
                 ,
                 Fieldset('Add description',
-                    Formset('descriptions'))
+                    Formset('descriptions'), css_class="formset-div")
                 ,
                 Field('indentifier'),
                 Field('language'),
@@ -121,7 +145,7 @@ class SkosConceptSchemeForm(forms.ModelForm):
                 Field('relation'),
                 Field('coverage'),
                 Fieldset('Add source information',
-                    Formset('sources'))
+                    Formset('sources'), css_class="formset-div")
                 ,
                 Field('version'),
                 Field('legacy_id'),
@@ -158,6 +182,14 @@ class SkosConceptSchemeFormHelper(FormHelper):
 
 class CollectionLabelForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(CollectionLabelForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-2 create-label'
+        self.helper.field_class = 'col-md-10'
+
     class Meta:
         model = CollectionLabel
         exclude = ()
@@ -172,6 +204,14 @@ CollectionLabelFormSet = inlineformset_factory(
 
 class CollectionNoteForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(CollectionNoteForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-2 create-label'
+        self.helper.field_class = 'col-md-10'
+
     class Meta:
         model = CollectionNote
         exclude = ()
@@ -185,6 +225,14 @@ CollectionNoteFormSet = inlineformset_factory(
 
 
 class CollectionSourceForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(CollectionSourceForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-2 create-label'
+        self.helper.field_class = 'col-md-10'
 
     class Meta:
         model = CollectionSource
@@ -217,24 +265,24 @@ class SkosCollectionForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = True
         self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-md-3 create-label'
-        self.helper.field_class = 'col-md-9'
+        self.helper.label_class = 'col-md-2 create-label'
+        self.helper.field_class = 'col-md-10'
         self.helper.layout = Layout(
             Div(
                 Field('name'),
                 Field('label_lang'),
                 Fieldset('Add more labels in other languages',
-                    Formset('labels'))
+                    Formset('labels'), css_class="formset-div")
                 ,
                 Field('scheme'),
                 Field('creator'),
                 Field('contributor'),
                 Field('legacy_id'),
                 Fieldset('Add more documentary notes',
-                    Formset('notes'))
+                    Formset('notes'), css_class="formset-div")
                 ,
                 Fieldset('Add source information',
-                    Formset('sources'))
+                    Formset('sources'), css_class="formset-div")
                 ,
                 HTML("<br>"),
                 ButtonHolder(Submit('submit', 'save')),
@@ -271,6 +319,14 @@ class SkosCollectionFormHelper(FormHelper):
 
 class ConceptLabelForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(ConceptLabelForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-2 create-label'
+        self.helper.field_class = 'col-md-10'
+
     class Meta:
         model = ConceptLabel
         exclude = ()
@@ -285,6 +341,14 @@ ConceptLabelFormSet = inlineformset_factory(
 
 class ConceptNoteForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(ConceptNoteForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-2 create-label'
+        self.helper.field_class = 'col-md-10'
+
     class Meta:
         model = ConceptNote
         exclude = ()
@@ -298,6 +362,14 @@ ConceptNoteFormSet = inlineformset_factory(
 
 
 class ConceptSourceForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ConceptSourceForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-2 create-label'
+        self.helper.field_class = 'col-md-10'
 
     class Meta:
         model = ConceptSource
@@ -343,6 +415,7 @@ class SkosConceptForm(forms.ModelForm):
                 forward=['scheme']
         ),
         help_text=SkosConcept._meta.get_field('skos_broadmatch').help_text,
+        label=SkosConcept._meta.get_field('skos_broadmatch').verbose_name,
         required=False
     )
     skos_narrowmatch = forms.ModelMultipleChoiceField(
@@ -352,6 +425,7 @@ class SkosConceptForm(forms.ModelForm):
                 forward=['scheme']
         ),
         help_text=SkosConcept._meta.get_field('skos_narrowmatch').help_text,
+        label=SkosConcept._meta.get_field('skos_narrowmatch').verbose_name,
         required=False
     )
     skos_exactmatch = forms.ModelMultipleChoiceField(
@@ -361,6 +435,7 @@ class SkosConceptForm(forms.ModelForm):
                 forward=['scheme']
         ),
         help_text=SkosConcept._meta.get_field('skos_exactmatch').help_text,
+        label=SkosConcept._meta.get_field('skos_exactmatch').verbose_name,
         required=False
     )
     skos_relatedmatch = forms.ModelMultipleChoiceField(
@@ -370,6 +445,7 @@ class SkosConceptForm(forms.ModelForm):
                 forward=['scheme']
         ),
         help_text=SkosConcept._meta.get_field('skos_relatedmatch').help_text,
+        label=SkosConcept._meta.get_field('skos_relatedmatch').verbose_name,
         required=False
     )
     skos_closematch = forms.ModelMultipleChoiceField(
@@ -379,6 +455,7 @@ class SkosConceptForm(forms.ModelForm):
                 forward=['scheme']
         ),
         help_text=SkosConcept._meta.get_field('skos_closematch').help_text,
+        label=SkosConcept._meta.get_field('skos_closematch').verbose_name,
         required=False
     )
 
@@ -401,28 +478,29 @@ class SkosConceptForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_tag = True
         self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-md-3 create-label'
-        self.helper.field_class = 'col-md-9'
+        self.helper.label_class = 'col-md-2 create-label'
+        self.helper.field_class = 'col-md-10'
         self.helper.layout = Layout(
             Div(
                 Field('pref_label'),
                 Field('pref_label_lang'),
                 Fieldset('Add more labels',
-                    Formset('labels'))
+                    Formset('labels'), css_class="formset-div")
                 ,
                 Field('scheme'),
                 Field('top_concept'),
                 Field('collection'),
                 Field('broader_concept'),
                 Fieldset('Add documentary notes',
-                    Formset('notes'))
+                    Formset('notes'), css_class="formset-div")
                 ,
                 Field('creator'),
                 Field('contributor'),
                 Field('same_as_external'),
                 Field('notation'),
+                Field('legacy_id'),
                 Fieldset('Add source information',
-                    Formset('sources'))
+                    Formset('sources'), css_class="formset-div")
                 ,
                 Accordion(
                 AccordionGroup(
@@ -433,7 +511,6 @@ class SkosConceptForm(forms.ModelForm):
                     'skos_exactmatch',
                     'skos_relatedmatch',
                     'skos_closematch',
-                    'legacy_id',
                     css_id="advanced_skos_fields"
                 ),
                 ),
