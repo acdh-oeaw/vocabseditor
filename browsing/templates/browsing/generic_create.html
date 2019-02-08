@@ -4,9 +4,20 @@
 {% endblock %}
 
 {% block objectType %}
-    <h1>Create/Edit
+    <h1><!-- Create/Edit -->
+    {% if object %}
+    Update
+    {% else %}
+    Create
+    {% endif %}
+
         {% if docstring %}
             <abbr title="{{ docstring}}">{{ class_name }}</abbr>
+            {% if object.pref_label %}<b>{{object.pref_label}}</b>
+            {% elif object.title %}<b>{{object.title}}</b>
+            {% elif object.name %}<b>{{object.name}}</b>
+            {% else %}
+            {% endif %}
         {% else %}
             {{ class_name }}
         {% endif %}

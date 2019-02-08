@@ -67,7 +67,7 @@ class SkosConceptScheme(models.Model):
     organization system reference. W3C recommendation (2009)."
     """
     title = models.CharField(
-        max_length=300, blank=True,
+        max_length=300,
         help_text="Title of a Concept Scheme",
         verbose_name="dc:title"
     )
@@ -198,8 +198,6 @@ class SkosConceptScheme(models.Model):
         return False
 
     def __str__(self):
-        if not self.title:
-            return self.id
         return self.title
 
 
@@ -297,7 +295,7 @@ class SkosCollection(models.Model):
 
     """
     name = models.CharField(
-        max_length=300, blank=True, verbose_name="skos:prefLabel",
+        max_length=300, verbose_name="skos:prefLabel",
         help_text="Collection label or name"
     )
     label_lang = models.CharField(
@@ -371,8 +369,6 @@ class SkosCollection(models.Model):
         return False
 
     def __str__(self):
-        if not self.name:
-            return self.id
         return self.name
 
     def creator_as_list(self):
@@ -483,7 +479,7 @@ class SkosConcept(MPTTModel):
     organization system reference. W3C recommendation (2009)."
     """
     pref_label = models.CharField(
-        max_length=300, blank=True,
+        max_length=300,
         verbose_name="skos:prefLabel",
         help_text="Preferred label for a concept"
     )
