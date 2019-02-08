@@ -37,7 +37,7 @@ footer {
     margin-bottom: 20px;
 }
 
-a {
+a, .btn-link {
     /*color: #88dbdf;*/
     /*color: #3b89ad;*/
     color: #1796d1;
@@ -78,6 +78,7 @@ textarea {
   height: 38px;
 }
 
+
 /*fixing the height of select2multiple field, overring fundament*/
 
 .modelselect2multiple, .select2multiple {
@@ -102,3 +103,7 @@ textarea {
   border-bottom: 1px dotted #ccc;
 }
 /*---------------------------------------------*/
+
+.card-collapse {
+  border-top: none;
+}
