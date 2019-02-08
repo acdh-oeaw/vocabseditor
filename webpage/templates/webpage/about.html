@@ -11,21 +11,22 @@
         <div class="card-body">
             <div style="text-align: justify;">
                 <p>
-                    {% projects_metadata 'purpose_en' %}
+                   The purpose of ACDH Vocabularies Editor is to provide a service for <b>collaborative work on controlled vocabularies</b> development.
                 </p>
                 <p>
-                    The editor follows SKOS data model for the main elements of a controlled vocabulary.
-                    Dublin core schema is used to capture the metadata (such as date created, date modified, creator, contributor, source and other) about each element.
+                    The editor follows <b>SKOS</b> data model for the main elements of a controlled vocabulary.
+                    <b>Dublin core</b> schema is used to capture the metadata (such as date created, date modified, creator, contributor, source and other) about each element.
+                    Each Concept Scheme can be downloaded in <b>RDF/XML</b> and <b>Turtle</b> formats as well as each individual Concept.
                 </p>
                 <p>
-                    The user management system allows a user to share a created Concept Scheme with other users (called 'curators') to create new, edit and delete Concepts, Collections and Labels within this Concept Scheme.
-                    Each user can find all created elements and latest activity on user's page.
+                    The <b>user management</b> system allows a user to share a created Concept Scheme with other users (called 'curators') to create new, edit and delete Concepts and Collections within this Concept Scheme.
+                    Each user can find a summary of her/his latest activity  on user's page.
                 </p>
             </div>
             <div id="workflow">
                 <h2>The workflow</h2>
                 <br>
-                <img src="{% static 'webpage/img/workflow.png' %}">          
+                <img src="{% static 'webpage/img/workflow.png' %}">
             </div>
         </div>
     </div>
