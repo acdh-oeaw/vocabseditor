@@ -2,15 +2,13 @@
 {% block title %}
     Create/Edit {{ class_name }}
 {% endblock %}
-
 {% block objectType %}
-    <h1><!-- Create/Edit -->
+    <h1>
     {% if object %}
     Edit
     {% else %}
     Create
     {% endif %}
-
         {% if docstring %}
             <abbr title="{{ docstring}}">{{ class_name }}</abbr>
             {% if object.pref_label %}<b>{{object.pref_label}}</b>
