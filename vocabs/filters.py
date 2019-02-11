@@ -38,7 +38,7 @@ class SkosConceptListFilter(django_filters.FilterSet):
 
     pref_label = django_filters.ModelMultipleChoiceFilter(
         widget=autocomplete.Select2Multiple(
-            url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'
+            url='vocabs-ac:skosconcept-autocomplete'
         ),
         queryset=SkosConcept.objects.all(),
         lookup_expr='icontains',
@@ -67,7 +67,7 @@ class SkosConceptListFilter(django_filters.FilterSet):
     )
     broader_concept = django_filters.ModelChoiceFilter(
         widget=autocomplete.ModelSelect2(
-            url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'
+            url='vocabs-ac:skosconcept-autocomplete'
         ),
         queryset=SkosConcept.objects.all(),
         help_text='Returns all narrower concepts of a selected concept (descendants)',
@@ -127,7 +127,7 @@ class SkosCollectionListFilter(django_filters.FilterSet):
         help_text=False,
     )
     has_members__pref_label = django_filters.ModelMultipleChoiceFilter(
-        widget=autocomplete.Select2Multiple(url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
+        widget=autocomplete.Select2Multiple(url='vocabs-ac:skosconcept-autocomplete'),
         queryset=SkosConcept.objects.all(),
         lookup_expr='icontains',
         help_text=False,

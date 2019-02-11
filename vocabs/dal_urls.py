@@ -19,39 +19,14 @@ urlpatterns = [
         name='skoscollection-autocomplete',
     ),
     url(
-        r'^skosconcept-autocomplete/$', dal_views.SpecificConcepts.as_view(
+        r'^skosconcept-autocomplete/$', dal_views.SkosConceptAC.as_view(
             model=SkosConcept),
         name='skosconcept-autocomplete',
-    ),
-    url(
-        r'^skosconcept-filter-autocomplete/$', dal_views.SpecificConcepts.as_view(
-            model=SkosConcept),
-        name='skosconcept-filter-autocomplete',
-    ),
-    url(
-        r'^skosconcept-nobroaderterm-autocomplete/$', dal_views.SkosConceptNoBroaderTermAC.as_view(
-            model=SkosConcept),
-        name='skosconcept-nobroaderterm-autocomplete',
     ),
     url(
         r'^skosconcept-extmatch-autocomplete/$', dal_views.SkosConceptExternalMatchAC.as_view(
             model=SkosConcept),
         name='skosconcept-extmatch-autocomplete',
-    ),
-    url(
-        r'^skosconcept-pref-label-autocomplete/$',
-        dal_views.SkosConceptPrefLabalAC.as_view(),
-        name='skosconcept-label-ac',
-    ),
-    url(
-        r'^skos-constraint-no-hierarchy-ac/$', dal_views.SKOSConstraintACNoHierarchy.as_view(
-            model=SkosConcept),
-        name='skos-constraint-no-hierarchy-ac',
-    ),
-    path(
-        r'specific-concept-ac/<str:scheme>', dal_views.SpecificConcepts.as_view(
-            model=SkosConcept),
-        name='specific-concept-ac',
     ),
     url(
         r'^user-autocomplete/$', dal_views.UserAC.as_view(

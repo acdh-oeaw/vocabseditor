@@ -393,7 +393,7 @@ class SkosConceptForm(forms.ModelForm):
     broader_concept = TreeNodeChoiceField(
         queryset=SkosConcept.objects.all(),
         widget=autocomplete.ModelSelect2(
-            url='vocabs-ac:skosconcept-nobroaderterm-autocomplete',
+            url='vocabs-ac:skosconcept-autocomplete',
             forward=['scheme']
         ),
         help_text="A concept with a broader meaning that a current concept inherits from",
@@ -466,7 +466,7 @@ class SkosConceptForm(forms.ModelForm):
             'scheme': autocomplete.ModelSelect2(
                 url='vocabs-ac:skosconceptscheme-autocomplete'),
             'skos_related': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-nobroaderterm-autocomplete'),
+                url='vocabs-ac:skosconcept-autocomplete'),
         }
 
     # class Media:
