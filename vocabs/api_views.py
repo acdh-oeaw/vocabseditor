@@ -3,7 +3,6 @@ from rest_framework import pagination, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import *
 from .serializers import *
-from .api_renderers import RDFRenderer
 from rest_framework.settings import api_settings
 from django.contrib.auth.models import User
 from rest_framework.permissions import DjangoObjectPermissions
@@ -37,5 +36,5 @@ class SkosConceptViewSet(viewsets.ModelViewSet):
     serializer_class = SkosConceptSerializer
     filter_backends = (DjangoFilterBackend, filters.DjangoObjectPermissionsFilter,)
     pagination_class = LargeResultsSetPagination
-    renderer_classes = tuple(api_settings.DEFAULT_RENDERER_CLASSES) + (RDFRenderer, )
+    renderer_classes = tuple(api_settings.DEFAULT_RENDERER_CLASSES)
     permission_classes = (DjangoObjectPermissions, )
