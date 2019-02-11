@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'webpage',
     'browsing',
     'vocabs',
-    'stats',
     'mptt',
 ]
 
