@@ -22,7 +22,6 @@ class SkosCollectionTable(tables.Table):
 
 
 class SkosConceptTable(tables.Table):
-    #broader_concept = tables.Column(verbose_name='Broader Term')
     pref_label = tables.LinkColumn('vocabs:skosconcept_detail', args=[A('pk')])
     all_schemes = tables.Column(verbose_name='in SkosScheme', orderable=False)
 

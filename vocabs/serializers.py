@@ -1,7 +1,5 @@
 from rest_framework import serializers
 from .models import *
-from django.contrib.auth.models import User
-
 
 class SkosConceptSchemeSerializer(serializers.HyperlinkedModelSerializer):
     has_concepts = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='skosconcept-detail')

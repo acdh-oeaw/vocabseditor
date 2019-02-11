@@ -1,6 +1,6 @@
 import django_filters
 from dal import autocomplete
-from .models import SkosConcept, SkosConceptScheme, get_all_children, SkosCollection
+from .models import SkosConcept, SkosConceptScheme, SkosCollection
 
 
 django_filters.filters.LOOKUP_TYPES = [
@@ -18,20 +18,6 @@ django_filters.filters.LOOKUP_TYPES = [
     ('icontains', 'Contains (case insensitive)'),
     ('not_contains', 'Does not contain'),
 ]
-
-
-def generous_concept_filter(queryset, name, value):
-    """ call this function through "method=generous_concept_filter" """
-    if value:
-        lookup = '__'.join([name, 'in'])
-        print("name: {}".format(name))
-        print("value: {}".format(value))
-        starter = value[0]
-        all = get_all_children(starter, include_self=True)
-        print("all :{}".format(all))
-        qs = queryset.filter(**{lookup: all})
-        return qs
-    return queryset
 
 
 class SkosConceptListFilter(django_filters.FilterSet):
@@ -83,8 +69,7 @@ class SkosConceptListFilter(django_filters.FilterSet):
             qs = SkosConcept.objects.get_queryset_descendants(
                 SkosConcept.objects.filter(pref_label=value),
                 include_self=False)
-        else:
-            qs
+            return qs
         return qs
 
 

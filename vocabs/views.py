@@ -1,29 +1,20 @@
 from django.views.generic.detail import DetailView
-from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import DeleteView
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from django_tables2 import SingleTableView, RequestConfig
+from django_tables2 import RequestConfig
 from .models import SkosConcept, SkosConceptScheme, SkosCollection
 from .forms import *
 from .tables import *
 from .filters import SkosConceptListFilter, SkosConceptSchemeListFilter, SkosCollectionListFilter
 from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 from .rdf_utils import *
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render_to_response
 from django.http import HttpResponse
-import rdflib
-from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef, RDFS, ConjunctiveGraph
-from rdflib.namespace import DC, FOAF, RDFS, SKOS
 import time
 import datetime
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from guardian.shortcuts import get_objects_for_user, get_perms_for_model
-from guardian.core import ObjectPermissionChecker
+from guardian.shortcuts import get_objects_for_user
 from django.contrib.auth.decorators import login_required, permission_required
-from guardian.decorators import permission_required_or_403
-from django.contrib.auth.mixins import UserPassesTestMixin
 from reversion.models import Version
 from django.db import transaction
 

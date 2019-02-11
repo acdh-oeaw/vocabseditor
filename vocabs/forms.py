@@ -1,7 +1,7 @@
 from dal import autocomplete
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML, ButtonHolder
+from crispy_forms.layout import Submit, Layout, Fieldset, Div, HTML, ButtonHolder
 from crispy_forms.bootstrap import *
 from .models import *
 from django.forms.models import inlineformset_factory
@@ -468,9 +468,6 @@ class SkosConceptForm(forms.ModelForm):
             'skos_related': autocomplete.ModelSelect2Multiple(
                 url='vocabs-ac:skosconcept-autocomplete'),
         }
-
-    # class Media:
-    #     js = ('autocomplete.init.js')
 
 
     def __init__(self, *args, **kwargs):

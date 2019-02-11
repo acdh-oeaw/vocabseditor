@@ -4,7 +4,6 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import *
 from .serializers import *
 from rest_framework.settings import api_settings
-from django.contrib.auth.models import User
 from rest_framework.permissions import DjangoObjectPermissions
 
 

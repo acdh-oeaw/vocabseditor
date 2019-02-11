@@ -1,6 +1,4 @@
 from django.conf.urls import url
-from django.urls import path
-from . import views
 from . import dal_views
 from .models import SkosConcept, SkosConceptScheme, SkosCollection
 from django.contrib.auth.models import User

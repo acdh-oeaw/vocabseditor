@@ -1,17 +1,13 @@
-import os
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.functional import cached_property
-from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 from django.db.models.signals import post_save, m2m_changed
 from guardian.shortcuts import assign_perm, remove_perm
 from django.dispatch import receiver
-from django.contrib.auth.models import Permission
-from guardian.shortcuts import get_objects_for_user
 import reversion
 from mptt.models import MPTTModel, TreeForeignKey
 

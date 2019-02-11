@@ -1,6 +1,5 @@
 from dal import autocomplete
 from .models import SkosConcept, SkosConceptScheme, SkosCollection
-from django.db.models import Q
 from guardian.shortcuts import get_objects_for_user
 from django.contrib.auth.models import User
 from mptt.settings import DEFAULT_LEVEL_INDICATOR
