@@ -204,7 +204,6 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
 
 
 class SkosConceptSchemeDelete(BaseDeleteView):
-    # add get_objects_for_user or permission checker
     model = SkosConceptScheme
     template_name = 'webpage/confirm_delete.html'
     success_url = reverse_lazy('vocabs:browse_schemes')
