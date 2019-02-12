@@ -132,7 +132,7 @@ class SkosConceptScheme(models.Model):
     )
     date_issued = models.DateField(
         blank=True, null=True,
-        help_text="Date of official resource publication<br>YYYY-MM-DD"
+        help_text="Date of official resource publication"
     )
     created_by = models.ForeignKey(
         User, related_name="skos_cs_created",
@@ -142,7 +142,7 @@ class SkosConceptScheme(models.Model):
     curator = models.ManyToManyField(
         User, related_name="skos_cs_curated",
         blank=True,
-        help_text="The selected user(s) will be able to view and edit current Concept Scheme."
+        help_text="The selected user(s) will be able to view and edit current Concept Scheme"
     )
 
     class Meta:

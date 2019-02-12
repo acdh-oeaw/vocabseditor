@@ -149,7 +149,7 @@ class SkosConceptSchemeForm(forms.ModelForm):
                 ,
                 Field('version'),
                 Field('legacy_id'),
-                Field('date_issued'),
+                Field('date_issued', placeholder="YYYY-MM-DD"),
                 Field('curator'),
                 HTML("<br>"),
                 ButtonHolder(Submit('submit', 'save')),
