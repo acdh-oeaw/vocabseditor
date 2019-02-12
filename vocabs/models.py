@@ -586,26 +586,9 @@ class SkosConcept(MPTTModel):
     class MPTTMeta:
         order_insertion_by = ['pref_label']
         parent_attr = 'broader_concept'
-        ordering = ['id']
-
-    def get_broader(self):
-        broader = self.skos_broader.all()
-        broader_reverse = SkosConcept.objects.filter(skos_narrower=self)
-        all_broader = set(list(broader)+list(broader_reverse))
-        return all_broader
-
-    def get_narrower(self):
-        narrower = self.skos_narrower.all()
-        narrower_reverse = SkosConcept.objects.filter(skos_broader=self)
-        all_narrower = set(list(narrower)+list(narrower_reverse))
-        return all_narrower
 
     def get_vocabs_uri(self):
         return "{}{}".format("https://whatever", self.get_absolute_url)
-
-    @property
-    def all_schemes(self):
-        return ', '.join([x.title for x in self.scheme.all()])
 
     def save(self, *args, **kwargs):
         if self.notation == "":
@@ -632,16 +615,6 @@ class SkosConcept(MPTTModel):
 
     def same_as_external_as_list(self):
         return self.same_as_external.split(';')
-
-    @cached_property
-    def label(self):
-        # 'borrowed from https://github.com/sennierer'
-        d = self
-        res = self.pref_label
-        while d.broader_concept:
-            res = d.broader_concept.pref_label + ' >> ' + res
-            d = d.broader_concept
-        return res
 
     @classmethod
     def get_listview_url(self):

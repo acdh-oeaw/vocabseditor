@@ -192,12 +192,18 @@
         {% endif %}
         {% if object.has_collections.all %}
          <tr>
-            <th>collections</th>
+            <th>collections ({{ object.has_collections.all|length }})</th>
             <td>
                 {% for collection in object.has_collections.all %}
                 <li><a href="{{ collection.get_absolute_url }}">{{collection}}</a></li>
                 {% endfor %}
             </td>
+        </tr>
+        {% endif %}
+        {% if object.has_concepts.all %}
+         <tr>
+            <th>number of concepts</th>
+            <td>{{ object.has_concepts.all|length }}</td>
         </tr>
         {% endif %}
         {% if object.date_created %}

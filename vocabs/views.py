@@ -384,6 +384,10 @@ class SkosConceptListView(GenericListView):
         'scheme',
     ]
 
+    def get_queryset(self, **kwargs):
+        qs = super(SkosConceptListView, self).get_queryset()
+        return qs.order_by('id')
+
 
 class SkosConceptDetailView(BaseDetailView):
 
