@@ -3,10 +3,16 @@
 {% load webpage_extras %}
 {% block content %}
     <div class="container">
-        <div class="jumbotron" style="background-image: url({% static 'webpage/img/project_background.jpg' %}) ">           
-                <h1 style="text-align:center; color: #111;">{% projects_metadata 'title' %}</h1>
-                <h3 style="text-align:center; color: #111;">{% projects_metadata 'subtitle' %}</h3>
-                <h5 style="text-align:center; color: #111;">{% projects_metadata 'description' %}</h3>
+        <div class="jumbotron" style="text-align:center; color: #111;">           
+            <h1>{% projects_metadata 'title' %}</h1>
+            <h3>{% projects_metadata 'subtitle' %}</h3>
+            <h5>{% projects_metadata 'description' %}</h5>
+            {% if user.is_authenticated %}
+            <br>
+            <a class ="btn btn-outline-secondary btn-lg"  href="{% url 'vocabs:skosconceptscheme_create' %}">
+            Create Concept Scheme
+            </a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
