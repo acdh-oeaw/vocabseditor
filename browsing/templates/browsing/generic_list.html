@@ -224,7 +224,7 @@
                                 {% for p in table.paginator.page_range %}
                                     {% if p == table.page.number %}
                                         <li>
-                                            <a href="{% querystring table.prefixed_page_field=p %}" style="background-color:#007bff; border-color: #2e6da4; color: #ffffff; padding: 5px 10px 5px 10px;">{{ p }}</a>
+                                            <a href="{% querystring table.prefixed_page_field=p %}" style="background-color:#007bff; border-color: #2e6da4; color: #ffffff; padding: 5px 10px 5px 10px; border-radius: .25rem;">{{ p }}</a>
                                         </li>
                                     {% else %}
                                         <li>
