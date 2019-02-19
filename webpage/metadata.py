@@ -12,7 +12,7 @@ PROJECT_METADATA = {
     'purpose_en': 'The purpose of ACDH Vocabularies Editor is to provide a service for\
     collaborative work on controlled vocabularies development.',
     'version': '0.0.1',
-    'matomo_id': 'provide some',
+    'matomo_id': '108',
     'matomo_url': '//matomo.acdh.oeaw.ac.at/',
     'imprint': '/imprint',
     'social_media': [
