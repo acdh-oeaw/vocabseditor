@@ -69,7 +69,8 @@ class SkosConceptScheme(models.Model):
     )
     title_lang = models.CharField(
         max_length=3, blank=True,
-        verbose_name="dc:title language", default=DEFAULT_LANG
+        verbose_name="dc:title language", default=DEFAULT_LANG,
+        help_text="Language of a given title"
     )
     indentifier = models.URLField(
         blank=True, default=DEFAULT_NAMESPACE,
@@ -214,10 +215,12 @@ class ConceptSchemeTitle(models.Model):
         on_delete=models.CASCADE
     )
     name = models.CharField(
-        max_length=500, verbose_name="dc:title"
+        max_length=500, verbose_name="Dc:title",
+        help_text="Title of a Concept Scheme"
     )
     language = models.CharField(
-        max_length=3
+        max_length=3, verbose_name="Dc:title language",
+        help_text="Language of a given title"
     )
 
     def __str__(self):
@@ -237,10 +240,12 @@ class ConceptSchemeDescription(models.Model):
         on_delete=models.CASCADE
     )
     name = models.TextField(
-        verbose_name="dc:description"
+        verbose_name="Dc:description",
+        help_text="Description of a Concept Scheme"
     )
     language = models.CharField(
-        max_length=3
+        max_length=3, verbose_name="Dc:description language",
+        help_text="Language of a given description"
     )
 
     def __str__(self):
@@ -260,11 +265,12 @@ class ConceptSchemeSource(models.Model):
         on_delete=models.CASCADE
     )
     name = models.TextField(
-        verbose_name="Source",
-        #help_text="A verbose description of the concept scheme's source"
+        verbose_name="Dc:source",
+        help_text="A verbose description of the concept scheme's source"
     )
     language = models.CharField(
-        max_length=3
+        max_length=3, verbose_name="Dc:source language",
+        help_text="Language of a given source"
     )
 
     def __str__(self):

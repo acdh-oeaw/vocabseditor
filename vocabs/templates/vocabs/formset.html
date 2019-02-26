@@ -1,5 +1,10 @@
 {% load crispy_forms_tags %}
 {% load staticfiles %}
+<style type="text/css">
+    .dynamic-form > .row > label > .asteriskField {
+    display: none;
+}
+</style>
 {{ formset.management_form|crispy }}
 
     {% for form in formset.forms %}
@@ -13,7 +18,7 @@
                             {{ hidden }}
                         {% endfor %}
                     {% endif %}
-                    {{ field.errors.as_ul }}
+                    <!-- {{ field.errors.as_ul }} -->
                     {{ field|as_crispy_field }}
                 </td>
                 {% endfor %}

@@ -17,6 +17,7 @@ from guardian.shortcuts import get_objects_for_user
 from django.contrib.auth.decorators import login_required, permission_required
 from reversion.models import Version
 from django.db import transaction
+from django.shortcuts import redirect
 
 
 class BaseDetailView(DetailView):
@@ -126,19 +127,27 @@ class SkosConceptSchemeCreate(BaseCreateView):
         sources = context['sources']
         with transaction.atomic():
             form.instance.created_by = self.request.user
+            # cs should be saved first because fk object are related to it
             self.object = form.save()
             if titles.is_valid():
                 titles.instance = self.object
                 titles.save()
+            # else should redirect to update view of created concept scheme
+            # else:
+            #     return super(SkosConceptSchemeCreate, self).form_invalid(form)
             if descriptions.is_valid():
                 descriptions.instance = self.object
                 descriptions.save()
+            # else:
+            #     return super(SkosConceptSchemeCreate, self).form_invalid(form)
             if sources.is_valid():
                 sources.instance = self.object
                 sources.save()
             # else:
+            #     return super(SkosConceptSchemeCreate, self).form_invalid(form)
+            # else:
             #     raise forms.ValidationError('check')
-
+            #self.object = form.save()
         return super(SkosConceptSchemeCreate, self).form_valid(form)
 
     def get_success_url(self):
@@ -187,12 +196,19 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
             if titles.is_valid():
                 titles.instance = self.object
                 titles.save()
+            else:
+                #raise forms.ValidationError("Both fields should be filled")
+                return super(SkosConceptSchemeUpdate, self).form_invalid(form)
             if descriptions.is_valid():
                 descriptions.instance = self.object
                 descriptions.save()
+            else:
+                return super(SkosConceptSchemeUpdate, self).form_invalid(form)
             if sources.is_valid():
                 sources.instance = self.object
                 sources.save()
+            else:
+                return super(SkosConceptSchemeUpdate, self).form_invalid(form)
         return super(SkosConceptSchemeUpdate, self).form_valid(form)
 
     def get_success_url(self):

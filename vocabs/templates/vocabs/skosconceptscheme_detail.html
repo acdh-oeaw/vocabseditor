@@ -184,6 +184,16 @@
         </td>
         </tr>
         {% endif %}
+        <!--for inline added sources-->
+        {% if object.has_sources %}
+        {% for source in object.has_sources.all %}
+        <tr>
+            <th>dc:source @{{source.language}}</th>
+            <td>{{source.name}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->
         {% if object.legacy_id %}
         <tr>
             <th>legacy ID</th>

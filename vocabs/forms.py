@@ -30,13 +30,36 @@ class UploadFileForm(forms.Form):
         self.helper.add_input(Submit('submit', 'import'),)
 
 
+def custom_name_errors(field_name):
+    name_errors = {}
+    name_errors['required'] = '{} is required when language provided'.format(field_name)
+    name_errors['invalid']: 'Enter a valid value'
+    return name_errors
+
+
+def custom_lang_errors(field_name):
+    lang_errors = {}
+    lang_errors['required'] = 'Language is required when {} provided'.format(field_name.lower())
+    lang_errors['invalid']: 'Enter a valid value'
+    return lang_errors
+
+
 ######################################################################
 #   Classes  to store titles and descriptions for ConceptScheme
 ######################################################################
 
-class ConceptSchemeTitleForm(forms.ModelForm):
 
-    def __init__(self, *args, **kwargs):
+class ConceptSchemeTitleForm(forms.ModelForm):
+    name = forms.CharField(
+        label=ConceptSchemeTitle._meta.get_field('name').verbose_name,
+        help_text=ConceptSchemeTitle._meta.get_field('name').help_text,
+        error_messages=custom_name_errors(field_name=ConceptSchemeTitle._meta.get_field('name').verbose_name))
+    language = forms.CharField(
+        label=ConceptSchemeTitle._meta.get_field('language').verbose_name,
+        help_text=ConceptSchemeTitle._meta.get_field('language').help_text,
+        error_messages=custom_lang_errors(field_name=ConceptSchemeTitle._meta.get_field('name').verbose_name))
+
+    def __init__(self, *args, **kwargs): 
         super(ConceptSchemeTitleForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = True
@@ -57,6 +80,14 @@ ConceptSchemeTitleFormSet = inlineformset_factory(
 
 
 class ConceptSchemeDescriptionForm(forms.ModelForm):
+    name = forms.CharField(
+        label=ConceptSchemeDescription._meta.get_field('name').verbose_name,
+        help_text=ConceptSchemeDescription._meta.get_field('name').help_text,
+        error_messages=custom_name_errors(field_name=ConceptSchemeDescription._meta.get_field('name').verbose_name))
+    language = forms.CharField(
+        label=ConceptSchemeDescription._meta.get_field('language').verbose_name,
+        help_text=ConceptSchemeDescription._meta.get_field('language').help_text,
+        error_messages=custom_lang_errors(field_name=ConceptSchemeDescription._meta.get_field('name').verbose_name))
 
     def __init__(self, *args, **kwargs):
         super(ConceptSchemeDescriptionForm, self).__init__(*args, **kwargs)
@@ -79,6 +110,14 @@ ConceptSchemeDescriptionFormSet = inlineformset_factory(
 
 
 class ConceptSchemeSourceForm(forms.ModelForm):
+    name = forms.CharField(
+        label=ConceptSchemeSource._meta.get_field('name').verbose_name,
+        help_text=ConceptSchemeSource._meta.get_field('name').help_text,
+        error_messages=custom_name_errors(field_name=ConceptSchemeSource._meta.get_field('name').verbose_name))
+    language = forms.CharField(
+        label=ConceptSchemeSource._meta.get_field('language').verbose_name,
+        help_text=ConceptSchemeSource._meta.get_field('language').help_text,
+        error_messages=custom_lang_errors(field_name=ConceptSchemeSource._meta.get_field('name').verbose_name))
 
     def __init__(self, *args, **kwargs):
         super(ConceptSchemeSourceForm, self).__init__(*args, **kwargs)
@@ -128,6 +167,13 @@ class SkosConceptSchemeForm(forms.ModelForm):
             Div(
                 Field('title'),
                 Field('title_lang'),
+                # Accordion(
+                # AccordionGroup('Add titles in other languages',
+                #     Formset('titles'), css_class="formset-div")),
+
+
+
+
                 Fieldset('Add titles in other languages',
                     Formset('titles'), css_class="formset-div")
                 ,
