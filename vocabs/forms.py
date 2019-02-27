@@ -7,6 +7,8 @@ from .models import *
 from django.forms.models import inlineformset_factory
 from .custom_layout_object import *
 from mptt.forms import TreeNodeChoiceField
+from django.forms import BaseInlineFormSet
+
 
 class GenericFilterFormHelper(FormHelper):
     def __init__(self, *args, **kwargs):
@@ -49,15 +51,48 @@ def custom_lang_errors(field_name):
 ######################################################################
 
 
+# We also want to verify that all formsets have both fields a name and a language filled out.
+# We could simply set the fields as required on the form itself,
+# however this will prevent our users from submitting empty forms,
+# which is not the behaviour we’re looking for here. From a usability perspective, it would be better
+# to simply ignore forms that are completely empty, raising errors only if a form is partially incomplete.
+
+class CustomInlineFormSet(BaseInlineFormSet):
+    def clean(self):
+        super(CustomInlineFormSet, self).clean()
+        if any(self.errors):
+            return
+        for form in self.forms:
+            if form.cleaned_data:
+                name = form.cleaned_data['name']
+                language = form.cleaned_data['language']
+                # Check that formset has both fields - a name and a language - filled out
+                if name and not language:
+                    raise forms.ValidationError(
+                        'All names must have a lanaguge.'
+                    )
+                elif language and not name:
+                    raise forms.ValidationError(
+                        'All languages must have a name.'
+                    )
+
+
+
 class ConceptSchemeTitleForm(forms.ModelForm):
     name = forms.CharField(
         label=ConceptSchemeTitle._meta.get_field('name').verbose_name,
         help_text=ConceptSchemeTitle._meta.get_field('name').help_text,
-        error_messages=custom_name_errors(field_name=ConceptSchemeTitle._meta.get_field('name').verbose_name))
+        error_messages=custom_name_errors(
+            field_name=ConceptSchemeTitle._meta.get_field('name').verbose_name
+            )
+    )
     language = forms.CharField(
         label=ConceptSchemeTitle._meta.get_field('language').verbose_name,
         help_text=ConceptSchemeTitle._meta.get_field('language').help_text,
-        error_messages=custom_lang_errors(field_name=ConceptSchemeTitle._meta.get_field('name').verbose_name))
+        error_messages=custom_lang_errors(
+            field_name=ConceptSchemeTitle._meta.get_field('name').verbose_name
+            )
+    )
 
     def __init__(self, *args, **kwargs): 
         super(ConceptSchemeTitleForm, self).__init__(*args, **kwargs)
@@ -83,11 +118,17 @@ class ConceptSchemeDescriptionForm(forms.ModelForm):
     name = forms.CharField(
         label=ConceptSchemeDescription._meta.get_field('name').verbose_name,
         help_text=ConceptSchemeDescription._meta.get_field('name').help_text,
-        error_messages=custom_name_errors(field_name=ConceptSchemeDescription._meta.get_field('name').verbose_name))
+        error_messages=custom_name_errors(
+            field_name=ConceptSchemeDescription._meta.get_field('name').verbose_name
+            )
+    )
     language = forms.CharField(
         label=ConceptSchemeDescription._meta.get_field('language').verbose_name,
         help_text=ConceptSchemeDescription._meta.get_field('language').help_text,
-        error_messages=custom_lang_errors(field_name=ConceptSchemeDescription._meta.get_field('name').verbose_name))
+        error_messages=custom_lang_errors(
+            field_name=ConceptSchemeDescription._meta.get_field('name').verbose_name
+            )
+    )
 
     def __init__(self, *args, **kwargs):
         super(ConceptSchemeDescriptionForm, self).__init__(*args, **kwargs)
@@ -113,11 +154,17 @@ class ConceptSchemeSourceForm(forms.ModelForm):
     name = forms.CharField(
         label=ConceptSchemeSource._meta.get_field('name').verbose_name,
         help_text=ConceptSchemeSource._meta.get_field('name').help_text,
-        error_messages=custom_name_errors(field_name=ConceptSchemeSource._meta.get_field('name').verbose_name))
+        error_messages=custom_name_errors(
+            field_name=ConceptSchemeSource._meta.get_field('name').verbose_name
+            )
+    )
     language = forms.CharField(
         label=ConceptSchemeSource._meta.get_field('language').verbose_name,
         help_text=ConceptSchemeSource._meta.get_field('language').help_text,
-        error_messages=custom_lang_errors(field_name=ConceptSchemeSource._meta.get_field('name').verbose_name))
+        error_messages=custom_lang_errors(
+            field_name=ConceptSchemeSource._meta.get_field('name').verbose_name
+            )
+    )
 
     def __init__(self, *args, **kwargs):
         super(ConceptSchemeSourceForm, self).__init__(*args, **kwargs)
@@ -201,7 +248,6 @@ class SkosConceptSchemeForm(forms.ModelForm):
                 ButtonHolder(Submit('submit', 'save')),
             )
             )
-        self.helper.render_required_fields = True
 
 
 class SkosConceptSchemeFormHelper(FormHelper):

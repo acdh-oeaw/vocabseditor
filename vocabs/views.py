@@ -128,26 +128,27 @@ class SkosConceptSchemeCreate(BaseCreateView):
         with transaction.atomic():
             form.instance.created_by = self.request.user
             # cs should be saved first because fk object are related to it
-            self.object = form.save()
-            if titles.is_valid():
+            self.object = form.save(commit=False)
+            if titles.is_valid():                
                 titles.instance = self.object
-                titles.save()
-            # else should redirect to update view of created concept scheme
-            # else:
-            #     return super(SkosConceptSchemeCreate, self).form_invalid(form)
-            if descriptions.is_valid():
+                titles.save(commit=False)
+            else:
+                return super(SkosConceptSchemeCreate, self).form_invalid(form)
+            if descriptions.is_valid():                
                 descriptions.instance = self.object
-                descriptions.save()
-            # else:
-            #     return super(SkosConceptSchemeCreate, self).form_invalid(form)
-            if sources.is_valid():
+                descriptions.save(commit=False)
+            else:
+                return super(SkosConceptSchemeCreate, self).form_invalid(form)
+            if sources.is_valid():                
                 sources.instance = self.object
-                sources.save()
-            # else:
-            #     return super(SkosConceptSchemeCreate, self).form_invalid(form)
-            # else:
-            #     raise forms.ValidationError('check')
-            #self.object = form.save()
+                sources.save(commit=False)
+            else:
+                return super(SkosConceptSchemeCreate, self).form_invalid(form)
+            self.object = form.save()
+            titles.save()
+            descriptions.save()
+            sources.save()
+            
         return super(SkosConceptSchemeCreate, self).form_valid(form)
 
     def get_success_url(self):

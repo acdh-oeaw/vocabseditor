@@ -5,7 +5,7 @@
     display: none;
 }
 </style>
-{{ formset.management_form|crispy }}
+{{ formset.management_form }}
 
     {% for form in formset.forms %}
     <div class="{% cycle 'row1' 'row2' %} formset_row-{{ formset.prefix }}">
@@ -18,7 +18,7 @@
                             {{ hidden }}
                         {% endfor %}
                     {% endif %}
-                    <!-- {{ field.errors.as_ul }} -->
+                   <!--  {{ field.errors.as_ul }} -->
                     {{ field|as_crispy_field }}
                 </td>
                 {% endfor %}

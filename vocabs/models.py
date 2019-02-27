@@ -266,7 +266,7 @@ class ConceptSchemeSource(models.Model):
     )
     name = models.TextField(
         verbose_name="Dc:source",
-        help_text="A verbose description of the concept scheme's source"
+        help_text="A verbose description of a Concept Scheme's source"
     )
     language = models.CharField(
         max_length=3, verbose_name="Dc:source language",
