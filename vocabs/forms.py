@@ -659,7 +659,7 @@ class SkosConceptForm(forms.ModelForm):
                     Formset('labels'), css_class="formset-div")
                 ,
                 Field('scheme'),
-                Field('top_concept'),
+                # Field('top_concept'),
                 Field('collection'),
                 Field('broader_concept'),
                 Fieldset('Add documentary note',
@@ -705,7 +705,6 @@ class SkosConceptFormHelper(FormHelper):
                 '',
                 'pref_label',
                 'scheme',
-                'top_concept',
                 'collection',
                 'broader_concept',
                 css_id="basic_search_fields"

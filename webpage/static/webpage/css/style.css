@@ -60,10 +60,9 @@ a, .btn-link {
 .select2-container--default .select2-selection--single {
     height: 38px !important;
 }
-#div_id_top_concept > label {
+/*#div_id_top_concept > label {
     font-weight: 700;
-}
-
+}*/
 
 #workflow > img {
    display: block;

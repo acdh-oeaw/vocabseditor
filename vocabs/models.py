@@ -12,6 +12,8 @@ import reversion
 from mptt.models import MPTTModel, TreeForeignKey
 
 
+DEFAULT_URI = "https://vocabs.acdh.oeaw.ac.at/"
+
 try:
     DEFAULT_NAMESPACE = settings.VOCABS_SETTINGS['default_nsgg']
 except KeyError:
@@ -154,7 +156,7 @@ class SkosConceptScheme(models.Model):
         self.date_modified = timezone.now()
 
         if not self.identifier:
-            self.identifier = slugify(self.title, allow_unicode=True)
+            self.identifier = DEFAULT_URI + slugify(self.title, allow_unicode=True)
         super(SkosConceptScheme, self).save(*args, **kwargs)
 
     def creator_as_list(self):
@@ -502,10 +504,10 @@ class SkosConcept(MPTTModel):
         verbose_name="skos:inScheme",
         related_name="has_concepts",
         on_delete=models.CASCADE,
-        help_text="Main Concept Scheme"
+        help_text="A Concept Scheme to which this concept belongs"
     )
     top_concept = models.BooleanField(
-        default=False,
+        null=True,
         help_text="Is this concept a top concept of main Concept Scheme?"
     )
     collection = models.ManyToManyField(
@@ -615,7 +617,6 @@ class SkosConcept(MPTTModel):
         if not self.id:
             self.date_created = timezone.now()
         self.date_modified = timezone.now()
-
         super(SkosConcept, self).save(*args, **kwargs)
 
     def creator_as_list(self):

@@ -28,7 +28,7 @@ class SkosConceptSerializer(serializers.HyperlinkedModelSerializer):
         fields = (
             'id', 'url',
             'pref_label', 'pref_label_lang',
-            'scheme', 'collection', 'top_concept',
+            'scheme', 'collection',
             'broader_concept', 'narrower_concepts',
             'same_as_external', 'notation',
             'skos_related', 'related',

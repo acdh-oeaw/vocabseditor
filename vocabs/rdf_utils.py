@@ -164,7 +164,8 @@ def graph_construct_qs(results):
 			for source in obj.has_sources.all():
 				g.add((concept, DC.source, Literal(source.name, lang=source.language)))
 		#top concepts
-		if obj.top_concept == True:
+		# if obj.top_concept == True:
+		if not obj.broader_concept:
 			g.add((mainConceptScheme, SKOS.hasTopConcept, URIRef(concept)))
 			g.add((concept, SKOS.topConceptOf, mainConceptScheme ))
 		# modelling broader/narrower relationships
