@@ -72,9 +72,8 @@ class SkosConceptScheme(models.Model):
         verbose_name="dc:title language", default=DEFAULT_LANG,
         help_text="Language of a given title"
     )
-    indentifier = models.URLField(
-        blank=True, default=DEFAULT_NAMESPACE,
-        help_text="URI"
+    identifier = models.URLField(
+        blank=True, help_text="URI that unambiguously identifies current Concept Scheme"
     )
     creator = models.TextField(
         blank=True, verbose_name="dc:creator",
@@ -154,6 +153,8 @@ class SkosConceptScheme(models.Model):
             self.date_created = timezone.now()
         self.date_modified = timezone.now()
 
+        if not self.identifier:
+            self.identifier = slugify(self.title, allow_unicode=True)
         super(SkosConceptScheme, self).save(*args, **kwargs)
 
     def creator_as_list(self):

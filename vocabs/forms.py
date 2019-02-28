@@ -227,7 +227,7 @@ class SkosConceptSchemeForm(forms.ModelForm):
                 Fieldset('Add description',
                     Formset('descriptions'), css_class="formset-div")
                 ,
-                Field('indentifier'),
+                Field('identifier', placeholder="https://example.org/vocabulary-unique-title"),
                 Field('language'),
                 Field('creator'),
                 Field('contributor'),
