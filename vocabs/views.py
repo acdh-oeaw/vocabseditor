@@ -453,19 +453,26 @@ class SkosConceptCreate(BaseCreateView):
         sources = context['sources']
         with transaction.atomic():
             form.instance.created_by = self.request.user
-            self.object = form.save()
+            self.object = form.save(commit=False)
             if labels.is_valid():
                 labels.instance = self.object
-                labels.save()
+                labels.save(commit=False)
+            else:
+                return super(SkosConceptCreate, self).form_invalid(form)
             if notes.is_valid():
                 notes.instance = self.object
-                notes.save()
+                notes.save(commit=False)
+            else:
+                return super(SkosConceptCreate, self).form_invalid(form)
             if sources.is_valid():
                 sources.instance = self.object
-                sources.save()
-            # else:
-            #     raise forms.ValidationError('check')
-
+                sources.save(commit=False)
+            else:
+                return super(SkosConceptCreate, self).form_invalid(form)
+            self.object = form.save()
+            labels.save()
+            notes.save()
+            sources.save()
         return super(SkosConceptCreate, self).form_valid(form)
 
     def get_success_url(self):
@@ -508,12 +515,18 @@ class SkosConceptUpdate(BaseUpdateView):
             if labels.is_valid():
                 labels.instance = self.object
                 labels.save()
+            else:
+                return super(SkosConceptUpdate, self).form_invalid(form)
             if notes.is_valid():
                 notes.instance = self.object
                 notes.save()
+            else:
+                return super(SkosConceptUpdate, self).form_invalid(form)
             if sources.is_valid():
                 sources.instance = self.object
                 sources.save()
+            else:
+                return super(SkosConceptUpdate, self).form_invalid(form)
         return super(SkosConceptUpdate, self).form_valid(form)
 
     def get_success_url(self):

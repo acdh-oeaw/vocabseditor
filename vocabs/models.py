@@ -663,7 +663,8 @@ class ConceptLabel(models.Model):
         help_text="Other label for a current concept"
     )
     language = models.CharField(
-        max_length=3, help_text="Language of a given label"
+        max_length=3, verbose_name="Language",
+        help_text="Language of a given label"
     )
     label_type = models.CharField(
         choices=LABEL_TYPES, default='altLabel',
@@ -692,7 +693,8 @@ class ConceptNote(models.Model):
         help_text="Provide some information about Concept"
     )
     language = models.CharField(
-        max_length=3, help_text="Language of a given note"
+        max_length=3, verbose_name="Language",
+        help_text="Language of a given note"
     )
     note_type = models.CharField(
         choices=NOTE_TYPES, default='note',
@@ -720,7 +722,8 @@ class ConceptSource(models.Model):
         help_text="A verbose description of the concept's source"
     )
     language = models.CharField(
-        max_length=3, help_text="Language of a given source"
+        max_length=3, verbose_name="Language",
+        help_text="Language of a given source"
     )
 
     def __str__(self):

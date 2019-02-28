@@ -422,8 +422,6 @@ class SkosCollectionForm(forms.ModelForm):
                 ButtonHolder(Submit('submit', 'save')),
             )
             )
-        self.helper.render_required_fields = True
-
 
 
 class SkosCollectionFormHelper(FormHelper):
@@ -452,6 +450,20 @@ class SkosCollectionFormHelper(FormHelper):
 ######################################################################
 
 class ConceptLabelForm(forms.ModelForm):
+    name = forms.CharField(
+        label=ConceptLabel._meta.get_field('name').verbose_name,
+        help_text=ConceptLabel._meta.get_field('name').help_text,
+        error_messages=custom_name_errors(
+            field_name=ConceptLabel._meta.get_field('name').verbose_name
+            )
+    )
+    language = forms.CharField(
+        label=ConceptLabel._meta.get_field('language').verbose_name,
+        help_text=ConceptLabel._meta.get_field('language').help_text,
+        error_messages=custom_lang_errors(
+            field_name=ConceptLabel._meta.get_field('name').verbose_name
+            )
+    )
 
     def __init__(self, *args, **kwargs):
         super(ConceptLabelForm, self).__init__(*args, **kwargs)
@@ -474,6 +486,20 @@ ConceptLabelFormSet = inlineformset_factory(
 
 
 class ConceptNoteForm(forms.ModelForm):
+    name = forms.CharField(
+        label=ConceptNote._meta.get_field('name').verbose_name,
+        help_text=ConceptNote._meta.get_field('name').help_text,
+        error_messages=custom_name_errors(
+            field_name=ConceptNote._meta.get_field('name').verbose_name
+            )
+    )
+    language = forms.CharField(
+        label=ConceptNote._meta.get_field('language').verbose_name,
+        help_text=ConceptNote._meta.get_field('language').help_text,
+        error_messages=custom_lang_errors(
+            field_name=ConceptNote._meta.get_field('name').verbose_name
+            )
+    )
 
     def __init__(self, *args, **kwargs):
         super(ConceptNoteForm, self).__init__(*args, **kwargs)
@@ -496,6 +522,20 @@ ConceptNoteFormSet = inlineformset_factory(
 
 
 class ConceptSourceForm(forms.ModelForm):
+    name = forms.CharField(
+        label=ConceptSource._meta.get_field('name').verbose_name,
+        help_text=ConceptSource._meta.get_field('name').help_text,
+        error_messages=custom_name_errors(
+            field_name=ConceptSource._meta.get_field('name').verbose_name
+            )
+    )
+    language = forms.CharField(
+        label=ConceptSource._meta.get_field('language').verbose_name,
+        help_text=ConceptSource._meta.get_field('language').help_text,
+        error_messages=custom_lang_errors(
+            field_name=ConceptSource._meta.get_field('name').verbose_name
+            )
+    )
 
     def __init__(self, *args, **kwargs):
         super(ConceptSourceForm, self).__init__(*args, **kwargs)
