@@ -273,6 +273,20 @@ class SkosConceptSchemeFormHelper(FormHelper):
 ######################################################################
 
 class CollectionLabelForm(forms.ModelForm):
+    name = forms.CharField(
+        label=CollectionLabel._meta.get_field('name').verbose_name,
+        help_text=CollectionLabel._meta.get_field('name').help_text,
+        error_messages=custom_name_errors(
+            field_name=CollectionLabel._meta.get_field('name').verbose_name
+            )
+    )
+    language = forms.CharField(
+        label=CollectionLabel._meta.get_field('language').verbose_name,
+        help_text=CollectionLabel._meta.get_field('language').help_text,
+        error_messages=custom_lang_errors(
+            field_name=CollectionLabel._meta.get_field('name').verbose_name
+            )
+    )
 
     def __init__(self, *args, **kwargs):
         super(CollectionLabelForm, self).__init__(*args, **kwargs)
@@ -295,6 +309,20 @@ CollectionLabelFormSet = inlineformset_factory(
 
 
 class CollectionNoteForm(forms.ModelForm):
+    name = forms.CharField(
+        label=CollectionNote._meta.get_field('name').verbose_name,
+        help_text=CollectionNote._meta.get_field('name').help_text,
+        error_messages=custom_name_errors(
+            field_name=CollectionNote._meta.get_field('name').verbose_name
+            )
+    )
+    language = forms.CharField(
+        label=CollectionNote._meta.get_field('language').verbose_name,
+        help_text=CollectionNote._meta.get_field('language').help_text,
+        error_messages=custom_lang_errors(
+            field_name=CollectionNote._meta.get_field('name').verbose_name
+            )
+    )
 
     def __init__(self, *args, **kwargs):
         super(CollectionNoteForm, self).__init__(*args, **kwargs)
@@ -317,6 +345,20 @@ CollectionNoteFormSet = inlineformset_factory(
 
 
 class CollectionSourceForm(forms.ModelForm):
+    name = forms.CharField(
+        label=CollectionSource._meta.get_field('name').verbose_name,
+        help_text=CollectionSource._meta.get_field('name').help_text,
+        error_messages=custom_name_errors(
+            field_name=CollectionSource._meta.get_field('name').verbose_name
+            )
+    )
+    language = forms.CharField(
+        label=CollectionSource._meta.get_field('language').verbose_name,
+        help_text=CollectionSource._meta.get_field('language').help_text,
+        error_messages=custom_lang_errors(
+            field_name=CollectionSource._meta.get_field('name').verbose_name
+            )
+    )
 
     def __init__(self, *args, **kwargs):
         super(CollectionSourceForm, self).__init__(*args, **kwargs)
@@ -363,14 +405,14 @@ class SkosCollectionForm(forms.ModelForm):
             Div(
                 Field('name'),
                 Field('label_lang'),
-                Fieldset('Add more labels in other languages',
+                Fieldset('Add other labels or labels in other languages',
                     Formset('labels'), css_class="formset-div")
                 ,
                 Field('scheme'),
                 Field('creator'),
                 Field('contributor'),
                 Field('legacy_id'),
-                Fieldset('Add more documentary notes',
+                Fieldset('Add documentary note',
                     Formset('notes'), css_class="formset-div")
                 ,
                 Fieldset('Add source information',
@@ -573,14 +615,14 @@ class SkosConceptForm(forms.ModelForm):
             Div(
                 Field('pref_label'),
                 Field('pref_label_lang'),
-                Fieldset('Add more labels',
+                Fieldset('Add other labels',
                     Formset('labels'), css_class="formset-div")
                 ,
                 Field('scheme'),
                 Field('top_concept'),
                 Field('collection'),
                 Field('broader_concept'),
-                Fieldset('Add documentary notes',
+                Fieldset('Add documentary note',
                     Formset('notes'), css_class="formset-div")
                 ,
                 Field('creator'),

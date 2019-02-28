@@ -398,14 +398,16 @@ class CollectionLabel(models.Model):
         on_delete=models.CASCADE
     )
     name = models.CharField(
-        max_length=500, verbose_name="Label (Name)"
+        max_length=500, verbose_name="Label",
+        help_text="Collection label (name)"
     )
     language = models.CharField(
-        max_length=3
+        max_length=3, verbose_name="Language",
+        help_text="Language of a given label"
     )
     label_type = models.CharField(
         choices=LABEL_TYPES, default='altLabel',
-        max_length=12
+        max_length=12, help_text="Choose label type"
     )
 
     def __str__(self):
@@ -426,14 +428,16 @@ class CollectionNote(models.Model):
         on_delete=models.CASCADE
     )
     name = models.TextField(
-        verbose_name="Documentary note"
+        verbose_name="Documentary note",
+        help_text="Provide some information about Collection"
     )
     language = models.CharField(
-        max_length=3
+        max_length=3,
+        help_text="Language of a given note"
     )
     note_type = models.CharField(
         choices=NOTE_TYPES, default='note',
-        max_length=15
+        max_length=15, help_text="Choose note type"
     )
 
     def __str__(self):
@@ -454,10 +458,10 @@ class CollectionSource(models.Model):
     )
     name = models.TextField(
         verbose_name="Source",
-        #help_text="A verbose description of the collection's source"
+        help_text="A verbose description of the collection's source"
     )
     language = models.CharField(
-        max_length=3
+        max_length=3, help_text="Language of a given source"
     )
 
     def __str__(self):
@@ -655,14 +659,15 @@ class ConceptLabel(models.Model):
         on_delete=models.CASCADE
     )
     name = models.CharField(
-        max_length=500, verbose_name="Label"
+        max_length=500, verbose_name="Label",
+        help_text="Other label for a current concept"
     )
     language = models.CharField(
-        max_length=3
+        max_length=3, help_text="Language of a given label"
     )
     label_type = models.CharField(
         choices=LABEL_TYPES, default='altLabel',
-        max_length=12
+        max_length=12, help_text="Choose label type"
     )
 
     def __str__(self):
@@ -683,14 +688,15 @@ class ConceptNote(models.Model):
         on_delete=models.CASCADE
     )
     name = models.TextField(
-        verbose_name="Documentary note"
+        verbose_name="Documentary note",
+        help_text="Provide some information about Concept"
     )
     language = models.CharField(
-        max_length=3
+        max_length=3, help_text="Language of a given note"
     )
     note_type = models.CharField(
         choices=NOTE_TYPES, default='note',
-        max_length=15
+        max_length=15, help_text="Choose note type"
     )
 
     def __str__(self):
@@ -711,10 +717,10 @@ class ConceptSource(models.Model):
     )
     name = models.TextField(
         verbose_name="Source",
-        #help_text="A verbose description of the concept's source"
+        help_text="A verbose description of the concept's source"
     )
     language = models.CharField(
-        max_length=3
+        max_length=3, help_text="Language of a given source"
     )
 
     def __str__(self):
