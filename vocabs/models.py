@@ -534,6 +534,11 @@ class SkosConcept(MPTTModel):
         related_name="narrower_concepts",
         help_text="A concept with a broader meaning that a current concept inherits from"
     )
+    ################# semantic relationships via autocomplete #################
+    broad_match = models.TextField(
+        blank=True, help_text="Match to external concept"
+    )
+
     ################# semantic relationships #################
     skos_related = models.ManyToManyField(
         'SkosConcept', blank=True, related_name="related",
@@ -627,6 +632,9 @@ class SkosConcept(MPTTModel):
 
     def same_as_external_as_list(self):
         return self.same_as_external.split(';')
+
+    def broad_match_as_list(self):
+        return self.broad_match.split(',')
 
     @classmethod
     def get_listview_url(self):

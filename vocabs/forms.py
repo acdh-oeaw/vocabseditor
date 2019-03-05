@@ -582,6 +582,10 @@ class SkosConceptForm(forms.ModelForm):
         help_text="member of skos:Collection",
         required=False
     )
+    broad_match = forms.CharField(
+        required=False,
+        widget=autocomplete.TagSelect2(url='vocabs-ac:external-link-ac')
+    )
     skos_broadmatch = forms.ModelMultipleChoiceField(
         queryset=SkosConcept.objects.all(),
         widget=autocomplete.ModelSelect2Multiple(
@@ -676,6 +680,7 @@ class SkosConceptForm(forms.ModelForm):
                 Accordion(
                 AccordionGroup(
                     'Add SKOS semantic relationships',
+                    'broad_match',
                     'skos_related',
                     'skos_broadmatch',
                     'skos_narrowmatch',

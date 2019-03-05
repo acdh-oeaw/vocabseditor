@@ -199,6 +199,16 @@
         </td>
         </tr>
         {% endif %}
+        {% if object.broad_match %}
+        <tr>
+            <th>external broad match</th>
+            <td>
+            {% for x in object.broad_match_as_list %}
+            <li>{{x}}</li>
+            {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
 <!-- skos:broadMatch & skos:narrowMatch -->
         {% if object.skos_broadmatch.all %}
         <tr>

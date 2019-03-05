@@ -7,6 +7,10 @@ app_name = 'vocabs'
 
 urlpatterns = [
     url(
+        r'^external-link-ac/$', dal_views.ExternalLinkAC.as_view(),
+        name='external-link-ac',
+    ),
+    url(
         r'^skosconceptscheme-autocomplete/$', dal_views.SkosConceptSchemeAC.as_view(
             model=SkosConceptScheme),
         name='skosconceptscheme-autocomplete',
