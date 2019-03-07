@@ -8,6 +8,7 @@ from django.forms.models import inlineformset_factory
 from .custom_layout_object import *
 from mptt.forms import TreeNodeChoiceField
 from django.forms import BaseInlineFormSet
+import re
 
 
 class GenericFilterFormHelper(FormHelper):
@@ -563,6 +564,13 @@ ConceptSourceFormSet = inlineformset_factory(
 #
 ######################################################################
 
+ENDPOINTS = (
+    ('http://lookup.dbpedia.org/api/search/PrefixSearch?QueryString=', 'dbpedia'),
+    ('https://lobid.org/gnd/search?q=', 'gnd'),
+    ('https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/560&contains=', 'fish'),
+    ('http://www.eionet.europa.eu/gemet/getConceptsMatchingKeyword?&search_mode=0&keyword=', 'gemet'),
+)
+
 class SkosConceptForm(forms.ModelForm):
     broader_concept = TreeNodeChoiceField(
         queryset=SkosConcept.objects.all(),
@@ -582,9 +590,10 @@ class SkosConceptForm(forms.ModelForm):
         help_text="member of skos:Collection",
         required=False
     )
+    endpoint = forms.ChoiceField(choices=ENDPOINTS, required=False)
     broad_match = forms.CharField(
         required=False,
-        widget=autocomplete.TagSelect2(url='vocabs-ac:external-link-ac')
+        widget=autocomplete.TagSelect2(url='vocabs-ac:external-link-ac', forward=['endpoint'])
     )
     skos_broadmatch = forms.ModelMultipleChoiceField(
         queryset=SkosConcept.objects.all(),
@@ -680,6 +689,18 @@ class SkosConceptForm(forms.ModelForm):
                 Accordion(
                 AccordionGroup(
                     'Add SKOS semantic relationships',
+                    # HTML('''
+                    #     <div class="form-group">
+                    #     <select class="form-control" name="endpoint">
+                    #     <option>dbpedia</option>
+                    #     <option>gnd</option>
+                    #     <option>fish</option>
+                    #     <option>gemet</option>
+                    #     </select>
+                    #     </div>
+                    #     <br>
+                    #     '''),
+                    'endpoint',
                     'broad_match',
                     'skos_related',
                     'skos_broadmatch',
@@ -695,6 +716,14 @@ class SkosConceptForm(forms.ModelForm):
             )
             )
         self.helper.render_required_fields = True
+
+    def clean_broad_match(self):
+        data = self.cleaned_data['broad_match']
+        print("this is clean data {}".format(data))
+
+        new_data = re.findall("(?P<url>https?://[^\s]+)", data)
+        new_data = ",".join(new_data)
+        return new_data
 
 
 class SkosConceptFormHelper(FormHelper):

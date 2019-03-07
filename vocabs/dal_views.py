@@ -9,29 +9,55 @@ from django.utils import six
 
 ################ Global autocomplete for external concepts ################
 
+dbpedia = 'dbpedia''http://lookup.dbpedia.org/api/search/PrefixSearch?QueryString='
+gnd = 'https://lobid.org/gnd/search?q='
+fish = 'https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/560&contains='
+gemet = 'http://www.eionet.europa.eu/gemet/getConceptsMatchingKeyword?&search_mode=0&keyword='
+
+
 def global_autocomplete(request):
     choices = []
     q = request.GET.get('q')
     headers = {'accept': 'application/json'}
     ##### dbpedia api ######
-    dbpedia_url = 'http://lookup.dbpedia.org/api/search/KeywordSearch?QueryString='
+    dbpedia_url = 'http://lookup.dbpedia.org/api/search/PrefixSearch?QueryString='
     dbpedia_url += q
     dbpedia_r = requests.get(dbpedia_url, headers=headers)
     dbpedia_response = json.loads(dbpedia_r.content.decode('utf-8'))
     for x in dbpedia_response['results']:
-        item = {x['uri']: x['label']}
-        choices.append(dict(item))
-        #choices.append(str(x['uri'])+' - '+str(x['label']))
+        # item = {x['uri']: x['label']}
+        # choices.append(item)
+        choices.append(str(x['uri'])+' - '+str(x['label']))
     ##### gnd api ######
-    gnd_url = 'https://lobid.org/gnd/search?q='
-    gnd_url += q
-    gnd_url += '&format=json:preferredName'
-    gnd_r = requests.get(gnd_url, headers=headers)
-    gnd_response = json.loads(gnd_r.content.decode('utf-8'))
-    for x in gnd_response:
-        item = {x['id']: x['label']}
-        choices.append(dict(item))
+    # gnd_url = 'https://lobid.org/gnd/search?q='
+    # gnd_url += q
+    # gnd_url += '&format=json:preferredName'
+    # gnd_r = requests.get(gnd_url, headers=headers)
+    # gnd_response = json.loads(gnd_r.content.decode('utf-8'))
+    # for x in gnd_response:
+    #     item = {x['id']: x['label']}
+    #     choices.append(item)
         #choices.append(str(x['id'])+' - '+str(x['label']))
+    ##### fish api ######
+    fish_url = 'https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/560&contains='
+    fish_url += q
+    #fish_url += '&format=json'
+    fish_r = requests.get(fish_url, headers=headers)
+    fish_response = json.loads(fish_r.content.decode('utf-8'))
+    for x in fish_response:
+        # item = {x['uri']: x['label']}
+        # choices.append(item)
+        choices.append(str(x['uri'])+' - '+str(x['label']))
+    ##### gemet api ######
+    gemet_url = 'http://www.eionet.europa.eu/gemet/getConceptsMatchingKeyword?&search_mode=0&keyword='
+    gemet_url += q
+    gemet_url += '&format=json'
+    gemet_r = requests.get(gemet_url, headers=headers)
+    gemet_response = json.loads(gemet_r.content.decode('utf-8'))
+    for x in gemet_response:
+        # item = {x['uri']: x['preferredLabel']}
+        # choices.append(item)
+        choices.append(str(x['uri'])+' - '+str(x['preferredLabel']['string'])+'@'+str(x['preferredLabel']['language']))
     return choices
 
 
@@ -41,27 +67,69 @@ def global_autocomplete(request):
 class ExternalLinkAC(autocomplete.Select2ListView):
 
     def get_list(self):
-        final = []
-        global_list = global_autocomplete(self.request)
-        for x in global_list:
-            for key, value in x.items():
-                new_item = {'id': key, 'label': value}
-                #new_item = dict(id=x[key], label=x[value])
-                final.append(new_item)
-        #print(final)
+        # final = []
+        # global_list = global_autocomplete(self.request)
+        # for x in global_list:
+        #     for key, value in x.items():
+        #         new_item = {'id': key, 'label': value}
+        #         #new_item = dict(id=x[key], label=x[value])
+        #         final.append(new_item)
+        # #print(final)
 
-        return final
+        # return final
+        choices = []
+        endpoint = self.forwarded.get('endpoint', None)
+        print(endpoint)
+        # self.forwarded = json.loads(
+        #         getattr(self.request, self.request.method).get('endpoint', '{}')
+        #     )
+        #endpoint = self.request.GET.get('endpoint')
+        
+        headers = {'accept': 'application/json'}
+        if endpoint == 'http://lookup.dbpedia.org/api/search/PrefixSearch?QueryString=':
+            q = self.request.GET.get('q')
+            r = requests.get(endpoint+q, headers=headers)
+            response = json.loads(r.content.decode('utf-8'))
+            for x in response['results']:
+            # item = {x['uri']: x['label']}
+            # choices.append(item)
+                choices.append(str(x['uri'])+' - '+str(x['label']))
+        elif endpoint == 'https://lobid.org/gnd/search?q=':
+            q = self.request.GET.get('q')
+            r = requests.get(endpoint+q+'&format=json:preferredName', headers=headers)
+            response = json.loads(r.content.decode('utf-8'))
+            for x in response:
+            # item = {x['uri']: x['label']}
+            # choices.append(item)
+                choices.append(str(x['id'])+' - '+str(x['label']))
+        elif endpoint == 'https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/560&contains=':
+            q = self.request.GET.get('q')
+            r = requests.get(endpoint+q, headers=headers)
+            response = json.loads(r.content.decode('utf-8'))
+            for x in response:
+            # item = {x['uri']: x['label']}
+            # choices.append(item)
+                choices.append(str(x['uri'])+' - '+str(x['label']))
+        elif endpoint == 'http://www.eionet.europa.eu/gemet/getConceptsMatchingKeyword?&search_mode=0&keyword=':
+            q = self.request.GET.get('q')
+            r = requests.get(endpoint+q, headers=headers)
+            response = json.loads(r.content.decode('utf-8'))
+            for x in response:
+            # item = {x['uri']: x['label']}
+            # choices.append(item)
+                choices.append(str(x['uri'])+' - '+str(x['preferredLabel']['string'])+'@'+str(x['preferredLabel']['language']))
+        else:
+            pass
+        return choices
 
-    # def results(self, results):
-    #     """Return the result dictionary."""
-    #     res_list = [dict(id=x, text=x) for x in results]
-    #     #for x in results:
-    #     #print(res_list)
-    #     return res_list
+        # global_list = global_autocomplete(self.request)
+        # return global_list
+
 
     def results(self, results):
         """Return the result dictionary."""
         return [dict(id=x, text=x) for x in results]
+        #return [str(x) for x in results]
 
     def autocomplete_results(self, results):
         """Return list of strings that match the autocomplete query."""
