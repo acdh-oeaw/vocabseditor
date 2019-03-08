@@ -9,6 +9,7 @@ from .custom_layout_object import *
 from mptt.forms import TreeNodeChoiceField
 from django.forms import BaseInlineFormSet
 import re
+from .endpoints import *
 
 
 class GenericFilterFormHelper(FormHelper):
@@ -564,12 +565,6 @@ ConceptSourceFormSet = inlineformset_factory(
 #
 ######################################################################
 
-ENDPOINTS = (
-    ('http://lookup.dbpedia.org/api/search/PrefixSearch?QueryString=', 'dbpedia'),
-    ('https://lobid.org/gnd/search?q=', 'gnd'),
-    ('https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/560&contains=', 'fish'),
-    ('http://www.eionet.europa.eu/gemet/getConceptsMatchingKeyword?&search_mode=0&keyword=', 'gemet'),
-)
 
 class SkosConceptForm(forms.ModelForm):
     broader_concept = TreeNodeChoiceField(
@@ -720,9 +715,11 @@ class SkosConceptForm(forms.ModelForm):
     def clean_broad_match(self):
         data = self.cleaned_data['broad_match']
         print("this is clean data {}".format(data))
-
         new_data = re.findall("(?P<url>https?://[^\s]+)", data)
+        print(new_data)
+        new_data.sort()
         new_data = ",".join(new_data)
+        print(new_data)
         return new_data
 
 
