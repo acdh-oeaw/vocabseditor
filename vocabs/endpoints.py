@@ -66,7 +66,7 @@ class GemetAC(object):
     endpoint = 'https://www.eionet.europa.eu/gemet/'
     search_type = 'getConceptsMatchingKeyword?'
 
-    def payload(self, q, scheme=None):
+    def payload(self, q):
         return {'search_mode': '4', 'keyword': q}
 
     def get_url(self):
