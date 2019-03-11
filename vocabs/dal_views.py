@@ -15,24 +15,16 @@ def global_autocomplete(request, endpoint):
     choices = []
     q = request.GET.get('q')
     headers = {'accept': 'application/json'}
-    ac_instance = None
-    if endpoint == ENDPOINTS[0][0]:
-        ac_instance = DbpediaAC()        
-    elif endpoint == ENDPOINTS[1][0]:
-        ac_instance = GndAC()
-    elif endpoint == ENDPOINTS[2][0]:
-        ac_instance = GemetAC()
-    elif endpoint == ENDPOINTS[3][0]:
-        ac_instance = FishAC()
+    ac_instance = ENDPOINT.get(endpoint, DbpediaAC())
+    print(ac_instance.__class__.__name__)
+    if ac_instance.__class__.__name__.startswith('Fish'):
+        scheme = ac_instance.scheme_dict.get(endpoint, 'fish event')
         r = requests.get(ac_instance.get_url(), headers=headers,
-            params=ac_instance.payload(scheme='http://purl.org/heritagedata/schemes/560', q=q))
-        print(r.url)
-        response = json.loads(r.content.decode('utf-8'))
-        choices = ac_instance.parse_response(response=response)
-        return choices    
+        params=ac_instance.payload(scheme=scheme, q=q))
     else:
-        return choices
-    r = requests.get(ac_instance.get_url(), headers=headers, params=ac_instance.payload(q=q))
+        r = requests.get(ac_instance.get_url(), headers=headers,
+        params=ac_instance.payload(q=q))
+    print(r.url)
     response = json.loads(r.content.decode('utf-8'))
     choices = ac_instance.parse_response(response=response)
     return choices
@@ -49,51 +41,6 @@ class ExternalLinkAC(autocomplete.Select2ListView):
         print(endpoint)
         global_ac = global_autocomplete(self.request, endpoint=endpoint)
         return global_ac
-        # self.forwarded = json.loads(
-        #         getattr(self.request, self.request.method).get('endpoint', '{}')
-        #     )
-        #endpoint = self.request.GET.get('endpoint')
-        
-        # headers = {'accept': 'application/json'}
-        # if endpoint == 'http://lookup.dbpedia.org/api/search/PrefixSearch?QueryString=':
-        #     q = self.request.GET.get('q')
-        #     r = requests.get(endpoint+q, headers=headers)
-        #     response = json.loads(r.content.decode('utf-8'))
-        #     for x in response['results']:
-        #     # item = {x['uri']: x['label']}
-        #     # choices.append(item)
-        #         choices.append(str(x['uri'])+' - '+str(x['label']))
-        # elif endpoint == 'https://lobid.org/gnd/search?q=':
-        #     q = self.request.GET.get('q')
-        #     r = requests.get(endpoint+q+'&format=json:preferredName', headers=headers)
-        #     response = json.loads(r.content.decode('utf-8'))
-        #     for x in response:
-        #     # item = {x['uri']: x['label']}
-        #     # choices.append(item)
-        #         choices.append(str(x['id'])+' - '+str(x['label']))
-        # elif endpoint == 'https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/560&contains=':
-        #     q = self.request.GET.get('q')
-        #     r = requests.get(endpoint+q, headers=headers)
-        #     response = json.loads(r.content.decode('utf-8'))
-        #     for x in response:
-        #     # item = {x['uri']: x['label']}
-        #     # choices.append(item)
-        #         choices.append(str(x['uri'])+' - '+str(x['label']))
-        # elif endpoint == 'https://www.eionet.europa.eu/gemet/getConceptsMatchingKeyword?&search_mode=4&keyword=':
-        #     q = self.request.GET.get('q')
-        #     r = requests.get(endpoint+q, headers=headers)
-        #     response = json.loads(r.content.decode('utf-8'))
-        #     for x in response:
-        #     # item = {x['uri']: x['label']}
-        #     # choices.append(item)
-        #         choices.append(str(x['uri'])+' - '+str(x['preferredLabel']['string'])+'@'+str(x['preferredLabel']['language']))
-        # else:
-        #     pass
-        # return choices
-
-        # global_list = global_autocomplete(self.request)
-        # return global_list
-
 
     def results(self, results):
         """Return the result dictionary."""

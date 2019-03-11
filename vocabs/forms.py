@@ -585,7 +585,7 @@ class SkosConceptForm(forms.ModelForm):
         help_text="member of skos:Collection",
         required=False
     )
-    endpoint = forms.ChoiceField(choices=ENDPOINTS, required=False)
+    endpoint = forms.ChoiceField(choices=ENDPOINT_CHOICES, required=False)
     broad_match = forms.CharField(
         required=False,
         widget=autocomplete.TagSelect2(url='vocabs-ac:external-link-ac', forward=['endpoint'])
