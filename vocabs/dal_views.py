@@ -10,33 +10,25 @@ from .endpoints import *
 
 ################ Global autocomplete for external concepts ################
 
+
 def global_autocomplete(request, endpoint):
     choices = []
     q = request.GET.get('q')
     headers = {'accept': 'application/json'}
+    ac_instance = None
     if endpoint == ENDPOINTS[0][0]:
-        my_instance = DbpediaAC()
-        print(my_instance.get_url())
-        r = requests.get(my_instance.get_url()+q, headers=headers)
-        response = json.loads(r.content.decode('utf-8'))
-        choices = my_instance.parse_response(response=response)    
+        ac_instance = DbpediaAC()        
     elif endpoint == ENDPOINTS[1][0]:
-        my_instance = GndAC()
-        r = requests.get(my_instance.get_url()+q, headers=headers)
-        response = json.loads(r.content.decode('utf-8'))
-        choices = my_instance.parse_response(response=response)
+        ac_instance = GndAC()
     elif endpoint == ENDPOINTS[2][0]:
-        my_instance = GemetAC()
-        r = requests.get(my_instance.get_url()+q, headers=headers)
-        response = json.loads(r.content.decode('utf-8'))
-        choices = my_instance.parse_response(response=response)
+        ac_instance = GemetAC()
     elif endpoint == ENDPOINTS[3][0]:
-        my_instance = FishAC()
-        r = requests.get(my_instance.get_url()+q, headers=headers)
-        response = json.loads(r.content.decode('utf-8'))
-        choices = my_instance.parse_response(response=response)
+        ac_instance = FishAC()        
     else:
-        pass
+        return choices
+    r = requests.get(ac_instance.get_url()+q, headers=headers)
+    response = json.loads(r.content.decode('utf-8'))
+    choices = ac_instance.parse_response(response=response)
     return choices
     
 

@@ -5,6 +5,8 @@ ENDPOINTS = [
     ('https://www.eionet.europa.eu/gemet/', 'GEMET'),
     ('https://www.heritagedata.org/live/services/',
                 'FISH Archaeological Sciences Thesaurus'),
+    ('https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/mda_obj&contains=',
+                 'FISH Archaeological Objects Thesaurus'),
     # ('FISH – The Forum on Information Standards in Heritage', (
     #         ('https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/560&contains=',
     #             'FISH Archaeological Sciences Thesaurus'),
@@ -27,15 +29,7 @@ search_types = (
     )
 
 
-class GeneralAC(object):
-    pass
-
-    def get_url(self):
-        url = self.endpoint+self.search_type+self.query+'='
-        return str(url)
-
-
-class DbpediaAC(GeneralAC):
+class DbpediaAC(object):
     endpoint = 'http://lookup.dbpedia.org/api/search/'
     search_type = 'PrefixSearch?'
     query = 'QueryString'
@@ -51,11 +45,14 @@ class DbpediaAC(GeneralAC):
         return results
 
 
-class GndAC(GeneralAC):
+class GndAC(object):
     endpoint = 'https://lobid.org/gnd/search?'
     search_type = 'format=json:preferredName&'
     query = 'q'
 
+    def get_url(self):
+        url = self.endpoint+self.search_type+self.query+'='
+        return str(url)
 
     def parse_response(self, response):
         results = []
@@ -64,7 +61,7 @@ class GndAC(GeneralAC):
         return results
 
 
-class GemetAC(GeneralAC):
+class GemetAC(object):
     endpoint = 'https://www.eionet.europa.eu/gemet/'
     search_type = 'getConceptsMatchingKeyword?&'
     parameter = 'search_mode=4&'
@@ -81,7 +78,7 @@ class GemetAC(GeneralAC):
         return results
 
 
-class FishAC(GeneralAC):
+class FishAC(object):
     endpoint = 'https://www.heritagedata.org/live/services/'
     search_type = 'getConceptLabelMatch?'
     parameter = 'schemeURI=http://purl.org/heritagedata/schemes/560&'
