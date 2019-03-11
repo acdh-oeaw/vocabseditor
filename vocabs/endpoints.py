@@ -5,18 +5,18 @@ ENDPOINTS = [
     ('https://www.eionet.europa.eu/gemet/', 'GEMET'),
     ('https://www.heritagedata.org/live/services/',
                 'FISH Archaeological Sciences Thesaurus'),
-    ('https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/mda_obj&contains=',
-                 'FISH Archaeological Objects Thesaurus'),
+    # ('https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/mda_obj&contains=',
+    #              'FISH Archaeological Objects Thesaurus'),
     # ('FISH – The Forum on Information Standards in Heritage', (
-    #         ('https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/560&contains=',
+    #         ('http://purl.org/heritagedata/schemes/560',
     #             'FISH Archaeological Sciences Thesaurus'),
-    #         ('https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/agl_et&contains=',
+    #         ('http://purl.org/heritagedata/schemes/agl_et',
     #             'FISH Event Types Thesaurus'),
-    #         ('https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/eh_tbm&contains=',
+    #         ('http://purl.org/heritagedata/schemes/eh_tbm',
     #             'FISH Building Materials Thesaurus'),
-    #         ('https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/eh_tmt2&contains=',
+    #         ('http://purl.org/heritagedata/schemes/eh_tmt2',
     #             'FISH Thesaurus of Monument Types'),
-    #         ('https://www.heritagedata.org/live/services/getConceptLabelMatch?schemeURI=http://purl.org/heritagedata/schemes/mda_obj&contains=',
+    #         ('http://purl.org/heritagedata/schemes/mda_obj',
     #             'FISH Archaeological Objects Thesaurus'),
     #     )
     # ),
@@ -32,11 +32,12 @@ search_types = (
 class DbpediaAC(object):
     endpoint = 'http://lookup.dbpedia.org/api/search/'
     search_type = 'PrefixSearch?'
-    query = 'QueryString'
+
+    def payload(self, q):
+        return {'QueryString': q}
 
     def get_url(self):
-        url = self.endpoint+self.search_type+self.query+'='
-        return str(url)
+        return self.endpoint+self.search_type
 
     def parse_response(self, response):
         results = []
@@ -47,12 +48,13 @@ class DbpediaAC(object):
 
 class GndAC(object):
     endpoint = 'https://lobid.org/gnd/search?'
-    search_type = 'format=json:preferredName&'
-    query = 'q'
+    #search_type = 'format=json:preferredName&'
+
+    def payload(self, q):
+        return {'format': 'json:preferredName', 'q': q}
 
     def get_url(self):
-        url = self.endpoint+self.search_type+self.query+'='
-        return str(url)
+        return self.endpoint
 
     def parse_response(self, response):
         results = []
@@ -63,13 +65,13 @@ class GndAC(object):
 
 class GemetAC(object):
     endpoint = 'https://www.eionet.europa.eu/gemet/'
-    search_type = 'getConceptsMatchingKeyword?&'
-    parameter = 'search_mode=4&'
-    query = 'keyword'
+    search_type = 'getConceptsMatchingKeyword?'
+
+    def payload(self, q):
+        return {'search_mode': '4', 'keyword': q}
 
     def get_url(self):
-        url = self.endpoint+self.search_type+self.parameter+self.query+'='
-        return str(url)
+        return self.endpoint+self.search_type
 
     def parse_response(self, response):
         results = []
@@ -81,12 +83,17 @@ class GemetAC(object):
 class FishAC(object):
     endpoint = 'https://www.heritagedata.org/live/services/'
     search_type = 'getConceptLabelMatch?'
-    parameter = 'schemeURI=http://purl.org/heritagedata/schemes/560&'
-    query = 'contains'
+
+    def payload(self, scheme, q):
+        payload = {'schemeURI': scheme, 'contains': q}
+        return payload
 
     def get_url(self):
-        url = self.endpoint+self.search_type+self.parameter+self.query+'='
-        return str(url)
+        return self.endpoint+self.search_type
+
+    # def get_url(self):
+    #     url = self.endpoint+self.search_type+self.parameter+self.query+'='
+    #     return str(url)
 
     def parse_response(self, response):
         results = []

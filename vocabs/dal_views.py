@@ -23,10 +23,16 @@ def global_autocomplete(request, endpoint):
     elif endpoint == ENDPOINTS[2][0]:
         ac_instance = GemetAC()
     elif endpoint == ENDPOINTS[3][0]:
-        ac_instance = FishAC()        
+        ac_instance = FishAC()
+        r = requests.get(ac_instance.get_url(), headers=headers,
+            params=ac_instance.payload(scheme='http://purl.org/heritagedata/schemes/560', q=q))
+        print(r.url)
+        response = json.loads(r.content.decode('utf-8'))
+        choices = ac_instance.parse_response(response=response)
+        return choices    
     else:
         return choices
-    r = requests.get(ac_instance.get_url()+q, headers=headers)
+    r = requests.get(ac_instance.get_url(), headers=headers, params=ac_instance.payload(q=q))
     response = json.loads(r.content.decode('utf-8'))
     choices = ac_instance.parse_response(response=response)
     return choices

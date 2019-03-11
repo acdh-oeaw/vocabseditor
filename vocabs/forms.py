@@ -681,22 +681,11 @@ class SkosConceptForm(forms.ModelForm):
                 Fieldset('Add source information',
                     Formset('sources'), css_class="formset-div")
                 ,
+                Field('endpoint'),
+                Field('broad_match'),
                 Accordion(
                 AccordionGroup(
                     'Add SKOS semantic relationships',
-                    # HTML('''
-                    #     <div class="form-group">
-                    #     <select class="form-control" name="endpoint">
-                    #     <option>dbpedia</option>
-                    #     <option>gnd</option>
-                    #     <option>fish</option>
-                    #     <option>gemet</option>
-                    #     </select>
-                    #     </div>
-                    #     <br>
-                    #     '''),
-                    'endpoint',
-                    'broad_match',
                     'skos_related',
                     'skos_broadmatch',
                     'skos_narrowmatch',
