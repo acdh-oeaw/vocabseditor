@@ -80,7 +80,7 @@ textarea {
 
 /*fixing the height of select2multiple field, overring fundament*/
 
-.modelselect2multiple, .select2multiple {
+.modelselect2multiple, .select2multiple, .select2-selection--multiple {
   padding: 0;
 }
 

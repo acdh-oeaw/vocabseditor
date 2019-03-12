@@ -597,7 +597,9 @@ class SkosConceptForm(forms.ModelForm):
             'data-placeholder': 'Type at least 3 characters to get autocomplete suggestions ...',
             'data-minimum-input-length': 3,
             },
-            )
+            ),
+        help_text="When adding match which is not provided by autocomplete\
+        please note that URI should follow the format 'http{s}://example.org/...'"
     )
     skos_broadmatch = forms.ModelMultipleChoiceField(
         queryset=SkosConcept.objects.all(),

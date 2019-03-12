@@ -34,10 +34,7 @@ class DbpediaAC(object):
         parses JSON response to return a list containing
         data in format 'uri - label'
         """
-        results = []
-        for x in response['results']:
-            results.append(str(x['uri'])+' - '+str(x['label']))
-        return results
+        return [str(x['uri'])+' - '+str(x['label']) for x in response['results']]
 
 
 class GndAC(object):
@@ -53,10 +50,7 @@ class GndAC(object):
         return self.endpoint
 
     def parse_response(self, response):
-        results = []
-        for x in response:
-            results.append(str(x['id'])+' - '+str(x['label']))
-        return results
+        return [str(x['id'])+' - '+str(x['label']) for x in response]
 
 
 class GemetAC(object):
@@ -73,10 +67,7 @@ class GemetAC(object):
         return self.endpoint+self.search_type
 
     def parse_response(self, response):
-        results = []
-        for x in response:
-            results.append(str(x['uri'])+' - '+str(x['preferredLabel']['string'])+'@'+str(x['preferredLabel']['language']))
-        return results
+        return [str(x['uri'])+' - '+str(x['preferredLabel']['string']) for x in response]
 
 
 class FishAC(object):
@@ -100,10 +91,7 @@ class FishAC(object):
         return self.endpoint+self.search_type
 
     def parse_response(self, response):
-        results = []
-        for x in response:
-            results.append(str(x['uri'])+' - '+str(x['label']))
-        return results
+        return [str(x['uri'])+' - '+str(x['label']) for x in response]
 
 
 ENDPOINT = {
