@@ -18,7 +18,7 @@ def global_autocomplete(request, endpoint):
     ac_instance = ENDPOINT.get(endpoint, DbpediaAC())
     print(ac_instance.__class__.__name__)
     if ac_instance.__class__.__name__.startswith('Fish'):
-        scheme = ac_instance.scheme_dict.get(endpoint, 'fish event')
+        scheme = ac_instance.scheme_dict.get(endpoint, 'FISH Event Types Thesaurus')
         r = requests.get(ac_instance.get_url(), headers=headers,
         params=ac_instance.payload(scheme=scheme, q=q))
     else:

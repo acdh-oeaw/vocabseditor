@@ -86,10 +86,10 @@ class FishAC(object):
     endpoint = 'https://www.heritagedata.org/live/services/'
     search_type = 'getConceptLabelMatch?'
     scheme_dict = {
-        "fish event": "http://purl.org/heritagedata/schemes/agl_et",
-        "fish thesaurus": "http://purl.org/heritagedata/schemes/560",
-        "fish monument types": "http://purl.org/heritagedata/schemes/eh_tmt2",
-        "fish objects": "http://purl.org/heritagedata/schemes/mda_obj"
+        "FISH Event Types Thesaurus": "http://purl.org/heritagedata/schemes/agl_et",
+        "FISH Archaeological Sciences Thesaurus": "http://purl.org/heritagedata/schemes/560",
+        "FISH Thesaurus of Monument Types": "http://purl.org/heritagedata/schemes/eh_tmt2",
+        "FISH Archaeological Objects Thesaurus": "http://purl.org/heritagedata/schemes/mda_obj"
     }
 
     def payload(self, scheme, q):
@@ -107,13 +107,13 @@ class FishAC(object):
 
 
 ENDPOINT = {
-    'dbpedia': DbpediaAC(),
-    'gnd': GndAC(),
-    'gemet': GemetAC(),
-    'fish event': FishAC(),
-    'fish thesaurus': FishAC(),
-    'fish monument types': FishAC(),
-    'fish objects': FishAC()
+    'Dbpedia': DbpediaAC(),
+    'GND': GndAC(),
+    'GEMET': GemetAC(),
+    'FISH Event Types Thesaurus': FishAC(),
+    'FISH Archaeological Sciences Thesaurus': FishAC(),
+    'FISH Thesaurus of Monument Types': FishAC(),
+    'FISH Archaeological Objects Thesaurus': FishAC()
 }
 
 ENDPOINT_CHOICES = [(key, key) for key, value in ENDPOINT.items()]

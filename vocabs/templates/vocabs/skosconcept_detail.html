@@ -204,7 +204,7 @@
             <th>external broad match</th>
             <td>
             {% for x in object.broad_match_as_list %}
-            <li>{{x}}</li>
+            <li>{{x|urlize}}</li>
             {% endfor %}
             </td>
         </tr>

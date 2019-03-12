@@ -565,7 +565,6 @@ ConceptSourceFormSet = inlineformset_factory(
 #
 ######################################################################
 
-
 class SkosConceptForm(forms.ModelForm):
     broader_concept = TreeNodeChoiceField(
         queryset=SkosConcept.objects.all(),
@@ -585,10 +584,20 @@ class SkosConceptForm(forms.ModelForm):
         help_text="member of skos:Collection",
         required=False
     )
-    endpoint = forms.ChoiceField(choices=ENDPOINT_CHOICES, required=False)
+    endpoint = forms.ChoiceField(
+        choices=ENDPOINT_CHOICES, required=False,
+        help_text="Select a service to create links to external resources"
+    )
     broad_match = forms.CharField(
         required=False,
-        widget=autocomplete.TagSelect2(url='vocabs-ac:external-link-ac', forward=['endpoint'])
+        widget=autocomplete.TagSelect2(
+            url='vocabs-ac:external-link-ac',
+            forward=['endpoint'],
+            attrs={
+            'data-placeholder': 'Type at least 3 characters to get autocomplete suggestions ...',
+            'data-minimum-input-length': 3,
+            },
+            )
     )
     skos_broadmatch = forms.ModelMultipleChoiceField(
         queryset=SkosConcept.objects.all(),
@@ -703,13 +712,9 @@ class SkosConceptForm(forms.ModelForm):
 
     def clean_broad_match(self):
         data = self.cleaned_data['broad_match']
-        print("this is clean data {}".format(data))
-        new_data = re.findall("(?P<url>https?://[^\s]+)", data)
-        print(new_data)
-        new_data.sort()
-        new_data = ",".join(new_data)
-        print(new_data)
-        return new_data
+        # regex to find and save only uri starting with http or https
+        uri_data = ",".join(re.findall("(?P<url>https?://[^\s\,]+)", data))
+        return uri_data
 
 
 class SkosConceptFormHelper(FormHelper):
