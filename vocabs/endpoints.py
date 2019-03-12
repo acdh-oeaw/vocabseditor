@@ -2,6 +2,7 @@
 Settings for external services to query for autocomplete
 when assigning skos Matches
 """
+import requests, json
 
 search_types = (
     ('KeywordSearch?', 'Keyword Search'),
@@ -36,6 +37,14 @@ class DbpediaAC(object):
         """
         return [str(x['uri'])+' - '+str(x['label']) for x in response['results']]
 
+    def get_data(self, q):
+        headers = {'accept': 'application/json'}
+        r = requests.get(self.get_url(), headers=headers, 
+            params=self.payload(q=q))
+        response = json.loads(r.content.decode('utf-8'))
+        choices = self.parse_response(response=response)
+        return choices
+
 
 class GndAC(object):
     """
@@ -51,6 +60,14 @@ class GndAC(object):
 
     def parse_response(self, response):
         return [str(x['id'])+' - '+str(x['label']) for x in response]
+
+    def get_data(self, q):
+        headers = {'accept': 'application/json'}
+        r = requests.get(self.get_url(), headers=headers, 
+            params=self.payload(q=q))
+        response = json.loads(r.content.decode('utf-8'))
+        choices = self.parse_response(response=response)
+        return choices
 
 
 class GemetAC(object):
@@ -68,6 +85,14 @@ class GemetAC(object):
 
     def parse_response(self, response):
         return [str(x['uri'])+' - '+str(x['preferredLabel']['string']) for x in response]
+
+    def get_data(self, q):
+        headers = {'accept': 'application/json'}
+        r = requests.get(self.get_url(), headers=headers, 
+            params=self.payload(q=q))
+        response = json.loads(r.content.decode('utf-8'))
+        choices = self.parse_response(response=response)
+        return choices
 
 
 class FishAC(object):
@@ -92,6 +117,14 @@ class FishAC(object):
 
     def parse_response(self, response):
         return [str(x['uri'])+' - '+str(x['label']) for x in response]
+
+    def get_data(self, scheme, q):
+        headers = {'accept': 'application/json'}
+        r = requests.get(self.get_url(), headers=headers, 
+            params=self.payload(scheme=scheme, q=q))
+        response = json.loads(r.content.decode('utf-8'))
+        choices = self.parse_response(response=response)
+        return choices
 
 
 ENDPOINT = {
