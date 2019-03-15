@@ -103,6 +103,12 @@
         </td>
         </tr>
         {% endif %}
+        {% if object.legacy_id %}
+        <tr>
+        <th>legacy id</th>
+        <td>{{object.legacy_id}}</td>
+        </tr>
+        {% endif %}
         {% if object.creator %}
         <tr>
         <th>dc:creator</th>
@@ -177,31 +183,20 @@
         </td>
         </tr>
         {% endif %}
-<!-- skos:related & reverse -->
-        {% if object.skos_related.all %}
+<!-- external macthes via AC -->
+        {% if object.related %}
         <tr>
-        <th>skos:related</th>
-        <td>
-            {% for x in object.skos_related.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
+            <th>skos:related</th>
+            <td>
+            {% for x in object.related_as_list %}
+            <li>{{x|urlize}}</li>
             {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
-
-        {% if object.related.all %}
-        <tr>
-        <th>skos:related</th>
-        <td>
-            {% for x in object.related.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
-            {% endfor %}
-        </td>
+            </td>
         </tr>
         {% endif %}
         {% if object.broad_match %}
         <tr>
-            <th>external broad match</th>
+            <th>skos:broadMatch</th>
             <td>
             {% for x in object.broad_match_as_list %}
             <li>{{x|urlize}}</li>
@@ -209,116 +204,47 @@
             </td>
         </tr>
         {% endif %}
-<!-- skos:broadMatch & skos:narrowMatch -->
-        {% if object.skos_broadmatch.all %}
+        {% if object.narrow_match %}
         <tr>
-        <th>skos:broadMatch</th>
-        <td>
-            {% for x in object.skos_broadmatch.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
+            <th>external narrow match</th>
+            <td>
+            {% for x in object.narrow_match_as_list %}
+            <li>{{x|urlize}}</li>
             {% endfor %}
-        </td>
+            </td>
         </tr>
         {% endif %}
-
-        {% if object.narrowmatch.all %}
+        {% if object.exact_match %}
         <tr>
-        <th>skos:narrowMatch</th>
-        <td>
-            {% for x in object.narrowmatch.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
+            <th>external exact match</th>
+            <td>
+            {% for x in object.exact_match_as_list %}
+            <li>{{x|urlize}}</li>
             {% endfor %}
-        </td>
+            </td>
         </tr>
         {% endif %}
-<!-- skos:narrowMatch & skos:broadMatch -->
-        {% if object.skos_narrowmatch.all %}
+        {% if object.related_match %}
         <tr>
-        <th>skos:narrowMatch</th>
-        <td>
-            {% for x in object.skos_narrowmatch.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
+            <th>external related match</th>
+            <td>
+            {% for x in object.related_match_as_list %}
+            <li>{{x|urlize}}</li>
             {% endfor %}
-        </td>
+            </td>
         </tr>
         {% endif %}
-
-        {% if object.broadmatch.all %}
+        {% if object.close_match %}
         <tr>
-        <th>skos:broadMatch</th>
-        <td>
-            {% for x in object.broadmatch.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
+            <th>external close match</th>
+            <td>
+            {% for x in object.close_match_as_list %}
+            <li>{{x|urlize}}</li>
             {% endfor %}
-        </td>
+            </td>
         </tr>
         {% endif %}
-<!-- skos:exactMatch & reverse -->
-        {% if object.skos_exactmatch.all %}
-        <tr>
-        <th>skos:exactMatch</th>
-        <td>
-            {% for x in object.skos_exactmatch.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
-            {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
-
-        {% if object.exactmatch.all %}
-        <tr>
-        <th>skos:exactMatch</th>
-        <td>
-            {% for x in object.exactmatch.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
-            {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
-<!-- skos:relatedMatch & reverse -->
-        {% if object.skos_relatedmatch.all %}
-        <tr>
-        <th>skos:relatedMatch</th>
-        <td>
-            {% for x in object.skos_relatedmatch.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
-            {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
-
-        {% if object.relatedmatch.all %}
-        <tr>
-        <th>skos:relatedMatch</th>
-        <td>
-            {% for x in object.relatedmatch.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
-            {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
-<!-- skos:closeMatch & reverse -->
-        {% if object.skos_closematch.all %}
-        <tr>
-        <th>skos:closeMatch</th>
-        <td>
-            {% for x in object.skos_closematch.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
-            {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
-
-        {% if object.closematch.all %}
-        <tr>
-        <th>skos:closeMatch</th>
-        <td>
-            {% for x in object.closematch.all %}
-            <a href="{{ x.get_absolute_url }}">{{x}}</a><br>
-            {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
+<!--  -->
         {% if object.date_created %}
          <tr>
             <th>dct:created</th>

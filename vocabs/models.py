@@ -535,45 +535,33 @@ class SkosConcept(MPTTModel):
         help_text="A concept with a broader meaning that a current concept inherits from"
     )
     ################# semantic relationships via autocomplete #################
-    broad_match = models.TextField(
-        blank=True, help_text="Match to external concept"
-    )
-
-    ################# semantic relationships #################
-    skos_related = models.ManyToManyField(
-        'SkosConcept', blank=True, related_name="related",
-        verbose_name="skos:related",
+    related = models.TextField(
+        blank=True, verbose_name="skos:related",
         help_text="An associative relationship among two concepts"
     )
-    skos_broadmatch = models.ManyToManyField(
-        'SkosConcept', blank=True, related_name="narrowmatch",
-        verbose_name="skos:broadMatch",
+    broad_match = models.TextField(
+        blank=True, verbose_name="skos:broadMatch",
         help_text="A concept in an external Concept Scheme with a broader meaning"
-    )
-    skos_narrowmatch = models.ManyToManyField(
-        'SkosConcept', blank=True, related_name="broadmatch",
-        verbose_name="skos:narrowMatch",
+    )    
+    narrow_match = models.TextField(
+        blank=True, verbose_name="skos:narrowMatch",
         help_text="A concept in an external Concept Scheme with a narrower meaning"
     )
-    skos_exactmatch = models.ManyToManyField(
-        'SkosConcept', blank=True, related_name="exactmatch",
-        verbose_name="skos:exactMatch",
+    exact_match = models.TextField(
+        blank=True, verbose_name="skos:exactMatch",
         help_text="A concept in an external Concept Scheme "
         "that can be used interchangeably and has an exact same meaning"
     )
-    skos_relatedmatch = models.ManyToManyField(
-        'SkosConcept', blank=True, related_name="relatedmatch",
-        verbose_name="skos:relatedMatch",
+    related_match = models.TextField(
+        blank=True, verbose_name="skos:relatedMatch",
         help_text="A concept in an external Concept Scheme that has an associative "
         "relationship with a current concept"
     )
-    skos_closematch = models.ManyToManyField(
-        'SkosConcept', blank=True, related_name="closematch",
-        verbose_name="skos:closeMatch",
+    close_match = models.TextField(
+        blank=True, verbose_name="skos:closeMatch",
         help_text="A concept in an external Concept Scheme that has a similar meaning"
-
     )
-    ##########################################################
+    ###########################################################################
     # if using legacy_id as URI change it for URLField
     legacy_id = models.CharField(max_length=200, blank=True)
     creator = models.TextField(
@@ -624,6 +612,7 @@ class SkosConcept(MPTTModel):
         self.date_modified = timezone.now()
         super(SkosConcept, self).save(*args, **kwargs)
 
+    # change for template tag
     def creator_as_list(self):
         return self.creator.split(';')
 
@@ -635,6 +624,21 @@ class SkosConcept(MPTTModel):
 
     def broad_match_as_list(self):
         return self.broad_match.split(',')
+
+    def related_as_list(self):
+        return self.related.split(',')
+
+    def narrow_match_as_list(self):
+        return self.narrow_match.split(',')
+
+    def exact_match_as_list(self):
+        return self.exact_match.split(',')
+
+    def related_match_as_list(self):
+        return self.related_match.split(',')
+
+    def close_match_as_list(self):
+        return self.close_match.split(',')
 
     @classmethod
     def get_listview_url(self):

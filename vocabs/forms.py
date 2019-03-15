@@ -565,6 +565,23 @@ ConceptSourceFormSet = inlineformset_factory(
 #
 ######################################################################
 
+class AutocompleteCharField(forms.CharField):
+    widget = autocomplete.TagSelect2(
+            url='vocabs-ac:external-link-ac',
+            forward=['endpoint'],
+            attrs={
+            'data-placeholder': 'Type at least 3 characters to get autocomplete suggestions ...',
+            'data-minimum-input-length': 3,
+            },
+            )
+    help_text = "When adding match which is not provided by autocomplete\
+        please note that URI should follow the format 'http{s}://example.org/...'"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.required = False
+
+
 class SkosConceptForm(forms.ModelForm):
     broader_concept = TreeNodeChoiceField(
         queryset=SkosConcept.objects.all(),
@@ -588,69 +605,17 @@ class SkosConceptForm(forms.ModelForm):
         choices=ENDPOINT_CHOICES, required=False,
         help_text="Select a service to create links to external resources"
     )
-    broad_match = forms.CharField(
-        required=False,
-        widget=autocomplete.TagSelect2(
-            url='vocabs-ac:external-link-ac',
-            forward=['endpoint'],
-            attrs={
-            'data-placeholder': 'Type at least 3 characters to get autocomplete suggestions ...',
-            'data-minimum-input-length': 3,
-            },
-            ),
-        help_text="When adding match which is not provided by autocomplete\
-        please note that URI should follow the format 'http{s}://example.org/...'"
+    related = AutocompleteCharField(
+        label=SkosConcept._meta.get_field('related').verbose_name
     )
-    skos_broadmatch = forms.ModelMultipleChoiceField(
-        queryset=SkosConcept.objects.all(),
-        widget=autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-extmatch-autocomplete',
-                forward=['scheme']
-        ),
-        help_text=SkosConcept._meta.get_field('skos_broadmatch').help_text,
-        label=SkosConcept._meta.get_field('skos_broadmatch').verbose_name,
-        required=False
+    broad_match = AutocompleteCharField(
+        label=SkosConcept._meta.get_field('broad_match').verbose_name
     )
-    skos_narrowmatch = forms.ModelMultipleChoiceField(
-        queryset=SkosConcept.objects.all(),
-        widget=autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-extmatch-autocomplete',
-                forward=['scheme']
-        ),
-        help_text=SkosConcept._meta.get_field('skos_narrowmatch').help_text,
-        label=SkosConcept._meta.get_field('skos_narrowmatch').verbose_name,
-        required=False
-    )
-    skos_exactmatch = forms.ModelMultipleChoiceField(
-        queryset=SkosConcept.objects.all(),
-        widget=autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-extmatch-autocomplete',
-                forward=['scheme']
-        ),
-        help_text=SkosConcept._meta.get_field('skos_exactmatch').help_text,
-        label=SkosConcept._meta.get_field('skos_exactmatch').verbose_name,
-        required=False
-    )
-    skos_relatedmatch = forms.ModelMultipleChoiceField(
-        queryset=SkosConcept.objects.all(),
-        widget=autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-extmatch-autocomplete',
-                forward=['scheme']
-        ),
-        help_text=SkosConcept._meta.get_field('skos_relatedmatch').help_text,
-        label=SkosConcept._meta.get_field('skos_relatedmatch').verbose_name,
-        required=False
-    )
-    skos_closematch = forms.ModelMultipleChoiceField(
-        queryset=SkosConcept.objects.all(),
-        widget=autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-extmatch-autocomplete',
-                forward=['scheme']
-        ),
-        help_text=SkosConcept._meta.get_field('skos_closematch').help_text,
-        label=SkosConcept._meta.get_field('skos_closematch').verbose_name,
-        required=False
-    )
+    
+    # narrow_match = AutocompleteCharField()
+    # exact_match = AutocompleteCharField()
+    # related_match = AutocompleteCharField()
+    # close_match = AutocompleteCharField()
 
     class Meta:
         model = SkosConcept
@@ -658,8 +623,6 @@ class SkosConceptForm(forms.ModelForm):
         widgets = {
             'scheme': autocomplete.ModelSelect2(
                 url='vocabs-ac:skosconceptscheme-autocomplete'),
-            'skos_related': autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skosconcept-autocomplete'),
         }
 
 
@@ -692,31 +655,47 @@ class SkosConceptForm(forms.ModelForm):
                 Fieldset('Add source information',
                     Formset('sources'), css_class="formset-div")
                 ,
-                Field('endpoint'),
-                Field('broad_match'),
-                Accordion(
-                AccordionGroup(
-                    'Add SKOS semantic relationships',
-                    'skos_related',
-                    'skos_broadmatch',
-                    'skos_narrowmatch',
-                    'skos_exactmatch',
-                    'skos_relatedmatch',
-                    'skos_closematch',
-                    css_id="advanced_skos_fields"
+                Fieldset('Add semantic relationships',
+                    Field('endpoint'),
+                    Field('related'),
+                    Field('broad_match'),
+                    Field('narrow_match'),
+                    Field('exact_match'),
+                    Field('related_match'),
+                    Field('close_match'),
                 ),
-                ),
+               
+                
+                # Accordion(
+                # AccordionGroup(
+                #     'Add SKOS semantic relationships',
+                #     'endpoint',
+                #     'related',
+                #     'broad_match',
+                #     'narrow_match',
+                #     'exact_match',
+                #     'related_match',
+                #     'close_match',
+                #     css_id="advanced_skos_fields"
+                # ),
+                # ),
                 HTML("<br>"),
                 ButtonHolder(Submit('submit', 'save')),
             )
             )
         self.helper.render_required_fields = True
 
-    def clean_broad_match(self):
-        data = self.cleaned_data['broad_match']
+    def clean_related(self):
+        data = self.cleaned_data['related']
         # regex to find and save only uri starting with http or https
         uri_data = ",".join(re.findall("(?P<url>https?://[^\s\,]+)", data))
         return uri_data
+
+    def clean_broad_match(self):
+        data = self.cleaned_data['broad_match']
+        return ",".join(re.findall("(?P<url>https?://[^\s\,]+)", data))
+
+    # write clean() on form
 
 
 class SkosConceptFormHelper(FormHelper):

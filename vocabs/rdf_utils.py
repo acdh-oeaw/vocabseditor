@@ -177,45 +177,45 @@ def graph_construct_qs(results):
 			for x in obj.narrower_concepts.all():
 				g.add((concept, SKOS.narrower, URIRef(mainConceptScheme + "#concept" + str(x.id))))
 		# modelling matches
-		if obj.skos_related.all():
-			for x in obj.skos_related.all():
-				g.add((concept, SKOS.related, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
-		if obj.related.all():
-			for x in obj.related.all():
-				g.add((concept, SKOS.related, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
+		# if obj.skos_related.all():
+		# 	for x in obj.skos_related.all():
+		# 		g.add((concept, SKOS.related, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
+		# if obj.related.all():
+		# 	for x in obj.related.all():
+		# 		g.add((concept, SKOS.related, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
 		#############################################################################################
 		#       external matches should use external CS URI for construsting their own URIs         #
 
-		if obj.skos_broadmatch.all():
-			for x in obj.skos_broadmatch.all():
-				g.add((concept, SKOS.broadMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
-		if obj.narrowmatch.all():
-			for x in obj.narrowmatch.all():
-				g.add((concept, SKOS.narrowMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
-		if obj.skos_narrowmatch.all():
-			for x in obj.skos_narrowmatch.all():
-				g.add((concept, SKOS.narrowMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
-		if obj.broadmatch.all():
-			for x in obj.broadmatch.all():
-				g.add((concept, SKOS.broadMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
-		if obj.skos_exactmatch.all():
-			for x in obj.skos_exactmatch.all():
-				g.add((concept, SKOS.exactMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
-		if obj.exactmatch.all():
-			for x in obj.exactmatch.all():
-				g.add((concept, SKOS.exactMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
-		if obj.skos_relatedmatch.all():
-			for x in obj.skos_relatedmatch.all():
-				g.add((concept, SKOS.relatedMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
-		if obj.relatedmatch.all():
-			for x in obj.relatedmatch.all():
-				g.add((concept, SKOS.relatedMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
-		if obj.skos_closematch.all():
-			for x in obj.skos_closematch.all():
-				g.add((concept, SKOS.closeMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
-		if obj.closematch.all():
-			for x in obj.closematch.all():
-				g.add((concept, SKOS.closeMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
+		# if obj.skos_broadmatch.all():
+		# 	for x in obj.skos_broadmatch.all():
+		# 		g.add((concept, SKOS.broadMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
+		# if obj.narrowmatch.all():
+		# 	for x in obj.narrowmatch.all():
+		# 		g.add((concept, SKOS.narrowMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
+		# if obj.skos_narrowmatch.all():
+		# 	for x in obj.skos_narrowmatch.all():
+		# 		g.add((concept, SKOS.narrowMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
+		# if obj.broadmatch.all():
+		# 	for x in obj.broadmatch.all():
+		# 		g.add((concept, SKOS.broadMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
+		# if obj.skos_exactmatch.all():
+		# 	for x in obj.skos_exactmatch.all():
+		# 		g.add((concept, SKOS.exactMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
+		# if obj.exactmatch.all():
+		# 	for x in obj.exactmatch.all():
+		# 		g.add((concept, SKOS.exactMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
+		# if obj.skos_relatedmatch.all():
+		# 	for x in obj.skos_relatedmatch.all():
+		# 		g.add((concept, SKOS.relatedMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
+		# if obj.relatedmatch.all():
+		# 	for x in obj.relatedmatch.all():
+		# 		g.add((concept, SKOS.relatedMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
+		# if obj.skos_closematch.all():
+		# 	for x in obj.skos_closematch.all():
+		# 		g.add((concept, SKOS.closeMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
+		# if obj.closematch.all():
+		# 	for x in obj.closematch.all():
+		# 		g.add((concept, SKOS.closeMatch, URIRef(x.scheme.identifier + "#concept" + str(x.id))))
 
 		#############################################################################################
 		if obj.same_as_external:
