@@ -206,7 +206,7 @@
         {% endif %}
         {% if object.narrow_match %}
         <tr>
-            <th>external narrow match</th>
+            <th>skos:narrowMatch</th>
             <td>
             {% for x in object.narrow_match_as_list %}
             <li>{{x|urlize}}</li>
@@ -216,7 +216,7 @@
         {% endif %}
         {% if object.exact_match %}
         <tr>
-            <th>external exact match</th>
+            <th>skos:exactMatch</th>
             <td>
             {% for x in object.exact_match_as_list %}
             <li>{{x|urlize}}</li>
@@ -226,7 +226,7 @@
         {% endif %}
         {% if object.related_match %}
         <tr>
-            <th>external related match</th>
+            <th>skos:relatedMatch</th>
             <td>
             {% for x in object.related_match_as_list %}
             <li>{{x|urlize}}</li>
@@ -236,7 +236,7 @@
         {% endif %}
         {% if object.close_match %}
         <tr>
-            <th>external close match</th>
+            <th>skos:closeMatch</th>
             <td>
             {% for x in object.close_match_as_list %}
             <li>{{x|urlize}}</li>

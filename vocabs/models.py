@@ -541,25 +541,25 @@ class SkosConcept(MPTTModel):
     )
     broad_match = models.TextField(
         blank=True, verbose_name="skos:broadMatch",
-        help_text="A concept in an external Concept Scheme with a broader meaning"
+        help_text="An external concept with a broader meaning"
     )    
     narrow_match = models.TextField(
         blank=True, verbose_name="skos:narrowMatch",
-        help_text="A concept in an external Concept Scheme with a narrower meaning"
+        help_text="An external concept with a narrower meaning"
     )
     exact_match = models.TextField(
         blank=True, verbose_name="skos:exactMatch",
-        help_text="A concept in an external Concept Scheme "
+        help_text="An external concept "
         "that can be used interchangeably and has an exact same meaning"
     )
     related_match = models.TextField(
         blank=True, verbose_name="skos:relatedMatch",
-        help_text="A concept in an external Concept Scheme that has an associative "
+        help_text="An external concept that has an associative "
         "relationship with a current concept"
     )
     close_match = models.TextField(
         blank=True, verbose_name="skos:closeMatch",
-        help_text="A concept in an external Concept Scheme that has a similar meaning"
+        help_text="An external concept that has a similar meaning"
     )
     ###########################################################################
     # if using legacy_id as URI change it for URLField

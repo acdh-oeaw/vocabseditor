@@ -574,8 +574,6 @@ class AutocompleteCharField(forms.CharField):
             'data-minimum-input-length': 3,
             },
             )
-    help_text = "When adding match which is not provided by autocomplete\
-        please note that URI should follow the format 'http{s}://example.org/...'"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -608,25 +606,33 @@ class SkosConceptForm(forms.ModelForm):
     )
     endpoint = forms.ChoiceField(
         choices=ENDPOINT_CHOICES, required=False,
-        help_text="Select a service to create links to external resources"
+        help_text="Select a service to create links to external resources.<br>\
+        You can also type a matching concept URI in the fields below if it is not provided by current ednpoints.<br>\
+        In that case please note that an external concept's URI should follow the format 'http{s}://example.org/...'"
     )
     related = AutocompleteCharField(
-        label=SkosConcept._meta.get_field('related').verbose_name
+        label=SkosConcept._meta.get_field('related').verbose_name,
+        help_text=SkosConcept._meta.get_field('related').help_text
     )
     broad_match = AutocompleteCharField(
-        label=SkosConcept._meta.get_field('broad_match').verbose_name
+        label=SkosConcept._meta.get_field('broad_match').verbose_name,
+        help_text=SkosConcept._meta.get_field('broad_match').help_text
     )    
     narrow_match = AutocompleteCharField(
-        label=SkosConcept._meta.get_field('narrow_match').verbose_name
+        label=SkosConcept._meta.get_field('narrow_match').verbose_name,
+        help_text=SkosConcept._meta.get_field('narrow_match').help_text
     )
     exact_match = AutocompleteCharField(
-        label=SkosConcept._meta.get_field('exact_match').verbose_name
+        label=SkosConcept._meta.get_field('exact_match').verbose_name,
+        help_text=SkosConcept._meta.get_field('exact_match').help_text
     )
     related_match = AutocompleteCharField(
-        label=SkosConcept._meta.get_field('related_match').verbose_name
+        label=SkosConcept._meta.get_field('related_match').verbose_name,
+        help_text=SkosConcept._meta.get_field('related_match').help_text
     )
     close_match = AutocompleteCharField(
-        label=SkosConcept._meta.get_field('close_match').verbose_name
+        label=SkosConcept._meta.get_field('close_match').verbose_name,
+        help_text=SkosConcept._meta.get_field('close_match').help_text
     )
 
     class Meta:
