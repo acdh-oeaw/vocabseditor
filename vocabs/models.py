@@ -521,12 +521,6 @@ class SkosConcept(MPTTModel):
         help_text="A notation is a unique string used\
         to identify the concept in current vocabulary"
     )
-    same_as_external = models.TextField(
-        blank=True,
-        verbose_name="owl:sameAs",
-        help_text="URL of an external Concept with the same meaning<br>"
-        "If more than one list all using a semicolon ; ",
-    )
     broader_concept = TreeForeignKey(
         'self',
         verbose_name="skos:broader",
@@ -618,9 +612,6 @@ class SkosConcept(MPTTModel):
 
     def contributor_as_list(self):
         return self.contributor.split(';')
-
-    def same_as_external_as_list(self):
-        return self.same_as_external.split(';')
 
     def broad_match_as_list(self):
         return self.broad_match.split(',')

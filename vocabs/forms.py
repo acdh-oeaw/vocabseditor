@@ -667,7 +667,6 @@ class SkosConceptForm(forms.ModelForm):
                 ,
                 Field('creator'),
                 Field('contributor'),
-                Field('same_as_external'),
                 Field('notation'),
                 Field('legacy_id'),
                 Fieldset('Add source information',

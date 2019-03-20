@@ -130,17 +130,6 @@
         </td>
         </tr>
         {% endif %}
-<!-- owl:sameAS relationships -->
-        {% if object.same_as_external %}
-        <tr>
-            <th>owl:sameAs</th>
-            <td>
-            {% for same in object.same_as_external_as_list %}
-            <li>{{same}}</li>
-            {% endfor %}
-        </td>
-        </tr>
-        {% endif %}
          <!--for inline added notes-->
         {% if object.has_notes %}
         {% for note in object.has_notes.all %}

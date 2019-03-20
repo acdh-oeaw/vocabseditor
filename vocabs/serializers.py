@@ -30,7 +30,7 @@ class SkosConceptSerializer(serializers.HyperlinkedModelSerializer):
             'pref_label', 'pref_label_lang',
             'scheme', 'collection',
             'broader_concept', 'narrower_concepts',
-            'same_as_external', 'notation',
+            'notation',
             # 'skos_related', 'related',
             # 'skos_broadmatch', 'narrowmatch', 'skos_narrowmatch', 'broadmatch',
             # 'skos_exactmatch', 'exactmatch', 'skos_closematch', 'closematch',
