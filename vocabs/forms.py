@@ -581,6 +581,11 @@ class AutocompleteCharField(forms.CharField):
         super().__init__(*args, **kwargs)
         self.required = False
 
+    def to_python(self, value):
+        """Normalize data to a list of URIs."""
+        clean_value = ",".join(re.findall("(?P<url>https?://[^\s\,]+)", value))
+        return clean_value
+
 
 class SkosConceptForm(forms.ModelForm):
     broader_concept = TreeNodeChoiceField(
@@ -610,12 +615,19 @@ class SkosConceptForm(forms.ModelForm):
     )
     broad_match = AutocompleteCharField(
         label=SkosConcept._meta.get_field('broad_match').verbose_name
+    )    
+    narrow_match = AutocompleteCharField(
+        label=SkosConcept._meta.get_field('narrow_match').verbose_name
     )
-    
-    # narrow_match = AutocompleteCharField()
-    # exact_match = AutocompleteCharField()
-    # related_match = AutocompleteCharField()
-    # close_match = AutocompleteCharField()
+    exact_match = AutocompleteCharField(
+        label=SkosConcept._meta.get_field('exact_match').verbose_name
+    )
+    related_match = AutocompleteCharField(
+        label=SkosConcept._meta.get_field('related_match').verbose_name
+    )
+    close_match = AutocompleteCharField(
+        label=SkosConcept._meta.get_field('close_match').verbose_name
+    )
 
     class Meta:
         model = SkosConcept
@@ -684,18 +696,6 @@ class SkosConceptForm(forms.ModelForm):
             )
             )
         self.helper.render_required_fields = True
-
-    def clean_related(self):
-        data = self.cleaned_data['related']
-        # regex to find and save only uri starting with http or https
-        uri_data = ",".join(re.findall("(?P<url>https?://[^\s\,]+)", data))
-        return uri_data
-
-    def clean_broad_match(self):
-        data = self.cleaned_data['broad_match']
-        return ",".join(re.findall("(?P<url>https?://[^\s\,]+)", data))
-
-    # write clean() on form
 
 
 class SkosConceptFormHelper(FormHelper):
