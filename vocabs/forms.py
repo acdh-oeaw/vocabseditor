@@ -580,7 +580,7 @@ class AutocompleteCharField(forms.CharField):
         self.required = False
 
     def to_python(self, value):
-        """Normalize data to a list of URIs."""
+        """Normalize data to keep only URIs."""
         clean_value = ",".join(re.findall("(?P<url>https?://[^\s\,]+)", value))
         return clean_value
 
@@ -634,6 +634,10 @@ class SkosConceptForm(forms.ModelForm):
         label=SkosConcept._meta.get_field('close_match').verbose_name,
         help_text=SkosConcept._meta.get_field('close_match').help_text
     )
+    needs_review = forms.BooleanField(
+        widget=forms.CheckboxInput, required=False,
+        help_text=SkosConcept._meta.get_field('needs_review').help_text
+    )
 
     class Meta:
         model = SkosConcept
@@ -680,6 +684,9 @@ class SkosConceptForm(forms.ModelForm):
                     Field('exact_match'),
                     Field('related_match'),
                     Field('close_match'),
+                ),
+                Fieldset('Quality check',
+                    Field('needs_review'),
                 ),
                
                 

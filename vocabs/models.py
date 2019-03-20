@@ -569,6 +569,10 @@ class SkosConcept(MPTTModel):
         help_text="A Person or Organisation that made contributions to the concept<br>"
         "If more than one list all using a semicolon ;"
     )
+    needs_review = models.BooleanField(
+        null=True,
+        help_text="Check if this concept needs to be reviewed"
+    )
     date_created = models.DateTimeField(
         editable=False, default=timezone.now,
         verbose_name="dct:created"

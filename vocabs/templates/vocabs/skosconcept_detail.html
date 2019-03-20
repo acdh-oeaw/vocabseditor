@@ -254,6 +254,12 @@
             <td>{{object.created_by}}</td>
         </tr>
         {% endif %}
+        {% if object.needs_review == True %}
+         <tr>
+            <th class="w-25"></th>
+            <td style="color:red;"><b>This concept has to be reviewed</b></td>
+        </tr>
+        {% endif %}
         {% endif %}
         <tr>
             <th>download this concept</th>
