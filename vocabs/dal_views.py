@@ -24,7 +24,6 @@ def global_autocomplete(request, endpoint):
     else:
         r = requests.get(ac_instance.get_url(), headers=headers,
         params=ac_instance.payload(q=q))
-    print(r.url)
     response = json.loads(r.content.decode('utf-8'))
     choices = ac_instance.parse_response(response=response)
     return choices

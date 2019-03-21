@@ -2,7 +2,7 @@ certifi==2018.10.15
 chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
-Django==2.1.2
+Django==2.1.7
 django-autocomplete-light==3.3.2
 django-cors-headers==2.4.0
 django-crispy-forms==1.7.2
@@ -29,7 +29,7 @@ pyparsing==2.2.2
 python-dateutil==2.7.3
 pytz==2018.5
 rdflib==4.2.2
-requests==2.19.1
+requests==2.21.0
 simplejson==3.16.0
 six==1.11.0
 SPARQLWrapper==1.8.2
