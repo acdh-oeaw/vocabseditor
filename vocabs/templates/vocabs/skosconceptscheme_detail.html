@@ -15,9 +15,15 @@
     <!-- Hierarchy -->
     {% if object.has_concepts.all %}
    
-    {% for skosconcept,structure in object.has_concepts.all|tree_info %}
+    {% for concept,structure in object.has_concepts.all|tree_info %}
     {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
-    <a href="{{ skosconcept.get_absolute_url }}">{{ skosconcept.pref_label }}</a>
+    <a href="{{ concept.get_absolute_url }}">
+    {% if concept.needs_review == True %}
+    {{ concept.pref_label }} <b style="color:red;" title="Needs review"> !</b>
+    {% else %}
+    {{ concept.pref_label }}
+    {% endif %}
+    </a>
     {% for level in structure.closed_levels %}</li></ul>{% endfor %}
     {% endfor %}
 
@@ -253,7 +259,6 @@
         </tr>
         {% endif %}
         {% endif %}
-
         {% if object.has_concepts.all %}
         <tr>
             <th>download</th>

@@ -17,13 +17,21 @@
     <!-- Hierarchy -->
     {% if object.scheme %}
 
-            {% for skosconcept,structure in object.scheme.has_concepts.all|tree_info %}
+            {% for concept,structure in object.scheme.has_concepts.all|tree_info %}
             {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
 
-            {% if skosconcept.pref_label == object.pref_label %}
-            <strong>{{ skosconcept.pref_label }}</strong>
+            {% if concept.pref_label == object.pref_label and concept.needs_review == False %}
+            <strong>{{ concept.pref_label }}</strong>
+            {% elif concept.pref_label == object.pref_label and concept.needs_review == True %}
+            <strong>
+            {{ concept.pref_label }} <b style="color:red;" title="Needs review"> !</b>
+            </strong>
+            {% elif concept.pref_label != object.pref_label and concept.needs_review == True %}
+            <a href="{{ concept.get_absolute_url }}">
+            {{ concept.pref_label }} <b style="color:red;" title="Needs review"> !</b>
+            </a>
             {% else %}
-            <a href="{{ skosconcept.get_absolute_url }}">{{ skosconcept.pref_label }}</a>
+            <a href="{{ concept.get_absolute_url }}">{{ concept.pref_label }}</a>
             {% endif %}
 
             {% for level in structure.closed_levels %}</li></ul>{% endfor %}
@@ -257,7 +265,7 @@
         {% if object.needs_review == True %}
          <tr>
             <th class="w-25"></th>
-            <td style="color:red;"><b>This concept has to be reviewed</b></td>
+            <td style="color:red;"><b>Needs review</b></td>
         </tr>
         {% endif %}
         {% endif %}
