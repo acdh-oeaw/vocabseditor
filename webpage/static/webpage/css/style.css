@@ -74,7 +74,8 @@ a, .btn-link {
   margin: 15px 15px 15px 15px;
 }
 textarea {
-  height: 38px;
+  /*height: 38px;*/ /*one line*/
+  height: 150px;
 }
 
 

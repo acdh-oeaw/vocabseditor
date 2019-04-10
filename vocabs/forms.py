@@ -122,7 +122,8 @@ class ConceptSchemeDescriptionForm(forms.ModelForm):
         help_text=ConceptSchemeDescription._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=ConceptSchemeDescription._meta.get_field('name').verbose_name
-            )
+            ),
+        widget=forms.Textarea
     )
     language = forms.CharField(
         label=ConceptSchemeDescription._meta.get_field('language').verbose_name,
@@ -158,7 +159,8 @@ class ConceptSchemeSourceForm(forms.ModelForm):
         help_text=ConceptSchemeSource._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=ConceptSchemeSource._meta.get_field('name').verbose_name
-            )
+            ),
+        widget=forms.Textarea
     )
     language = forms.CharField(
         label=ConceptSchemeSource._meta.get_field('language').verbose_name,
@@ -316,7 +318,8 @@ class CollectionNoteForm(forms.ModelForm):
         help_text=CollectionNote._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=CollectionNote._meta.get_field('name').verbose_name
-            )
+            ),
+        widget=forms.Textarea
     )
     language = forms.CharField(
         label=CollectionNote._meta.get_field('language').verbose_name,
@@ -352,7 +355,8 @@ class CollectionSourceForm(forms.ModelForm):
         help_text=CollectionSource._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=CollectionSource._meta.get_field('name').verbose_name
-            )
+            ),
+        widget=forms.Textarea
     )
     language = forms.CharField(
         label=CollectionSource._meta.get_field('language').verbose_name,
@@ -493,7 +497,8 @@ class ConceptNoteForm(forms.ModelForm):
         help_text=ConceptNote._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=ConceptNote._meta.get_field('name').verbose_name
-            )
+            ),
+        widget=forms.Textarea
     )
     language = forms.CharField(
         label=ConceptNote._meta.get_field('language').verbose_name,
@@ -529,7 +534,8 @@ class ConceptSourceForm(forms.ModelForm):
         help_text=ConceptSource._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=ConceptSource._meta.get_field('name').verbose_name
-            )
+            ),
+        widget=forms.Textarea
     )
     language = forms.CharField(
         label=ConceptSource._meta.get_field('language').verbose_name,
