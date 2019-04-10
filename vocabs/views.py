@@ -324,6 +324,12 @@ class SkosCollectionCreate(BaseCreateView):
             sources.save()
         return super(SkosCollectionCreate, self).form_valid(form)
 
+    def get_initial(self):
+        initial = super(SkosCollectionCreate, self).get_initial()
+        if self.request.GET.get('scheme'):
+            initial['scheme'] = SkosConceptScheme.objects.get(pk=self.request.GET.get('scheme'))
+        return initial
+
     def get_success_url(self):
         return reverse_lazy('vocabs:skoscollection_detail', kwargs={'pk': self.object.pk})
 
@@ -474,6 +480,14 @@ class SkosConceptCreate(BaseCreateView):
             notes.save()
             sources.save()
         return super(SkosConceptCreate, self).form_valid(form)
+
+    def get_initial(self):
+        initial = super(SkosConceptCreate, self).get_initial()
+        if self.request.GET.get('scheme'):
+            initial['scheme'] = SkosConceptScheme.objects.get(pk=self.request.GET.get('scheme'))
+        if self.request.GET.get('collection'):
+            initial['collection'] = SkosCollection.objects.get(pk=self.request.GET.get('collection'))
+        return initial
 
     def get_success_url(self):
         return reverse_lazy('vocabs:skosconcept_detail', kwargs={'pk': self.object.pk})

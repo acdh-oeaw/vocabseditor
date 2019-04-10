@@ -34,7 +34,10 @@
                         </h3>
                         {% if user.is_authenticated %}
                             {% if create_view_link  %}
+                            {% if class_name == "Skos Concept Scheme" %}
                                 <a class ="btn btn-outline-secondary"  href="{{ create_view_link }}">Create new {{class_name}}</a>
+                            {% else %}
+                            {% endif %}
                             {% endif %}
                         {% endif %}
                         {% block customView %}{% endblock %}

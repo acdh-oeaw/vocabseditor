@@ -601,6 +601,17 @@ class SkosConceptForm(forms.ModelForm):
         help_text="A concept with a broader meaning that a current concept inherits from",
         required=False
     )
+    # scheme = forms.ModelChoiceField(
+    #     queryset=SkosConceptScheme.objects.all(),
+    #     widget=autocomplete.ModelSelect2(
+    #             url='vocabs-ac:skosconceptscheme-autocomplete'
+    #     ),
+    #     help_text="",
+    #     required=False, disabled=True
+    # )
+    # scheme = forms.CharField(
+    #     required=False, disabled=True
+    # )
     collection = forms.ModelMultipleChoiceField(
         queryset=SkosCollection.objects.all(),
         widget=autocomplete.ModelSelect2Multiple(

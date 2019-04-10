@@ -9,7 +9,12 @@
         <div class="card-header">
         <h1>{{object.scheme}}
         {% if user.is_authenticated %}
-            <a class ="btn btn-outline-secondary"  href="{{ object.get_createview_url }}">Add new concept</a>
+            <a class ="btn btn-outline-secondary"  href="{% url 'vocabs:skosconcept_create' %}?scheme={{object.scheme.id}}">
+            Add Concept
+            </a>
+            <a class ="btn btn-outline-secondary"  href="{% url 'vocabs:skoscollection_create' %}?scheme={{object.scheme.id}}">
+            Add Collection
+            </a>
         {% endif %}
         </h1>
         </div>
