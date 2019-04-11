@@ -624,7 +624,7 @@ class SkosConceptForm(forms.ModelForm):
     endpoint = forms.ChoiceField(
         choices=ENDPOINT_CHOICES, required=False,
         help_text="Select a service to create links to external resources.<br>\
-        You can also type a matching concept URI in the fields below if it is not provided by current ednpoints.<br>\
+        You can also type a matching concept URI in the fields below if it is not provided by current endpoints.<br>\
         In that case please note that an external concept's URI should follow the format 'http{s}://example.org/...'"
     )
     related = AutocompleteCharField(
