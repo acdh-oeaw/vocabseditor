@@ -7,7 +7,7 @@
 <div class="col-md-4">
     <div class="card">
         <div class="card-header">
-        <h1>{{object.scheme}}
+        <h2><a href="{{ object.scheme.get_absolute_url }}">{{object.scheme}}</a>
         {% if user.is_authenticated %}
             <a class ="btn btn-outline-secondary"  href="{% url 'vocabs:skosconcept_create' %}?scheme={{object.scheme.id}}">
             Add Concept
@@ -16,7 +16,7 @@
             Add Collection
             </a>
         {% endif %}
-        </h1>
+        </h2>
         </div>
     <div class="card-body">
     <!-- Hierarchy -->
@@ -50,24 +50,22 @@
 <div class="col-md-8">
     <div class="card">
     <div class="card-header">
-        <div>
-            <h1 style="text-align: center;">
-                <small>skos:Concept</small> {{ object }}
-                {% if user.is_authenticated %}
-                    <small>
-                        <a href="{% url 'vocabs:skosconcept_update' pk=object.id %}">
-                            <i class="far fa-edit" title="edit"></i>
-                        </a>
-                    </small>
-                    |
-                    <small>
-                        <a href="{% url 'vocabs:skosconcept_delete' pk=object.id %}">
-                            <i class="far fa-trash-alt" title="delete"></i>
-                        </a>
-                    </small>
-                {% endif %}
-            </h1>
-        </div>
+        <h2 style="text-align: center;">
+            <small>skos:Concept</small> {{ object }}
+            {% if user.is_authenticated %}
+                <small>
+                    <a href="{% url 'vocabs:skosconcept_update' pk=object.id %}">
+                        <i class="far fa-edit" title="edit"></i>
+                    </a>
+                </small>
+                |
+                <small>
+                    <a href="{% url 'vocabs:skosconcept_delete' pk=object.id %}">
+                        <i class="far fa-trash-alt" title="delete"></i>
+                    </a>
+                </small>
+            {% endif %}
+        </h2>
     </div>
     <table class="table">
         {% if object.pref_label %}

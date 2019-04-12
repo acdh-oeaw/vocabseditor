@@ -6,7 +6,7 @@
 <div class="col-md-4">
     <div class="card">
         <div class="card-header">
-        <h1><small>Concepts in this Collection ({{ object.has_members.all|length }})</small></h1>
+        <h2><a href="{{ object.scheme.get_absolute_url }}">{{object.scheme}}</a>
         {% if user.is_authenticated %}
             <a class ="btn btn-outline-secondary"  href="{% url 'vocabs:skosconcept_create' %}?scheme={{object.scheme.id}}&collection={{object.id}}">
             Add Concept
@@ -15,11 +15,12 @@
             Add Collection
             </a>
         {% endif %}
+        </h2>
         </div>
     <div class="card-body">
-     <!-- Hierarchy location -->
-
+        <!-- Hierarchy location -->
         {% if object.has_members.all %}
+        <strong>Concepts in this Collection ({{ object.has_members.all|length }})</strong>
        
         {% for concept,structure in object.has_members.all|tree_info %}
         {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
@@ -35,7 +36,7 @@
 
         {% else %}
 
-        <p>No concepts in this Collection</p>
+        <strong>No concepts in this Collection</strong>
 
         {% endif %}
         <!-- Hierarchy END -->
@@ -45,34 +46,23 @@
 <div class="col-md-8">
     <div class="card">
         <div class="card-header">
-            <div class="row">
-                <div class="col-md-2">
-                        <h2>
-                            <a href="{% url 'vocabs:browse_skoscollections' %}">
-                                <i class="fas fa-chevron-left" title="All Collections"></i>
-                            </a>
-                        </h2>
-                </div>
-                <div class="col-md-8">
-                    <h1 style="text-align: center;">
-                        <small>skos:Collection</small> {{ object }}
-                        {% if user.is_authenticated %}
-                            <small>
-                                <a href="{% url 'vocabs:skoscollection_update' pk=object.id %}">
-                                    <i class="far fa-edit" title="edit"></i>
-                                </a>
-                            </small>
-                            |
-                            <small>
-                                <a href="{% url 'vocabs:skoscollection_delete' pk=object.id %}">
-                                    <i class="far fa-trash-alt" title="delete"></i>
-                                </a>
-                            </small>
-                        {% endif %}
-                    </h1>
-                </div>
+            <h2 style="text-align: center;">
+                <small>skos:Collection</small> {{ object }}
+                {% if user.is_authenticated %}
+                    <small>
+                        <a href="{% url 'vocabs:skoscollection_update' pk=object.id %}">
+                            <i class="far fa-edit" title="edit"></i>
+                        </a>
+                    </small>
+                    |
+                    <small>
+                        <a href="{% url 'vocabs:skoscollection_delete' pk=object.id %}">
+                            <i class="far fa-trash-alt" title="delete"></i>
+                        </a>
+                    </small>
+                {% endif %}
+            </h2>
         </div>
-    </div>
         <table class="table">
         {% if object.name %}
         <tr>
