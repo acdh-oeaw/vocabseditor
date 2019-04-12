@@ -149,6 +149,7 @@ class SkosConceptScheme(models.Model):
 
     class Meta:
         ordering = ['id']
+        verbose_name = 'Concept Scheme'
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -218,11 +219,11 @@ class ConceptSchemeTitle(models.Model):
         on_delete=models.CASCADE
     )
     name = models.CharField(
-        max_length=500, verbose_name="Dc:title",
+        max_length=500, verbose_name="dc:title",
         help_text="Title of a Concept Scheme"
     )
     language = models.CharField(
-        max_length=3, verbose_name="Dc:title language",
+        max_length=3, verbose_name="dc:title language",
         help_text="Language of a given title"
     )
 
@@ -243,11 +244,11 @@ class ConceptSchemeDescription(models.Model):
         on_delete=models.CASCADE
     )
     name = models.TextField(
-        verbose_name="Dc:description",
+        verbose_name="dc:description",
         help_text="Description of a Concept Scheme"
     )
     language = models.CharField(
-        max_length=3, verbose_name="Dc:description language",
+        max_length=3, verbose_name="dc:description language",
         help_text="Language of a given description"
     )
 
@@ -268,11 +269,11 @@ class ConceptSchemeSource(models.Model):
         on_delete=models.CASCADE
     )
     name = models.TextField(
-        verbose_name="Dc:source",
+        verbose_name="dc:source",
         help_text="A verbose description of a Concept Scheme's source"
     )
     language = models.CharField(
-        max_length=3, verbose_name="Dc:source language",
+        max_length=3, verbose_name="dc:source language",
         help_text="Language of a given source"
     )
 
@@ -343,6 +344,7 @@ class SkosCollection(models.Model):
 
     class Meta:
         ordering = ['id']
+        verbose_name = 'Collection'
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -401,16 +403,17 @@ class CollectionLabel(models.Model):
         on_delete=models.CASCADE
     )
     name = models.CharField(
-        max_length=500, verbose_name="Label",
+        max_length=500, verbose_name="label",
         help_text="Collection label (name)"
     )
     language = models.CharField(
-        max_length=3, verbose_name="Language",
+        max_length=3, verbose_name="language",
         help_text="Language of a given label"
     )
     label_type = models.CharField(
-        choices=LABEL_TYPES, default='altLabel',
-        max_length=12, help_text="Choose label type"
+        choices=LABEL_TYPES, verbose_name="label type",
+        default='altLabel', max_length=12,
+        help_text="Choose label type"
     )
 
     def __str__(self):
@@ -431,16 +434,17 @@ class CollectionNote(models.Model):
         on_delete=models.CASCADE
     )
     name = models.TextField(
-        verbose_name="Documentary note",
+        verbose_name="documentary note",
         help_text="Provide some information about Collection"
     )
     language = models.CharField(
-        max_length=3,
+        max_length=3, verbose_name="language",
         help_text="Language of a given note"
     )
     note_type = models.CharField(
-        choices=NOTE_TYPES, default='note',
-        max_length=15, help_text="Choose note type"
+        choices=NOTE_TYPES, verbose_name="note type",
+        default='note', max_length=15,
+        help_text="Choose note type"
     )
 
     def __str__(self):
@@ -460,11 +464,12 @@ class CollectionSource(models.Model):
         on_delete=models.CASCADE
     )
     name = models.TextField(
-        verbose_name="Source",
+        verbose_name="dc:source",
         help_text="A verbose description of the collection's source"
     )
     language = models.CharField(
-        max_length=3, help_text="Language of a given source"
+        max_length=3, verbose_name="language",
+        help_text="Language of a given source"
     )
 
     def __str__(self):
@@ -587,6 +592,9 @@ class SkosConcept(MPTTModel):
         on_delete=models.SET_NULL
     )
 
+    class Meta:
+        verbose_name = 'Concept'
+
     class MPTTMeta:
         order_insertion_by = ['pref_label']
         parent_attr = 'broader_concept'
@@ -668,16 +676,17 @@ class ConceptLabel(models.Model):
         on_delete=models.CASCADE
     )
     name = models.CharField(
-        max_length=500, verbose_name="Label",
+        max_length=500, verbose_name="label",
         help_text="Other label for a current concept"
     )
     language = models.CharField(
-        max_length=3, verbose_name="Language",
+        max_length=3, verbose_name="language",
         help_text="Language of a given label"
     )
     label_type = models.CharField(
-        choices=LABEL_TYPES, default='altLabel',
-        max_length=12, help_text="Choose label type"
+        choices=LABEL_TYPES, verbose_name="label type",
+        default='altLabel', max_length=12,
+        help_text="Choose label type"
     )
 
     def __str__(self):
@@ -698,16 +707,17 @@ class ConceptNote(models.Model):
         on_delete=models.CASCADE
     )
     name = models.TextField(
-        verbose_name="Documentary note",
+        verbose_name="documentary note",
         help_text="Provide some information about Concept"
     )
     language = models.CharField(
-        max_length=3, verbose_name="Language",
+        max_length=3, verbose_name="language",
         help_text="Language of a given note"
     )
     note_type = models.CharField(
-        choices=NOTE_TYPES, default='note',
-        max_length=15, help_text="Choose note type"
+        choices=NOTE_TYPES, verbose_name="note type",
+        default='note', max_length=15,
+        help_text="Choose note type"
     )
 
     def __str__(self):
@@ -727,11 +737,11 @@ class ConceptSource(models.Model):
         on_delete=models.CASCADE
     )
     name = models.TextField(
-        verbose_name="Source",
+        verbose_name="dc:source",
         help_text="A verbose description of the concept's source"
     )
     language = models.CharField(
-        max_length=3, verbose_name="Language",
+        max_length=3, verbose_name="language",
         help_text="Language of a given source"
     )
 

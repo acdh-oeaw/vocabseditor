@@ -107,3 +107,8 @@ textarea {
 .card-collapse {
   border-top: none;
 }
+
+/*to override a django's feature to capitalize a first character of a field's verbose name */
+label:first-letter {
+    text-transform: lowercase;
+}

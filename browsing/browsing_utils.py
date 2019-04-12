@@ -112,7 +112,7 @@ class GenericListView(django_tables2.SingleTableView):
         context['togglable_colums'] = togglable_colums
         context[self.context_filter_name] = self.filter
         context['docstring'] = "{}".format(self.model.__doc__)
-        context['class_name'] = "{}".format(self.model._meta.verbose_name.title())
+        context['class_name'] = "{}".format(self.model._meta.verbose_name)
         try:
             context['get_arche_dump'] = self.model.get_arche_dump()
         except AttributeError:
@@ -194,7 +194,7 @@ class BaseCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(BaseCreateView, self).get_context_data()
         context['docstring'] = "{}".format(self.model.__doc__)
-        context['class_name'] = "{}".format(self.model._meta.verbose_name.title())
+        context['class_name'] = "{}".format(self.model._meta.verbose_name)
         return context
 
 
@@ -209,7 +209,7 @@ class BaseUpdateView(PermissionRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super(BaseUpdateView, self).get_context_data()
         context['docstring'] = "{}".format(self.model.__doc__)
-        context['class_name'] = "{}".format(self.model._meta.verbose_name.title())
+        context['class_name'] = "{}".format(self.model._meta.verbose_name)
         return context
 
 

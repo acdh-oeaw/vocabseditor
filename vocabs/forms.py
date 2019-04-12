@@ -599,7 +599,8 @@ class SkosConceptForm(forms.ModelForm):
             forward=['scheme']
         ),
         help_text="A concept with a broader meaning that a current concept inherits from",
-        required=False
+        required=False,
+        label=SkosConcept._meta.get_field('broader_concept').verbose_name,
     )
     # scheme = forms.ModelChoiceField(
     #     queryset=SkosConceptScheme.objects.all(),
@@ -619,7 +620,8 @@ class SkosConceptForm(forms.ModelForm):
                 forward=['scheme']
         ),
         help_text="member of skos:Collection",
-        required=False
+        required=False,
+        label=SkosConcept._meta.get_field('collection').verbose_name,
     )
     endpoint = forms.ChoiceField(
         choices=ENDPOINT_CHOICES, required=False,
