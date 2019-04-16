@@ -11,7 +11,7 @@ The editor follows **SKOS data model** for the main elements of a controlled voc
 
 ## Technical setup
 
-The application is implemented using Python and [Django](https://www.djangoproject.com/). It uses modules deleloped within [DjangoBaseProject](https://github.com/acdh-oeaw/djangobaseproject). It also provides REST API implemented with [Django Rest Framework](https://www.django-rest-framework.org/). 
+The application is implemented using Python and [Django](https://www.djangoproject.com/). It uses modules developed within [DjangoBaseProject](https://github.com/acdh-oeaw/djangobaseproject). It also provides REST API implemented with [Django Rest Framework](https://www.django-rest-framework.org/). 
 
 ## Install
 
