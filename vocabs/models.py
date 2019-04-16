@@ -309,23 +309,24 @@ class SkosCollection(models.Model):
     label_lang = models.CharField(
         max_length=3, blank=True,
         default=DEFAULT_LANG,
-        verbose_name="skos:prefLabel language"
+        verbose_name="skos:prefLabel language",
+        help_text="Language of preferred label given above"
     )
     # relation to SkosConceptScheme to inherit all objects permissions
     scheme = models.ForeignKey(SkosConceptScheme,
         related_name="has_collections",
         verbose_name="skos:ConceptScheme",
-        help_text="Which Skos:ConceptScheme current collection belongs to",
+        help_text="Concept scheme that this collection belongs to",
         on_delete=models.CASCADE
     )
     creator = models.TextField(
         blank=True, verbose_name="dc:creator",
-        help_text="A Person or Organisation that created a current collection<br>"
+        help_text="Person or organisation that created this collection<br>"
         "If more than one list all using a semicolon ;"
     )
     contributor = models.TextField(
         blank=True, verbose_name="dc:contributor",
-        help_text="A Person or Organisation that made contributions to the collection<br>"
+        help_text="Person or organisation that made contributions to the collection<br>"
         "If more than one list all using a semicolon ;"
     )
     legacy_id = models.CharField(
@@ -406,11 +407,11 @@ class CollectionLabel(models.Model):
     )
     name = models.CharField(
         max_length=500, verbose_name="label",
-        help_text="Collection label (name)"
+        help_text="Other label for this collection"
     )
     language = models.CharField(
         max_length=3, verbose_name="language",
-        help_text="Language of a given label"
+        help_text="Language of label given above"
     )
     label_type = models.CharField(
         choices=LABEL_TYPES, verbose_name="label type",
@@ -437,11 +438,11 @@ class CollectionNote(models.Model):
     )
     name = models.TextField(
         verbose_name="documentary note",
-        help_text="Provide some information about Collection"
+        help_text="Provide some information about this collection"
     )
     language = models.CharField(
         max_length=3, verbose_name="language",
-        help_text="Language of a given note"
+        help_text="Language of note given above"
     )
     note_type = models.CharField(
         choices=NOTE_TYPES, verbose_name="note type",
@@ -467,11 +468,11 @@ class CollectionSource(models.Model):
     )
     name = models.TextField(
         verbose_name="dc:source",
-        help_text="A verbose description of the collection's source"
+        help_text="Verbal description of the collection's source"
     )
     language = models.CharField(
         max_length=3, verbose_name="language",
-        help_text="Language of a given source"
+        help_text="Language of source given above"
     )
 
     def __str__(self):
@@ -502,7 +503,7 @@ class SkosConcept(MPTTModel):
     pref_label_lang = models.CharField(
         max_length=3, blank=True,
         verbose_name="skos:prefLabel language",
-        help_text="Language of preferred label given above (according to ISO 639-1)",
+        help_text="Language of preferred label given above",
         default=DEFAULT_LANG
     )
     # relation to SkosConceptScheme to inherit all objects permissions
