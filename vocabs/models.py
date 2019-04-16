@@ -497,12 +497,12 @@ class SkosConcept(MPTTModel):
     pref_label = models.CharField(
         max_length=300,
         verbose_name="skos:prefLabel",
-        help_text="Preferred label for a concept"
+        help_text="Preferred label for concept"
     )
     pref_label_lang = models.CharField(
         max_length=3, blank=True,
         verbose_name="skos:prefLabel language",
-        help_text="Language code of preferred label according to ISO 639-1",
+        help_text="Language of preferred label given above (according to ISO 639-1)",
         default=DEFAULT_LANG
     )
     # relation to SkosConceptScheme to inherit all objects permissions
@@ -511,15 +511,16 @@ class SkosConcept(MPTTModel):
         verbose_name="skos:inScheme",
         related_name="has_concepts",
         on_delete=models.CASCADE,
-        help_text="A Concept Scheme to which this concept belongs"
+        help_text="Concept scheme to which this concept belongs"
     )
     top_concept = models.BooleanField(
         null=True,
-        help_text="Is this concept a top concept of main Concept Scheme?"
+        help_text="Is this concept a top concept of concept scheme?"
     )
     collection = models.ManyToManyField(
         SkosCollection, blank=True,
         verbose_name="member of skos:Collection",
+        help_text="Collection that this concept is a member of",
         related_name="has_members",
     )
     notation = models.CharField(
@@ -533,47 +534,45 @@ class SkosConcept(MPTTModel):
         verbose_name="skos:broader",
         blank=True, null=True, on_delete=models.CASCADE,
         related_name="narrower_concepts",
-        help_text="A concept with a broader meaning that a current concept inherits from"
+        help_text="Concept with a broader meaning that this concept inherits from"
     )
     ################# semantic relationships via autocomplete #################
     related = models.TextField(
         blank=True, verbose_name="skos:related",
-        help_text="An associative relationship among two concepts"
+        help_text="An associative relationship between two concepts"
     )
     broad_match = models.TextField(
         blank=True, verbose_name="skos:broadMatch",
-        help_text="An external concept with a broader meaning"
+        help_text="External concept with a broader meaning"
     )    
     narrow_match = models.TextField(
         blank=True, verbose_name="skos:narrowMatch",
-        help_text="An external concept with a narrower meaning"
+        help_text="External concept with a narrower meaning"
     )
     exact_match = models.TextField(
         blank=True, verbose_name="skos:exactMatch",
-        help_text="An external concept "
-        "that can be used interchangeably and has an exact same meaning"
+        help_text="External concept that can be used interchangeably and has the exact same meaning"
     )
     related_match = models.TextField(
         blank=True, verbose_name="skos:relatedMatch",
-        help_text="An external concept that has an associative "
-        "relationship with a current concept"
+        help_text="External concept that has an associative relationship with this concept"
     )
     close_match = models.TextField(
         blank=True, verbose_name="skos:closeMatch",
-        help_text="An external concept that has a similar meaning"
+        help_text="External concept that has a similar meaning"
     )
     ###########################################################################
     # if using legacy_id as URI change it for URLField
     legacy_id = models.CharField(max_length=200, blank=True)
     creator = models.TextField(
         blank=True, verbose_name="dc:creator",
-        help_text="A Person or Organisation that created a current concept<br>"
+        help_text="Person or organisation that created this concept<br>"
         "If more than one list all using a semicolon ;",
 
     )
     contributor = models.TextField(
         blank=True, verbose_name="dc:contributor",
-        help_text="A Person or Organisation that made contributions to the concept<br>"
+        help_text="Person or organisation that made contributions to this concept<br>"
         "If more than one list all using a semicolon ;"
     )
     needs_review = models.BooleanField(
@@ -679,11 +678,11 @@ class ConceptLabel(models.Model):
     )
     name = models.CharField(
         max_length=500, verbose_name="label",
-        help_text="Other label for a current concept"
+        help_text="Other label for this concept"
     )
     language = models.CharField(
         max_length=3, verbose_name="language",
-        help_text="Language of a given label"
+        help_text="Language of label given above"
     )
     label_type = models.CharField(
         choices=LABEL_TYPES, verbose_name="label type",
@@ -710,11 +709,11 @@ class ConceptNote(models.Model):
     )
     name = models.TextField(
         verbose_name="documentary note",
-        help_text="Provide some information about Concept"
+        help_text="Provide some information about this concept"
     )
     language = models.CharField(
         max_length=3, verbose_name="language",
-        help_text="Language of a given note"
+        help_text="Language of note given above"
     )
     note_type = models.CharField(
         choices=NOTE_TYPES, verbose_name="note type",
@@ -740,11 +739,11 @@ class ConceptSource(models.Model):
     )
     name = models.TextField(
         verbose_name="dc:source",
-        help_text="A verbose description of the concept's source"
+        help_text="Verbal description of the concept's source"
     )
     language = models.CharField(
         max_length=3, verbose_name="language",
-        help_text="Language of a given source"
+        help_text="Language of source given above"
     )
 
     def __str__(self):

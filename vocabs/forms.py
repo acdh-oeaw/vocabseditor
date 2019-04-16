@@ -598,7 +598,7 @@ class SkosConceptForm(forms.ModelForm):
             url='vocabs-ac:skosconcept-autocomplete',
             forward=['scheme']
         ),
-        help_text="A concept with a broader meaning that a current concept inherits from",
+        help_text=SkosConcept._meta.get_field('broader_concept').help_text,
         required=False,
         label=SkosConcept._meta.get_field('broader_concept').verbose_name,
     )
@@ -619,14 +619,14 @@ class SkosConceptForm(forms.ModelForm):
                 url='vocabs-ac:skoscollection-autocomplete',
                 forward=['scheme']
         ),
-        help_text="member of skos:Collection",
+        help_text=SkosConcept._meta.get_field('collection').help_text,
         required=False,
         label=SkosConcept._meta.get_field('collection').verbose_name,
     )
     endpoint = forms.ChoiceField(
         choices=ENDPOINT_CHOICES, required=False,
-        help_text="Select a service to create links to external resources.<br>\
-        You can also type a matching concept URI in the fields below if it is not provided by current endpoints.<br>\
+        help_text="Select a service to create links to external resources<br>\
+        You can also type a matching concept URI in the fields below if it is not provided by current endpoints<br>\
         In that case please note that an external concept's URI should follow the format 'http{s}://example.org/...'"
     )
     related = AutocompleteCharField(
