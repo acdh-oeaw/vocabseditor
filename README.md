@@ -1,12 +1,12 @@
-# ACDH Vocabularies Editor
+# Vocabseditor
 
 ## About
 
-The purpose of ACDH Vocabularies Editor is to provide a service for collaborative work on controlled vocabularies development.
+The purpose of the Vocabseditor is to provide a service for collaborative work on controlled vocabularies development.
 
-The editor follows **SKOS data model** for the main elements of a controlled vocabulary. **Dublin core** schema is used to capture the metadata (such as date created, date modified, creator, contributor, source and other) about each element. Each Concept Scheme can be downloaded in **RDF/XML** and *Turtle* formats as well as each individual Concept.
+The editor follows **SKOS data model** for the main elements of a vocabulary. The **Dublin core** schema is used to capture the metadata (such as date created, date modified, creator, contributor, source and other) about each element. Each concept scheme can be downloaded in **RDF/XML** and *Turtle* format as well as each individual concept.
 
-**The user management** system allows a user to share a created Concept Scheme with other users (called 'curators') to create new, edit and delete Concepts and Collections within this Concept Scheme. Each user can find a summary of her/his latest activity on user's page.
+**The user management** system allows a user to share a concept scheme she/he created with other users (called 'curators') to create new, edit and delete concepts and collections within this concept scheme. Each user can find a summary of their latest activity on user's page.
 
 
 ## Technical setup
