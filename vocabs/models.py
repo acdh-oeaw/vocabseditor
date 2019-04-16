@@ -66,29 +66,30 @@ class SkosConceptScheme(models.Model):
     """
     title = models.CharField(
         max_length=300,
-        help_text="Title of a Concept Scheme",
+        help_text="Title  for new concept scheme",
         verbose_name="dc:title"
     )
     title_lang = models.CharField(
         max_length=3, blank=True,
         verbose_name="dc:title language", default=DEFAULT_LANG,
-        help_text="Language of a given title"
+        help_text="Language of title given above"
     )
     identifier = models.URLField(
-        blank=True, help_text="URI that unambiguously identifies current Concept Scheme"
+        blank=True, help_text="URI to unambiguously identify current Concept Scheme"
     )
     creator = models.TextField(
         blank=True, verbose_name="dc:creator",
-        help_text="If more than one list all using a semicolon ;"
+        help_text="Person or organisation primarily responsible for making current concept scheme<br>"
+        "If more than one list all using a semicolon ;"
     )
     contributor = models.TextField(
         blank=True, verbose_name="dc:contributor",
-        help_text="A Person or Organisation that made contributions to the vocabulary<br>"
+        help_text="Person or organisation that made contributions to the vocabulary<br>"
         "If more than one list all using a semicolon ;"
     )
     language = models.TextField(
         blank=True, verbose_name="dc:language",
-        help_text="Language(s) used in Concept Scheme<br>"
+        help_text="Language(s) used in concept scheme<br>"
         "If more than one list all using a semicolon ;"
     )
     subject = models.TextField(
@@ -102,25 +103,26 @@ class SkosConceptScheme(models.Model):
     )
     publisher = models.CharField(
         max_length=300, blank=True,
-        help_text="An Organisation responsible for making the vocabulary available",
+        help_text="Organisation responsible for making the vocabulary available",
         verbose_name="dc:publisher"
     )
     license = models.CharField(
         max_length=300, blank=True,
         verbose_name="dct:license",
-        help_text="Information about license applied to a vocabulary"
+        help_text="Information about license applied to the vocabulary"
     )
     owner = models.CharField(
         max_length=300, blank=True,
-        help_text="A Person or Organisation that own rights for the vocabulary"
+        help_text="Person or organisation that owns the rights for the vocabulary"
     )
     relation = models.URLField(
         blank=True, verbose_name="dc:relation",
-        help_text="E.g. in case of relation to a project, add link to a project website"
+        help_text="Related resource or project<br>"
+        "E.g. in case of relation to a project, add link to a project website"
     )
     coverage = models.TextField(
         blank=True, verbose_name="dc:coverage",
-        help_text="The spatial or temporal coverage of a vocabulary<br>"
+        help_text="Spatial or temporal frame that the vocabulary relates to<br>"
         "If more than one list all using a semicolon ;"
     )
     legacy_id = models.CharField(
@@ -134,7 +136,7 @@ class SkosConceptScheme(models.Model):
     )
     date_issued = models.DateField(
         blank=True, null=True,
-        help_text="Date of official resource publication"
+        help_text="Date of official publication of this concept scheme"
     )
     created_by = models.ForeignKey(
         User, related_name="skos_cs_created",
@@ -144,7 +146,7 @@ class SkosConceptScheme(models.Model):
     curator = models.ManyToManyField(
         User, related_name="skos_cs_curated",
         blank=True,
-        help_text="The selected user(s) will be able to view and edit current Concept Scheme"
+        help_text="The selected user(s) will be able to view and edit this Concept Scheme"
     )
 
     class Meta:
@@ -220,11 +222,11 @@ class ConceptSchemeTitle(models.Model):
     )
     name = models.CharField(
         max_length=500, verbose_name="dc:title",
-        help_text="Title of a Concept Scheme"
+        help_text="Other title for new concept scheme"
     )
     language = models.CharField(
         max_length=3, verbose_name="dc:title language",
-        help_text="Language of a given title"
+        help_text="Language of title given above"
     )
 
     def __str__(self):
@@ -245,11 +247,11 @@ class ConceptSchemeDescription(models.Model):
     )
     name = models.TextField(
         verbose_name="dc:description",
-        help_text="Description of a Concept Scheme"
+        help_text="Description of concept scheme"
     )
     language = models.CharField(
         max_length=3, verbose_name="dc:description language",
-        help_text="Language of a given description"
+        help_text="Language of description given above"
     )
 
     def __str__(self):
@@ -270,11 +272,11 @@ class ConceptSchemeSource(models.Model):
     )
     name = models.TextField(
         verbose_name="dc:source",
-        help_text="A verbose description of a Concept Scheme's source"
+        help_text="Verbal description of a concept scheme's source"
     )
     language = models.CharField(
         max_length=3, verbose_name="dc:source language",
-        help_text="Language of a given source"
+        help_text="Language of source given above"
     )
 
     def __str__(self):
