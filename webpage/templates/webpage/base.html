@@ -83,10 +83,14 @@
                                 <a class="dropdown-item" href="{% url 'vocabs:browse_vocabs' %}">Concepts</a>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link navigation-font" href="{% url 'api-root' %}">
-                                API
-                                </a>
+                            <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">API
+                            <span class="caret"/>
+                            </a>
+                                <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'api-root' %}">Browsable API</a>
+                                <a class="dropdown-item" href="{% url 'api-root' %}schema">Swagger documentation</a>
+                                </div>
                             </li>
                         {% endif %}
                     {% endif %}
