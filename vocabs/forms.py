@@ -218,13 +218,6 @@ class SkosConceptSchemeForm(forms.ModelForm):
             Div(
                 Field('title'),
                 Field('title_lang'),
-                # Accordion(
-                # AccordionGroup('Add titles in other languages',
-                #     Formset('titles'), css_class="formset-div")),
-
-
-
-
                 Fieldset('Add titles in other languages',
                     Formset('titles'), css_class="formset-div")
                 ,
