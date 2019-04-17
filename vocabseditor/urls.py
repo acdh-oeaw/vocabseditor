@@ -3,6 +3,9 @@ from django.contrib import admin
 from django.conf import settings
 from rest_framework import routers
 from vocabs import api_views
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='Vocabseditor API')
 
 router = routers.DefaultRouter()
 router.register(r'skosconceptschemes', api_views.SkosConceptSchemeViewSet)
@@ -16,6 +19,7 @@ urlpatterns = [
     url(r'^vocabs/', include('vocabs.urls', namespace='vocabs')),
     url(r'^vocabs-ac/', include('vocabs.dal_urls', namespace='vocabs-ac')),
     url(r'^', include('webpage.urls', namespace='webpage')),
+    url(r'^api/schema/', schema_view),
 ]
 
 

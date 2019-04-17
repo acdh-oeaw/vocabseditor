@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'browsing',
     'vocabs',
     'mptt',
+    'rest_framework_swagger',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
