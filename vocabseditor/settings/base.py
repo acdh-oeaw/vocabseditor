@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'vocabs',
     'mptt',
     'rest_framework_swagger',
+    'django_extensions',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
