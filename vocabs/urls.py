@@ -44,4 +44,5 @@ urlpatterns = [
         r'^collection/delete/(?P<pk>[0-9]+)$',views.SkosCollectionDelete.as_view(),
         name='skoscollection_delete',
     ),
+    url(r'^import/$', views.file_upload, name='import'),
 ]

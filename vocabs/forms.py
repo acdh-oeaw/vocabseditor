@@ -31,7 +31,7 @@ class UploadFileForm(forms.Form):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-md-3'
         self.helper.field_class = 'col-md-9'
-        self.helper.add_input(Submit('submit', 'import'),)
+        self.helper.add_input(Submit('submit', 'upload'),)
 
 
 def custom_name_errors(field_name):

@@ -9,7 +9,7 @@ from .tables import *
 from .filters import SkosConceptListFilter, SkosConceptSchemeListFilter, SkosCollectionListFilter
 from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 from .rdf_utils import *
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.http import HttpResponse
 import time
 import datetime
@@ -18,6 +18,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from reversion.models import Version
 from django.db import transaction
 from django.shortcuts import redirect
+from .skos_import import *
 
 
 class BaseDetailView(DetailView):
@@ -583,3 +584,18 @@ class SkosConceptDL(GenericListView):
         g = graph_construct_qs(self.get_queryset()) 
         result = g.serialize(destination=response, format=get_format)
         return response
+
+
+@login_required
+def file_upload(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            print(file)
+            skos_vocab = SkosImporter(file=file)
+            skos_vocab.upload_data()
+            return render(request, 'vocabs/upload.html', {'form': form})
+    else:
+        form = UploadFileForm()
+    return render(request, 'vocabs/upload.html', {'form': form})
