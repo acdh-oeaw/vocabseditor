@@ -106,7 +106,7 @@ class SkosImporter(object):
 		concept_scheme_has_concepts = concept_scheme.get("has_concepts")
 		concept_scheme = SkosConceptScheme.objects.create(
 			identifier=concept_scheme_uri,
-			title=concept_scheme_title, created_by=User.objects.get(username='')
+			title=concept_scheme_title, created_by=User.objects.get(username='kzaytseva')
 			)
 		concept_scheme.save()
 		for concept in concept_scheme_has_concepts:
@@ -133,9 +133,18 @@ class SkosImporter(object):
 				scheme=SkosConceptScheme.objects.get(identifier=concept_inscheme),
 				pref_label=concept_pref_label, pref_label_lang=concept_pref_label_lang,
 				notation=concept_notation, creator=concept_creator,
-				contributor=concept_contributor, created_by=User.objects.get(username='')
+				contributor=concept_contributor, created_by=User.objects.get(username='kzaytseva')
 				)
 			new_concept.save()
+			if len(other_pref_labels) > 0:
+				for other in other_pref_labels:
+					other_label = ConceptLabel.objects.create(
+						concept=new_concept, name=other.get("label"),
+						language=other.get("lang"), label_type="prefLabel"
+						)
+					other_label.save()
+			else:
+				pass
 		# add relationships
 		for concept in concept_scheme_has_concepts:
 			if concept.get("broader_concept") is not None:
