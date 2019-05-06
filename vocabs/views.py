@@ -593,9 +593,9 @@ def file_upload(request):
         if form.is_valid():
             file = request.FILES['file']
             if file.name.endswith('.ttl'):
-                skos_vocab = SkosImporter(file=file, file_format="ttl")
+                skos_vocab = SkosImporter(file=file, file_format="ttl", language=form.cleaned_data['language'])
             elif file.name.endswith('.rdf'):
-                skos_vocab = SkosImporter(file=file)
+                skos_vocab = SkosImporter(file=file, language=form.cleaned_data['language'])
             else:
                 raise ValueError("Upload rdf or ttl file")
             skos_vocab.upload_data()

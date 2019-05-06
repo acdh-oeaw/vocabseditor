@@ -74,7 +74,7 @@ class SkosImporter(object):
 					if lang is not None:
 						label["lang"] = lang.group(1)
 					else:
-						label["lang"] = "en"
+						label["lang"] = self.language
 					pref_labels.append(label)
 				concept["pref_label"] = pref_labels
 
@@ -89,7 +89,7 @@ class SkosImporter(object):
 				for broader_concept in g.objects(x, SKOS.broader):
 					concept["broader_concept"] = str(broader_concept)
 				concepts.append(concept)
-			logging.info("Concepts: {}".format(concepts))
+			#logging.info("Concepts: {}".format(concepts))
 			concept_scheme["has_concepts"] = concepts
 		else:
 			ValueError("Graph doesn't have any concepts")
@@ -106,7 +106,7 @@ class SkosImporter(object):
 		concept_scheme_has_concepts = concept_scheme.get("has_concepts")
 		concept_scheme = SkosConceptScheme.objects.create(
 			identifier=concept_scheme_uri,
-			title=concept_scheme_title, created_by=User.objects.get(username='kzaytseva')
+			title=concept_scheme_title, created_by=User.objects.get(username='')
 			)
 		concept_scheme.save()
 		for concept in concept_scheme_has_concepts:
@@ -115,15 +115,25 @@ class SkosImporter(object):
 			concept_notation = concept.get("notation", "")
 			concept_creator = concept.get("creator", "")
 			concept_contributor = concept.get("contributor", "")
-			for pref_label in concept.get("pref_label"):
-				concept_pref_label = pref_label.get("label")
-				concept_pref_label_lang = pref_label.get("lang")
+			main_pref_label = {}
+			other_pref_labels = []
+			for pref_label in concept.get("pref_label"):								
+				if  pref_label.get("lang") == self.language:
+					main_pref_label["label"] = pref_label.get("label")
+					main_pref_label["lang"] = pref_label.get("lang")
+				else:
+					other_pref_label = {}
+					other_pref_label["label"] = pref_label.get("label", "other label")
+					other_pref_label["lang"] = pref_label.get("lang", "tes") 
+					other_pref_labels.append(other_pref_label)
+			concept_pref_label = main_pref_label.get("label", "no label in this language")
+			concept_pref_label_lang = main_pref_label.get("lang", self.language)
 			new_concept = SkosConcept.objects.create(
 				legacy_id=concept_legacy_id,
 				scheme=SkosConceptScheme.objects.get(identifier=concept_inscheme),
 				pref_label=concept_pref_label, pref_label_lang=concept_pref_label_lang,
 				notation=concept_notation, creator=concept_creator,
-				contributor=concept_contributor, created_by=User.objects.get(username='kzaytseva')
+				contributor=concept_contributor, created_by=User.objects.get(username='')
 				)
 			new_concept.save()
 		# add relationships

@@ -23,6 +23,11 @@ class GenericFilterFormHelper(FormHelper):
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
+    language = forms.CharField(
+        max_length=3, required=True,
+        help_text="Specify the main language of your vocabulary (in format ISO 639-1 or ISO 639-3)",
+        widget=forms.TextInput(attrs={'placeholder': 'e.g: en'})
+    )
 
     def __init__(self, *args, **kwargs):
         super(UploadFileForm, self).__init__(*args, **kwargs)
