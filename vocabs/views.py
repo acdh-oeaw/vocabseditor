@@ -592,8 +592,12 @@ def file_upload(request):
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             file = request.FILES['file']
-            print(file)
-            skos_vocab = SkosImporter(file=file)
+            if file.name.endswith('.ttl'):
+                skos_vocab = SkosImporter(file=file, file_format="ttl")
+            elif file.name.endswith('.rdf'):
+                skos_vocab = SkosImporter(file=file)
+            else:
+                raise ValueError("Upload rdf or ttl file")
             skos_vocab.upload_data()
             return redirect('vocabs:browse_schemes')
             #return render(request, 'vocabs/upload.html', {'form': form})

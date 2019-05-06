@@ -41,7 +41,7 @@ class SkosImporter(object):
 		g.bind('dc', DC)
 		g.bind('dct', DCT)
 		g.bind('rdfs', RDFS)
-		g.parse(self.file)
+		g.parse(self.file, format=self.file_format)
 		return g
 
 	def parse_triples(self):
