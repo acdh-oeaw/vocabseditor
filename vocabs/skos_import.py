@@ -9,6 +9,9 @@ from .forms import UploadFileForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+import logging
+
+logging.getLogger().setLevel(logging.INFO)
 
 
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
@@ -30,7 +33,9 @@ class SkosImporter(object):
 		self.language = language
 
 	def _graph_read(self):
-		"""Parse a file in RDF Graph"""
+		"""
+		Parse a file in RDF Graph
+		"""
 		g = Graph()
 		g.bind('skos', SKOS)
 		g.bind('dc', DC)
@@ -39,32 +44,22 @@ class SkosImporter(object):
 		g.parse(self.file)
 		return g
 
-	def parse_concept_scheme(self):
+	def parse_triples(self):
 		"""
-		Reads  graph and finds triples about Concept Scheme
+		Reads graph, finds triples about concept scheme and its concepts,
+		returns a dictionary
 		"""
 		concept_scheme = {}
 		g = self._graph_read()
-		print(g)
 		if (None, RDF.type, SKOS.ConceptScheme) in g:
 			for x in g.subjects(RDF.type, SKOS.ConceptScheme):
 				concept_scheme["identifier"] = str(x)
 				for title in g.preferredLabel(x):
 					concept_scheme["title"] = str(title[1])
-					print("done")
+					logging.info("Concept scheme data collected")
 		else:
 			raise ValueError("Graph doesn't have a Concept Scheme")
-		print(concept_scheme)
-		return concept_scheme
-
-
-	def parse_concepts(self):
-		"""
-		Reads graph and finds triples about Concepts.
-		Creates a list of dictionaries containing concept's data
-		"""
-		g = self._graph_read()
-		print("graph read")
+		logging.info("Concept Scheme: {}".format(concept_scheme))
 		if (None, RDF.type, SKOS.Concept) in g:
 			concepts = []
 			for x in g.subjects(RDF.type, SKOS.Concept):
@@ -94,30 +89,27 @@ class SkosImporter(object):
 				for broader_concept in g.objects(x, SKOS.broader):
 					concept["broader_concept"] = str(broader_concept)
 				concepts.append(concept)
-			print(concepts)
-			return concepts
+			logging.info("Concepts: {}".format(concepts))
+			concept_scheme["has_concepts"] = concepts
 		else:
 			ValueError("Graph doesn't have any concepts")
-
-		return []
+		return concept_scheme
 
 
 	def upload_data(self):
 		"""
-		Create and save concept scheme and its concepts in database
+		Creates and saves concepts scheme and its concepts in a database
 		"""
-		concept_scheme = self.parse_concept_scheme()
+		concept_scheme = self.parse_triples()
 		concept_scheme_uri = concept_scheme.get("identifier")
 		concept_scheme_title = concept_scheme.get("title")
+		concept_scheme_has_concepts = concept_scheme.get("has_concepts")
 		concept_scheme = SkosConceptScheme.objects.create(
 			identifier=concept_scheme_uri,
-			title=concept_scheme_title, created_by=User.objects.get(username='')
+			title=concept_scheme_title, created_by=User.objects.get(username='kzaytseva')
 			)
 		concept_scheme.save()
-		print("cs saved")
-
-		for concept in self.parse_concepts():
-			print(concept)
+		for concept in concept_scheme_has_concepts:
 			concept_legacy_id = concept.get("legacy_id")
 			concept_inscheme = concept.get("scheme")
 			concept_notation = concept.get("notation", "")
@@ -131,11 +123,11 @@ class SkosImporter(object):
 				scheme=SkosConceptScheme.objects.get(identifier=concept_inscheme),
 				pref_label=concept_pref_label, pref_label_lang=concept_pref_label_lang,
 				notation=concept_notation, creator=concept_creator,
-				contributor=concept_contributor, created_by=User.objects.get(username='')
+				contributor=concept_contributor, created_by=User.objects.get(username='kzaytseva')
 				)
 			new_concept.save()
 		# add relationships
-		for concept in self.parse_concepts():
+		for concept in concept_scheme_has_concepts:
 			if concept.get("broader_concept") is not None:
 				update_concept = SkosConcept.objects.filter(
 					legacy_id=concept.get("legacy_id")).update(
@@ -143,5 +135,5 @@ class SkosImporter(object):
 					)
 			else:
 				pass
-
 		return SkosConcept.objects.rebuild()
+

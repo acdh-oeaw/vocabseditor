@@ -595,7 +595,8 @@ def file_upload(request):
             print(file)
             skos_vocab = SkosImporter(file=file)
             skos_vocab.upload_data()
-            return render(request, 'vocabs/upload.html', {'form': form})
+            return redirect('vocabs:browse_schemes')
+            #return render(request, 'vocabs/upload.html', {'form': form})
     else:
         form = UploadFileForm()
     return render(request, 'vocabs/upload.html', {'form': form})
