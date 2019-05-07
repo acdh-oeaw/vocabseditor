@@ -598,7 +598,7 @@ def file_upload(request):
                 skos_vocab = SkosImporter(file=file, language=form.cleaned_data['language'])
             else:
                 raise ValueError("Upload rdf or ttl file")
-            skos_vocab.upload_data()
+            skos_vocab.upload_data(user=request.user.username)
             return redirect('vocabs:browse_schemes')
             #return render(request, 'vocabs/upload.html', {'form': form})
     else:

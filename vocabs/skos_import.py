@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 import logging
+from django.core.exceptions import ObjectDoesNotExist
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -63,17 +64,16 @@ class SkosImporter(object):
 						
 					else:
 						temp_title["title_lang"] = str(title[1].language)
-						#print("TEMP LANG {}".format(type(title[1].language)))
 					titles.append(temp_title)
-					print("TEMP title {}".format(temp_title))
 				concept_scheme["title"] = titles
-				print("TITLES {}".format(titles))
-				# for creator in g.objects(x, DC.creator):
-				# 	concept_scheme["creator"] = str(creator)
-				# for contributor in g.objects(x, DC.contributor):
-				# 	concept_scheme["contributor"] = str(contributor)
-				# for contributor in g.objects(x, DC.contributor):
-				# 	concept_scheme["contributor"] = str(contributor)
+				concept_scheme["creator"] = ";".join([c for c in g.objects(x, DC.creator)])
+				concept_scheme["contributor"] = ";".join([contr for contr in g.objects(x, DC.contributor)])
+				concept_scheme["language"] = ";".join([l for l in g.objects(x, DC.language)])
+				concept_scheme["subject"] = ";".join([s for s in g.objects(x, DC.subject)])
+				for publisher in g.objects(x, DC.publisher):
+					concept_scheme["publisher"] = str(publisher)
+				for license in g.objects(x, DCT.license):
+					concept_scheme["license"] = str(license)
 		else:
 			raise ValueError("Graph doesn't have a Concept Scheme")
 		logging.info("Concept Scheme: {}".format(concept_scheme))
@@ -151,12 +151,17 @@ class SkosImporter(object):
 		return concept_scheme
 
 
-	def upload_data(self):
+	def upload_data(self, user):
 		"""
 		Creates and saves concepts scheme and its concepts in a database
 		"""
 		concept_scheme = self.parse_triples()
 		concept_scheme_uri = concept_scheme.get("identifier")
+		concept_scheme_creator = concept_scheme.get("creator", "")
+		concept_scheme_contributor = concept_scheme.get("contributor", "")
+		concept_scheme_language = concept_scheme.get("language", "")
+		concept_scheme_subject = concept_scheme.get("subject", "")
+		concept_scheme_license = concept_scheme.get("license", "")
 		concept_scheme_has_concepts = concept_scheme.get("has_concepts")
 		main_title = {}
 		other_titles = []
@@ -174,7 +179,10 @@ class SkosImporter(object):
 		concept_scheme = SkosConceptScheme.objects.create(
 			identifier=concept_scheme_uri,
 			title=concept_scheme_title, title_lang=concept_scheme_title_lang,
-			created_by=User.objects.get(username='kzaytseva')
+			creator=concept_scheme_creator, contributor=concept_scheme_contributor,
+			language=concept_scheme_language, subject=concept_scheme_subject,
+			license=concept_scheme_license,
+			created_by=User.objects.get(username=user)
 			)
 		concept_scheme.save()
 		if  len(other_titles) > 0:
@@ -215,7 +223,7 @@ class SkosImporter(object):
 				scheme=SkosConceptScheme.objects.get(identifier=concept_inscheme),
 				pref_label=concept_pref_label, pref_label_lang=concept_pref_label_lang,
 				notation=concept_notation, creator=concept_creator,
-				contributor=concept_contributor, created_by=User.objects.get(username='kzaytseva')
+				contributor=concept_contributor, created_by=User.objects.get(username=user)
 				)
 			new_concept.save()
 			if len(other_pref_labels) > 0:
@@ -266,10 +274,15 @@ class SkosImporter(object):
 		# add relationships
 		for concept in concept_scheme_has_concepts:
 			if concept.get("broader_concept") is not None:
-				update_concept = SkosConcept.objects.filter(
-					legacy_id=concept.get("legacy_id")).update(
-					broader_concept=SkosConcept.objects.get(legacy_id=concept.get("broader_concept"))
-					)
+				try:
+					update_concept = SkosConcept.objects.filter(
+						legacy_id=concept.get("legacy_id")).update(
+						broader_concept=SkosConcept.objects.get(legacy_id=concept.get("broader_concept"))
+						)
+				except ObjectDoesNotExist as e:
+					pass
+
+					logging.info(e)
 			else:
 				pass
 		return SkosConcept.objects.rebuild()
