@@ -54,9 +54,21 @@ class SkosImporter(object):
 		if (None, RDF.type, SKOS.ConceptScheme) in g:
 			for x in g.subjects(RDF.type, SKOS.ConceptScheme):
 				concept_scheme["identifier"] = str(x)
-				for title in g.preferredLabel(x):
-					concept_scheme["title"] = str(title[1])
-					logging.info("Concept scheme data collected")
+				titles = []
+				for title in g.preferredLabel(x, labelProperties=((DC.title), (RDFS.label), (DCT.title), (SKOS.prefLabel))):
+					temp_title = {}
+					temp_title["title"] = str(title[1])
+					temp_title["title_lang"] = str(title[1].language)
+					titles.append(temp_title)
+					print("TEMP title {}".format(temp_title))
+				concept_scheme["title"] = titles
+				print("TITLES {}".format(titles))
+				# for creator in g.objects(x, DC.creator):
+				# 	concept_scheme["creator"] = str(creator)
+				# for contributor in g.objects(x, DC.contributor):
+				# 	concept_scheme["contributor"] = str(contributor)
+				# for contributor in g.objects(x, DC.contributor):
+				# 	concept_scheme["contributor"] = str(contributor)
 		else:
 			raise ValueError("Graph doesn't have a Concept Scheme")
 		logging.info("Concept Scheme: {}".format(concept_scheme))
@@ -113,13 +125,36 @@ class SkosImporter(object):
 		"""
 		concept_scheme = self.parse_triples()
 		concept_scheme_uri = concept_scheme.get("identifier")
-		concept_scheme_title = concept_scheme.get("title")
 		concept_scheme_has_concepts = concept_scheme.get("has_concepts")
+		main_title = {}
+		other_titles = []
+		for title in concept_scheme.get("title"):
+			if title.get("title_lang") == self.language:
+				main_title["label"] = title.get("title")
+				main_title["lang"] = title.get("title_lang")
+			else:
+				other_title = {}
+				other_title["label"] = title.get("title", "other title")
+				other_title["lang"] = title.get("title_lang", "en") 
+				other_titles.append(other_title)
+		concept_scheme_title = main_title.get("label", "Concept Scheme Title")
+		concept_scheme_title_lang = main_title.get("lang", "en")
 		concept_scheme = SkosConceptScheme.objects.create(
 			identifier=concept_scheme_uri,
-			title=concept_scheme_title, created_by=User.objects.get(username='kzaytseva')
+			title=concept_scheme_title, title_lang=concept_scheme_title_lang,
+			created_by=User.objects.get(username='')
 			)
 		concept_scheme.save()
+		if  len(other_titles) > 0:
+			for other in other_titles:
+				cs_title = ConceptSchemeTitle.objects.create(
+					concept_scheme=concept_scheme, name=other.get("label"),
+					language=other.get("lang")
+				)
+				cs_title.save()
+		else:
+			pass
+
 		for concept in concept_scheme_has_concepts:
 			concept_legacy_id = concept.get("legacy_id")
 			concept_inscheme = concept.get("scheme")
@@ -146,7 +181,7 @@ class SkosImporter(object):
 				scheme=SkosConceptScheme.objects.get(identifier=concept_inscheme),
 				pref_label=concept_pref_label, pref_label_lang=concept_pref_label_lang,
 				notation=concept_notation, creator=concept_creator,
-				contributor=concept_contributor, created_by=User.objects.get(username='kzaytseva')
+				contributor=concept_contributor, created_by=User.objects.get(username='')
 				)
 			new_concept.save()
 			if len(other_pref_labels) > 0:
