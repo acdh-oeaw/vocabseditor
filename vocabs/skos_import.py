@@ -91,7 +91,14 @@ class SkosImporter(object):
 					label["lang"] = alt_label.language
 					alt_labels.append(label)
 				concept["alt_label"] = alt_labels
-
+				hidden_labels = [] 
+				for hidden_label in g.objects(x, SKOS.hiddenLabel):
+					label = {}
+					label["label"] = str(hidden_label)
+					label["lang"] = hidden_label.language
+					hidden_labels.append(label)
+				concept["hidden_label"] = hidden_labels
+				# Add concept to a list
 				concepts.append(concept)
 			#logging.info("Concepts: {}".format(concepts))
 			concept_scheme["has_concepts"] = concepts
@@ -120,6 +127,7 @@ class SkosImporter(object):
 			concept_creator = concept.get("creator", "")
 			concept_contributor = concept.get("contributor", "")
 			concept_alt_labels = concept.get("alt_label")
+			concept_hidden_labels = concept.get("hidden_label")
 			main_pref_label = {}
 			other_pref_labels = []
 			for pref_label in concept.get("pref_label"):								
@@ -157,6 +165,15 @@ class SkosImporter(object):
 						language=alt.get("lang"), label_type="altLabel"
 						)
 					alt_label.save()
+			else:
+				pass
+			if  len(concept_hidden_labels) > 0:
+				for hid in concept_hidden_labels:
+					hidden_label = ConceptLabel.objects.create(
+						concept=new_concept, name=hid.get("label"),
+						language=hid.get("lang"), label_type="hiddenLabel"
+					)
+					hidden_label.save()
 			else:
 				pass
 		# add relationships
