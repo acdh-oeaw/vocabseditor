@@ -121,6 +121,16 @@ class SkosImporter(object):
 						label["lang"] = hidden_label.language
 					hidden_labels.append(label)
 				concept["hidden_label"] = hidden_labels
+				sources = [] 
+				for source in g.objects(x, DC.source):
+					temp_source = {}
+					temp_source["name"] = str(source)
+					if str(source.language) == "None":
+						temp_source["lang"] = self.language
+					else:
+						temp_source["lang"] = source.language
+					sources.append(temp_source)
+				concept["source"] = sources
 				notes = []
 				predicates = [SKOS.note, SKOS.definition, SKOS.scopeNote, SKOS.changeNote,
 							 SKOS.editorialNote, SKOS.historyNote, SKOS.example]
@@ -186,6 +196,7 @@ class SkosImporter(object):
 			concept_alt_labels = concept.get("alt_label")
 			concept_hidden_labels = concept.get("hidden_label")
 			concept_notes = concept.get("note")
+			concept_sources = concept.get("source")
 			main_pref_label = {}
 			other_pref_labels = []
 			for pref_label in concept.get("pref_label"):								
@@ -241,6 +252,15 @@ class SkosImporter(object):
 						language=anynote.get("lang"), note_type=anynote.get("note_type")
 						)
 					note.save()
+			else:
+				pass
+			if len(concept_sources) > 0:
+				for s in concept_sources:
+					source = ConceptSource.objects.create(
+						concept=new_concept, name=s.get("name"),
+						language=s.get("lang")
+						)
+					source.save()
 			else:
 				pass
 		# add relationships
