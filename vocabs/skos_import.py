@@ -70,11 +70,7 @@ class SkosImporter(object):
 				for pref_label in g.preferredLabel(x):
 					label = {}
 					label["label"] = str(pref_label[1])
-					lang = re.search("lang='(.{2,3})'", str(pref_label))
-					if lang is not None:
-						label["lang"] = lang.group(1)
-					else:
-						label["lang"] = self.language
+					label["lang"] = str(pref_label[1].language)
 					pref_labels.append(label)
 				concept["pref_label"] = pref_labels
 
@@ -88,6 +84,14 @@ class SkosImporter(object):
 					concept["contributor"] = str(contributor)
 				for broader_concept in g.objects(x, SKOS.broader):
 					concept["broader_concept"] = str(broader_concept)
+				alt_labels = [] 
+				for alt_label in g.objects(x, SKOS.altLabel):
+					label = {}
+					label["label"] = str(alt_label)
+					label["lang"] = alt_label.language
+					alt_labels.append(label)
+				concept["alt_label"] = alt_labels
+
 				concepts.append(concept)
 			#logging.info("Concepts: {}".format(concepts))
 			concept_scheme["has_concepts"] = concepts
@@ -115,6 +119,7 @@ class SkosImporter(object):
 			concept_notation = concept.get("notation", "")
 			concept_creator = concept.get("creator", "")
 			concept_contributor = concept.get("contributor", "")
+			concept_alt_labels = concept.get("alt_label")
 			main_pref_label = {}
 			other_pref_labels = []
 			for pref_label in concept.get("pref_label"):								
@@ -143,6 +148,15 @@ class SkosImporter(object):
 						language=other.get("lang"), label_type="prefLabel"
 						)
 					other_label.save()
+			else:
+				pass
+			if  len(concept_alt_labels) > 0:
+				for alt in concept_alt_labels:
+					alt_label = ConceptLabel.objects.create(
+						concept=new_concept, name=alt.get("label"),
+						language=alt.get("lang"), label_type="altLabel"
+						)
+					alt_label.save()
 			else:
 				pass
 		# add relationships
