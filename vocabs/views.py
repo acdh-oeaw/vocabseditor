@@ -19,6 +19,7 @@ from reversion.models import Version
 from django.db import transaction
 from django.shortcuts import redirect
 from .skos_import import *
+from django.contrib import messages 
 
 
 class BaseDetailView(DetailView):
@@ -586,21 +587,26 @@ class SkosConceptDL(GenericListView):
         return response
 
 
+###################################################
+# SKOS vocabulary upload
+###################################################
+
 @login_required
 def file_upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
             file = request.FILES['file']
-            if file.name.endswith('.ttl'):
-                skos_vocab = SkosImporter(file=file, file_format="ttl", language=form.cleaned_data['language'])
-            elif file.name.endswith('.rdf'):
-                skos_vocab = SkosImporter(file=file, language=form.cleaned_data['language'])
+            file_format = file.name.split('.')[-1]
+            if file_format in ['ttl', 'rdf']:
+                if file_format == 'ttl':
+                    skos_vocab = SkosImporter(file=file, file_format="ttl", language=form.cleaned_data['language'])
+                else:
+                    skos_vocab = SkosImporter(file=file, language=form.cleaned_data['language'])
+                skos_vocab.upload_data(user=request.user.username)
+                return redirect('vocabs:browse_schemes')
             else:
-                raise ValueError("Upload rdf or ttl file")
-            skos_vocab.upload_data(user=request.user.username)
-            return redirect('vocabs:browse_schemes')
-            #return render(request, 'vocabs/upload.html', {'form': form})
+                messages.error(request, "Upload rdf or ttl file")
     else:
         form = UploadFileForm()
     return render(request, 'vocabs/upload.html', {'form': form})

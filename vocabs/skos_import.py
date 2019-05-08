@@ -76,7 +76,7 @@ class SkosImporter(object):
 				for license in g.objects(cs, DCT.license):
 					concept_scheme["license"] = str(license)
 		else:
-			raise ValueError("Graph doesn't have a Concept Scheme")
+			raise ValueError("Graph doesn't have rdf:type skos:ConceptScheme")
 		logging.info("Concept Scheme: {}".format(concept_scheme))
 		# parsing concepts triples
 		if (None, RDF.type, SKOS.Concept) in g:
@@ -205,94 +205,99 @@ class SkosImporter(object):
 		else:
 			pass
 
-		for concept in concept_scheme_has_concepts:
-			concept_legacy_id = concept.get("legacy_id")
-			concept_inscheme = concept.get("scheme")
-			concept_notation = concept.get("notation", "")
-			concept_creator = concept.get("creator", "")
-			concept_contributor = concept.get("contributor", "")
-			concept_alt_labels = concept.get("alt_label")
-			concept_hidden_labels = concept.get("hidden_label")
-			concept_notes = concept.get("note")
-			concept_sources = concept.get("source")
-			main_pref_label = {}
-			other_pref_labels = []
-			for pref_label in concept.get("pref_label"):								
-				if  pref_label.get("lang") == self.language:
-					main_pref_label["label"] = pref_label.get("label")
-					main_pref_label["lang"] = pref_label.get("lang")
-				else:
-					other_pref_label = {}
-					other_pref_label["label"] = pref_label.get("label")
-					other_pref_label["lang"] = pref_label.get("lang", self.language) 
-					other_pref_labels.append(other_pref_label)
-			concept_pref_label = main_pref_label.get("label", "no label in this language")
-			concept_pref_label_lang = main_pref_label.get("lang", self.language)
-			new_concept = SkosConcept.objects.create(
-				legacy_id=concept_legacy_id,
-				scheme=SkosConceptScheme.objects.get(identifier=concept_inscheme),
-				pref_label=concept_pref_label, pref_label_lang=concept_pref_label_lang,
-				notation=concept_notation, creator=concept_creator,
-				contributor=concept_contributor, created_by=User.objects.get(username=user)
-				)
-			new_concept.save()
-			if len(other_pref_labels) > 0:
-				for other in other_pref_labels:
-					other_label = ConceptLabel.objects.create(
-						concept=new_concept, name=other.get("label"),
-						language=other.get("lang"), label_type="prefLabel"
-						)
-					other_label.save()
-			else:
-				pass
-			if  len(concept_alt_labels) > 0:
-				for alt in concept_alt_labels:
-					alt_label = ConceptLabel.objects.create(
-						concept=new_concept, name=alt.get("label"),
-						language=alt.get("lang"), label_type="altLabel"
-						)
-					alt_label.save()
-			else:
-				pass
-			if  len(concept_hidden_labels) > 0:
-				for hid in concept_hidden_labels:
-					hidden_label = ConceptLabel.objects.create(
-						concept=new_concept, name=hid.get("label"),
-						language=hid.get("lang"), label_type="hiddenLabel"
+		if concept_scheme_has_concepts:
+
+			for concept in concept_scheme_has_concepts:
+				concept_legacy_id = concept.get("legacy_id")
+				concept_inscheme = concept.get("scheme")
+				concept_notation = concept.get("notation", "")
+				concept_creator = concept.get("creator", "")
+				concept_contributor = concept.get("contributor", "")
+				concept_alt_labels = concept.get("alt_label")
+				concept_hidden_labels = concept.get("hidden_label")
+				concept_notes = concept.get("note")
+				concept_sources = concept.get("source")
+				main_pref_label = {}
+				other_pref_labels = []
+				for pref_label in concept.get("pref_label"):								
+					if  pref_label.get("lang") == self.language:
+						main_pref_label["label"] = pref_label.get("label")
+						main_pref_label["lang"] = pref_label.get("lang")
+					else:
+						other_pref_label = {}
+						other_pref_label["label"] = pref_label.get("label")
+						other_pref_label["lang"] = pref_label.get("lang", self.language) 
+						other_pref_labels.append(other_pref_label)
+				concept_pref_label = main_pref_label.get("label", "no label in this language")
+				concept_pref_label_lang = main_pref_label.get("lang", self.language)
+				new_concept = SkosConcept.objects.create(
+					legacy_id=concept_legacy_id,
+					scheme=SkosConceptScheme.objects.get(identifier=concept_inscheme),
+					pref_label=concept_pref_label, pref_label_lang=concept_pref_label_lang,
+					notation=concept_notation, creator=concept_creator,
+					contributor=concept_contributor, created_by=User.objects.get(username=user)
 					)
-					hidden_label.save()
-			else:
-				pass
-			if len(concept_notes) > 0:
-				for n in concept_notes:
-					note = ConceptNote.objects.create(
-						concept=new_concept, name=n.get("name"),
-						language=n.get("lang"), note_type=n.get("note_type")
-						)
-					note.save()
-			else:
-				pass
-			if len(concept_sources) > 0:
-				for s in concept_sources:
-					source = ConceptSource.objects.create(
-						concept=new_concept, name=s.get("name"),
-						language=s.get("lang")
-						)
-					source.save()
-			else:
-				pass
-		# add relationships
-		for concept in concept_scheme_has_concepts:
-			if concept.get("broader_concept") is not None:
-				try:
-					update_concept = SkosConcept.objects.filter(
-						legacy_id=concept.get("legacy_id")).update(
-						broader_concept=SkosConcept.objects.get(legacy_id=concept.get("broader_concept"))
-						)
-				except ObjectDoesNotExist as e:
+				new_concept.save()
+				if len(other_pref_labels) > 0:
+					for other in other_pref_labels:
+						other_label = ConceptLabel.objects.create(
+							concept=new_concept, name=other.get("label"),
+							language=other.get("lang"), label_type="prefLabel"
+							)
+						other_label.save()
+				else:
 					pass
-					logging.info(e)
-			else:
-				pass
-		return SkosConcept.objects.rebuild()
+				if  len(concept_alt_labels) > 0:
+					for alt in concept_alt_labels:
+						alt_label = ConceptLabel.objects.create(
+							concept=new_concept, name=alt.get("label"),
+							language=alt.get("lang"), label_type="altLabel"
+							)
+						alt_label.save()
+				else:
+					pass
+				if  len(concept_hidden_labels) > 0:
+					for hid in concept_hidden_labels:
+						hidden_label = ConceptLabel.objects.create(
+							concept=new_concept, name=hid.get("label"),
+							language=hid.get("lang"), label_type="hiddenLabel"
+						)
+						hidden_label.save()
+				else:
+					pass
+				if len(concept_notes) > 0:
+					for n in concept_notes:
+						note = ConceptNote.objects.create(
+							concept=new_concept, name=n.get("name"),
+							language=n.get("lang"), note_type=n.get("note_type")
+							)
+						note.save()
+				else:
+					pass
+				if len(concept_sources) > 0:
+					for s in concept_sources:
+						source = ConceptSource.objects.create(
+							concept=new_concept, name=s.get("name"),
+							language=s.get("lang")
+							)
+						source.save()
+				else:
+					pass
+			# add relationships
+			for concept in concept_scheme_has_concepts:
+				if concept.get("broader_concept") is not None:
+					try:
+						update_concept = SkosConcept.objects.filter(
+							legacy_id=concept.get("legacy_id")).update(
+							broader_concept=SkosConcept.objects.get(legacy_id=concept.get("broader_concept"))
+							)
+					except ObjectDoesNotExist as e:
+						pass
+						logging.info(e)
+				else:
+					pass
+			return SkosConcept.objects.rebuild()
+		else:
+			pass
+		return concept_scheme
 
