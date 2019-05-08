@@ -8,7 +8,6 @@ import re
 from .forms import UploadFileForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 import logging
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -76,7 +75,8 @@ class SkosImporter(object):
 				for license in g.objects(cs, DCT.license):
 					concept_scheme["license"] = str(license)
 		else:
-			raise ValueError("Graph doesn't have rdf:type skos:ConceptScheme")
+			raise Exception("rdf:type skos:ConceptScheme is not found")
+
 		logging.info("Concept Scheme: {}".format(concept_scheme))
 		# parsing concepts triples
 		if (None, RDF.type, SKOS.Concept) in g:
@@ -153,10 +153,10 @@ class SkosImporter(object):
 				concept["note"] = notes
 				# Add concept to a list
 				concepts.append(concept)
-			#logging.info("Concepts: {}".format(concepts))
 			concept_scheme["has_concepts"] = concepts
 		else:
-			ValueError("Graph doesn't have any concepts")
+			pass
+			logging.info("Graph doesn't have concepts")
 		return concept_scheme
 
 
@@ -232,7 +232,7 @@ class SkosImporter(object):
 				concept_pref_label_lang = main_pref_label.get("lang", self.language)
 				new_concept = SkosConcept.objects.create(
 					legacy_id=concept_legacy_id,
-					scheme=SkosConceptScheme.objects.get(identifier=concept_inscheme),
+					scheme=SkosConceptScheme.objects.get(id=concept_scheme.id),
 					pref_label=concept_pref_label, pref_label_lang=concept_pref_label_lang,
 					notation=concept_notation, creator=concept_creator,
 					contributor=concept_contributor, created_by=User.objects.get(username=user)

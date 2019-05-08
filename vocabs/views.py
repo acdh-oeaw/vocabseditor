@@ -603,8 +603,11 @@ def file_upload(request):
                     skos_vocab = SkosImporter(file=file, file_format="ttl", language=form.cleaned_data['language'])
                 else:
                     skos_vocab = SkosImporter(file=file, language=form.cleaned_data['language'])
-                skos_vocab.upload_data(user=request.user.username)
-                return redirect('vocabs:browse_schemes')
+                try:
+                    skos_vocab.upload_data(user=request.user.username)
+                    return redirect('vocabs:browse_schemes')
+                except Exception as error:
+                    messages.error(request, error)
             else:
                 messages.error(request, "Upload rdf or ttl file")
     else:
