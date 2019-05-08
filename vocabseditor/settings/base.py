@@ -146,3 +146,4 @@ VOCABS_SETTINGS = {
 #ANONYMOUS_USER_NAME = 'public'
 
 # if ANONYMOUS_USER_NAME is set to None, anonymous user object permissions-are disabled.
+

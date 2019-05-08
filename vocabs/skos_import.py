@@ -52,57 +52,60 @@ class SkosImporter(object):
 		"""
 		concept_scheme = {}
 		g = self._graph_read()
+		# parsing concept scheme triples
 		if (None, RDF.type, SKOS.ConceptScheme) in g:
-			for x in g.subjects(RDF.type, SKOS.ConceptScheme):
-				concept_scheme["identifier"] = str(x)
+			for cs in g.subjects(RDF.type, SKOS.ConceptScheme):
+				concept_scheme["identifier"] = str(cs)
 				titles = []
-				for title in g.preferredLabel(x, labelProperties=((DC.title), (RDFS.label), (DCT.title), (SKOS.prefLabel))):
+				# set labels properties to recognize all possible labels
+				for title in g.preferredLabel(cs, labelProperties=((DC.title), (RDFS.label), (DCT.title), (SKOS.prefLabel))):
 					temp_title = {}
 					temp_title["title"] = str(title[1])
+					# if language attribute is absent populate it with a specified language
 					if str(title[1].language) == "None":
-						temp_title["title_lang"] = "en"
-						
+						temp_title["lang"] = self.language						
 					else:
-						temp_title["title_lang"] = str(title[1].language)
+						temp_title["lang"] = str(title[1].language)
 					titles.append(temp_title)
 				concept_scheme["title"] = titles
-				concept_scheme["creator"] = ";".join([c for c in g.objects(x, DC.creator)])
-				concept_scheme["contributor"] = ";".join([contr for contr in g.objects(x, DC.contributor)])
-				concept_scheme["language"] = ";".join([l for l in g.objects(x, DC.language)])
-				concept_scheme["subject"] = ";".join([s for s in g.objects(x, DC.subject)])
-				for publisher in g.objects(x, DC.publisher):
-					concept_scheme["publisher"] = str(publisher)
-				for license in g.objects(x, DCT.license):
+				concept_scheme["creator"] = ";".join([c for c in g.objects(cs, DC.creator)])
+				concept_scheme["contributor"] = ";".join([contr for contr in g.objects(cs, DC.contributor)])
+				concept_scheme["language"] = ";".join([l for l in g.objects(cs, DC.language)])
+				concept_scheme["subject"] = ";".join([s for s in g.objects(cs, DC.subject)])
+				concept_scheme["publisher"] = ";".join([p for p in g.objects(cs, DC.publisher)])
+				for license in g.objects(cs, DCT.license):
 					concept_scheme["license"] = str(license)
 		else:
 			raise ValueError("Graph doesn't have a Concept Scheme")
 		logging.info("Concept Scheme: {}".format(concept_scheme))
+		# parsing concepts triples
 		if (None, RDF.type, SKOS.Concept) in g:
 			concepts = []
-			for x in g.subjects(RDF.type, SKOS.Concept):
+			for c in g.subjects(RDF.type, SKOS.Concept):
 				concept = {}
-				concept["legacy_id"] = str(x)
+				concept["legacy_id"] = str(c)
 				# pref labels
 				pref_labels = []
-				for pref_label in g.preferredLabel(x):
+				for pref_label in g.preferredLabel(c):
 					label = {}
 					label["label"] = str(pref_label[1])
-					label["lang"] = str(pref_label[1].language)
+					if str(pref_label[1].language) == "None":
+						label["lang"] = self.language
+					else:
+						label["lang"] = str(pref_label[1].language)
 					pref_labels.append(label)
 				concept["pref_label"] = pref_labels
-
-				for scheme in g.objects(x, SKOS.inScheme):
+				for scheme in g.objects(c, SKOS.inScheme):
 					concept["scheme"] = str(scheme)
-				for notation in g.objects(x, SKOS.notation):
+				for notation in g.objects(c, SKOS.notation):
 					concept["notation"] = str(notation)
-				for creator in g.objects(x, DC.creator):
-					concept["creator"] = str(creator)
-				for contributor in g.objects(x, DC.contributor):
-					concept["contributor"] = str(contributor)
-				for broader_concept in g.objects(x, SKOS.broader):
+				concept["creator"] = ";".join([cr for cr in g.objects(c, DC.creator)])
+				concept["contributor"] = ";".join([contr for contr in g.objects(c, DC.contributor)])
+				for broader_concept in g.objects(c, SKOS.broader):
 					concept["broader_concept"] = str(broader_concept)
+				# alt labels
 				alt_labels = [] 
-				for alt_label in g.objects(x, SKOS.altLabel):
+				for alt_label in g.objects(c, SKOS.altLabel):
 					label = {}
 					label["label"] = str(alt_label)
 					if str(alt_label.language) == "None":
@@ -111,8 +114,9 @@ class SkosImporter(object):
 						label["lang"] = alt_label.language
 					alt_labels.append(label)
 				concept["alt_label"] = alt_labels
+				# hidden labels
 				hidden_labels = [] 
-				for hidden_label in g.objects(x, SKOS.hiddenLabel):
+				for hidden_label in g.objects(c, SKOS.hiddenLabel):
 					label = {}
 					label["label"] = str(hidden_label)
 					if str(hidden_label.language) == "None":
@@ -121,8 +125,9 @@ class SkosImporter(object):
 						label["lang"] = hidden_label.language
 					hidden_labels.append(label)
 				concept["hidden_label"] = hidden_labels
+				# sources
 				sources = [] 
-				for source in g.objects(x, DC.source):
+				for source in g.objects(c, DC.source):
 					temp_source = {}
 					temp_source["name"] = str(source)
 					if str(source.language) == "None":
@@ -131,14 +136,18 @@ class SkosImporter(object):
 						temp_source["lang"] = source.language
 					sources.append(temp_source)
 				concept["source"] = sources
+				# documentary notes
 				notes = []
 				predicates = [SKOS.note, SKOS.definition, SKOS.scopeNote, SKOS.changeNote,
 							 SKOS.editorialNote, SKOS.historyNote, SKOS.example]
 				for pred in predicates:
-					for note in g.objects(x, pred):
+					for note in g.objects(c, pred):
 						temp_note = {}
 						temp_note["name"] = str(note)
-						temp_note["lang"] = note.language
+						if str(note.language) == "None":
+							temp_note["lang"] = self.language
+						else:
+							temp_note["lang"] = note.language
 						temp_note["note_type"] = re.search('http.*#(.*)', str(pred)).group(1)
 						notes.append(temp_note)
 				concept["note"] = notes
@@ -153,7 +162,7 @@ class SkosImporter(object):
 
 	def upload_data(self, user):
 		"""
-		Creates and saves concepts scheme and its concepts in a database
+		Creates and saves concept scheme and its concepts in a database
 		"""
 		concept_scheme = self.parse_triples()
 		concept_scheme_uri = concept_scheme.get("identifier")
@@ -161,18 +170,19 @@ class SkosImporter(object):
 		concept_scheme_contributor = concept_scheme.get("contributor", "")
 		concept_scheme_language = concept_scheme.get("language", "")
 		concept_scheme_subject = concept_scheme.get("subject", "")
+		concept_scheme_publisher = concept_scheme.get("publisher", "")
 		concept_scheme_license = concept_scheme.get("license", "")
 		concept_scheme_has_concepts = concept_scheme.get("has_concepts")
 		main_title = {}
 		other_titles = []
 		for title in concept_scheme.get("title"):
-			if title.get("title_lang") == self.language:
+			if title.get("lang") == self.language:
 				main_title["label"] = title.get("title")
-				main_title["lang"] = title.get("title_lang")
+				main_title["lang"] = title.get("lang")
 			else:
 				other_title = {}
-				other_title["label"] = title.get("title", "other title")
-				other_title["lang"] = title.get("title_lang", "en") 
+				other_title["label"] = title.get("title", "Empty title")
+				other_title["lang"] = title.get("lang", self.language) 
 				other_titles.append(other_title)
 		concept_scheme_title = main_title.get("label", "No title in specified language")
 		concept_scheme_title_lang = main_title.get("lang", self.language)
@@ -181,7 +191,7 @@ class SkosImporter(object):
 			title=concept_scheme_title, title_lang=concept_scheme_title_lang,
 			creator=concept_scheme_creator, contributor=concept_scheme_contributor,
 			language=concept_scheme_language, subject=concept_scheme_subject,
-			license=concept_scheme_license,
+			publisher=concept_scheme_publisher, license=concept_scheme_license,
 			created_by=User.objects.get(username=user)
 			)
 		concept_scheme.save()
@@ -189,7 +199,7 @@ class SkosImporter(object):
 			for other in other_titles:
 				cs_title = ConceptSchemeTitle.objects.create(
 					concept_scheme=concept_scheme, name=other.get("label"),
-					language=other.get("lang", "en")
+					language=other.get("lang")
 				)
 				cs_title.save()
 		else:
@@ -214,7 +224,7 @@ class SkosImporter(object):
 				else:
 					other_pref_label = {}
 					other_pref_label["label"] = pref_label.get("label")
-					other_pref_label["lang"] = pref_label.get("lang") 
+					other_pref_label["lang"] = pref_label.get("lang", self.language) 
 					other_pref_labels.append(other_pref_label)
 			concept_pref_label = main_pref_label.get("label", "no label in this language")
 			concept_pref_label_lang = main_pref_label.get("lang", self.language)
@@ -254,10 +264,10 @@ class SkosImporter(object):
 			else:
 				pass
 			if len(concept_notes) > 0:
-				for anynote in concept_notes:
+				for n in concept_notes:
 					note = ConceptNote.objects.create(
-						concept=new_concept, name=anynote.get("name"),
-						language=anynote.get("lang"), note_type=anynote.get("note_type")
+						concept=new_concept, name=n.get("name"),
+						language=n.get("lang"), note_type=n.get("note_type")
 						)
 					note.save()
 			else:
@@ -281,7 +291,6 @@ class SkosImporter(object):
 						)
 				except ObjectDoesNotExist as e:
 					pass
-
 					logging.info(e)
 			else:
 				pass
