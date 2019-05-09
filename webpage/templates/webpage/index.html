@@ -12,7 +12,11 @@
             <a class ="btn btn-outline-secondary btn-lg"  href="{% url 'vocabs:skosconceptscheme_create' %}">
             Create Concept Scheme
             </a>
-            <a class ="btn btn-outline-secondary btn-lg" href="{% url 'vocabs:import' %}">Import SKOS vocabulary</a>
+            {% endif %}
+            {% if user.is_superuser %}
+            <a class ="btn btn-outline-secondary btn-lg" href="{% url 'vocabs:import' %}">
+            Import SKOS vocabulary
+            </a>
             {% endif %}
         </div>
     </div>
