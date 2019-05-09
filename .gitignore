@@ -23,6 +23,9 @@ places/migrations/*
 # Ipython Notebook checkpoints
 .ipynb_checkpoints
 
+# Ipython Notebook
+.ipynb
+
 # production(like) settings files
 mysql.py
 server.py
