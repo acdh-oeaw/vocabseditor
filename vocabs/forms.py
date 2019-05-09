@@ -22,7 +22,7 @@ class GenericFilterFormHelper(FormHelper):
 
 
 class UploadFileForm(forms.Form):
-    file = forms.FileField(help_text="rdf/xml or ttl format")
+    file = forms.FileField()
     language = forms.CharField(
         max_length=3, required=True,
         help_text="Specify the main language of your vocabulary (in format ISO 639-1 or ISO 639-3)",

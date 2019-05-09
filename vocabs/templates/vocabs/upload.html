@@ -6,6 +6,8 @@
         <div class="card-body">
             <h2 style="text-align: center;">Upload your SKOS vocabulary</h2>
             <br>
+            <p><strong>Note: </strong>The vocabulary for upload should follow RDF and SKOS data model. Accepted formats are rdf/xml and ttl.</p>
+            <br>
             {% crispy form %}           	
 			{% if messages %}
                 {% for message in messages %}
