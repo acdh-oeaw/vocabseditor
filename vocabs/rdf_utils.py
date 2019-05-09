@@ -73,7 +73,10 @@ def graph_construct_qs(results):
 			mainConceptScheme = URIRef(VOCABS)
 			g.add((mainConceptScheme, RDF.type, SKOS.ConceptScheme))
 		# Concept properties
-		concept = URIRef(mainConceptScheme + "#concept" + str(obj.id))
+		if obj.legacy_id:
+			concept = URIRef(obj.legacy_id)
+		else:
+			concept = URIRef(mainConceptScheme + "#concept" + str(obj.id))
 		g.add((concept, RDF.type, SKOS.Concept))
 		g.add((concept, SKOS.prefLabel, Literal(obj.pref_label, lang=obj.pref_label_lang)))
 		g.add((concept, SKOS.notation, Literal(obj.notation)))
@@ -129,7 +132,10 @@ def graph_construct_qs(results):
 						g.add((collection, DC.contributor, Literal(i.strip())))
 				if x.has_members.all():
 					for y in x.has_members.all():
-						g.add((collection, SKOS.member, URIRef(mainConceptScheme + "#concept" + str(y.id))))
+						if y.legacy_id:
+							g.add((collection, SKOS.member, URIRef(y.legacy_id)))
+						else:
+							g.add((collection, SKOS.member, URIRef(mainConceptScheme + "#concept" + str(y.id))))
 		# Concept properties
 		if obj.has_labels.all():
 			for label in obj.has_labels.all():
@@ -164,18 +170,21 @@ def graph_construct_qs(results):
 			for source in obj.has_sources.all():
 				g.add((concept, DC.source, Literal(source.name, lang=source.language)))
 		#top concepts
-		# if obj.top_concept == True:
 		if not obj.broader_concept:
 			g.add((mainConceptScheme, SKOS.hasTopConcept, URIRef(concept)))
 			g.add((concept, SKOS.topConceptOf, mainConceptScheme ))
 		# modelling broader/narrower relationships
 		if obj.broader_concept:
-			g.add((concept, SKOS.broader, URIRef(mainConceptScheme + "#concept"+ str(obj.broader_concept.id))))
+			if obj.broader_concept.legacy_id:
+				g.add((concept, SKOS.broader, URIRef(obj.broader_concept.legacy_id)))
+			else:
+				g.add((concept, SKOS.broader, URIRef(mainConceptScheme + "#concept"+ str(obj.broader_concept.id))))
 		if obj.narrower_concepts.all():
-			#g.add((mainConceptScheme, SKOS.hasTopConcept, URIRef(concept)))
-			#g.add((concept, SKOS.topConceptOf, mainConceptScheme ))
 			for x in obj.narrower_concepts.all():
-				g.add((concept, SKOS.narrower, URIRef(mainConceptScheme + "#concept" + str(x.id))))
+				if x.legacy_id:
+					g.add((concept, SKOS.narrower, URIRef(x.legacy_id)))
+				else:
+					g.add((concept, SKOS.narrower, URIRef(mainConceptScheme + "#concept" + str(x.id))))
 		# modelling external matches
 		# skos:related
 		if obj.related:
