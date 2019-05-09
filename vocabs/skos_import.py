@@ -286,10 +286,11 @@ class SkosImporter(object):
 			# add relationships
 			for concept in concept_scheme_has_concepts:
 				if concept.get("broader_concept") is not None:
+					local_concepts = SkosConcept.objects.filter(scheme=concept_scheme.id)
 					try:
-						update_concept = SkosConcept.objects.filter(
+						update_concept = local_concepts.filter(
 							legacy_id=concept.get("legacy_id")).update(
-							broader_concept=SkosConcept.objects.get(legacy_id=concept.get("broader_concept"))
+							broader_concept=local_concepts.get(legacy_id=concept.get("broader_concept"))
 							)
 					except ObjectDoesNotExist as e:
 						pass
