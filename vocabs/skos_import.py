@@ -78,6 +78,18 @@ class SkosImporter(object):
 				concept_scheme["publisher"] = ";".join([p for pp in allowProperties('publisher') for p in g.objects(cs, pp)])
 				for license in g.objects(cs, DCT.license):
 					concept_scheme["license"] = str(license)
+				descriptions = []
+				for descp in allowProperties('description'):
+					for d in  g.objects(cs, descp):
+						temp_desc = {}
+						temp_desc["name"] = str(d)
+						if d.language == "None":
+							temp_desc["lang"] = self.language
+						else:
+							temp_desc["lang"] = d.language
+						descriptions.append(temp_desc)
+				concept_scheme["description"] = descriptions
+
 		else:
 			raise Exception("rdf:type skos:ConceptScheme is not found")
 
@@ -179,6 +191,7 @@ class SkosImporter(object):
 		concept_scheme_subject = concept_scheme.get("subject", "")
 		concept_scheme_publisher = concept_scheme.get("publisher", "")
 		concept_scheme_license = concept_scheme.get("license", "")
+		concept_scheme_description = concept_scheme.get("description")
 		concept_scheme_has_concepts = concept_scheme.get("has_concepts")
 		main_title = {}
 		other_titles = []
@@ -211,6 +224,17 @@ class SkosImporter(object):
 				cs_title.save()
 		else:
 			pass
+
+		if concept_scheme_description:
+			for desc in concept_scheme_description:
+				cs_desc = ConceptSchemeDescription.objects.create(
+					concept_scheme=concept_scheme, name=desc.get("name"),
+					language=desc.get("lang")
+				)
+				cs_desc.save()
+		else:
+			pass
+
 
 		if concept_scheme_has_concepts:
 
