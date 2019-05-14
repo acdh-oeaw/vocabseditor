@@ -51,7 +51,11 @@ class SkosImporter(object):
 		"""
 		concept_scheme = {}
 		g = self._graph_read()
-		# parsing concept scheme triples
+		def allowProperties(_property):
+			"""Allow DC and DCT properties"""
+			properties = [URIRef('http://purl.org/dc/terms/{}'.format(_property)),
+				URIRef('http://purl.org/dc/elements/1.1/{}'.format(_property))]
+			return properties
 		if (None, RDF.type, SKOS.ConceptScheme) in g:
 			for cs in g.subjects(RDF.type, SKOS.ConceptScheme):
 				concept_scheme["identifier"] = str(cs)
@@ -67,11 +71,11 @@ class SkosImporter(object):
 						temp_title["lang"] = str(title[1].language)
 					titles.append(temp_title)
 				concept_scheme["title"] = titles
-				concept_scheme["creator"] = ";".join([c for c in g.objects(cs, DC.creator)])
-				concept_scheme["contributor"] = ";".join([contr for contr in g.objects(cs, DC.contributor)])
-				concept_scheme["language"] = ";".join([l for l in g.objects(cs, DC.language)])
-				concept_scheme["subject"] = ";".join([s for s in g.objects(cs, DC.subject)])
-				concept_scheme["publisher"] = ";".join([p for p in g.objects(cs, DC.publisher)])
+				concept_scheme["creator"] = ";".join([c for cp in allowProperties('creator') for c in g.objects(cs, cp)])
+				concept_scheme["contributor"] = ";".join([contr for contrp in allowProperties('contributor') for contr in g.objects(cs, contrp)])
+				concept_scheme["language"] = ";".join([l for lp in allowProperties('language') for l in g.objects(cs, lp)])
+				concept_scheme["subject"] = ";".join([s for sp in allowProperties('subject') for s in g.objects(cs, sp)])
+				concept_scheme["publisher"] = ";".join([p for pp in allowProperties('publisher') for p in g.objects(cs, pp)])
 				for license in g.objects(cs, DCT.license):
 					concept_scheme["license"] = str(license)
 		else:
