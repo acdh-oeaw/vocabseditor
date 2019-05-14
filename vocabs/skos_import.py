@@ -66,7 +66,7 @@ class SkosImporter(object):
 					temp_title["title"] = str(title[1])
 					# if language attribute is absent populate it with a specified language
 					if str(title[1].language) == "None":
-						temp_title["lang"] = self.language						
+						temp_title["lang"] = self.language
 					else:
 						temp_title["lang"] = str(title[1].language)
 					titles.append(temp_title)
@@ -103,8 +103,10 @@ class SkosImporter(object):
 					concept["scheme"] = str(scheme)
 				for notation in g.objects(c, SKOS.notation):
 					concept["notation"] = str(notation)
-				concept["creator"] = ";".join([cr for cr in g.objects(c, DC.creator)])
-				concept["contributor"] = ";".join([contr for contr in g.objects(c, DC.contributor)])
+				concept["creator"] = ";".join([c for cp in allowProperties('creator') for c in g.objects(cs, cp)])
+				concept["contributor"] = ";".join([contr for contrp in allowProperties('contributor') for contr in g.objects(cs, contrp)])
+				# concept["creator"] = ";".join([cr for cr in g.objects(c, DC.creator)])
+				# concept["contributor"] = ";".join([contr for contr in g.objects(c, DC.contributor)])
 				for broader_concept in g.objects(c, SKOS.broader):
 					concept["broader_concept"] = str(broader_concept)
 				# alt labels
@@ -130,15 +132,16 @@ class SkosImporter(object):
 					hidden_labels.append(label)
 				concept["hidden_label"] = hidden_labels
 				# sources
-				sources = [] 
-				for source in g.objects(c, DC.source):
-					temp_source = {}
-					temp_source["name"] = str(source)
-					if str(source.language) == "None":
-						temp_source["lang"] = self.language
-					else:
-						temp_source["lang"] = source.language
-					sources.append(temp_source)
+				sources = []
+				for srcp in allowProperties('source'):
+					for source in g.objects(c, srcp):
+						temp_source = {}
+						temp_source["name"] = str(source)
+						if str(source.language) == "None":
+							temp_source["lang"] = self.language
+						else:
+							temp_source["lang"] = source.language
+						sources.append(temp_source)
 				concept["source"] = sources
 				# documentary notes
 				notes = []
