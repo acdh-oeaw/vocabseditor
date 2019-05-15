@@ -83,12 +83,29 @@ class SkosImporter(object):
 					for d in  g.objects(cs, descp):
 						temp_desc = {}
 						temp_desc["name"] = str(d)
-						if d.language == "None":
-							temp_desc["lang"] = self.language
+						if d.language:
+							if d.language == "None":
+								temp_desc["lang"] = self.language
+							else:
+								temp_desc["lang"] = d.language
 						else:
-							temp_desc["lang"] = d.language
+							temp_desc["lang"] = self.language
 						descriptions.append(temp_desc)
 				concept_scheme["description"] = descriptions
+				sources = []
+				for sp in allowProperties('source'):
+					for s in  g.objects(cs, sp):
+						temp_s = {}
+						temp_s["name"] = str(s)
+						if s.language:
+							if s.language == "None":
+								temp_s["lang"] = self.language
+							else:
+								temp_s["lang"] = s.language
+						else:
+							temp_s["lang"] = self.language
+						sources.append(temp_s)
+				concept_scheme["source"] = sources
 
 		else:
 			raise Exception("rdf:type skos:ConceptScheme is not found")
@@ -192,6 +209,7 @@ class SkosImporter(object):
 		concept_scheme_publisher = concept_scheme.get("publisher", "")
 		concept_scheme_license = concept_scheme.get("license", "")
 		concept_scheme_description = concept_scheme.get("description")
+		concept_scheme_source = concept_scheme.get("source")
 		concept_scheme_has_concepts = concept_scheme.get("has_concepts")
 		main_title = {}
 		other_titles = []
@@ -229,9 +247,18 @@ class SkosImporter(object):
 			for desc in concept_scheme_description:
 				cs_desc = ConceptSchemeDescription.objects.create(
 					concept_scheme=concept_scheme, name=desc.get("name"),
-					language=desc.get("lang")
+					language=desc.get("lang", self.language)
 				)
 				cs_desc.save()
+		else:
+			pass
+		if concept_scheme_source:
+			for source in concept_scheme_source:
+				cs_source = ConceptSchemeSource.objects.create(
+					concept_scheme=concept_scheme, name=source.get("name"),
+					language=source.get("lang", self.language)
+				)
+				cs_source.save()
 		else:
 			pass
 
