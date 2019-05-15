@@ -247,7 +247,7 @@ class SkosImporter(object):
 			for desc in concept_scheme_description:
 				cs_desc = ConceptSchemeDescription.objects.create(
 					concept_scheme=concept_scheme, name=desc.get("name"),
-					language=desc.get("lang", self.language)
+					language=desc.get("lang")
 				)
 				cs_desc.save()
 		else:
@@ -256,7 +256,7 @@ class SkosImporter(object):
 			for source in concept_scheme_source:
 				cs_source = ConceptSchemeSource.objects.create(
 					concept_scheme=concept_scheme, name=source.get("name"),
-					language=source.get("lang", self.language)
+					language=source.get("lang")
 				)
 				cs_source.save()
 		else:
