@@ -25,15 +25,15 @@
             {% for concept,structure in object.scheme.has_concepts.all|tree_info %}
             {% if structure.new_level %}<ul><li>{% else %}</li><li>{% endif %}
 
-            {% if concept.pref_label == object.pref_label and concept.needs_review == False %}
+            {% if concept.id == object.id and concept.needs_review == False %}
             <strong>{{ concept.pref_label }}</strong>
-            {% elif concept.pref_label == object.pref_label and concept.needs_review == True %}
+            {% elif concept.id == object.id and concept.needs_review == True %}
             <strong>
             {{ concept.pref_label }} <b style="color:red;" title="Needs review"> !</b>
             </strong>
-            {% elif concept.pref_label == object.pref_label %}
+            {% elif concept.id == object.id %}
             <strong>{{ concept.pref_label }}</strong>
-            {% elif concept.pref_label != object.pref_label and concept.needs_review == True %}
+            {% elif concept.id != object.id and concept.needs_review == True %}
             <a href="{{ concept.get_absolute_url }}">
             {{ concept.pref_label }} <b style="color:red;" title="Needs review"> !</b>
             </a>
