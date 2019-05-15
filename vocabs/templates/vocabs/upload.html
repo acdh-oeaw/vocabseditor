@@ -4,6 +4,7 @@
 <div class="container">
 	<div class="card">
         <div class="card-body">
+        <div class="loader hidden" id="loading"></div>
             <h2 style="text-align: center;">Upload your SKOS vocabulary</h2>
             <br>
             <p><strong>Note: </strong>The vocabulary for upload should follow RDF and SKOS data model. Accepted formats are rdf/xml and ttl.</p>
@@ -19,7 +20,13 @@
         </div>
     </div>
 </div>
+<!--script for loader -->
 <script type="text/javascript">
-
+$( document ).ready(function() {
+    $('#uploadFile').on('click',function(){   
+        $('#loading').removeClass("hidden");
+        $('#loading').addClass("shown");
+    })
+});
 </script>
 {% endblock content %}
