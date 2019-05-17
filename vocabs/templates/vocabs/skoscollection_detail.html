@@ -94,6 +94,12 @@
             </td>
         </tr>
         {% endif %}
+        {% if object.legacy_id %}
+         <tr>
+            <th>legacy id</th>
+            <td>{{object.legacy_id}}</td>
+        </tr>
+        {% endif %}
         {% if object.creator %}
          <tr>
             <th class="w-25">dc:creator</th>
