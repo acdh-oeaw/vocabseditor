@@ -57,6 +57,18 @@ class SkosImporter(object):
 			properties = [URIRef('http://purl.org/dc/terms/{}'.format(_property)),
 				URIRef('http://purl.org/dc/elements/1.1/{}'.format(_property))]
 			return properties
+		def languageCheck(property_lang):
+			"""Check for language attributes, if they are absent set language to a specified language"""
+			if property_lang:
+				if str(property_lang) == "None":
+					return self.language
+				else:
+					return str(property_lang)
+			else:
+				return self.language
+
+		# parsing concept scheme
+
 		if (None, RDF.type, SKOS.ConceptScheme) in g:
 			for cs in g.subjects(RDF.type, SKOS.ConceptScheme):
 				concept_scheme["identifier"] = str(cs)
@@ -84,13 +96,7 @@ class SkosImporter(object):
 					for d in  g.objects(cs, descp):
 						temp_desc = {}
 						temp_desc["name"] = str(d)
-						if d.language:
-							if d.language == "None":
-								temp_desc["lang"] = self.language
-							else:
-								temp_desc["lang"] = d.language
-						else:
-							temp_desc["lang"] = self.language
+						temp_desc["lang"] = languageCheck(d.language)
 						descriptions.append(temp_desc)
 				concept_scheme["description"] = descriptions
 				sources = []
@@ -98,13 +104,7 @@ class SkosImporter(object):
 					for s in  g.objects(cs, sp):
 						temp_s = {}
 						temp_s["name"] = str(s)
-						if s.language:
-							if s.language == "None":
-								temp_s["lang"] = self.language
-							else:
-								temp_s["lang"] = s.language
-						else:
-							temp_s["lang"] = self.language
+						temp_s["lang"] = languageCheck(s.language)
 						sources.append(temp_s)
 				concept_scheme["source"] = sources
 
@@ -114,7 +114,7 @@ class SkosImporter(object):
 		logging.info("Concept Scheme: {}".format(concept_scheme))
 
 		# Pasring Collection
-		
+
 		if (None, RDF.type, SKOS.Collection) in g:
 			collections = []
 			for col in g.subjects(RDF.type, SKOS.Collection):
@@ -145,50 +145,31 @@ class SkosImporter(object):
 					for note in g.objects(col, pred):
 						temp_note = {}
 						temp_note["name"] = str(note)
-						if str(note.language) == "None":
-							temp_note["lang"] = self.language
-						else:
-							temp_note["lang"] = note.language
+						temp_note["lang"] = languageCheck(note.language)
 						temp_note["note_type"] = re.search('http.*#(.*)', str(pred)).group(1)
 						col_notes.append(temp_note)
 				collection["note"] = col_notes
 				# collection other labels
-
 				col_labels = []
 				for pred in [SKOS.altLabel, SKOS.hiddenLabel]:
 					for other_label in g.objects(col, pred):
 						temp_other_label = {}
 						temp_other_label["name"] = str(other_label)
-						if str(other_label.language) == "None":
-							temp_other_label["lang"] = self.language
-						else:
-							temp_other_label["lang"] = other_label.language
+						temp_other_label["lang"] = languageCheck(other_label.language)
 						temp_other_label["label_type"] = re.search('http.*#(.*)', str(pred)).group(1)
 						col_labels.append(temp_other_label)
 				collection["other_label"] = col_labels
-
 				# collection sources
 				col_sources = []
 				for col_srcp in allowProperties('source'):
 					for source in g.objects(col, col_srcp):
 						temp_col_src = {}
 						temp_col_src["name"] = str(source)
-						if str(source.language) == "None":
-							temp_col_src["lang"] = self.language
-						else:
-							temp_col_src["lang"] = source.language
+						temp_col_src["lang"] = languageCheck(source.language)
 						col_sources.append(temp_col_src)
 				collection["source"] = col_sources
-
 				collections.append(collection)
-
-
 			concept_scheme["collections"] = collections
-
-
-
-
-
 			logging.info(concept_scheme["collections"])
 
 		else:
@@ -225,10 +206,7 @@ class SkosImporter(object):
 				for alt_label in g.objects(c, SKOS.altLabel):
 					label = {}
 					label["label"] = str(alt_label)
-					if str(alt_label.language) == "None":
-						label["lang"] = self.language
-					else:
-						label["lang"] = alt_label.language
+					label["lang"] = languageCheck(alt_label.language)
 					alt_labels.append(label)
 				concept["alt_label"] = alt_labels
 				# hidden labels
@@ -236,10 +214,7 @@ class SkosImporter(object):
 				for hidden_label in g.objects(c, SKOS.hiddenLabel):
 					label = {}
 					label["label"] = str(hidden_label)
-					if str(hidden_label.language) == "None":
-						label["lang"] = self.language
-					else:
-						label["lang"] = hidden_label.language
+					label["lang"] = languageCheck(hidden_label.language)
 					hidden_labels.append(label)
 				concept["hidden_label"] = hidden_labels
 				# sources
@@ -248,10 +223,7 @@ class SkosImporter(object):
 					for source in g.objects(c, srcp):
 						temp_source = {}
 						temp_source["name"] = str(source)
-						if str(source.language) == "None":
-							temp_source["lang"] = self.language
-						else:
-							temp_source["lang"] = source.language
+						temp_source["lang"] = languageCheck(source.language)
 						sources.append(temp_source)
 				concept["source"] = sources
 				# documentary notes
@@ -262,10 +234,7 @@ class SkosImporter(object):
 					for note in g.objects(c, pred):
 						temp_note = {}
 						temp_note["name"] = str(note)
-						if str(note.language) == "None":
-							temp_note["lang"] = self.language
-						else:
-							temp_note["lang"] = note.language
+						temp_note["lang"] = languageCheck(note.language)
 						temp_note["note_type"] = re.search('http.*#(.*)', str(pred)).group(1)
 						notes.append(temp_note)
 				concept["note"] = notes
@@ -498,4 +467,3 @@ class SkosImporter(object):
 		else:
 			pass
 		return concept_scheme
-
