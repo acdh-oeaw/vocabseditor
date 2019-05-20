@@ -314,7 +314,7 @@ class SkosImporter(object):
 						for other in col_other_labels:
 							col_title = CollectionLabel.objects.create(
 								collection=new_collection, name=other.get("label"),
-								language=other.get("lang")
+								language=other.get("lang"), label_type="prefLabel"
 							)
 			else:
 				pass
