@@ -137,8 +137,58 @@ class SkosImporter(object):
 				for member in g.objects(col, SKOS.member):
 					members.append(str(member))
 				collection["members"] = members
+				# collection notes
+				col_notes = []
+				col_predicates = [SKOS.note, SKOS.definition, SKOS.scopeNote, SKOS.changeNote,
+							 SKOS.editorialNote, SKOS.historyNote, SKOS.example]
+				for pred in col_predicates:
+					for note in g.objects(col, pred):
+						temp_note = {}
+						temp_note["name"] = str(note)
+						if str(note.language) == "None":
+							temp_note["lang"] = self.language
+						else:
+							temp_note["lang"] = note.language
+						temp_note["note_type"] = re.search('http.*#(.*)', str(pred)).group(1)
+						col_notes.append(temp_note)
+				collection["note"] = col_notes
+				# collection other labels
+
+				col_labels = []
+				for pred in [SKOS.altLabel, SKOS.hiddenLabel]:
+					for other_label in g.objects(col, pred):
+						temp_other_label = {}
+						temp_other_label["name"] = str(other_label)
+						if str(other_label.language) == "None":
+							temp_other_label["lang"] = self.language
+						else:
+							temp_other_label["lang"] = other_label.language
+						temp_other_label["label_type"] = re.search('http.*#(.*)', str(pred)).group(1)
+						col_labels.append(temp_other_label)
+				collection["other_label"] = col_labels
+
+				# collection sources
+				col_sources = []
+				for col_srcp in allowProperties('source'):
+					for source in g.objects(col, col_srcp):
+						temp_col_src = {}
+						temp_col_src["name"] = str(source)
+						if str(source.language) == "None":
+							temp_col_src["lang"] = self.language
+						else:
+							temp_col_src["lang"] = source.language
+						col_sources.append(temp_col_src)
+				collection["source"] = col_sources
+
 				collections.append(collection)
+
+
 			concept_scheme["collections"] = collections
+
+
+
+
+
 			logging.info(concept_scheme["collections"])
 
 		else:
@@ -295,6 +345,9 @@ class SkosImporter(object):
 			if concept_scheme_has_collections:
 				
 				for col in concept_scheme_has_collections:
+					col_notes = col.get("note", "")
+					col_alt_hid_labels = col.get("other_label", "")
+					col_sources = col.get("source", "")
 					col_main_label = {}
 					col_other_labels = []
 					for label in col.get("labels"):
@@ -307,8 +360,8 @@ class SkosImporter(object):
 							other_label["lang"] = label.get("label_lang", self.language) 
 							col_other_labels.append(other_label)
 					new_collection = SkosCollection.objects.create(scheme=concept_scheme,
-						name=col_main_label.get("label"),
-						legacy_id=col.get("legacy_id"), label_lang=col_main_label.get("lang"),
+						name=col_main_label.get("label", "no label in specified language"),
+						legacy_id=col.get("legacy_id"), label_lang=col_main_label.get("lang", self.language),
 						created_by=User.objects.get(username=user))
 					if len(col_other_labels) > 0:
 						for other in col_other_labels:
@@ -316,6 +369,25 @@ class SkosImporter(object):
 								collection=new_collection, name=other.get("label"),
 								language=other.get("lang"), label_type="prefLabel"
 							)
+					if col_notes:
+						for cn in col_notes:
+							note = CollectionNote.objects.create(
+								collection=new_collection, name=cn.get("name"),
+								language=cn.get("lang"), note_type=cn.get("note_type")
+								)
+					if col_alt_hid_labels:
+						for cahl in col_alt_hid_labels:
+							alt_hid_label = CollectionLabel.objects.create(
+								collection=new_collection, name=cahl.get("name"),
+								language=cahl.get("lang"), label_type=cahl.get("label_type")
+								)
+					if col_sources:
+						for csrc in col_sources:
+							src = CollectionSource.objects.create(
+								collection=new_collection, name=csrc.get("name"),
+								language=csrc.get("lang")
+								)
+
 			else:
 				pass
 
