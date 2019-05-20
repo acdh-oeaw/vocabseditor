@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 import logging
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import transaction
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -60,11 +61,11 @@ class SkosImporter(object):
 			for cs in g.subjects(RDF.type, SKOS.ConceptScheme):
 				concept_scheme["identifier"] = str(cs)
 				titles = []
-				# set labels properties to recognize all possible labels
+				# Set labels properties to recognize all possible labels
 				for title in g.preferredLabel(cs, labelProperties=((DC.title), (RDFS.label), (DCT.title), (SKOS.prefLabel))):
 					temp_title = {}
 					temp_title["title"] = str(title[1])
-					# if language attribute is absent populate it with a specified language
+					# If language attribute is absent populate it with a specified language
 					if str(title[1].language) == "None":
 						temp_title["lang"] = self.language
 					else:
@@ -111,7 +112,8 @@ class SkosImporter(object):
 			raise Exception("rdf:type skos:ConceptScheme is not found")
 
 		logging.info("Concept Scheme: {}".format(concept_scheme))
-		#pasring Collection
+
+		# Pasring Collection
 		
 		if (None, RDF.type, SKOS.Collection) in g:
 			collections = []
@@ -141,7 +143,9 @@ class SkosImporter(object):
 
 		else:
 			pass
-		# parsing concepts triples
+
+		# Parsing concepts triples
+
 		if (None, RDF.type, SKOS.Concept) in g:
 			concepts = []
 			for c in g.subjects(RDF.type, SKOS.Concept):
@@ -164,8 +168,6 @@ class SkosImporter(object):
 					concept["notation"] = str(notation)
 				concept["creator"] = ";".join([c for cp in allowProperties('creator') for c in g.objects(cs, cp)])
 				concept["contributor"] = ";".join([contr for contrp in allowProperties('contributor') for contr in g.objects(cs, contrp)])
-				# concept["creator"] = ";".join([cr for cr in g.objects(c, DC.creator)])
-				# concept["contributor"] = ";".join([contr for contr in g.objects(c, DC.contributor)])
 				for broader_concept in g.objects(c, SKOS.broader):
 					concept["broader_concept"] = str(broader_concept)
 				# alt labels
@@ -263,14 +265,12 @@ class SkosImporter(object):
 			publisher=concept_scheme_publisher, license=concept_scheme_license,
 			created_by=User.objects.get(username=user)
 			)
-		# concept_scheme.save()
 		if  len(other_titles) > 0:
 			for other in other_titles:
 				cs_title = ConceptSchemeTitle.objects.create(
 					concept_scheme=concept_scheme, name=other.get("label"),
 					language=other.get("lang")
 				)
-				# cs_title.save()
 		else:
 			pass
 
@@ -280,7 +280,6 @@ class SkosImporter(object):
 					concept_scheme=concept_scheme, name=desc.get("name"),
 					language=desc.get("lang")
 				)
-				# cs_desc.save()
 		else:
 			pass
 		if concept_scheme_source:
@@ -289,37 +288,36 @@ class SkosImporter(object):
 					concept_scheme=concept_scheme, name=source.get("name"),
 					language=source.get("lang")
 				)
-				#cs_source.save()
 		else:
 			pass
 
-
-		if concept_scheme_has_collections:
-			
-			for col in concept_scheme_has_collections:
-				col_main_label = {}
-				col_other_labels = []
-				for label in col.get("labels"):
-					if label.get("label_lang") == self.language:
-						col_main_label["label"] = label.get("label")
-						col_main_label["lang"] = label.get("label_lang")
-					else:
-						other_label = {}
-						other_label["label"] = label.get("label", "other label")
-						other_label["lang"] = label.get("label_lang", self.language) 
-						col_other_labels.append(other_label)
-				new_collection = SkosCollection.objects.create(scheme=concept_scheme,
-					name=col_main_label.get("label"),
-					legacy_id=col.get("legacy_id"), label_lang=col_main_label.get("label_lang"),
-					created_by=User.objects.get(username=user))
-				if len(col_other_labels) > 0:
-					for other in col_other_labels:
-						col_title = CollectionLabel.objects.create(
-							collection=new_collection, name=other.get("label"),
-							language=other.get("lang")
-						)
-		else:
-			pass
+		with transaction.atomic():
+			if concept_scheme_has_collections:
+				
+				for col in concept_scheme_has_collections:
+					col_main_label = {}
+					col_other_labels = []
+					for label in col.get("labels"):
+						if label.get("label_lang") == self.language:
+							col_main_label["label"] = label.get("label")
+							col_main_label["lang"] = label.get("label_lang")
+						else:
+							other_label = {}
+							other_label["label"] = label.get("label", "other label")
+							other_label["lang"] = label.get("label_lang", self.language) 
+							col_other_labels.append(other_label)
+					new_collection = SkosCollection.objects.create(scheme=concept_scheme,
+						name=col_main_label.get("label"),
+						legacy_id=col.get("legacy_id"), label_lang=col_main_label.get("lang"),
+						created_by=User.objects.get(username=user))
+					if len(col_other_labels) > 0:
+						for other in col_other_labels:
+							col_title = CollectionLabel.objects.create(
+								collection=new_collection, name=other.get("label"),
+								language=other.get("lang")
+							)
+			else:
+				pass
 
 
 		if concept_scheme_has_concepts:
@@ -356,7 +354,7 @@ class SkosImporter(object):
 					)
 				new_concept.save()
 
-				#concept to collections
+				# concept to collections
 				if concept_scheme_has_collections:
 					collections = []
 					for col in concept_scheme_has_collections:
@@ -376,7 +374,6 @@ class SkosImporter(object):
 							concept=new_concept, name=other.get("label"),
 							language=other.get("lang"), label_type="prefLabel"
 							)
-						# other_label.save()
 				else:
 					pass
 				if  len(concept_alt_labels) > 0:
@@ -385,7 +382,6 @@ class SkosImporter(object):
 							concept=new_concept, name=alt.get("label"),
 							language=alt.get("lang"), label_type="altLabel"
 							)
-						# alt_label.save()
 				else:
 					pass
 				if  len(concept_hidden_labels) > 0:
@@ -394,7 +390,6 @@ class SkosImporter(object):
 							concept=new_concept, name=hid.get("label"),
 							language=hid.get("lang"), label_type="hiddenLabel"
 						)
-						# hidden_label.save()
 				else:
 					pass
 				if len(concept_notes) > 0:
@@ -403,7 +398,6 @@ class SkosImporter(object):
 							concept=new_concept, name=n.get("name"),
 							language=n.get("lang"), note_type=n.get("note_type")
 							)
-						# note.save()
 				else:
 					pass
 				if len(concept_sources) > 0:
@@ -412,7 +406,6 @@ class SkosImporter(object):
 							concept=new_concept, name=s.get("name"),
 							language=s.get("lang")
 							)
-						# source.save()
 				else:
 					pass
 			# add relationships
