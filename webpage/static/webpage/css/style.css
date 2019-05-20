@@ -51,7 +51,13 @@ a, .btn-link {
 .control-label {
     font-weight: 700;
 }
+.index-btn-group {
+  margin-top: 50px;
+}
 
+.index-btn {
+  margin: 10px;
+}
 /* override select2 css for select FK and select M2M */
 
 .select2 {
