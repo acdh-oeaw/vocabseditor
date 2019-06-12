@@ -71,6 +71,11 @@
                         About
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link navigation-font" href="https://vocabs.acdh.oeaw.ac.at/en/">
+                        Vocabs Homepage
+                        </a>
+                    </li>
                     {% if 'vocabs' in APPS %}
                         {% if user.is_authenticated %}
                             <li class="nav-item dropdown">
@@ -174,7 +179,7 @@
                 {% social_media %}
                 <a href="{% projects_metadata 'imprint' %}">Imprint/Impressum</a>
 
-                {% if user.is_authenticated %}
+                {% if user.is_superuser %}
                     {% if DB_NAME %}
                         <div class="footer-imprint-bar">
                             <small>{{ DB_NAME }}</small>
