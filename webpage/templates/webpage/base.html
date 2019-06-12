@@ -13,8 +13,8 @@
     {% endblock %}
     <!-- favicons -->
         <link rel="apple-touch-icon" sizes="180x180" href="{% static 'webpage/img/favicon/apple-touch-icon.png' %}"/>
-        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'webpage/img/favicon/favicon-32x32.png' %}"/>
-        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'webpage/img/favicon/favicon-16x16.png' %}"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'webpage/img/favicon/favicon-32x32-vocabs.png' %}"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'webpage/img/favicon/favicon-16x16-vocabs.png' %}"/>
         <link rel="manifest" href="{% static 'webpage/img/favicon/manifest.json' %}"/>
         <link rel="mask-icon" href="{% static 'webpage/img/favicon/safari-pinned-tab.svg' %}" color="#00aba9"/>
         <meta name="theme-color" content="#ffffff"/>
@@ -59,7 +59,7 @@
         <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white box-shadow">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="{% static 'webpage/img/acdh-vocabs-logo.png' %}" alt="ACDH Vocabularies" title="ACDH Vocabularies"/>
+                <img src="{% static 'webpage/img/vocabs-editor-normal.png' %}" alt="Vocabs editor" title="Vocabs editor"/>
             </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -165,14 +165,14 @@
                   <div class="col-md-3 ml-auto">
                     <h3>HELPDESK</h3>
                     <p>ACDH runs a helpdesk offering advice for questions related to various digital humanities topics.</p>
-                    <p><a class="helpdesk-button" href="javascript:linkTo_UnCryptMailto('nbjmup;bdeiApfbx/bd/bu');">ASK US!</a></p>
+                    <p><a class="helpdesk-button" href="mailto:acdh-helpdesk@oeaw.ac.at">ASK US!</a></p>
                   </div>
                 </div>
             </div>
         </div>
             <div class="footer-imprint-bar">
                 {% social_media %}
-                <a href="{% projects_metadata 'imprint' %}">Impressum/Imprint</a>
+                <a href="{% projects_metadata 'imprint' %}">Imprint/Impressum</a>
 
                 {% if user.is_authenticated %}
                     {% if DB_NAME %}
@@ -193,6 +193,15 @@
         $(document).ready(function() {
             $.apScrollTop({'onInit': function(evt) {console.log('apScrollTop: init');}});
         });
+    </script>
+    <script>
+      const params = {
+        'serviceID': '12305'
+      };
+      const imprintService = 'https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php';
+      $.get(imprintService, params, function(response){
+        document.getElementById('imprint-content').innerHTML = response;
+      });
     </script>
     {% endblock %}
     {% block scripts2 %}
