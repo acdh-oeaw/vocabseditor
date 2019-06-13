@@ -20,6 +20,9 @@ class GenericWebpageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(GenericWebpageView, self).get_context_data(**kwargs)
         context['apps'] = settings.INSTALLED_APPS
+        created_cs = SkosConceptScheme.objects.filter(created_by=self.request.user.id)
+        curated_cs = SkosConceptScheme.objects.filter(curator=self.request.user.id)
+        context['vocabularies'] = set(created_cs | curated_cs)
         return context
 
     def get_template_names(self):

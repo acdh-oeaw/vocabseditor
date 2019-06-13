@@ -13,9 +13,21 @@
                     Create Concept Scheme
                     </a>
                     <a class ="btn btn-outline-secondary btn-lg index-btn" href="{% url 'vocabs:import' %}">
-                    Import SKOS vocabulary
+                    Upload SKOS vocabulary
                     </a>
                 </div>
+                <br>
+                {% if vocabularies %}
+                <hr>
+                <div style="text-align:left;">
+                    <ul>
+                        <h4 style="letter-spacing: 3px; font-weight: 800;">Vocabularies</h4><br>
+                        {% for v in vocabularies %}
+                        <p><a href="{{v.get_absolute_url}}">{{v}}</a></p>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
             {% endif %}
         </div>
     </div>
