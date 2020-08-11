@@ -16,4 +16,17 @@ The application is implemented using Python and [Django](https://www.djangoproje
 ## Install
 
 1. Clone the repo
-2. Create virtual environment and run `pip install -r requirements.txt`
+
+2. Create and activate virtual environment, run `pip install -r requirements.txt`
+
+3. Run
+
+    `python manage.py makemigrations --settings=vocabseditor.settings.dev`
+
+    `python manage.py migrate --settings=vocabseditor.settings.dev`
+
+    `python manage.py runserver --settings=vocabseditor.settings.dev`
+    
+4. After the above commands are executed the sqlite database is created automatically in the project's root folder 
+
+5. Development server runs at `localhost:8000`
