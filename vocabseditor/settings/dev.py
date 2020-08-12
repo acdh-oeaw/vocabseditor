@@ -15,13 +15,3 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
-Z_ID = "1****5"
-Z_ID_TYPE = 'groups'  # or 'user'
-Z_COLLECTION = "*****Z"
-Z_API_KEY = "T******************A"
-Z_COLLECTION_URL = "https://www.zotero.org/{}/{}/peter_handke_stage_texts".format(
-    Z_ID, Z_COLLECTION
-)
-Z_TITLE = "Some Titel of the Zotero Library"
