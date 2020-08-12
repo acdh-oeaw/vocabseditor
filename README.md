@@ -38,5 +38,12 @@ The application is implemented using Python and [Django](https://www.djangoproje
  
  ## Usage
  
+ Import an existing skos vocabulary (accepted formats are ttl, rdf): specify the file name, main language of the vocabulary, file format, your username
+ 
+ Run e.g.
+ 
+ `python manage.py import_skos_vocab your_vocabulary.ttl en ttl your_username`
+ 
+ 
  More information on how to use the tool in the [Vocabs editor Wiki](https://github.com/acdh-oeaw/vocabseditor/wiki).
 
