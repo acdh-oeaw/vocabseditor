@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import *
 
+
 class SkosConceptSchemeSerializer(serializers.HyperlinkedModelSerializer):
     has_concepts = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='skosconcept-detail')
     created_by = serializers.CharField(read_only=True)

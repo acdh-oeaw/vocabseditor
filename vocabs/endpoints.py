@@ -6,7 +6,7 @@ when assigning skos Matches
 search_types = (
     ('KeywordSearch?', 'Keyword Search'),
     ('PrefixSearch?', 'Prefix Search')
-    )
+)
 
 
 class DbpediaAC(object):
@@ -27,14 +27,14 @@ class DbpediaAC(object):
         """
         service's URL
         """
-        return self.endpoint+self.search_type
+        return self.endpoint + self.search_type
 
     def parse_response(self, response):
         """
         parses JSON response to return a list containing
         data in format 'uri - label'
         """
-        return [str(x['uri'])+' - '+str(x['label']) for x in response['results']]
+        return [str(x['uri']) + ' - ' + str(x['label']) for x in response['results']]
 
 
 class GndAC(object):
@@ -50,7 +50,7 @@ class GndAC(object):
         return self.endpoint
 
     def parse_response(self, response):
-        return [str(x['id'])+' - '+str(x['label']) for x in response]
+        return [str(x['id']) + ' - ' + str(x['label']) for x in response]
 
 
 class GemetAC(object):
@@ -64,10 +64,10 @@ class GemetAC(object):
         return {'search_mode': '4', 'keyword': q}
 
     def get_url(self):
-        return self.endpoint+self.search_type
+        return self.endpoint + self.search_type
 
     def parse_response(self, response):
-        return [str(x['uri'])+' - '+str(x['preferredLabel']['string']) for x in response]
+        return [str(x['uri']) + ' - ' + str(x['preferredLabel']['string']) for x in response]
 
 
 class FishAC(object):
@@ -88,10 +88,10 @@ class FishAC(object):
         return payload
 
     def get_url(self):
-        return self.endpoint+self.search_type
+        return self.endpoint + self.search_type
 
     def parse_response(self, response):
-        return [str(x['uri'])+' - '+str(x['label']) for x in response]
+        return [str(x['uri']) + ' - ' + str(x['label']) for x in response]
 
 
 ENDPOINT = {

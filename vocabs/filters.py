@@ -2,7 +2,6 @@ import django_filters
 from dal import autocomplete
 from .models import SkosConcept, SkosConceptScheme, SkosCollection
 
-
 django_filters.filters.LOOKUP_TYPES = [
     ('', '---------'),
     ('exact', 'Is equal to'),
@@ -21,7 +20,6 @@ django_filters.filters.LOOKUP_TYPES = [
 
 
 class SkosConceptListFilter(django_filters.FilterSet):
-
     pref_label = django_filters.ModelMultipleChoiceFilter(
         widget=autocomplete.Select2Multiple(
             url='vocabs-ac:skosconcept-autocomplete',
@@ -36,7 +34,7 @@ class SkosConceptListFilter(django_filters.FilterSet):
         widget=autocomplete.ModelSelect2(
             url='vocabs-ac:skosconceptscheme-autocomplete',
             attrs={
-            'data-placeholder': 'Start typing ...',
+                'data-placeholder': 'Start typing ...',
             }
         ),
         help_text=False,
@@ -46,7 +44,7 @@ class SkosConceptListFilter(django_filters.FilterSet):
         widget=autocomplete.ModelSelect2(
             url='vocabs-ac:skoscollection-autocomplete',
             attrs={
-            'data-placeholder': 'Start typing ...',
+                'data-placeholder': 'Start typing ...',
             },
             forward=['scheme']
         ),
@@ -76,17 +74,16 @@ class SkosConceptListFilter(django_filters.FilterSet):
 
 
 class SkosConceptSchemeListFilter(django_filters.FilterSet):
-
     title = django_filters.CharFilter(
         lookup_expr='icontains',
         help_text=SkosConceptScheme._meta.get_field('title').help_text,
         label=SkosConceptScheme._meta.get_field('title').verbose_name
-        )
+    )
     creator = django_filters.CharFilter(
         lookup_expr='icontains',
         help_text=False,
         label=SkosConceptScheme._meta.get_field('creator').verbose_name
-        )
+    )
 
     class Meta:
         model = SkosConceptScheme
@@ -94,21 +91,20 @@ class SkosConceptSchemeListFilter(django_filters.FilterSet):
 
 
 class SkosCollectionListFilter(django_filters.FilterSet):
-
     name = django_filters.CharFilter(
         lookup_expr='icontains',
         label=SkosCollection._meta.get_field('name').verbose_name
-        )
+    )
     creator = django_filters.CharFilter(
         lookup_expr='icontains',
         label=SkosCollection._meta.get_field('creator').verbose_name
-        )
+    )
     scheme = django_filters.ModelChoiceFilter(
         queryset=SkosConceptScheme.objects.all(),
         widget=autocomplete.ModelSelect2(
             url='vocabs-ac:skosconceptscheme-autocomplete',
             attrs={
-            'data-placeholder': 'Start typing ...',
+                'data-placeholder': 'Start typing ...',
             }
         ),
         help_text=False,

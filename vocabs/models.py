@@ -3,14 +3,12 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
-from django.utils.functional import cached_property
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save, m2m_changed
 from guardian.shortcuts import assign_perm, remove_perm
 from django.dispatch import receiver
 import reversion
 from mptt.models import MPTTModel, TreeForeignKey
-
 
 DEFAULT_URI = "https://vocabs.acdh.oeaw.ac.at/"
 
@@ -29,7 +27,6 @@ try:
 except KeyError:
     DEFAULT_LANG = "en"
 
-
 LABEL_TYPES = (
     ('prefLabel', 'prefLabel'),
     ('altLabel', 'altLabel'),
@@ -45,7 +42,6 @@ NOTE_TYPES = (
     ('definition', 'definition'),
     ('example', 'example'),
 )
-
 
 
 ######################################################################
@@ -80,22 +76,22 @@ class SkosConceptScheme(models.Model):
     creator = models.TextField(
         blank=True, verbose_name="dc:creator",
         help_text="Person or organisation primarily responsible for making current concept scheme<br>"
-        "If more than one list all using a semicolon ;"
+                  "If more than one list all using a semicolon ;"
     )
     contributor = models.TextField(
         blank=True, verbose_name="dc:contributor",
         help_text="Person or organisation that made contributions to the vocabulary<br>"
-        "If more than one list all using a semicolon ;"
+                  "If more than one list all using a semicolon ;"
     )
     language = models.TextField(
         blank=True, verbose_name="dc:language",
         help_text="Language(s) used in concept scheme<br>"
-        "If more than one list all using a semicolon ;"
+                  "If more than one list all using a semicolon ;"
     )
     subject = models.TextField(
         blank=True, verbose_name="dc:subject",
         help_text="The subject of the vocabulary<br>"
-        "If more than one list all using a semicolon ;"
+                  "If more than one list all using a semicolon ;"
     )
     version = models.CharField(
         max_length=300, blank=True,
@@ -118,12 +114,12 @@ class SkosConceptScheme(models.Model):
     relation = models.URLField(
         blank=True, verbose_name="dc:relation",
         help_text="Related resource or project<br>"
-        "E.g. in case of relation to a project, add link to a project website"
+                  "E.g. in case of relation to a project, add link to a project website"
     )
     coverage = models.TextField(
         blank=True, verbose_name="dc:coverage",
         help_text="Spatial or temporal frame that the vocabulary relates to<br>"
-        "If more than one list all using a semicolon ;"
+                  "If more than one list all using a semicolon ;"
     )
     legacy_id = models.CharField(
         max_length=200, blank=True
@@ -283,7 +279,6 @@ class ConceptSchemeSource(models.Model):
         return "{}".format(self.name)
 
 
-
 ######################################################################
 #
 # SkosCollection
@@ -314,20 +309,20 @@ class SkosCollection(models.Model):
     )
     # relation to SkosConceptScheme to inherit all objects permissions
     scheme = models.ForeignKey(SkosConceptScheme,
-        related_name="has_collections",
-        verbose_name="skos:ConceptScheme",
-        help_text="Concept scheme that this collection belongs to",
-        on_delete=models.CASCADE
-    )
+                               related_name="has_collections",
+                               verbose_name="skos:ConceptScheme",
+                               help_text="Concept scheme that this collection belongs to",
+                               on_delete=models.CASCADE
+                               )
     creator = models.TextField(
         blank=True, verbose_name="dc:creator",
         help_text="Person or organisation that created this collection<br>"
-        "If more than one list all using a semicolon ;"
+                  "If more than one list all using a semicolon ;"
     )
     contributor = models.TextField(
         blank=True, verbose_name="dc:contributor",
         help_text="Person or organisation that made contributions to the collection<br>"
-        "If more than one list all using a semicolon ;"
+                  "If more than one list all using a semicolon ;"
     )
     legacy_id = models.CharField(
         max_length=200, blank=True
@@ -545,7 +540,7 @@ class SkosConcept(MPTTModel):
     broad_match = models.TextField(
         blank=True, verbose_name="skos:broadMatch",
         help_text="External concept with a broader meaning"
-    )    
+    )
     narrow_match = models.TextField(
         blank=True, verbose_name="skos:narrowMatch",
         help_text="External concept with a narrower meaning"
@@ -568,13 +563,13 @@ class SkosConcept(MPTTModel):
     creator = models.TextField(
         blank=True, verbose_name="dc:creator",
         help_text="Person or organisation that created this concept<br>"
-        "If more than one list all using a semicolon ;",
+                  "If more than one list all using a semicolon ;",
 
     )
     contributor = models.TextField(
         blank=True, verbose_name="dc:contributor",
         help_text="Person or organisation that made contributions to this concept<br>"
-        "If more than one list all using a semicolon ;"
+                  "If more than one list all using a semicolon ;"
     )
     needs_review = models.BooleanField(
         null=True,
@@ -693,7 +688,7 @@ class ConceptLabel(models.Model):
 
     def __str__(self):
         return "{}".format(self.name)
-    
+
 
 class ConceptNote(models.Model):
     """
@@ -751,7 +746,6 @@ class ConceptSource(models.Model):
         return "{}".format(self.name)
 
 
-
 def get_all_children(self, include_self=True):
     # many thanks to https://stackoverflow.com/questions/4725343
     r = []
@@ -762,6 +756,7 @@ def get_all_children(self, include_self=True):
         if 0 < len(_r):
             r.extend(_r)
     return r
+
 
 #############################################################################
 #
@@ -819,13 +814,13 @@ def create_perms_curator(sender, instance, **kwargs):
             assign_perm('change_skosconceptscheme', curator, instance)
             assign_perm('delete_skosconceptscheme', curator, instance)
             for obj in instance.has_collections.all():
-                assign_perm('view_'+obj.__class__.__name__.lower(), curator, obj)
-                assign_perm('change_'+obj.__class__.__name__.lower(), curator, obj)
-                assign_perm('delete_'+obj.__class__.__name__.lower(), curator, obj)
+                assign_perm('view_' + obj.__class__.__name__.lower(), curator, obj)
+                assign_perm('change_' + obj.__class__.__name__.lower(), curator, obj)
+                assign_perm('delete_' + obj.__class__.__name__.lower(), curator, obj)
             for obj in instance.has_concepts.all():
-                assign_perm('view_'+obj.__class__.__name__.lower(), curator, obj)
-                assign_perm('change_'+obj.__class__.__name__.lower(), curator, obj)
-                assign_perm('delete_'+obj.__class__.__name__.lower(), curator, obj)
+                assign_perm('view_' + obj.__class__.__name__.lower(), curator, obj)
+                assign_perm('change_' + obj.__class__.__name__.lower(), curator, obj)
+                assign_perm('delete_' + obj.__class__.__name__.lower(), curator, obj)
     elif kwargs['action'] == 'post_remove':
         for curator in User.objects.filter(pk__in=kwargs['pk_set']):
             remove_perm('view_skosconceptscheme', curator, instance)
@@ -833,10 +828,10 @@ def create_perms_curator(sender, instance, **kwargs):
             # if user removed from the curators list
             # he/she won't be able to access the objects he/she created within this CS
             for obj in instance.has_collections.all():
-                remove_perm('view_'+obj.__class__.__name__.lower(), curator, obj)
-                remove_perm('change_'+obj.__class__.__name__.lower(), curator, obj)
-                remove_perm('delete_'+obj.__class__.__name__.lower(), curator, obj)
+                remove_perm('view_' + obj.__class__.__name__.lower(), curator, obj)
+                remove_perm('change_' + obj.__class__.__name__.lower(), curator, obj)
+                remove_perm('delete_' + obj.__class__.__name__.lower(), curator, obj)
             for obj in instance.has_concepts.all():
-                remove_perm('view_'+obj.__class__.__name__.lower(), curator, obj)
-                remove_perm('change_'+obj.__class__.__name__.lower(), curator, obj)
-                remove_perm('delete_'+obj.__class__.__name__.lower(), curator, obj)
+                remove_perm('view_' + obj.__class__.__name__.lower(), curator, obj)
+                remove_perm('change_' + obj.__class__.__name__.lower(), curator, obj)
+                remove_perm('delete_' + obj.__class__.__name__.lower(), curator, obj)

@@ -1,6 +1,5 @@
-from django.conf.urls import url, include, handler404
+from django.conf.urls import url, include
 from django.contrib import admin
-from django.conf import settings
 from rest_framework import routers
 from vocabs import api_views
 from rest_framework_swagger.views import get_swagger_view
@@ -21,6 +20,5 @@ urlpatterns = [
     url(r'^', include('webpage.urls', namespace='webpage')),
     url(r'^api/schema/', schema_view),
 ]
-
 
 handler404 = 'webpage.views.handler404'

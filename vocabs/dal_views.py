@@ -4,9 +4,8 @@ from guardian.shortcuts import get_objects_for_user
 from django.contrib.auth.models import User
 from mptt.settings import DEFAULT_LEVEL_INDICATOR
 import requests, json
-from django import http
-from django.utils import six
 from .endpoints import *
+
 
 ################ Global autocomplete for external concepts ################
 
@@ -20,14 +19,14 @@ def global_autocomplete(request, endpoint):
     if ac_instance.__class__.__name__.startswith('Fish'):
         scheme = ac_instance.scheme_dict.get(endpoint, 'FISH Event Types Thesaurus')
         r = requests.get(ac_instance.get_url(), headers=headers,
-        params=ac_instance.payload(scheme=scheme, q=q))
+                         params=ac_instance.payload(scheme=scheme, q=q))
     else:
         r = requests.get(ac_instance.get_url(), headers=headers,
-        params=ac_instance.payload(q=q))
+                         params=ac_instance.payload(q=q))
     response = json.loads(r.content.decode('utf-8'))
     choices = ac_instance.parse_response(response=response)
     return choices
-    
+
 
 ###########################################################################
 
@@ -49,8 +48,8 @@ class SkosConceptAC(autocomplete.Select2QuerySetView):
 
     def get_queryset(self):
         qs = get_objects_for_user(self.request.user,
-            'view_skosconcept',
-            klass=SkosConcept)
+                                  'view_skosconcept',
+                                  klass=SkosConcept)
         scheme = self.forwarded.get('scheme', None)
         if scheme:
             qs = qs.filter(scheme=scheme)
@@ -67,8 +66,8 @@ class SkosConceptExternalMatchAC(autocomplete.Select2QuerySetView):
 
     def get_queryset(self):
         qs = get_objects_for_user(self.request.user,
-            'view_skosconcept',
-            klass=SkosConcept)
+                                  'view_skosconcept',
+                                  klass=SkosConcept)
         scheme = self.forwarded.get('scheme', None)
         if scheme:
             qs = qs.exclude(scheme=scheme)
@@ -80,8 +79,8 @@ class SkosConceptExternalMatchAC(autocomplete.Select2QuerySetView):
 class SkosConceptSchemeAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = get_objects_for_user(self.request.user,
-            'view_skosconceptscheme',
-            klass=SkosConceptScheme)
+                                  'view_skosconceptscheme',
+                                  klass=SkosConceptScheme)
         if self.q:
             qs = qs.filter(title__icontains=self.q)
 
@@ -91,8 +90,8 @@ class SkosConceptSchemeAC(autocomplete.Select2QuerySetView):
 class SkosCollectionAC(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = get_objects_for_user(self.request.user,
-            'view_skoscollection',
-            klass=SkosCollection)
+                                  'view_skoscollection',
+                                  klass=SkosCollection)
         scheme = self.forwarded.get('scheme', None)
         if scheme:
             qs = qs.filter(scheme=scheme)

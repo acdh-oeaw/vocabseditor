@@ -15,9 +15,7 @@ cover/
 
 # migrations
 vocabs/migrations/*
-bib/migrations/*
 webpage/migrations/*
-places/migrations/*
 
 
 # Ipython Notebook checkpoints
@@ -25,17 +23,3 @@ places/migrations/*
 
 # Ipython Notebook
 .ipynb
-
-# production(like) settings files
-mysql.py
-server.py
-postgres.py
-dev_secret.py
-
-# documentation build files
-
-/docs/_*/*
-/vocabs/data/spreadsheets/cv_burial.xlsx
-/Untitled.ipynb
-/arche/data/fileType.json
-/arche/data/fileList.json

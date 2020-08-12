@@ -3,7 +3,6 @@ from . import views
 
 app_name = 'vocabs'
 
-
 urlpatterns = [
     url(r'^concepts/$', views.SkosConceptListView.as_view(), name='browse_vocabs'),
     url(r'^concepts/(?P<pk>[0-9]+)$', views.SkosConceptDetailView.as_view(), name='skosconcept_detail'),
@@ -28,7 +27,7 @@ urlpatterns = [
     url(
         r'^vocabs-download/$', views.SkosConceptDL.as_view(),
         name='vocabs-download'),
-     url(
+    url(
         r'^collection/$', views.SkosCollectionListView.as_view(),
         name='browse_skoscollections'),
     url(
@@ -41,7 +40,7 @@ urlpatterns = [
         r'^collection/update/(?P<pk>[0-9]+)$', views.SkosCollectionUpdate.as_view(),
         name='skoscollection_update'),
     url(
-        r'^collection/delete/(?P<pk>[0-9]+)$',views.SkosCollectionDelete.as_view(),
+        r'^collection/delete/(?P<pk>[0-9]+)$', views.SkosCollectionDelete.as_view(),
         name='skoscollection_delete',
     ),
     url(r'^import/$', views.file_upload, name='import'),
