@@ -30,3 +30,13 @@ The application is implemented using Python and [Django](https://www.djangoproje
 4. After the above commands are executed the sqlite database is created automatically in the project's root folder 
 
 5. Development server runs at `localhost:8000`
+
+6. Create admin user
+
+    `python manage.py createsuperuser --settings=vocabseditor.settings.dev`
+    
+ 
+ ## Usage
+ 
+ More information on how to use the tool in the [Vocabs editor Wiki](https://github.com/acdh-oeaw/vocabseditor/wiki).
+
