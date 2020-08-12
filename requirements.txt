@@ -1,6 +1,6 @@
 attrs==19.1.0
 backcall==0.1.0
-bleach==3.1.0
+bleach==3.1.4
 certifi==2018.10.15
 chardet==3.0.4
 colorama==0.4.1
@@ -8,7 +8,7 @@ coreapi==2.3.3
 coreschema==0.0.4
 decorator==4.4.0
 defusedxml==0.6.0
-Django==2.1.9
+Django==2.2.13
 django-autocomplete-light==3.3.2
 django-cors-headers==2.4.0
 django-crispy-forms==1.7.2
