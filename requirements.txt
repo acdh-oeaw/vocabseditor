@@ -6,6 +6,7 @@ chardet==3.0.4
 colorama==0.4.1
 coreapi==2.3.3
 coreschema==0.0.4
+coverage==5.2.1
 decorator==4.4.0
 defusedxml==0.6.0
 Django==2.2.13
@@ -66,6 +67,7 @@ Send2Trash==1.5.0
 simplejson==3.16.0
 six==1.11.0
 SPARQLWrapper==1.8.2
+sqlparse==0.3.1
 terminado==0.8.2
 testpath==0.4.2
 tornado==6.0.2

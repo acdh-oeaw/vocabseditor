@@ -9,6 +9,7 @@ __pycache__/
 # test coverage
 .coverage
 cover/
+htmlcov/
 
 # IDE
 .idea
