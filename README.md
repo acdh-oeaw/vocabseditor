@@ -1,5 +1,7 @@
 # Vocabseditor
 
+![Build Status](https://travis-ci.com/zxenia/vocabseditor.svg?branch=master)
+
 ## About
 
 The purpose of the Vocabseditor is to provide a service for collaborative work on controlled vocabularies development.
@@ -46,4 +48,12 @@ The application is implemented using Python and [Django](https://www.djangoproje
  
  
  More information on how to use the tool in the [Vocabs editor Wiki](https://github.com/acdh-oeaw/vocabseditor/wiki).
+ 
+ ## Testing
+ 
+Tests are located in `/tests` directory in an individual app folder.
+
+Run tests for th whole project:
+
+ `python manage.py test --settings=vocabseditor.settings.dev`
 
