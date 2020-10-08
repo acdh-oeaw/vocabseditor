@@ -10,6 +10,7 @@ from django.dispatch import receiver
 import reversion
 from mptt.models import MPTTModel, TreeForeignKey
 
+
 DEFAULT_URI = "https://vocabs.acdh.oeaw.ac.at/"
 
 try:

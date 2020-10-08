@@ -1,13 +1,7 @@
-import rdflib
-from rdflib import Graph, Literal, Namespace, RDF, URIRef, RDFS, XSD
+from rdflib import Graph, Namespace, RDF, URIRef
 from rdflib.namespace import DC, RDFS, SKOS
-from rdflib.util import guess_format
-import pprint
 from .models import *
 import re
-from .forms import UploadFileForm
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
 import logging
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
@@ -52,13 +46,13 @@ class SkosImporter(object):
         concept_scheme = {}
         g = self._graph_read()
 
-        def allowProperties(_property):
+        def allow_properties(_property):
             """Allow DC and DCT properties"""
             properties = [URIRef('http://purl.org/dc/terms/{}'.format(_property)),
                           URIRef('http://purl.org/dc/elements/1.1/{}'.format(_property))]
             return properties
 
-        def languageCheck(property_lang):
+        def language_check(property_lang):
             """Check for language attributes, if they are absent set language to a specified language"""
             if property_lang:
                 if str(property_lang) == "None":
@@ -68,17 +62,17 @@ class SkosImporter(object):
             else:
                 return self.language
 
-        # parsing concept scheme
+        # Parsing concept scheme
 
         if (None, RDF.type, SKOS.ConceptScheme) in g:
             for cs in g.subjects(RDF.type, SKOS.ConceptScheme):
                 concept_scheme["identifier"] = str(cs)
                 titles = []
                 # Set labels properties to recognize all possible labels
-                for title in g.preferredLabel(cs, labelProperties=(
-                (DC.title), (RDFS.label), (DCT.title), (SKOS.prefLabel))):
-                    temp_title = {}
-                    temp_title["title"] = str(title[1])
+                for title in g.preferredLabel(
+                        cs, labelProperties=((DC.title), (RDFS.label), (DCT.title), (SKOS.prefLabel))
+                ):
+                    temp_title = {"title": str(title[1])}
                     # If language attribute is absent populate it with a specified language
                     if str(title[1].language) == "None":
                         temp_title["lang"] = self.language
@@ -87,31 +81,33 @@ class SkosImporter(object):
                     titles.append(temp_title)
                 concept_scheme["title"] = titles
                 concept_scheme["creator"] = ";".join(
-                    [c for cp in allowProperties('creator') for c in g.objects(cs, cp)])
+                    [c for cp in allow_properties('creator') for c in g.objects(cs, cp)])
                 concept_scheme["contributor"] = ";".join(
-                    [contr for contrp in allowProperties('contributor') for contr in g.objects(cs, contrp)])
+                    [contr for contrp in allow_properties('contributor') for contr in g.objects(cs, contrp)])
                 concept_scheme["language"] = ";".join(
-                    [l for lp in allowProperties('language') for l in g.objects(cs, lp)])
+                    [l for lp in allow_properties('language') for l in g.objects(cs, lp)])
                 concept_scheme["subject"] = ";".join(
-                    [s for sp in allowProperties('subject') for s in g.objects(cs, sp)])
+                    [s for sp in allow_properties('subject') for s in g.objects(cs, sp)])
                 concept_scheme["publisher"] = ";".join(
-                    [p for pp in allowProperties('publisher') for p in g.objects(cs, pp)])
+                    [p for pp in allow_properties('publisher') for p in g.objects(cs, pp)])
                 for license in g.objects(cs, DCT.license):
                     concept_scheme["license"] = str(license)
                 descriptions = []
-                for descp in allowProperties('description'):
+                for descp in allow_properties('description'):
                     for d in g.objects(cs, descp):
-                        temp_desc = {}
-                        temp_desc["name"] = str(d)
-                        temp_desc["lang"] = languageCheck(d.language)
+                        temp_desc = {
+                            "name": str(d),
+                            "lang": language_check(d.language)
+                        }
                         descriptions.append(temp_desc)
                 concept_scheme["description"] = descriptions
                 sources = []
-                for sp in allowProperties('source'):
+                for sp in allow_properties('source'):
                     for s in g.objects(cs, sp):
-                        temp_s = {}
-                        temp_s["name"] = str(s)
-                        temp_s["lang"] = languageCheck(s.language)
+                        temp_s = {
+                            "name": str(s),
+                            "lang": language_check(s.language)
+                        }
                         sources.append(temp_s)
                 concept_scheme["source"] = sources
 
@@ -120,18 +116,16 @@ class SkosImporter(object):
 
         logging.info("Concept Scheme: {}".format(concept_scheme))
 
-        # Pasring Collection
+        # Parsing Collection
 
         if (None, RDF.type, SKOS.Collection) in g:
             collections = []
             for col in g.subjects(RDF.type, SKOS.Collection):
-                collection = {}
-                collection["legacy_id"] = str(col)
+                collection = {"legacy_id": str(col)}
                 labels = []
                 for label in g.preferredLabel(col, labelProperties=(
-                (DC.title), (RDFS.label), (DCT.title), (SKOS.prefLabel))):
-                    temp_col_label = {}
-                    temp_col_label["label"] = str(label[1])
+                        (DC.title), (RDFS.label), (DCT.title), (SKOS.prefLabel))):
+                    temp_col_label = {"label": str(label[1])}
                     if str(label[1].language):
                         if str(label[1].language) == "None":
                             temp_col_label["label_lang"] = self.language
@@ -145,35 +139,38 @@ class SkosImporter(object):
                 for member in g.objects(col, SKOS.member):
                     members.append(str(member))
                 collection["members"] = members
-                # collection notes
+                # Collection notes
                 col_notes = []
                 col_predicates = [SKOS.note, SKOS.definition, SKOS.scopeNote, SKOS.changeNote,
                                   SKOS.editorialNote, SKOS.historyNote, SKOS.example]
                 for pred in col_predicates:
                     for note in g.objects(col, pred):
-                        temp_note = {}
-                        temp_note["name"] = str(note)
-                        temp_note["lang"] = languageCheck(note.language)
-                        temp_note["note_type"] = re.search('http.*#(.*)', str(pred)).group(1)
+                        temp_note = {
+                            "name": str(note),
+                            "lang": language_check(note.language),
+                            "note_type": re.search('http.*#(.*)', str(pred)).group(1)
+                        }
                         col_notes.append(temp_note)
                 collection["note"] = col_notes
-                # collection other labels
+                # Collection other labels
                 col_labels = []
                 for pred in [SKOS.altLabel, SKOS.hiddenLabel]:
                     for other_label in g.objects(col, pred):
-                        temp_other_label = {}
-                        temp_other_label["name"] = str(other_label)
-                        temp_other_label["lang"] = languageCheck(other_label.language)
-                        temp_other_label["label_type"] = re.search('http.*#(.*)', str(pred)).group(1)
+                        temp_other_label = {
+                            "name": str(other_label),
+                            "lang": language_check(other_label.language),
+                            "label_type": re.search('http.*#(.*)', str(pred)).group(1)
+                        }
                         col_labels.append(temp_other_label)
                 collection["other_label"] = col_labels
-                # collection sources
+                # Collection sources
                 col_sources = []
-                for col_srcp in allowProperties('source'):
+                for col_srcp in allow_properties('source'):
                     for source in g.objects(col, col_srcp):
-                        temp_col_src = {}
-                        temp_col_src["name"] = str(source)
-                        temp_col_src["lang"] = languageCheck(source.language)
+                        temp_col_src = {
+                            "name": str(source),
+                            "lang": language_check(source.language)
+                        }
                         col_sources.append(temp_col_src)
                 collection["source"] = col_sources
                 collections.append(collection)
@@ -188,13 +185,11 @@ class SkosImporter(object):
         if (None, RDF.type, SKOS.Concept) in g:
             concepts = []
             for c in g.subjects(RDF.type, SKOS.Concept):
-                concept = {}
-                concept["legacy_id"] = str(c)
-                # pref labels
+                concept = {"legacy_id": str(c)}
+                # Concept pref labels
                 pref_labels = []
                 for pref_label in g.preferredLabel(c):
-                    label = {}
-                    label["label"] = str(pref_label[1])
+                    label = {"label": str(pref_label[1])}
                     if str(pref_label[1].language) == "None":
                         label["lang"] = self.language
                     else:
@@ -205,46 +200,50 @@ class SkosImporter(object):
                     concept["scheme"] = str(scheme)
                 for notation in g.objects(c, SKOS.notation):
                     concept["notation"] = str(notation)
-                concept["creator"] = ";".join([c for cp in allowProperties('creator') for c in g.objects(cs, cp)])
+                concept["creator"] = ";".join([c for cp in allow_properties('creator') for c in g.objects(cs, cp)])
                 concept["contributor"] = ";".join(
-                    [contr for contrp in allowProperties('contributor') for contr in g.objects(cs, contrp)])
+                    [contr for contrp in allow_properties('contributor') for contr in g.objects(cs, contrp)])
                 for broader_concept in g.objects(c, SKOS.broader):
                     concept["broader_concept"] = str(broader_concept)
-                # alt labels
+                # Concept alt labels
                 alt_labels = []
                 for alt_label in g.objects(c, SKOS.altLabel):
-                    label = {}
-                    label["label"] = str(alt_label)
-                    label["lang"] = languageCheck(alt_label.language)
+                    label = {
+                        "label": str(alt_label),
+                        "lang": language_check(alt_label.language)
+                    }
                     alt_labels.append(label)
                 concept["alt_label"] = alt_labels
-                # hidden labels
+                # Concept hidden labels
                 hidden_labels = []
                 for hidden_label in g.objects(c, SKOS.hiddenLabel):
-                    label = {}
-                    label["label"] = str(hidden_label)
-                    label["lang"] = languageCheck(hidden_label.language)
+                    label = {
+                        "label": str(hidden_label),
+                        "lang": language_check(hidden_label.language)
+                    }
                     hidden_labels.append(label)
                 concept["hidden_label"] = hidden_labels
-                # sources
+                # Concept sources
                 sources = []
-                for srcp in allowProperties('source'):
+                for srcp in allow_properties('source'):
                     for source in g.objects(c, srcp):
-                        temp_source = {}
-                        temp_source["name"] = str(source)
-                        temp_source["lang"] = languageCheck(source.language)
+                        temp_source = {
+                            "name": str(source),
+                            "lang": language_check(source.language)
+                        }
                         sources.append(temp_source)
                 concept["source"] = sources
-                # documentary notes
+                # Concept documentary notes
                 notes = []
                 predicates = [SKOS.note, SKOS.definition, SKOS.scopeNote, SKOS.changeNote,
                               SKOS.editorialNote, SKOS.historyNote, SKOS.example]
                 for pred in predicates:
                     for note in g.objects(c, pred):
-                        temp_note = {}
-                        temp_note["name"] = str(note)
-                        temp_note["lang"] = languageCheck(note.language)
-                        temp_note["note_type"] = re.search('http.*#(.*)', str(pred)).group(1)
+                        temp_note = {
+                            "name": str(note),
+                            "lang": language_check(note.language),
+                            "note_type": re.search('http.*#(.*)', str(pred)).group(1)
+                        }
                         notes.append(temp_note)
                 concept["note"] = notes
                 # Add concept to a list
@@ -278,9 +277,10 @@ class SkosImporter(object):
                 main_title["label"] = title.get("title")
                 main_title["lang"] = title.get("lang")
             else:
-                other_title = {}
-                other_title["label"] = title.get("title", "Empty title")
-                other_title["lang"] = title.get("lang", self.language)
+                other_title = {
+                    "label": title.get("title", "Empty title"),
+                    "lang": title.get("lang", self.language)
+                }
                 other_titles.append(other_title)
         concept_scheme_title = main_title.get("label", "No title in specified language")
         concept_scheme_title_lang = main_title.get("lang", self.language)
@@ -294,7 +294,7 @@ class SkosImporter(object):
         )
         if len(other_titles) > 0:
             for other in other_titles:
-                cs_title = ConceptSchemeTitle.objects.create(
+                ConceptSchemeTitle.objects.create(
                     concept_scheme=concept_scheme, name=other.get("label"),
                     language=other.get("lang")
                 )
@@ -303,7 +303,7 @@ class SkosImporter(object):
 
         if concept_scheme_description:
             for desc in concept_scheme_description:
-                cs_desc = ConceptSchemeDescription.objects.create(
+                ConceptSchemeDescription.objects.create(
                     concept_scheme=concept_scheme, name=desc.get("name"),
                     language=desc.get("lang")
                 )
@@ -311,7 +311,7 @@ class SkosImporter(object):
             pass
         if concept_scheme_source:
             for source in concept_scheme_source:
-                cs_source = ConceptSchemeSource.objects.create(
+                ConceptSchemeSource.objects.create(
                     concept_scheme=concept_scheme, name=source.get("name"),
                     language=source.get("lang")
                 )
@@ -332,37 +332,39 @@ class SkosImporter(object):
                             col_main_label["label"] = label.get("label")
                             col_main_label["lang"] = label.get("label_lang")
                         else:
-                            other_label = {}
-                            other_label["label"] = label.get("label", "other label")
-                            other_label["lang"] = label.get("label_lang", self.language)
+                            other_label = {
+                                "label": label.get("label", "other label"),
+                                "lang": label.get("label_lang", self.language)
+                            }
                             col_other_labels.append(other_label)
                     new_collection = SkosCollection.objects.create(scheme=concept_scheme,
                                                                    name=col_main_label.get("label",
-                                                                                           "no label in specified language"),
+                                                                                           "no label in specified "
+                                                                                           "language"),
                                                                    legacy_id=col.get("legacy_id"),
                                                                    label_lang=col_main_label.get("lang", self.language),
                                                                    created_by=User.objects.get(username=user))
                     if len(col_other_labels) > 0:
                         for other in col_other_labels:
-                            col_title = CollectionLabel.objects.create(
+                            CollectionLabel.objects.create(
                                 collection=new_collection, name=other.get("label"),
                                 language=other.get("lang"), label_type="prefLabel"
                             )
                     if col_notes:
                         for cn in col_notes:
-                            note = CollectionNote.objects.create(
+                            CollectionNote.objects.create(
                                 collection=new_collection, name=cn.get("name"),
                                 language=cn.get("lang"), note_type=cn.get("note_type")
                             )
                     if col_alt_hid_labels:
                         for cahl in col_alt_hid_labels:
-                            alt_hid_label = CollectionLabel.objects.create(
+                            CollectionLabel.objects.create(
                                 collection=new_collection, name=cahl.get("name"),
                                 language=cahl.get("lang"), label_type=cahl.get("label_type")
                             )
                     if col_sources:
                         for csrc in col_sources:
-                            src = CollectionSource.objects.create(
+                            CollectionSource.objects.create(
                                 collection=new_collection, name=csrc.get("name"),
                                 language=csrc.get("lang")
                             )
@@ -389,9 +391,10 @@ class SkosImporter(object):
                         main_pref_label["label"] = pref_label.get("label")
                         main_pref_label["lang"] = pref_label.get("lang")
                     else:
-                        other_pref_label = {}
-                        other_pref_label["label"] = pref_label.get("label")
-                        other_pref_label["lang"] = pref_label.get("lang", self.language)
+                        other_pref_label = {
+                            "label": pref_label.get("label"),
+                            "lang": pref_label.get("lang", self.language)
+                        }
                         other_pref_labels.append(other_pref_label)
                 concept_pref_label = main_pref_label.get("label", "no label in this language")
                 concept_pref_label_lang = main_pref_label.get("lang", self.language)
@@ -420,7 +423,7 @@ class SkosImporter(object):
 
                 if len(other_pref_labels) > 0:
                     for other in other_pref_labels:
-                        other_label = ConceptLabel.objects.create(
+                        ConceptLabel.objects.create(
                             concept=new_concept, name=other.get("label"),
                             language=other.get("lang"), label_type="prefLabel"
                         )
@@ -428,7 +431,7 @@ class SkosImporter(object):
                     pass
                 if len(concept_alt_labels) > 0:
                     for alt in concept_alt_labels:
-                        alt_label = ConceptLabel.objects.create(
+                        ConceptLabel.objects.create(
                             concept=new_concept, name=alt.get("label"),
                             language=alt.get("lang"), label_type="altLabel"
                         )
@@ -436,7 +439,7 @@ class SkosImporter(object):
                     pass
                 if len(concept_hidden_labels) > 0:
                     for hid in concept_hidden_labels:
-                        hidden_label = ConceptLabel.objects.create(
+                        ConceptLabel.objects.create(
                             concept=new_concept, name=hid.get("label"),
                             language=hid.get("lang"), label_type="hiddenLabel"
                         )
@@ -444,7 +447,7 @@ class SkosImporter(object):
                     pass
                 if len(concept_notes) > 0:
                     for n in concept_notes:
-                        note = ConceptNote.objects.create(
+                        ConceptNote.objects.create(
                             concept=new_concept, name=n.get("name"),
                             language=n.get("lang"), note_type=n.get("note_type")
                         )
@@ -452,7 +455,7 @@ class SkosImporter(object):
                     pass
                 if len(concept_sources) > 0:
                     for s in concept_sources:
-                        source = ConceptSource.objects.create(
+                        ConceptSource.objects.create(
                             concept=new_concept, name=s.get("name"),
                             language=s.get("lang")
                         )
@@ -463,7 +466,7 @@ class SkosImporter(object):
                 if concept.get("broader_concept") is not None:
                     local_concepts = SkosConcept.objects.filter(scheme=concept_scheme.id)
                     try:
-                        update_concept = local_concepts.filter(
+                        local_concepts.filter(
                             legacy_id=concept.get("legacy_id")).update(
                             broader_concept=local_concepts.get(legacy_id=concept.get("broader_concept"))
                         )

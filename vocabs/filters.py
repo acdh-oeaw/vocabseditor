@@ -2,6 +2,7 @@ import django_filters
 from dal import autocomplete
 from .models import SkosConcept, SkosConceptScheme, SkosCollection
 
+
 django_filters.filters.LOOKUP_TYPES = [
     ('', '---------'),
     ('exact', 'Is equal to'),

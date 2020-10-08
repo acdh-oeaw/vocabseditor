@@ -1,5 +1,5 @@
 import rdflib
-from rdflib import Graph, Literal, Namespace, RDF, URIRef, RDFS, XSD
+from rdflib import Literal, Namespace, RDF, URIRef, XSD
 from rdflib.namespace import DC, RDFS, SKOS
 
 
@@ -21,70 +21,71 @@ def graph_construct_qs(results):
     for obj in results:
         # Creating Main Concept Scheme
         if obj.scheme:
-            mainConceptScheme = URIRef(obj.scheme.identifier)
-            g.add((mainConceptScheme, RDF.type, SKOS.ConceptScheme))
+            main_concept_scheme = URIRef(obj.scheme.identifier)
+            g.add((main_concept_scheme, RDF.type, SKOS.ConceptScheme))
             # Concept Scheme properties
             if obj.scheme.title:
-                g.add((mainConceptScheme, DC.title, Literal(obj.scheme.title, lang=obj.scheme.title_lang)))
-                g.add((mainConceptScheme, RDFS.label, Literal(obj.scheme.title, lang=obj.scheme.title_lang)))
+                g.add((main_concept_scheme, DC.title, Literal(obj.scheme.title, lang=obj.scheme.title_lang)))
+                g.add((main_concept_scheme, RDFS.label, Literal(obj.scheme.title, lang=obj.scheme.title_lang)))
             if obj.scheme.has_titles.all():
                 for title in obj.scheme.has_titles.all():
-                    g.add((mainConceptScheme, DC.title, Literal(title.name, lang=title.language)))
+                    g.add((main_concept_scheme, DC.title, Literal(title.name, lang=title.language)))
             if obj.scheme.has_descriptions.all():
                 for desc in obj.scheme.has_descriptions.all():
-                    g.add((mainConceptScheme, DC.description, Literal(desc.name, lang=desc.language)))
+                    g.add((main_concept_scheme, DC.description, Literal(desc.name, lang=desc.language)))
             if obj.scheme.has_sources.all():
                 for source in obj.scheme.has_sources.all():
-                    g.add((mainConceptScheme, DC.source, Literal(source.name, lang=source.language)))
+                    g.add((main_concept_scheme, DC.source, Literal(source.name, lang=source.language)))
             # accessing lists with ; in TextField
             if obj.scheme.creator:
                 for i in obj.scheme.creator.split(';'):
-                    g.add((mainConceptScheme, DC.creator, Literal(i.strip())))
+                    g.add((main_concept_scheme, DC.creator, Literal(i.strip())))
             if obj.scheme.contributor:
                 for i in obj.scheme.contributor.split(';'):
-                    g.add((mainConceptScheme, DC.contributor, Literal(i.strip())))
+                    g.add((main_concept_scheme, DC.contributor, Literal(i.strip())))
             if obj.scheme.language:
                 for i in obj.scheme.language.split(';'):
-                    g.add((mainConceptScheme, DC.language, Literal(i.strip())))
+                    g.add((main_concept_scheme, DC.language, Literal(i.strip())))
             if obj.scheme.subject:
                 for i in obj.scheme.subject.split(';'):
-                    g.add((mainConceptScheme, DC.subject, Literal(i.strip())))
+                    g.add((main_concept_scheme, DC.subject, Literal(i.strip())))
             if obj.scheme.coverage:
                 for i in obj.scheme.coverage.split(';'):
-                    g.add((mainConceptScheme, DC.coverage, Literal(i.strip())))
+                    g.add((main_concept_scheme, DC.coverage, Literal(i.strip())))
             # the rest of the properties
             if obj.scheme.license:
-                g.add((mainConceptScheme, DCT.license, Literal(obj.scheme.license)))
+                g.add((main_concept_scheme, DCT.license, Literal(obj.scheme.license)))
             if obj.scheme.version:
-                g.add((mainConceptScheme, OWL.versionInfo, Literal(obj.scheme.version)))
+                g.add((main_concept_scheme, OWL.versionInfo, Literal(obj.scheme.version)))
             if obj.scheme.publisher:
-                g.add((mainConceptScheme, DC.publisher, Literal(obj.scheme.publisher)))
+                g.add((main_concept_scheme, DC.publisher, Literal(obj.scheme.publisher)))
             if obj.scheme.relation:
-                g.add((mainConceptScheme, DC.relation, URIRef(obj.scheme.relation)))
+                g.add((main_concept_scheme, DC.relation, URIRef(obj.scheme.relation)))
             if obj.scheme.owner:
-                g.add((mainConceptScheme, DCT.rightsHolder, Literal(obj.scheme.owner)))
-            g.add((mainConceptScheme, DCT.created, Literal(obj.scheme.date_created, datatype=XSD.dateTime)))
-            g.add((mainConceptScheme, DCT.modified, Literal(obj.scheme.date_modified, datatype=XSD.dateTime)))
+                g.add((main_concept_scheme, DCT.rightsHolder, Literal(obj.scheme.owner)))
+            g.add((main_concept_scheme, DCT.created, Literal(obj.scheme.date_created, datatype=XSD.dateTime)))
+            g.add((main_concept_scheme, DCT.modified, Literal(obj.scheme.date_modified, datatype=XSD.dateTime)))
             if obj.scheme.date_issued:
-                g.add((mainConceptScheme, DCT.issued, Literal(obj.scheme.date_issued, datatype=XSD.dateTime)))
+                g.add((main_concept_scheme, DCT.issued, Literal(obj.scheme.date_issued, datatype=XSD.dateTime)))
             else:
                 pass
         else:
-            mainConceptScheme = URIRef(VOCABS)
-            g.add((mainConceptScheme, RDF.type, SKOS.ConceptScheme))
+            main_concept_scheme = URIRef(VOCABS)
+            g.add((main_concept_scheme, RDF.type, SKOS.ConceptScheme))
         # Concept properties
+        # TODO user entered URI
         if obj.legacy_id:
             concept = URIRef(obj.legacy_id)
         else:
-            concept = URIRef(mainConceptScheme + "#concept" + str(obj.id))
+            concept = URIRef(main_concept_scheme + "#concept" + str(obj.id))
         g.add((concept, RDF.type, SKOS.Concept))
         g.add((concept, SKOS.prefLabel, Literal(obj.pref_label, lang=obj.pref_label_lang)))
         g.add((concept, SKOS.notation, Literal(obj.notation)))
-        # each concept must have skos:inScheme mainConceptScheme
-        g.add((concept, SKOS.inScheme, mainConceptScheme))
+        # each concept must have skos:inScheme main_concept_scheme
+        g.add((concept, SKOS.inScheme, main_concept_scheme))
         if obj.collection.all():
             for x in obj.collection.all():
-                collection = URIRef(mainConceptScheme + "#collection" + str(x.id))
+                collection = URIRef(main_concept_scheme + "#collection" + str(x.id))
                 g.add((collection, RDF.type, SKOS.Collection))
                 g.add((collection, DCT.created, Literal(x.date_created, datatype=XSD.dateTime)))
                 g.add((collection, DCT.modified, Literal(x.date_modified, datatype=XSD.dateTime)))
@@ -135,7 +136,7 @@ def graph_construct_qs(results):
                         if y.legacy_id:
                             g.add((collection, SKOS.member, URIRef(y.legacy_id)))
                         else:
-                            g.add((collection, SKOS.member, URIRef(mainConceptScheme + "#concept" + str(y.id))))
+                            g.add((collection, SKOS.member, URIRef(main_concept_scheme + "#concept" + str(y.id))))
         # Concept properties
         if obj.has_labels.all():
             for label in obj.has_labels.all():
@@ -171,20 +172,20 @@ def graph_construct_qs(results):
                 g.add((concept, DC.source, Literal(source.name, lang=source.language)))
         # top concepts
         if not obj.broader_concept:
-            g.add((mainConceptScheme, SKOS.hasTopConcept, URIRef(concept)))
-            g.add((concept, SKOS.topConceptOf, mainConceptScheme))
+            g.add((main_concept_scheme, SKOS.hasTopConcept, URIRef(concept)))
+            g.add((concept, SKOS.topConceptOf, main_concept_scheme))
         # modelling broader/narrower relationships
         if obj.broader_concept:
             if obj.broader_concept.legacy_id:
                 g.add((concept, SKOS.broader, URIRef(obj.broader_concept.legacy_id)))
             else:
-                g.add((concept, SKOS.broader, URIRef(mainConceptScheme + "#concept" + str(obj.broader_concept.id))))
+                g.add((concept, SKOS.broader, URIRef(main_concept_scheme + "#concept" + str(obj.broader_concept.id))))
         if obj.narrower_concepts.all():
             for x in obj.narrower_concepts.all():
                 if x.legacy_id:
                     g.add((concept, SKOS.narrower, URIRef(x.legacy_id)))
                 else:
-                    g.add((concept, SKOS.narrower, URIRef(mainConceptScheme + "#concept" + str(x.id))))
+                    g.add((concept, SKOS.narrower, URIRef(main_concept_scheme + "#concept" + str(x.id))))
         # modelling external matches
         # skos:related
         if obj.related:
