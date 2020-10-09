@@ -53,7 +53,13 @@ The application is implemented using Python and [Django](https://www.djangoproje
  
 Tests are located in `/tests` directory in an individual app folder.
 
-Run tests for th whole project:
+Run tests for the whole project:
 
  `python manage.py test --settings=vocabseditor.settings.dev`
+ 
+ Run tests with coverage:
+ 
+  `coverage run manage.py test --settings=vocabseditor.settings.dev `
+ 
+  `coverage html `
 

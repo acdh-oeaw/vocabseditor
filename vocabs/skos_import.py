@@ -6,6 +6,7 @@ import logging
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
 
+
 logging.getLogger().setLevel(logging.INFO)
 
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
@@ -114,8 +115,6 @@ class SkosImporter(object):
         else:
             raise Exception("rdf:type skos:ConceptScheme is not found")
 
-        logging.info("Concept Scheme: {}".format(concept_scheme))
-
         # Parsing Collection
 
         if (None, RDF.type, SKOS.Collection) in g:
@@ -175,7 +174,6 @@ class SkosImporter(object):
                 collection["source"] = col_sources
                 collections.append(collection)
             concept_scheme["collections"] = collections
-            logging.info(concept_scheme["collections"])
 
         else:
             pass
@@ -478,4 +476,4 @@ class SkosImporter(object):
             return SkosConcept.objects.rebuild()
         else:
             pass
-        return concept_scheme
+        return
