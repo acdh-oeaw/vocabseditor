@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dct="http://purl.org/dc/terms/"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+>
+  <skos:Collection rdf:about="https://example.org/test_concept_schema#collection19">
+    <dc:contributor>Test contributor 3</dc:contributor>
+    <dc:contributor>Test contributor 2</dc:contributor>
+    <skos:member>
+      <skos:Concept rdf:about="https://example.org/test_concept_schema#concept679">
+        <skos:editorialNote xml:lang="en">Test editorial note</skos:editorialNote>
+        <skos:closeMatch rdf:resource="https://d-nb.info/gnd/4501553-3"/>
+        <skos:narrowMatch rdf:resource="https://d-nb.info/gnd/4131079-2"/>
+        <dc:source xml:lang="en">Test source</dc:source>
+        <skos:related rdf:resource="https://d-nb.info/gnd/4737512-7"/>
+        <skos:altLabel xml:lang="en">Test Concept alternative</skos:altLabel>
+        <skos:notation>01</skos:notation>
+        <skos:broadMatch rdf:resource="https://d-nb.info/gnd/7863462-3"/>
+        <skos:exactMatch rdf:resource="https://d-nb.info/gnd/4013565-2"/>
+        <dc:contributor>Test contributor</dc:contributor>
+        <skos:related rdf:resource="https://d-nb.info/gnd/7863462-3"/>
+        <skos:inScheme rdf:resource="https://example.org/test_concept_schema"/>
+        <dc:creator>Test creator</dc:creator>
+        <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-10-09T03:16:54.623740+00:00</dct:created>
+        <skos:topConceptOf rdf:resource="https://example.org/test_concept_schema"/>
+        <skos:broadMatch rdf:resource="https://d-nb.info/gnd/4688372-1"/>
+        <skos:narrowMatch rdf:resource="https://d-nb.info/gnd/4501553-3"/>
+        <skos:relatedMatch rdf:resource="https://d-nb.info/gnd/7863462-3"/>
+        <skos:scopeNote xml:lang="en">Test scope note</skos:scopeNote>
+        <skos:relatedMatch rdf:resource="https://d-nb.info/gnd/4688372-1"/>
+        <skos:closeMatch rdf:resource="https://d-nb.info/gnd/4737512-7"/>
+        <dc:creator>Test creator 2</dc:creator>
+        <skos:example xml:lang="en">Test example</skos:example>
+        <skos:exactMatch rdf:resource="https://d-nb.info/gnd/4052238-6"/>
+        <skos:prefLabel xml:lang="de">Test Konzept</skos:prefLabel>
+        <skos:changeNote xml:lang="en">Test change nore</skos:changeNote>
+        <dc:contributor>Test contributor 2</dc:contributor>
+        <skos:definition xml:lang="en">Test definition</skos:definition>
+        <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-10-09T03:31:09.582693+00:00</dct:modified>
+        <skos:prefLabel xml:lang="en">Test Concept 1</skos:prefLabel>
+        <skos:narrower rdf:resource="https://example.org/test_concept_schema#concept680"/>
+        <skos:note xml:lang="en">Test note</skos:note>
+        <skos:historyNote xml:lang="en">Test history note</skos:historyNote>
+        <skos:hiddenLabel xml:lang="en">Test</skos:hiddenLabel>
+      </skos:Concept>
+    </skos:member>
+    <skos:altLabel xml:lang="en">Test Collection alternative</skos:altLabel>
+    <skos:prefLabel xml:lang="de">Test Kollektion</skos:prefLabel>
+    <dc:creator>Test creator</dc:creator>
+    <skos:definition xml:lang="en">Test definition</skos:definition>
+    <skos:changeNote xml:lang="en">Test change note</skos:changeNote>
+    <dc:contributor>Test contributor</dc:contributor>
+    <dc:creator>Test creator 2</dc:creator>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-10-09T03:33:30.543014+00:00</dct:modified>
+    <skos:hiddenLabel xml:lang="en">Test Collection hidden</skos:hiddenLabel>
+    <skos:scopeNote xml:lang="en">Test scope note</skos:scopeNote>
+    <skos:note xml:lang="en">Test documentary note</skos:note>
+    <skos:historyNote xml:lang="en">Test history note</skos:historyNote>
+    <skos:prefLabel xml:lang="en">Test Collection</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-10-09T03:09:27.065017+00:00</dct:created>
+    <dc:source xml:lang="en">Test source</dc:source>
+    <skos:member>
+      <skos:Concept rdf:about="https://example.org/test_concept_schema#concept681">
+        <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-10-09T03:35:28.632924+00:00</dct:created>
+        <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-10-09T03:35:28.649491+00:00</dct:modified>
+        <skos:notation>test-concept-3</skos:notation>
+        <skos:broader rdf:resource="https://example.org/test_concept_schema#concept680"/>
+        <skos:inScheme rdf:resource="https://example.org/test_concept_schema"/>
+        <skos:prefLabel xml:lang="en">Test Concept 3</skos:prefLabel>
+      </skos:Concept>
+    </skos:member>
+    <skos:editorialNote xml:lang="en">Test editorial note</skos:editorialNote>
+    <skos:example xml:lang="en">Test example</skos:example>
+    <skos:member>
+      <skos:Concept rdf:about="https://example.org/test_concept_schema#concept680">
+        <dc:source xml:lang="en">Tets source</dc:source>
+        <skos:note xml:lang="en">Test note</skos:note>
+        <skos:broader rdf:resource="https://example.org/test_concept_schema#concept679"/>
+        <dc:contributor>Test contributor</dc:contributor>
+        <skos:notation>02</skos:notation>
+        <skos:inScheme rdf:resource="https://example.org/test_concept_schema"/>
+        <skos:narrower rdf:resource="https://example.org/test_concept_schema#concept681"/>
+        <dc:creator>Test creator</dc:creator>
+        <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-10-09T03:18:02.377092+00:00</dct:modified>
+        <skos:prefLabel xml:lang="en">Test Concept 2</skos:prefLabel>
+        <skos:prefLabel xml:lang="de">Test Konzept 2</skos:prefLabel>
+        <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-10-09T03:18:02.357597+00:00</dct:created>
+      </skos:Concept>
+    </skos:member>
+  </skos:Collection>
+  <skos:ConceptScheme rdf:about="https://example.org/test_concept_schema">
+    <dc:source xml:lang="en">Test source</dc:source>
+    <dc:creator>Test creator 2</dc:creator>
+    <dc:description xml:lang="en">Test</dc:description>
+    <dc:relation rdf:resource="https://www.w3.org/2009/08/skos-reference/skos.html"/>
+    <dc:coverage>Test coverage</dc:coverage>
+    <dc:coverage>Test coverage 2</dc:coverage>
+    <dc:title xml:lang="de">Test Konzeptschema</dc:title>
+    <rdfs:label xml:lang="en">Test Concept Scheme</rdfs:label>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-10-09T03:36:40.339409+00:00</dct:modified>
+    <dc:publisher>Test publisher; Test publisher 2</dc:publisher>
+    <dc:contributor>Test contributor 2</dc:contributor>
+    <dc:subject>SKOS</dc:subject>
+    <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-10-08</dct:issued>
+    <dct:rightsHolder>Test owner</dct:rightsHolder>
+    <dc:contributor>Test contributor</dc:contributor>
+    <dc:creator>Test creator</dc:creator>
+    <dc:subject>Controlled vocabularies</dc:subject>
+    <dc:language>German</dc:language>
+    <dct:license>Test license</dct:license>
+    <owl:versionInfo>1.0</owl:versionInfo>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-10-09T03:06:07.633927+00:00</dct:created>
+    <skos:hasTopConcept rdf:resource="https://example.org/test_concept_schema#concept679"/>
+    <dc:language>English</dc:language>
+    <dc:description xml:lang="de">Test</dc:description>
+    <dc:title xml:lang="en">Test Concept Scheme</dc:title>
+  </skos:ConceptScheme>
+</rdf:RDF>
