@@ -74,10 +74,11 @@ def graph_construct_qs(results):
             g.add((main_concept_scheme, RDF.type, SKOS.ConceptScheme))
         # Concept properties
         # TODO user entered URI
-        if obj.legacy_id:
-            concept = URIRef(obj.legacy_id)
-        else:
-            concept = URIRef(main_concept_scheme + "#concept" + str(obj.id))
+        # if obj.legacy_id:
+        #     concept = URIRef(obj.legacy_id)
+        # else:
+        #     concept = URIRef(main_concept_scheme + "#concept" + str(obj.id))
+        concept = URIRef(obj.create_uri())
         g.add((concept, RDF.type, SKOS.Concept))
         g.add((concept, SKOS.prefLabel, Literal(obj.pref_label, lang=obj.pref_label_lang)))
         g.add((concept, SKOS.notation, Literal(obj.notation)))

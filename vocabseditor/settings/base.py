@@ -150,6 +150,7 @@ VOCABS_SETTINGS = {
     'default_lang': "en"
 }
 
+
 # Django guardian settings
 
 #ANONYMOUS_USER_NAME = 'public'
