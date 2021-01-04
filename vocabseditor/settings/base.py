@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'browsing',
     'vocabs',
     'mptt',
-    'rest_framework_swagger',
+    'drf_yasg',
     'django_extensions',
 ]
 
