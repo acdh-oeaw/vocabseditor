@@ -24,3 +24,7 @@ webpage/migrations/*
 
 # Ipython Notebook
 .ipynb
+
+# envs
+
+env/
