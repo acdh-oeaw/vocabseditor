@@ -40,6 +40,15 @@ INSTALLED_APPS = [
     'django_extensions',
 ]
 
+SWAGGER_SETTINGS = {
+    'LOGOUT_URL': '/logout/',
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
+}
+
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 REST_FRAMEWORK = {

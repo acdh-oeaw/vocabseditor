@@ -13,15 +13,42 @@ from .metadata import PROJECT_METADATA as PM
 from copy import deepcopy
 
 
+def get_imprint_url():
+    try:
+        base_url = settings.ACDH_IMPRINT_URL
+    except AttributeError:
+        base_url = "https://provide-an-acdh-imprint-url/"
+    try:
+        redmine_id = settings.REDMINE_ID
+    except AttributeError:
+        redmine_id = "go-register-a-redmine-service-issue"
+    return "{}{}".format(base_url, redmine_id)
+
+
+class ImprintView(TemplateView):
+    template_name = 'webpage/imprint.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        imprint_url = get_imprint_url()
+        r = requests.get(get_imprint_url())
+
+        if r.status_code == 200:
+            context['imprint_body'] = "{}".format(r.text)
+        else:
+            context['imprint_body'] = """
+            On of our services is currently not available. Please try it later or write an email to
+            acdh@oeaw.ac.at; if you are service provide, make sure that you provided ACDH_IMPRINT_URL and REDMINE_ID
+            """
+        return context
+
+
 class GenericWebpageView(TemplateView):
     template_name = 'webpage/index.html'
 
     def get_context_data(self, **kwargs):
         context = super(GenericWebpageView, self).get_context_data(**kwargs)
         context['apps'] = settings.INSTALLED_APPS
-        created_cs = SkosConceptScheme.objects.filter(created_by=self.request.user.id)
-        curated_cs = SkosConceptScheme.objects.filter(curator=self.request.user.id)
-        context['vocabularies'] = set(created_cs | curated_cs)
         return context
 
     def get_template_names(self):
@@ -61,6 +88,7 @@ class UserDetailView(DetailView):
 #               views for login/logout                          #
 #################################################################
 
+
 def user_login(request):
     if request.method == 'POST':
         form = form_user_login(request.POST)
@@ -78,7 +106,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return render_to_response('webpage/user_logout.html')
+    return render(request, "webpage/user_logout.html")
 
 
 def handler404(request, exception):
