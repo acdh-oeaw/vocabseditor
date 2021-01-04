@@ -9,7 +9,7 @@ from .tables import *
 from .filters import SkosConceptListFilter, SkosConceptSchemeListFilter, SkosCollectionListFilter
 from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 from .rdf_utils import *
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
 from django.http import HttpResponse
 import time
 import datetime
