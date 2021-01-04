@@ -7,7 +7,6 @@ from rest_framework.settings import api_settings
 from rest_framework.permissions import DjangoObjectPermissions
 
 
-
 class LargeResultsSetPagination(pagination.PageNumberPagination):
     page_size = 25
     page_size_query_param = 'page_size'

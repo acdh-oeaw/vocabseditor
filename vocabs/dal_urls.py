@@ -3,6 +3,7 @@ from . import dal_views
 from .models import SkosConcept, SkosConceptScheme, SkosCollection
 from django.contrib.auth.models import User
 
+
 app_name = 'vocabs'
 
 urlpatterns = [

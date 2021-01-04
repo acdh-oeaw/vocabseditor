@@ -1,0 +1,1613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:acdh="https://vocabs.acdh.oeaw.ac.at/schema#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:dct="http://purl.org/dc/terms/"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.07">
+    <skos:definition xml:lang="en">process of grouping together the different inflected forms of a word to its canonical form so that they can be analysed as a single item</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:prefLabel xml:lang="en">lemmatisation</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">48.07</skos:notation>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dc:source xml:lang="en">based on: Wikipedia contributors, "Lemmatisation," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Lemmatisation&amp;oldid=692695396 (accessed February 28, 2016).</dc:source>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3.03">
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:altLabel xml:lang="en">Friend Of A Friend</skos:altLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dc:source xml:lang="en">Wikipedia contributors, "FOAF (ontology)," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=FOAF_(ontology)&amp;oldid=703222322 (accessed February 28, 2016).</dc:source>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3.03</skos:notation>
+    <skos:prefLabel xml:lang="en">FOAF</skos:prefLabel>
+    <skos:definition xml:lang="en">a machine-readable ontology describing persons, their activities and their relations to other people and objects</skos:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept14">
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dc:source xml:lang="en">psychology. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/psychology (accessed February 28, 2016).</dc:source>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">psychology</skos:prefLabel>
+    <skos:definition xml:lang="en">the scientific study of the human mind and its functions</skos:definition>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">14</skos:notation>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept23">
+    <dc:source xml:lang="en">Wikipedia contributors, "Media studies," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Media_studies&amp;oldid=710007026 (accessed April 4, 2016).</dc:source>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">23</skos:notation>
+    <skos:prefLabel xml:lang="en">media studies</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">a discipline and field of study that deals with the content, history, and effects of various media; in particular, the mass media</skos:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept62">
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:definition xml:lang="en">teaching materials in DH domain</skos:definition>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">62</skos:notation>
+    <skos:prefLabel xml:lang="en">teaching</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme">
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept54"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept18"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept70"/>
+    <acdh:hasMetadataCreator>Ksenia Zaytseva</acdh:hasMetadataCreator>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3"/>
+    <acdh:hasOwner xml:lang="en">ACDH-OEAW</acdh:hasOwner>
+    <dct:publisher>ACDH-OEAW</dct:publisher>
+    <dct:rightsHolder>ACDH-OEAW</dct:rightsHolder>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept14"/>
+    <acdh:hasTitle xml:lang="en">DHA Taxonomy</acdh:hasTitle>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept61"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept23"/>
+    <acdh:hasCreatedStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</acdh:hasCreatedStartDate>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept34"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept36"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept42"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept68"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept19"/>
+    <dc:subject xml:lang="en">Computational methods in humanities</dc:subject>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept43"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept32"/>
+    <dct:license>https://creativecommons.org/licenses/by/4.0/</dct:license>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept55"/>
+    <acdh:creator xml:lang="en">ACDH-OEAW Team</acdh:creator>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept9"/>
+    <acdh:hasURL rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/en"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept37"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept22"/>
+    <dc:description xml:lang="en">DHA taxonomy is a knowledge organization system designed to describe subjects, resources and tools within activities of Digital Humanities Austria.</dc:description>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept16"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept33"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept59"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48"/>
+    <dc:format>application/rdf+xml</dc:format>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept44"/>
+    <dc:subject xml:lang="en">Cultural analytics</dc:subject>
+    <acdh:hasFormat>application/rdf+xml</acdh:hasFormat>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept65"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept10"/>
+    <rdfs:label xml:lang="en">DHA Taxonomy</rdfs:label>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept12"/>
+    <dc:language xml:lang="en">English</dc:language>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept31"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept74"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept29"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept1"/>
+    <acdh:isNewVersionOf rdf:resource="https://arche.acdh.oeaw.ac.at/browser/"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept8"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept57"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept67"/>
+    <acdh:hasRightsHolder xml:lang="en">ACDH-OEAW</acdh:hasRightsHolder>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept21"/>
+    <acdh:hasIdentifier rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <acdh:hasLanguage xml:lang="en">English</acdh:hasLanguage>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept63"/>
+    <dc:subject xml:lang="en">Text technologies</dc:subject>
+    <acdh:hasDescription xml:lang="en">DHA taxonomy is a knowledge organization system designed to describe subjects, resources and tools within activities of Digital Humanities Austria.</acdh:hasDescription>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept46"/>
+    <acdh:hasLicense>https://creativecommons.org/licenses/by/4.0/</acdh:hasLicense>
+    <acdh:hasLifeCycleStatus xml:lang="en">completed</acdh:hasLifeCycleStatus>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39"/>
+    <dc:title xml:lang="en">DHA Taxonomy</dc:title>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept6"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept5"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept45"/>
+    <acdh:hasCreatedEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</acdh:hasCreatedEndDate>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept17"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept26"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept35"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40"/>
+    <dc:relation>http://www.digital-humanities.at/en</dc:relation>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept64"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept47"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept71"/>
+    <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:issued>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept25"/>
+    <acdh:hasAccessRestriction xml:lang="en">public</acdh:hasAccessRestriction>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept30"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept69"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept4"/>
+    <acdh:hasLicensor xml:lang="en">ACDH-OEAW</acdh:hasLicensor>
+    <acdh:hasRelatedDiscipline>Digital Humanities</acdh:hasRelatedDiscipline>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept60"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept50"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept72"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept73"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept62"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept52"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept28"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept51"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept2"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept58"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept27"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept38"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept11"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <dct:contributor>DHA consortium</dct:contributor>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept41"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept20"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept15"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept49"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept56"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept13"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept53"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept24"/>
+    <skos:hasTopConcept rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40.02">
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Ontology engineering," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Ontology_engineering&amp;oldid=685693548 (accessed February 28, 2016).</dc:source>
+    <skos:prefLabel xml:lang="en">ontology</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40"/>
+    <skos:definition xml:lang="en">formal representations of a set of concepts within a domain and the relationships between those concepts</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">40.02</skos:notation>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept27">
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">27</skos:notation>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dc:source xml:lang="en">lexicography. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/lexicography (accessed February 28, 2016).</dc:source>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:definition xml:lang="en">the activity or occupation of compiling dictionaries</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">lexicography</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept17">
+    <skos:prefLabel xml:lang="en">education</skos:prefLabel>
+    <skos:definition xml:lang="en">the process of facilitating learning, or the acquisition of knowledge, skills, values, beliefs, and habits</skos:definition>
+    <dc:source xml:lang="en">Wikipedia contributors, "Education," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Education&amp;oldid=713401365 (accessed April 4, 2016).</dc:source>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">17</skos:notation>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept4">
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">a protocol for exposing and collecting descriptions (metadata) of archival objects (or any digital objects)</skos:definition>
+    <skos:prefLabel xml:lang="en">OAI-PMH</skos:prefLabel>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:altLabel xml:lang="en">Open Archives Initiative Protocol for Metadata Harvesting</skos:altLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept71">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">books, articles, journals, technical reports, documentation etc. informing on DH topics</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">71</skos:notation>
+    <skos:prefLabel xml:lang="en">type_reading</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept33">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">33</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">a digital representation of acoustic signals</skos:definition>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:prefLabel xml:lang="en">audio recording</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40.03">
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Controlled vocabulary," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Controlled_vocabulary&amp;oldid=704734498 (accessed February 28, 2016).</dc:source>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40"/>
+    <skos:definition xml:lang="en">list of words or phrases used to classify units of information</skos:definition>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">40.03</skos:notation>
+    <skos:prefLabel xml:lang="en">vocabulary</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.01">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:prefLabel xml:lang="en">corpus</skos:prefLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">39.01</skos:notation>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dc:source xml:lang="en">Wikipedia contributors, "Text corpus," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Text_corpus&amp;oldid=701487841(accessed February 28, 2016).</dc:source>
+    <skos:definition xml:lang="en">large and structured set of texts electronically stored and processed</skos:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept32">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">32</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">history studies</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dc:source xml:lang="en">based on history. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/history (accessed February 28, 2016).</dc:source>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">the study of past events, particularly in human affairs</skos:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.03">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">48.03</skos:notation>
+    <skos:definition xml:lang="en">process of classification of individual tokens in a text as belonging to a particular part of speech or word class</skos:definition>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:prefLabel xml:lang="en">pos-tagging</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Collection01">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Collection"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3.04"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept2.02"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7"/>
+    <skos:scopeNote xml:lang="en">This group comprises the concepts related to Formats, Protocols and Standards accepted and used in Digital Humanities community.</skos:scopeNote>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3.02"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept2.01"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept6.01"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept1"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:created>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7.01"/>
+    <skos:prefLabel xml:lang="en">Formats, Protocols, Standards</skos:prefLabel>
+    <dc:title xml:lang="en">Formats, Protocols, Standards</dc:title>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3.01"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept2"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept5"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept6"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7.03"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7.02"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3.03"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept4"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7.04"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7.04">
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:altLabel xml:lang="en">Search/Retrieve via URL / Context Query Language</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">protocol for querying structured data stores, using Context Query Language as query language and XML-based return format; mainly used in library systems</skos:definition>
+    <skos:prefLabel xml:lang="en">SRU/CQL</skos:prefLabel>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">7.04</skos:notation>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48">
+    <skos:altLabel xml:lang="en">Natural Language Processing</skos:altLabel>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.06"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.01"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.04"/>
+    <skos:definition xml:lang="en">tools and methods to process (analyse, enrich, transform) language resources</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.05"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.02"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.03"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">48</skos:notation>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:prefLabel xml:lang="en">NLP</skos:prefLabel>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.07"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7">
+    <skos:prefLabel xml:lang="en">query language</skos:prefLabel>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7.04"/>
+    <skos:definition xml:lang="en">formalised system of signs for retrieving information from structured data stores (databases)</skos:definition>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7.01"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Query language," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Query_language&amp;oldid=708613942 (accessed June 13, 2016).</dc:source>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">7</skos:notation>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7.03"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7.02"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept53">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">53</skos:notation>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:definition xml:lang="en">tool for viewing and modifying digital objects</skos:definition>
+    <skos:prefLabel xml:lang="en">editor</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept53.01"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept6.01">
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:altLabel xml:lang="en">Component MetaData Infrastructure</skos:altLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">6.01</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept6"/>
+    <dc:source xml:lang="en">based on "Component Metadata." CLARIN ERIC. Accessed June 13, 2016. https://www.clarin.eu/content/component-metadata.</dc:source>
+    <skos:definition xml:lang="en">a framework to describe and reuse metadata schemas, based on the idea of reusable components and concept-based semantic interoperability</skos:definition>
+    <skos:prefLabel xml:lang="en">CMDI</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept70">
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">a formal endeavor to ensure that digital information of continuing value remains accessible and usable</skos:definition>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">70</skos:notation>
+    <dc:source xml:lang="en">Wikipedia contributors, "Digital preservation," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Digital_preservation&amp;oldid=823615256 (accessed February 8, 2018).</dc:source>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:created>
+    <skos:prefLabel xml:lang="en">digital preservation</skos:prefLabel>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.05">
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dc:source xml:lang="en">Wikipedia contributors, "Historical language," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Historical_language&amp;oldid=688305297 (accessed February 8, 2018).</dc:source>
+    <skos:prefLabel xml:lang="en">historical language</skos:prefLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">39.05</skos:notation>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:created>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <skos:definition xml:lang="en">a language that is spoken in a historical period, but that is distinct from its modern form; that is, it is a form of language historically attested to from the past which has evolved into more modern forms</skos:definition>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Collection05">
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept63"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.01"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.05"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept56.01"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.02"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept68"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <skos:scopeNote xml:lang="en">This group comprises topics of research, discussion and application within digital humanities community.</skos:scopeNote>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept58"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.03"/>
+    <skos:prefLabel xml:lang="en">Topics</skos:prefLabel>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept60"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.04"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept64"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept65"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept56"/>
+    <dc:title xml:lang="en">Topics</dc:title>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept57"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept59.01"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept59"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept70"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept67.01"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:created>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept69"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept62"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Collection"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept61"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept67"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept55"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept51.01">
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Graph theory," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Graph_theory&amp;oldid=725036230 (accessed June 13, 2016).</dc:source>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept51"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:prefLabel xml:lang="en">graph</skos:prefLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">51.01</skos:notation>
+    <skos:definition xml:lang="en">(mathematical) structure representing objects (nodes) and relations between them (edges)</skos:definition>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept2.01">
+    <dc:source xml:lang="en">Maarten Van Gompel, "FoLiA Format for Linguistic Annotation." FoLiA. Accessed June 13, 2016. https://proycon.github.io/folia/.</dc:source>
+    <skos:altLabel xml:lang="en">Format for Linguistic Annotation</skos:altLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2.01</skos:notation>
+    <skos:prefLabel xml:lang="en">Folia</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept2"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">an XML-based annotation format, suitable for the representation of linguistically annotated language resources</skos:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept59">
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Semantic Web," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Semantic_Web&amp;oldid=724047432 (accessed June 13, 2016); Berners-Lee, Tim; James Hendler; Ora Lassila. "The Semantic Web". Scientific American Magazine. May 2001. Accessed March 26, 2008.</dc:source>
+    <skos:prefLabel xml:lang="en">Semantic web</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept59.01"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">59</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">extension of the web, a common framework that allows data to be shared and reused across application, enterprise, and community boundaries</skos:definition>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7.03">
+    <skos:prefLabel xml:lang="en">CQP/CQL</skos:prefLabel>
+    <skos:definition xml:lang="en">query language used to search corpus</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:altLabel xml:lang="en">Corpus Query Language</skos:altLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">7.03</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept74">
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">74</skos:notation>
+    <skos:definition xml:lang="en">processing instructions that can be executed on a computer (scripts, command-line tools, programs)</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:prefLabel xml:lang="en">type_software</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3.04">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3.04</skos:notation>
+    <skos:altLabel xml:lang="en">Comité international pour la documentation: Conceptual Reference Model</skos:altLabel>
+    <dc:source xml:lang="en">based on "The CIDOC CRM." The CIDOC CRM. Accessed June 13, 2016. http://www.cidoc-crm.org/.</dc:source>
+    <skos:prefLabel xml:lang="en">CIDOC CRM</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">a machine-readable ontology that provides definitions and a formal structure for describing general (top-level) concepts and relationships; used mainly in cultural heritage domain</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept28">
+    <skos:definition xml:lang="en">the scientific study of language and its structure</skos:definition>
+    <skos:prefLabel xml:lang="en">linguistics</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">28</skos:notation>
+    <dc:source xml:lang="en">linguistics. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/linguistics (accessed February 28, 2016).</dc:source>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept28.01"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept28.02"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept41">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">41</skos:notation>
+    <dc:source xml:lang="en">Wikipedia contributors, "Optical character recognition," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Optical_character_recognition&amp;oldid=706482815 (accessed February 28, 2016).</dc:source>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">mechanical or electronic conversion of images of typed, handwritten or printed text into machine-encoded text</skos:definition>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:altLabel xml:lang="en">OCR</skos:altLabel>
+    <skos:prefLabel xml:lang="en">Optical Character Recognition</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3.02">
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3"/>
+    <skos:definition xml:lang="en">a group of W3C specifications designed as a metadata data model to provide interoperability between applications that exchange machine-understandable information on the Web. It is used as a general method for conceptual description or modeling of information.</skos:definition>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Resource Description Framework," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Resource_Description_Framework&amp;oldid=722184246 (accessed June 13, 2016).</dc:source>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3.02</skos:notation>
+    <skos:prefLabel xml:lang="en">RDF</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:altLabel xml:lang="en">Resource Description Framework</skos:altLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Collection02">
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept11"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Collection"/>
+    <skos:prefLabel xml:lang="en">Disciplines</skos:prefLabel>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept28"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept13"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept12"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept15"/>
+    <dc:title xml:lang="en">Disciplines</dc:title>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept21"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept20"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept25"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept8"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept10"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept16"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:created>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept31"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept30"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept28.01"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept28.02"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept24"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept26"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept22"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept19"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept32"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept14"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept9"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept17"/>
+    <skos:scopeNote xml:lang="en">This group comprises the disciplines that are part of digital humanities research.</skos:scopeNote>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept18"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept23"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept29"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept27"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept46">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">system or procedure automatically expressing text from one language in another language</skos:definition>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">46</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">machine translation</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept49">
+    <skos:prefLabel xml:lang="en">Social network analysis</skos:prefLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">49</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:definition xml:lang="en">a set of methods used to investigate relationships and  interactions of individual actors and/or groups</skos:definition>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Social network analysis," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Social_network_analysis&amp;oldid=702459164 (accessed February 28, 2016).</dc:source>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept73">
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:definition xml:lang="en">online resources (both static and dynamic or interactive) that can be explored or downloaded and used for further research; e.g. datasets, digital editions, web applications, catalogues, registries, processing services, etc.</skos:definition>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">73</skos:notation>
+    <skos:prefLabel xml:lang="en">type_resource</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept67">
+    <skos:prefLabel xml:lang="en">data management</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">67</skos:notation>
+    <dc:source xml:lang="en">Wikipedia contributors, "Data management," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Data_management&amp;oldid=819356963 (accessed February 8, 2018).</dc:source>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept67.01"/>
+    <skos:definition xml:lang="en">data management comprises all the disciplines related to managing data as a valuable resource</skos:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept2">
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">the representation of printed texts in digital format</skos:definition>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">text encoding</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept2.02"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept2.01"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</skos:notation>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept47">
+    <dc:source xml:lang="en">GIS. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/gis (accessed February 28, 2016).</dc:source>
+    <skos:altLabel xml:lang="en">Geographic Information System</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:prefLabel xml:lang="en">GIS</skos:prefLabel>
+    <skos:definition xml:lang="en">system for storing and manipulating geographical information</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">47</skos:notation>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7.01">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">query language for manipulating and retrieving data stored in relational databases</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">7.01</skos:notation>
+    <skos:prefLabel xml:lang="en">SQL</skos:prefLabel>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "SQL," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=SQL&amp;oldid=724471814 (accessed June 13, 2016).</dc:source>
+    <skos:altLabel xml:lang="en">Structured Query Language</skos:altLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept35">
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:definition xml:lang="en">a digital representation of objects in a three-dimensional space</skos:definition>
+    <skos:prefLabel xml:lang="en">3D</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">35</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Collection04">
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept45"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.02"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.05"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept41"/>
+    <dc:title xml:lang="en">Tools and Services</dc:title>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.04"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.01"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept44"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept46"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.06"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept52"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept49"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept54"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Collection"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept50"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.03"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept53"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept47"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept43"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:created>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept53.01"/>
+    <skos:prefLabel xml:lang="en">Tools and Services</skos:prefLabel>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept51.01"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.07"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept51"/>
+    <skos:scopeNote xml:lang="en">This group comprises  the tool and services used in digital humanities field.</skos:scopeNote>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept42"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept45.01"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept37">
+    <dc:source xml:lang="en">based on map. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/map (accessed February 28, 2016).</dc:source>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:prefLabel xml:lang="en">map</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">schematic representation of an area of land or sea showing physical features, cities, roads, etc.</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">37</skos:notation>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept38">
+    <dc:source xml:lang="en">based on image. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/image (accessed February 28, 2016).</dc:source>
+    <skos:prefLabel xml:lang="en">image</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">a two-dimensional visual representation of something</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">38</skos:notation>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3.01">
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3.01</skos:notation>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Simple Knowledge Organization System," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Simple_Knowledge_Organization_System&amp;oldid=703222387 (accessed February 28, 2016).</dc:source>
+    <skos:prefLabel xml:lang="en">SKOS</skos:prefLabel>
+    <skos:definition xml:lang="en">a W3C recommendation format designed for the representation of thesauri, classification schemes, taxonomies, subject-heading systems, or any other type of structured controlled vocabulary</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:altLabel xml:lang="en">Simple Knowledge Organisation System</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept58">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">58</skos:notation>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">learning conducted via electronic media, typically on the Internet</skos:definition>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">e-learning</skos:prefLabel>
+    <dc:source xml:lang="en">e-learning. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/e-learning (accessed February 28, 2016).</dc:source>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept60">
+    <dc:source xml:lang="en">based Wikipedia contributors, "Open access," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Open_access&amp;oldid=705203639 (accessed February 28, 2016).</dc:source>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">60</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">resources (both research outputs and research data) that are free of all restrictions on access and free of many restrictions on use</skos:definition>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">open access</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept30">
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:definition xml:lang="en">the study of contemporary (especially mass) culture</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30</skos:notation>
+    <dc:source xml:lang="en">cultural studies. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/cultural-studies (accessed February 28, 2016).</dc:source>
+    <skos:prefLabel xml:lang="en">cultural studies</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.03">
+    <dc:source xml:lang="en">based on ARIADNE. Accessed June 13, 2016. http://www.ariadne-infrastructure.eu/.</dc:source>
+    <skos:definition xml:lang="en">research infrastructure that brings together and integrates existing archaeological research data infrastructures</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:altLabel xml:lang="en">Advanced Research Infrastructure for Archaeological Dataset Networking in Europe</skos:altLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">66.03</skos:notation>
+    <skos:prefLabel xml:lang="en">ARIADNE</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40">
+    <skos:prefLabel xml:lang="en">semantic resource</skos:prefLabel>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">40</skos:notation>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">a machine-readable data-set conveying structured information about concepts and their relations to each other used as a basic building block of the semantic web</skos:definition>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40.02"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40.04"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40.03"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40.01"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept11">
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Gender studies," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Gender_studies&amp;oldid=833509786 (accessed April 3, 2018).</dc:source>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <skos:definition xml:lang="en">an interdisciplinary field and academic studies devoted to gender identity and gendered representation as central categories of analysis, including women's studies (concerning women, feminism, gender, and politics), men's studies and LGBT studies.</skos:definition>
+    <skos:prefLabel xml:lang="en">gender studies</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">11</skos:notation>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept8">
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8</skos:notation>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dc:source xml:lang="en">Wikipedia contributors, "Musicology," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Musicology&amp;oldid=711823687 (accessed April 4, 2016).</dc:source>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:definition xml:lang="en">the scholarly analysis of, and research on, music, a part of humanities.</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">musicology</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Collection03">
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.04"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.05"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Collection"/>
+    <skos:scopeNote xml:lang="en">This group comprises  the resources used in digital humanities field.</skos:scopeNote>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:created>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept36"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept33"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40.02"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40.03"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.03"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.01"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept34"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <dc:title xml:lang="en">Resources</dc:title>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.02"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept38"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40.01"/>
+    <skos:prefLabel xml:lang="en">Resources</skos:prefLabel>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40.04"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept37"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept35"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept45.01">
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept45"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">metasearch</skos:prefLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">45.01</skos:notation>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:definition xml:lang="en">services that allows to query multiple search services and aggregates the multiple results to one result set</skos:definition>
+    <skos:altLabel xml:lang="en">aggregator</skos:altLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept28.01">
+    <skos:definition xml:lang="en">the branch of linguistics concerned with analysis of corpora as a means of studying language</skos:definition>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept28"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">corpus linguistics</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">28.01</skos:notation>
+    <dc:source xml:lang="en">corpus linguistics. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/corpus-linguistics (accessed February 28, 2016).</dc:source>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept52">
+    <dc:source xml:lang="en">Wikipedia contributors, "Annotation," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Annotation&amp;oldid=696830730 (accessed February 28, 2016).</dc:source>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">annotation</skos:prefLabel>
+    <skos:definition xml:lang="en">metadata (e.g. a comment, explanation, presentational markup) attached to text, image, or other data, both manual and automatic</skos:definition>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">52</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept31">
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:definition xml:lang="en">the study, evaluation, and interpretation of literature</skos:definition>
+    <skos:prefLabel xml:lang="en">literary studies</skos:prefLabel>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Literary criticism," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Literary_criticism&amp;oldid=704327390 (accessed February 28, 2016).</dc:source>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">31</skos:notation>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept19">
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">both the process and the product of planning, designing, and constructing buildings and other physical structures</skos:definition>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">19</skos:notation>
+    <skos:prefLabel xml:lang="en">architecture</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:source xml:lang="en">Wikipedia contributors, "Architecture," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Architecture&amp;oldid=712664162 (accessed April 4, 2016).</dc:source>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept64">
+    <skos:definition xml:lang="en">publicly funded, publicly accountable institutions collecting and presenting cultural heritage materials</skos:definition>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:altLabel xml:lang="en">galleries, libraries, archives, and museums</skos:altLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:prefLabel xml:lang="en">GLAM</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "GLAM (industry sector)," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=GLAM_(industry_sector)&amp;oldid=699993792 (accessed February 28, 2016).</dc:source>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">64</skos:notation>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept56">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">56</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Semantic interoperability," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Semantic_interoperability&amp;oldid=706040693 (accessed February 28, 2016).</dc:source>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept56.01"/>
+    <skos:definition xml:lang="en">ability of information systems to exchange data with unambiguous, shared meaning</skos:definition>
+    <skos:prefLabel xml:lang="en">semantic interoperability</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept13">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:source xml:lang="en">Wikipedia contributors, "Theology," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Theology&amp;oldid=712002093 (accessed April 4, 2016).</dc:source>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">13</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:prefLabel xml:lang="en">theology</skos:prefLabel>
+    <skos:definition xml:lang="en">the critical study of concepts of God and of the nature of religious ideas.</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept45">
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">search service</skos:prefLabel>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept45.01"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">45</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:definition xml:lang="en">service that allows to query a specific set of information resources</skos:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.04">
+    <skos:definition xml:lang="en">a structured list of words or multi-word expressions providing reference information about their meaning, translations in other languages, pronunciation, origin, usage etc.</skos:definition>
+    <skos:altLabel xml:lang="en">dictionary</skos:altLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">39.04</skos:notation>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39"/>
+    <skos:prefLabel xml:lang="en">lexical resource</skos:prefLabel>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7.02">
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:altLabel xml:lang="en">SPARQL Protocol and RDF Query Language</skos:altLabel>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept7"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">7.02</skos:notation>
+    <skos:prefLabel xml:lang="en">SPARQL</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:definition xml:lang="en">query language for manipulating and retrieving data stored in RDF format</skos:definition>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "SPARQL," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=SPARQL&amp;oldid=723415025 (accessed June 13, 2016).</dc:source>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept65">
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dc:source xml:lang="en">Wikipedia contributors, "Cultural heritage," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Cultural_heritage&amp;oldid=703905866 (accessed February 29, 2016).</dc:source>
+    <skos:definition xml:lang="en">legacy of physical artifacts and intangible attributes of a group or society that are inherited from past generations, maintained in the present and bestowed for the benefit of future generations</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">65</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">cultural heritage</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept61">
+    <skos:definition xml:lang="en">software free for use, distribution and improvements</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">open source</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">61</skos:notation>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.04">
+    <skos:prefLabel xml:lang="en">DARIAH</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:altLabel xml:lang="en">Digital Research Infrastructure for the Arts and Humanities</skos:altLabel>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">66.04</skos:notation>
+    <skos:definition xml:lang="en">pan-european infrastructure for arts and humanities scholars working with computational methods</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dc:source xml:lang="en">based on DARIAH. Accessed June 13, 2016. https://dariah.eu/about/dariah-in-a-nutshell.html.</dc:source>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept28.02">
+    <skos:prefLabel xml:lang="en">morphology</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dc:source xml:lang="en">morphology. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/morphology (accessed February 28, 2016).</dc:source>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:definition xml:lang="en">the study of the forms of words</skos:definition>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept28"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">28.02</skos:notation>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept55">
+    <skos:definition xml:lang="en">the body of terms used with a particular technical application in a subject of study, profession, etc.</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Nov 10 00:00:00 CET 2016</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">55</skos:notation>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dc:source xml:lang="en">terminology. Oxford Dictionaries. Oxford University Press. https://en.oxforddictionaries.com/definition/terminology (accessed April 3, 2018).</dc:source>
+    <skos:prefLabel xml:lang="en">terminology</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept36">
+    <dc:source xml:lang="en">geodata. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/geodata (accessed February 28, 2016).</dc:source>
+    <skos:definition xml:lang="en">computerized geographical data</skos:definition>
+    <skos:prefLabel xml:lang="en">geodata</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">36</skos:notation>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept43">
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">43</skos:notation>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">repository</skos:prefLabel>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">service for depositing/preserving (and optionally presenting) resources</skos:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept21">
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">21</skos:notation>
+    <skos:prefLabel xml:lang="en">methods and statistics</skos:prefLabel>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dc:source xml:lang="en">statistics. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/statistics (accessed February 28, 2016).</dc:source>
+    <skos:definition xml:lang="en">the practice or science of collecting and analysing numerical data in large quantities</skos:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept50">
+    <skos:altLabel xml:lang="en">Virtual research environment</skos:altLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">50</skos:notation>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">application integrating access to resources and a number of specialized functions, tailored to specific research methods, allowing collaborative work</skos:definition>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">VRE</skos:prefLabel>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept56.01">
+    <skos:definition xml:lang="en">process of establishing pairwise semantic equivalencies (or other semantic relations) between distinct knowledge representations</skos:definition>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">56.01</skos:notation>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">schema mapping</skos:prefLabel>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept56"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Collection06">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Collection"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <dc:title xml:lang="en">Type</dc:title>
+    <skos:prefLabel xml:lang="en">Type</skos:prefLabel>
+    <skos:scopeNote xml:lang="en">This group contains resource type for an internal bibliography of digital humanities resources.</skos:scopeNote>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept72"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept73"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept74"/>
+    <skos:member rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept71"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept10">
+    <skos:prefLabel xml:lang="en">political science</skos:prefLabel>
+    <dc:source xml:lang="en">political science. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/political-science (accessed February 28, 2016).</dc:source>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">the branch of knowledge that deals with the state and systems of government</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">10</skos:notation>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.03">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:prefLabel xml:lang="en">historical text</skos:prefLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">39.03</skos:notation>
+    <skos:definition xml:lang="en">any text created in the past</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept63">
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">63</skos:notation>
+    <skos:prefLabel xml:lang="en">programming</skos:prefLabel>
+    <skos:definition xml:lang="en">information about programming guides, tutorials, documentation</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept16">
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">the branch of knowledge concerned with the production, consumption, and transfer of wealth</skos:definition>
+    <skos:prefLabel xml:lang="en">economics</skos:prefLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">16</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dc:source xml:lang="en">economics. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/economics (accessed February 28, 2016).</dc:source>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66">
+    <skos:prefLabel xml:lang="en">research infrastructure</skos:prefLabel>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.04"/>
+    <dc:source xml:lang="en">based on "WHAT ARE RIs ?" Research Infrastructures. Accessed June 13, 2016. http://ec.europa.eu/research/infrastructures/index_en.cfm?pg=what.</dc:source>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.01"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.03"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.05"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.02"/>
+    <skos:definition xml:lang="en">facilities, resources and related services used by the scientific community to conduct research</skos:definition>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">66</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.01">
+    <skos:prefLabel xml:lang="en">tokenisation</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">process of breaking a stream of text up into words, phrases, symbols, or other meaningful elements called tokens</skos:definition>
+    <dc:source xml:lang="en">Wikipedia contributors, "Tokenization (lexical analysis)," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Tokenization_(lexical_analysis)&amp;oldid=637328355 (accessed February 28, 2016).</dc:source>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">48.01</skos:notation>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept44">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">sentiment analysis</skos:prefLabel>
+    <dc:source xml:lang="en">based on sentiment analysis. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/sentiment-analysis (accessed February 28, 2016).</dc:source>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">44</skos:notation>
+    <skos:definition xml:lang="en">procedure of computationally identifying and categorizing opinions expressed in a piece of text</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept34">
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:prefLabel xml:lang="en">video recording</skos:prefLabel>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:definition xml:lang="en">a digital representation of visual and acoustic signals</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">34</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept53.01">
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:definition xml:lang="en">digital tool with special functionalities for viewing and authoring data in XML</skos:definition>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">53.01</skos:notation>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:prefLabel xml:lang="en">xml-editor</skos:prefLabel>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept53"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept54">
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">crowdsourcing</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">54</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Crowdsourcing," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Crowdsourcing&amp;oldid=707269325 (accessed February 28, 2016).</dc:source>
+    <skos:definition xml:lang="en">practice of solving a given (data processing) task by contributions from a large group of people via the Internet</skos:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept18">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">18</skos:notation>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">communication studies</skos:prefLabel>
+    <skos:definition xml:lang="en">academic discipline that deals with processes of human communication</skos:definition>
+    <dc:source xml:lang="en">Wikipedia contributors, "Communication studies," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Communication_studies&amp;oldid=705166533 (accessed February 28, 2016).</dc:source>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept5">
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</skos:notation>
+    <skos:altLabel xml:lang="en">Open Archival Information System</skos:altLabel>
+    <skos:definition xml:lang="en">a system and a reference model for organisation of archival preservation and access to the digital information over the time</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">OAIS</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept9">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">9</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:definition xml:lang="en">the scientific study of human society and social relationships</skos:definition>
+    <skos:prefLabel xml:lang="en">social sciences</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dc:source xml:lang="en">social science. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/social-science (accessed February 28, 2016).</dc:source>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept72">
+    <skos:definition xml:lang="en">groups of people such as organisations, research infrastructures, institutions, consortia, networks, etc.</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">72</skos:notation>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">type_organisation</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept69">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:altLabel xml:lang="en">biographies</skos:altLabel>
+    <skos:prefLabel xml:lang="en">biographical data</skos:prefLabel>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Biography," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Biography&amp;oldid=832378964 (accessed April 3, 2018).</dc:source>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <skos:definition xml:lang="en">a detailed description of a person's life that involves more than just the basic facts like education, work, relationships, and death; it portrays a person's experience of these life events</skos:definition>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">69</skos:notation>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.02">
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:definition xml:lang="en">collections of texts (or just sentences) annotated with complete syntactic structure</skos:definition>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">39.02</skos:notation>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39"/>
+    <skos:prefLabel xml:lang="en">treebank</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept12">
+    <skos:prefLabel xml:lang="en">theatre studies</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">12</skos:notation>
+    <skos:definition xml:lang="en">the study of theatrical performance in relation to its literary, physical, psycho-biological, sociological, and historical contexts</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:source xml:lang="en">Wikipedia contributors, "Theatre studies," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Theatre_studies&amp;oldid=668409531 (accessed April 4, 2016).</dc:source>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept51">
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">visual representation of data/information aimed at better ways of exploring the data</skos:definition>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept51.01"/>
+    <skos:prefLabel xml:lang="en">visualization</skos:prefLabel>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">51</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Data visualization," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Data_visualization&amp;oldid=706343042 (accessed February 28, 2016).</dc:source>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept1">
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:prefLabel xml:lang="en">XML</skos:prefLabel>
+    <skos:altLabel xml:lang="en">Extensible Markup Language</skos:altLabel>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "XML", Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=XML&amp;oldid=724493259 (accessed June 13, 2016).</dc:source>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">a W3C-standardised markup system that defines a set of rules for encoding digital documents</skos:definition>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept25">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">geography</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">25</skos:notation>
+    <skos:definition xml:lang="en">the study of the physical features of the earth and its atmosphere, and of human activity as it affects and is affected by these</skos:definition>
+    <dc:source xml:lang="en">geography. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/geography (accessed February 28, 2016).</dc:source>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept15">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">15</skos:notation>
+    <dc:source xml:lang="en">demography. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/demography (accessed February 28, 2016).</dc:source>
+    <skos:definition xml:lang="en">the study of statistics which illustrate the changing structure of human populations</skos:definition>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">demography</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.01">
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66"/>
+    <skos:altLabel xml:lang="en">Pooling Activities, Resources and Tools for Heritage E-research Networking, Optimization and Synergies</skos:altLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">European cluster infrastucture H2020 project that aims to pool and harmonize the activities in existing research infrastructures  and strengthen the cohesion of research in the broad sector of Linguistic Studies, Humanities, Cultural Heritage, History, Archaeology and related fields</skos:definition>
+    <skos:prefLabel xml:lang="en">PARTHENOS</skos:prefLabel>
+    <dc:source xml:lang="en">based on PARTHENOS. Accessed June 13, 2016. http://www.parthenos-project.eu/.</dc:source>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">66.01</skos:notation>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept57">
+    <skos:prefLabel xml:lang="en">copyright and licensing</skos:prefLabel>
+    <skos:definition xml:lang="en">information about rights and conditions of use and distribution of resources</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">57</skos:notation>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3.01"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:definition xml:lang="en">machine-readable terminologies that define concepts and relationships used to describe and organize data on the web</skos:definition>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3.02"/>
+    <dc:source xml:lang="en">based on "Vocabularies." W3C. Accessed June 13, 2016. https://www.w3.org/standards/semanticweb/ontology.</dc:source>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3.03"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept3.04"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:prefLabel xml:lang="en">semantic web vocabularies</skos:prefLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept6">
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dc:source xml:lang="en">based on metadata. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/metadata (accessed February 28, 2016).</dc:source>
+    <skos:definition xml:lang="en">data about data, structured information that describes an information resource</skos:definition>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">6</skos:notation>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:prefLabel xml:lang="en">metadata</skos:prefLabel>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept6.01"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.05">
+    <dc:source xml:lang="en">based on Europeana. Accessed June 13, 2016. http://www.europeana.eu/portal/.</dc:source>
+    <skos:definition xml:lang="en">multi-lingual online collection of millions of digitised items from European museums, libraries, archives and multi-media collections</skos:definition>
+    <skos:prefLabel xml:lang="en">Europeana</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">66.05</skos:notation>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept68">
+    <skos:definition xml:lang="en">the process of converting information into a digital (i.e. computer-readable) format, in which the information is organized into bits</skos:definition>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">digitisation</skos:prefLabel>
+    <dc:source xml:lang="en">Wikipedia contributors, "Digitization," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Digitization&amp;oldid=818105832 (accessed February 8, 2018).</dc:source>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">68</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40.04">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40"/>
+    <skos:prefLabel xml:lang="en">knowledge base</skos:prefLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">40.04</skos:notation>
+    <dc:source xml:lang="en">based on Wikipedia contributors, "Knowledge base," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Knowledge_base&amp;oldid=718798303 (accessed June 13, 2016).</dc:source>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:definition xml:lang="en">complex information resource that consists of structured and unstructured data to be used in digital applications</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.06">
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">48.06</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dc:source xml:lang="en">Wikipedia contributors, "Entity linking," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Entity_linking&amp;oldid=833222865 (accessed April 3, 2018).</dc:source>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">task of determining the identity of entities mentioned in text that requires a knowldge base containing the netities to which entity mentions can be linked</skos:definition>
+    <skos:prefLabel xml:lang="en">entity linking</skos:prefLabel>
+    <skos:altLabel xml:lang="en">Named Entity Linking</skos:altLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66.02">
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">66.02</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:altLabel xml:lang="en">Common LAnguage Resources and Technology INfrastructure</skos:altLabel>
+    <skos:prefLabel xml:lang="en">CLARIN</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dc:source xml:lang="en">based on CLARIN. Accessed June 13, 2016.  https://www.clarin.eu/</dc:source>
+    <skos:definition xml:lang="en">European research infrastructure for the Humanities and Social Sciences, focusing on language resources (data and tools)</skos:definition>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept66"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept24">
+    <skos:definition xml:lang="en">the academic field of study that embraces Near Eastern and Far Eastern societies and cultures, languages, peoples, history and archaeology</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">24</skos:notation>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dc:source xml:lang="en">Wikipedia contributors, "Oriental studies," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Oriental_studies&amp;oldid=706288051 (accessed February 28, 2016).</dc:source>
+    <skos:prefLabel xml:lang="en">oriental studies</skos:prefLabel>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept29">
+    <dc:source xml:lang="en">archaeology. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/archaeology (accessed February 28, 2016).</dc:source>
+    <skos:prefLabel xml:lang="en">archaeology</skos:prefLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">29</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">the study of human history and prehistory through the excavation of sites and the analysis of artefacts and other physical remains</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept26">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">26</skos:notation>
+    <dc:source xml:lang="en">Wikipedia contributors, "Philosophy," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Philosophy&amp;oldid=712469925 (accessed April 4, 2016).</dc:source>
+    <skos:definition xml:lang="en">the study of general and fundamental problems concerning matters such as existence, knowledge, values, reason, mind, and language</skos:definition>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">philosophy</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept22">
+    <dc:source xml:lang="en">law. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/law (accessed February 28, 2016).</dc:source>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:definition xml:lang="en">systems of law as a subject of study or as the basis of the legal profession</skos:definition>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:prefLabel xml:lang="en">law</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">22</skos:notation>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39">
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">39</skos:notation>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.02"/>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.05"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:prefLabel xml:lang="en">language resource</skos:prefLabel>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.01"/>
+    <dc:source xml:lang="en">Simons, G. F., and Bird, S. “Toward a Global Infrastructure for the Sustainability of Language Resources.” Proceedings of 22nd Pacific Asia Conference on Language, Information and Computation, 20–22 November 2008, Cebu City, Philippines. Accessed March 30, 2016. http://www-01.sil.org/~simonsg/preprint/PACLIC22.pdf.</dc:source>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.04"/>
+    <skos:definition xml:lang="en">a language  resource  is  any  physical  or  digital  item  that  is  a  product  of  language  documentation,  description,  or  development  or  is  a  tool  that  specifically  supports  the creation and use of such products</skos:definition>
+    <skos:narrower rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept39.03"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept59.01">
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">59.01</skos:notation>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dc:source xml:lang="en">Wikipedia contributors, "Linked data," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Linked_data&amp;oldid=701965470 (accessed February 28, 2016).</dc:source>
+    <skos:definition xml:lang="en">method of publishing structured data so that it can be interlinked and become more useful through semantic queries</skos:definition>
+    <skos:prefLabel xml:lang="en">Linked data</skos:prefLabel>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept59"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept42">
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">42</skos:notation>
+    <dc:source xml:lang="en">Patrick Sahle. "About a catalog of: Digital Scholarly Editions, v 3.0, Snapshot 2008ff." Scholarly Digital Editions. 2008. Accessed June 13, 2016. http://www.digitale-edition.de/vlet-about.html.</dc:source>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:prefLabel xml:lang="en">digital edition</skos:prefLabel>
+    <skos:definition xml:lang="en">a scholarly edition is the critical representation of historical documents</skos:definition>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.05">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">48.05</skos:notation>
+    <skos:prefLabel xml:lang="en">NER</skos:prefLabel>
+    <skos:definition xml:lang="en">process of identifying mentions of individuals/entities in a text</skos:definition>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:altLabel xml:lang="en">Named Entity Recognition</skos:altLabel>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48"/>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept20">
+    <dc:source xml:lang="en">based on art history. Oxford Dictionaries. Oxford University Press. http://www.oxforddictionaries.com/definition/english/art-history (accessed February 28, 2016).</dc:source>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:prefLabel xml:lang="en">art studies</skos:prefLabel>
+    <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">the academic study of the history and development of visual arts</skos:definition>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">20</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept67.01">
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept67"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:modified>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">67.01</skos:notation>
+    <skos:definition xml:lang="en">research data management concerns the organisation of data, from its entry to the research cycle through to the dissemination and archiving of valuable results</skos:definition>
+    <dc:source xml:lang="en">Whyte, A., Tedds, J. (2011). ‘Making the Case for Research Data Management’. DCC Briefing Papers. Edinburgh: Digital Curation Centre. Available online: http://www.dcc.ac.uk/resources/briefing-papers</dc:source>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">research data management</skos:prefLabel>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Tue Apr 03 00:00:00 CEST 2018</dct:created>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.02">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">48.02</skos:notation>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48"/>
+    <skos:prefLabel xml:lang="en">tagging</skos:prefLabel>
+    <skos:definition xml:lang="en">the assignment of descriptive labels (from a defined vocabulary) to particular segments of text, such as (but not only) word-class identifiers to tokens</skos:definition>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept2.02">
+    <dc:source xml:lang="en">"TEI: Text Encoding Initiative." TEI: Text Encoding Initiative. Accessed June 13, 2016. http://www.tei-c.org/index.xml.</dc:source>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept2"/>
+    <skos:definition xml:lang="en">a set of guidelines which specify encoding methods for machine-readable texts, chiefly in the humanities, social sciences and linguistics</skos:definition>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <skos:prefLabel xml:lang="en">TEI</skos:prefLabel>
+    <skos:altLabel xml:lang="en">Text Encoding Initiative</skos:altLabel>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2.02</skos:notation>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48.04">
+    <skos:definition xml:lang="en">process of analysing the syntactic structures of a written (natural language) text</skos:definition>
+    <dc:creator xml:lang="en">ACDH-OEAW Team</dc:creator>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">48.04</skos:notation>
+    <skos:prefLabel xml:lang="en">parsing</skos:prefLabel>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept48"/>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40.01">
+    <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#int">40.01</skos:notation>
+    <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Mon Jun 20 00:00:00 CEST 2016</dct:modified>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:definition xml:lang="en">hierarchical classification of entities of interest</skos:definition>
+    <skos:broader rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/Concept40"/>
+    <dc:source xml:lang="en">Wikipedia contributors, "Corporate taxonomy," Wikipedia, The Free Encyclopedia, https://en.wikipedia.org/w/index.php?title=Corporate_taxonomy&amp;oldid=702154777 (accessed February 28, 2016).</dc:source>
+    <skos:prefLabel xml:lang="en">taxonomy</skos:prefLabel>
+    <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme"/>
+    <dct:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">Thu Oct 01 00:00:00 CEST 2015</dct:created>
+  </rdf:Description>
+</rdf:RDF>
+

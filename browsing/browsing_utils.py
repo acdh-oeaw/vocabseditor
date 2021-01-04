@@ -10,9 +10,8 @@ from django.db.models.fields.related import ManyToManyField
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from . models import BrowsConf
+from crispy_forms.layout import Submit
+from .models import BrowsConf
 from guardian.shortcuts import get_objects_for_user
 from guardian.mixins import PermissionRequiredMixin
 
@@ -22,13 +21,13 @@ if 'charts' in settings.INSTALLED_APPS:
 
 
 def get_entities_table(model_class):
-
     class GenericEntitiesTable(django_tables2.Table):
         id = django_tables2.LinkColumn()
 
         class Meta:
             model = model_class
             attrs = {"class": "table table-hover table-striped table-condensed"}
+
     return GenericEntitiesTable
 
 
@@ -73,10 +72,10 @@ class GenericListView(django_tables2.SingleTableView):
             return self.table_class
         else:
             return get_entities_table(self.model)
-
-        raise ImproperlyConfigured(
-            "You must either specify {0}.table_class or {0}.model".format(type(self).__name__)
-        )
+        # TODO unreachable
+        # raise ImproperlyConfigured(
+        #     "You must either specify {0}.table_class or {0}.model".format(type(self).__name__)
+        # )
 
     def get_all_cols(self):
         print('get_table')
@@ -86,13 +85,13 @@ class GenericListView(django_tables2.SingleTableView):
 
     def get_queryset(self, **kwargs):
         qs = get_objects_for_user(self.request.user,
-            perms=[
-            'view_{}'.format(self.model.__name__.lower()),
-            'change_{}'.format(self.model.__name__.lower()),
-            'delete_{}'.format(self.model.__name__.lower()),
-            ],
-            klass=self.model)
-        #qs = super(GenericListView, self).get_queryset()
+                                  perms=[
+                                      'view_{}'.format(self.model.__name__.lower()),
+                                      'change_{}'.format(self.model.__name__.lower()),
+                                      'delete_{}'.format(self.model.__name__.lower()),
+                                  ],
+                                  klass=self.model)
+        # qs = super(GenericListView, self).get_queryset()
         self.filter = self.filter_class(self.request.GET, queryset=qs)
         self.filter.form.helper = self.formhelper_class()
         return self.filter.qs
@@ -129,7 +128,7 @@ class GenericListView(django_tables2.SingleTableView):
         context['entity'] = model_name
         context['conf_items'] = list(
             BrowsConf.objects.filter(model_name=model_name)
-            .values_list('field_path', 'label')
+                .values_list('field_path', 'label')
         )
         print(context['conf_items'])
         if 'charts' in settings.INSTALLED_APPS:
@@ -201,9 +200,10 @@ class BaseCreateView(CreateView):
 class BaseUpdateView(PermissionRequiredMixin, UpdateView):
     model = None
     form_class = None
-    template_name = 'browsing/generic_create.html'    
+    template_name = 'browsing/generic_create.html'
     permission_required = None
     return_403 = True
+
     # or raise_exception = True
 
     def get_context_data(self, **kwargs):
@@ -255,12 +255,7 @@ def create_brows_config_obj(app_name, exclude_fields=[]):
                 field_name = f.name
                 verbose_name = getattr(f, 'verbose_name', f.name)
                 help_text = getattr(f, 'help_text', 'no helptext')
-                print("{}: {} ({})".format(
-                    model_name,
-                    field_name,
-                    help_text
-                    )
-                )
+                print("{}: {} ({})".format(model_name, field_name, help_text))
                 brc, _ = BrowsConf.objects.get_or_create(
                     model_name=model_name,
                     field_path=field_name,

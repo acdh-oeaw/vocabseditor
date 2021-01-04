@@ -36,19 +36,17 @@ class UploadFileForm(forms.Form):
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-md-3'
         self.helper.field_class = 'col-md-9'
-        self.helper.add_input(Submit('submit', 'upload', css_id='uploadFile'),)
+        self.helper.add_input(Submit('submit', 'upload', css_id='uploadFile'), )
 
 
 def custom_name_errors(field_name):
-    name_errors = {}
-    name_errors['required'] = '{} is required when language provided'.format(field_name)
+    name_errors = {'required': '{} is required when language provided'.format(field_name)}
     name_errors['invalid']: 'Enter a valid value'
     return name_errors
 
 
 def custom_lang_errors(field_name):
-    lang_errors = {}
-    lang_errors['required'] = 'Language is required when {} provided'.format(field_name.lower())
+    lang_errors = {'required': 'Language is required when {} provided'.format(field_name.lower())}
     lang_errors['invalid']: 'Enter a valid value'
     return lang_errors
 
@@ -84,24 +82,23 @@ class CustomInlineFormSet(BaseInlineFormSet):
                     )
 
 
-
 class ConceptSchemeTitleForm(forms.ModelForm):
     name = forms.CharField(
         label=ConceptSchemeTitle._meta.get_field('name').verbose_name,
         help_text=ConceptSchemeTitle._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=ConceptSchemeTitle._meta.get_field('name').verbose_name
-            )
+        )
     )
     language = forms.CharField(
         label=ConceptSchemeTitle._meta.get_field('language').verbose_name,
         help_text=ConceptSchemeTitle._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
             field_name=ConceptSchemeTitle._meta.get_field('name').verbose_name
-            )
+        )
     )
 
-    def __init__(self, *args, **kwargs): 
+    def __init__(self, *args, **kwargs):
         super(ConceptSchemeTitleForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = True
@@ -118,7 +115,7 @@ ConceptSchemeTitleFormSet = inlineformset_factory(
     SkosConceptScheme, ConceptSchemeTitle,
     form=ConceptSchemeTitleForm,
     fields=['name', 'language'], extra=1, can_delete=True
-    )
+)
 
 
 class ConceptSchemeDescriptionForm(forms.ModelForm):
@@ -127,7 +124,7 @@ class ConceptSchemeDescriptionForm(forms.ModelForm):
         help_text=ConceptSchemeDescription._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=ConceptSchemeDescription._meta.get_field('name').verbose_name
-            ),
+        ),
         widget=forms.Textarea
     )
     language = forms.CharField(
@@ -135,7 +132,7 @@ class ConceptSchemeDescriptionForm(forms.ModelForm):
         help_text=ConceptSchemeDescription._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
             field_name=ConceptSchemeDescription._meta.get_field('name').verbose_name
-            )
+        )
     )
 
     def __init__(self, *args, **kwargs):
@@ -155,7 +152,7 @@ ConceptSchemeDescriptionFormSet = inlineformset_factory(
     SkosConceptScheme, ConceptSchemeDescription,
     form=ConceptSchemeDescriptionForm,
     fields=['name', 'language'], extra=1, can_delete=True
-    )
+)
 
 
 class ConceptSchemeSourceForm(forms.ModelForm):
@@ -164,7 +161,7 @@ class ConceptSchemeSourceForm(forms.ModelForm):
         help_text=ConceptSchemeSource._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=ConceptSchemeSource._meta.get_field('name').verbose_name
-            ),
+        ),
         widget=forms.Textarea
     )
     language = forms.CharField(
@@ -172,7 +169,7 @@ class ConceptSchemeSourceForm(forms.ModelForm):
         help_text=ConceptSchemeSource._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
             field_name=ConceptSchemeSource._meta.get_field('name').verbose_name
-            )
+        )
     )
 
     def __init__(self, *args, **kwargs):
@@ -192,7 +189,7 @@ ConceptSchemeSourceFormSet = inlineformset_factory(
     SkosConceptScheme, ConceptSchemeSource, form=ConceptSchemeSourceForm,
     fields=['name', 'language'],
     extra=1, can_delete=True
-    )
+)
 
 
 ######################################################################
@@ -203,7 +200,6 @@ ConceptSchemeSourceFormSet = inlineformset_factory(
 
 
 class SkosConceptSchemeForm(forms.ModelForm):
-
     class Meta:
         model = SkosConceptScheme
         exclude = ['created_by', ]
@@ -224,11 +220,9 @@ class SkosConceptSchemeForm(forms.ModelForm):
                 Field('title'),
                 Field('title_lang'),
                 Fieldset('Add titles in other languages',
-                    Formset('titles'), css_class="formset-div")
-                ,
+                         Formset('titles'), css_class="formset-div"),
                 Fieldset('Add description',
-                    Formset('descriptions'), css_class="formset-div")
-                ,
+                         Formset('descriptions'), css_class="formset-div"),
                 Field('identifier', placeholder="https://example.org/vocabulary-unique-title"),
                 Field('language'),
                 Field('creator'),
@@ -240,8 +234,7 @@ class SkosConceptSchemeForm(forms.ModelForm):
                 Field('relation'),
                 Field('coverage'),
                 Fieldset('Add source information',
-                    Formset('sources'), css_class="formset-div")
-                ,
+                         Formset('sources'), css_class="formset-div"),
                 Field('version'),
                 Field('legacy_id'),
                 Field('date_issued', placeholder="YYYY-MM-DD"),
@@ -249,7 +242,7 @@ class SkosConceptSchemeForm(forms.ModelForm):
                 HTML("<br>"),
                 ButtonHolder(Submit('submit', 'save')),
             )
-            )
+        )
 
 
 class SkosConceptSchemeFormHelper(FormHelper):
@@ -266,8 +259,8 @@ class SkosConceptSchemeFormHelper(FormHelper):
                 'title',
                 'creator',
                 css_id="basic_search_fields"
-                ),
-            )
+            ),
+        )
 
 
 ######################################################################
@@ -280,14 +273,14 @@ class CollectionLabelForm(forms.ModelForm):
         help_text=CollectionLabel._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=CollectionLabel._meta.get_field('name').verbose_name
-            )
+        )
     )
     language = forms.CharField(
         label=CollectionLabel._meta.get_field('language').verbose_name,
         help_text=CollectionLabel._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
             field_name=CollectionLabel._meta.get_field('name').verbose_name
-            )
+        )
     )
 
     def __init__(self, *args, **kwargs):
@@ -307,7 +300,7 @@ CollectionLabelFormSet = inlineformset_factory(
     SkosCollection, CollectionLabel, form=CollectionLabelForm,
     fields=['name', 'label_type', 'language'],
     extra=1, can_delete=True
-    )
+)
 
 
 class CollectionNoteForm(forms.ModelForm):
@@ -316,7 +309,7 @@ class CollectionNoteForm(forms.ModelForm):
         help_text=CollectionNote._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=CollectionNote._meta.get_field('name').verbose_name
-            ),
+        ),
         widget=forms.Textarea
     )
     language = forms.CharField(
@@ -324,7 +317,7 @@ class CollectionNoteForm(forms.ModelForm):
         help_text=CollectionNote._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
             field_name=CollectionNote._meta.get_field('name').verbose_name
-            )
+        )
     )
 
     def __init__(self, *args, **kwargs):
@@ -344,7 +337,7 @@ CollectionNoteFormSet = inlineformset_factory(
     SkosCollection, CollectionNote, form=CollectionNoteForm,
     fields=['name', 'note_type', 'language'],
     extra=1, can_delete=True
-    )
+)
 
 
 class CollectionSourceForm(forms.ModelForm):
@@ -353,7 +346,7 @@ class CollectionSourceForm(forms.ModelForm):
         help_text=CollectionSource._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=CollectionSource._meta.get_field('name').verbose_name
-            ),
+        ),
         widget=forms.Textarea
     )
     language = forms.CharField(
@@ -361,7 +354,7 @@ class CollectionSourceForm(forms.ModelForm):
         help_text=CollectionSource._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
             field_name=CollectionSource._meta.get_field('name').verbose_name
-            )
+        )
     )
 
     def __init__(self, *args, **kwargs):
@@ -381,7 +374,8 @@ CollectionSourceFormSet = inlineformset_factory(
     SkosCollection, CollectionSource, form=CollectionSourceForm,
     fields=['name', 'language'],
     extra=1, can_delete=True
-    )
+)
+
 
 ######################################################################
 #
@@ -393,7 +387,7 @@ class SkosCollectionForm(forms.ModelForm):
     class Meta:
         model = SkosCollection
         exclude = ['created_by', ]
-        widgets ={
+        widgets = {
             'scheme': autocomplete.ModelSelect2(
                 url='vocabs-ac:skosconceptscheme-autocomplete'),
         }
@@ -410,22 +404,19 @@ class SkosCollectionForm(forms.ModelForm):
                 Field('name'),
                 Field('label_lang'),
                 Fieldset('Add other labels or labels in other languages',
-                    Formset('labels'), css_class="formset-div")
-                ,
+                         Formset('labels'), css_class="formset-div"),
                 Field('scheme'),
                 Field('creator'),
                 Field('contributor'),
                 Field('legacy_id'),
                 Fieldset('Add documentary note',
-                    Formset('notes'), css_class="formset-div")
-                ,
+                         Formset('notes'), css_class="formset-div"),
                 Fieldset('Add source information',
-                    Formset('sources'), css_class="formset-div")
-                ,
+                         Formset('sources'), css_class="formset-div"),
                 HTML("<br>"),
                 ButtonHolder(Submit('submit', 'save')),
             )
-            )
+        )
 
 
 class SkosCollectionFormHelper(FormHelper):
@@ -445,8 +436,8 @@ class SkosCollectionFormHelper(FormHelper):
                 'scheme',
                 'has_members__pref_label',
                 css_id="basic_search_fields"
-                ),
-            )
+            ),
+        )
 
 
 ######################################################################
@@ -459,14 +450,14 @@ class ConceptLabelForm(forms.ModelForm):
         help_text=ConceptLabel._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=ConceptLabel._meta.get_field('name').verbose_name
-            )
+        )
     )
     language = forms.CharField(
         label=ConceptLabel._meta.get_field('language').verbose_name,
         help_text=ConceptLabel._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
             field_name=ConceptLabel._meta.get_field('name').verbose_name
-            )
+        )
     )
 
     def __init__(self, *args, **kwargs):
@@ -486,7 +477,7 @@ ConceptLabelFormSet = inlineformset_factory(
     SkosConcept, ConceptLabel, form=ConceptLabelForm,
     fields=['name', 'label_type', 'language'],
     extra=1, can_delete=True
-    )
+)
 
 
 class ConceptNoteForm(forms.ModelForm):
@@ -495,7 +486,7 @@ class ConceptNoteForm(forms.ModelForm):
         help_text=ConceptNote._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=ConceptNote._meta.get_field('name').verbose_name
-            ),
+        ),
         widget=forms.Textarea
     )
     language = forms.CharField(
@@ -503,7 +494,7 @@ class ConceptNoteForm(forms.ModelForm):
         help_text=ConceptNote._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
             field_name=ConceptNote._meta.get_field('name').verbose_name
-            )
+        )
     )
 
     def __init__(self, *args, **kwargs):
@@ -523,7 +514,7 @@ ConceptNoteFormSet = inlineformset_factory(
     SkosConcept, ConceptNote, form=ConceptNoteForm,
     fields=['name', 'note_type', 'language'],
     extra=1, can_delete=True
-    )
+)
 
 
 class ConceptSourceForm(forms.ModelForm):
@@ -532,7 +523,7 @@ class ConceptSourceForm(forms.ModelForm):
         help_text=ConceptSource._meta.get_field('name').help_text,
         error_messages=custom_name_errors(
             field_name=ConceptSource._meta.get_field('name').verbose_name
-            ),
+        ),
         widget=forms.Textarea
     )
     language = forms.CharField(
@@ -540,7 +531,7 @@ class ConceptSourceForm(forms.ModelForm):
         help_text=ConceptSource._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
             field_name=ConceptSource._meta.get_field('name').verbose_name
-            )
+        )
     )
 
     def __init__(self, *args, **kwargs):
@@ -560,7 +551,7 @@ ConceptSourceFormSet = inlineformset_factory(
     SkosConcept, ConceptSource, form=ConceptSourceForm,
     fields=['name', 'language'],
     extra=1, can_delete=True
-    )
+)
 
 
 ######################################################################
@@ -571,13 +562,13 @@ ConceptSourceFormSet = inlineformset_factory(
 
 class AutocompleteCharField(forms.CharField):
     widget = autocomplete.TagSelect2(
-            url='vocabs-ac:external-link-ac',
-            forward=['endpoint'],
-            attrs={
+        url='vocabs-ac:external-link-ac',
+        forward=['endpoint'],
+        attrs={
             'data-placeholder': 'Type at least 3 characters to get autocomplete suggestions ...',
             'data-minimum-input-length': 3,
-            },
-            )
+        },
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -600,22 +591,11 @@ class SkosConceptForm(forms.ModelForm):
         required=False,
         label=SkosConcept._meta.get_field('broader_concept').verbose_name,
     )
-    # scheme = forms.ModelChoiceField(
-    #     queryset=SkosConceptScheme.objects.all(),
-    #     widget=autocomplete.ModelSelect2(
-    #             url='vocabs-ac:skosconceptscheme-autocomplete'
-    #     ),
-    #     help_text="",
-    #     required=False, disabled=True
-    # )
-    # scheme = forms.CharField(
-    #     required=False, disabled=True
-    # )
     collection = forms.ModelMultipleChoiceField(
         queryset=SkosCollection.objects.all(),
         widget=autocomplete.ModelSelect2Multiple(
-                url='vocabs-ac:skoscollection-autocomplete',
-                forward=['scheme']
+            url='vocabs-ac:skoscollection-autocomplete',
+            forward=['scheme']
         ),
         help_text=SkosConcept._meta.get_field('collection').help_text,
         required=False,
@@ -634,7 +614,7 @@ class SkosConceptForm(forms.ModelForm):
     broad_match = AutocompleteCharField(
         label=SkosConcept._meta.get_field('broad_match').verbose_name,
         help_text=SkosConcept._meta.get_field('broad_match').help_text
-    )    
+    )
     narrow_match = AutocompleteCharField(
         label=SkosConcept._meta.get_field('narrow_match').verbose_name,
         help_text=SkosConcept._meta.get_field('narrow_match').help_text
@@ -664,7 +644,6 @@ class SkosConceptForm(forms.ModelForm):
                 url='vocabs-ac:skosconceptscheme-autocomplete'),
         }
 
-
     def __init__(self, *args, **kwargs):
         super(SkosConceptForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -677,53 +656,35 @@ class SkosConceptForm(forms.ModelForm):
                 Field('pref_label'),
                 Field('pref_label_lang'),
                 Fieldset('Add other labels',
-                    Formset('labels'), css_class="formset-div")
-                ,
+                         Formset('labels'), css_class="formset-div"),
                 Field('scheme'),
                 # Field('top_concept'),
                 Field('collection'),
                 Field('broader_concept'),
                 Fieldset('Add documentary note',
-                    Formset('notes'), css_class="formset-div")
-                ,
+                         Formset('notes'), css_class="formset-div"),
                 Field('creator'),
                 Field('contributor'),
                 Field('notation'),
                 Field('legacy_id'),
                 Fieldset('Add source information',
-                    Formset('sources'), css_class="formset-div")
-                ,
+                         Formset('sources'), css_class="formset-div"),
                 Fieldset('Add semantic relationships',
-                    Field('endpoint'),
-                    Field('related'),
-                    Field('broad_match'),
-                    Field('narrow_match'),
-                    Field('exact_match'),
-                    Field('related_match'),
-                    Field('close_match'),
-                ),
+                         Field('endpoint'),
+                         Field('related'),
+                         Field('broad_match'),
+                         Field('narrow_match'),
+                         Field('exact_match'),
+                         Field('related_match'),
+                         Field('close_match'),
+                         ),
                 Fieldset('Quality check',
-                    Field('needs_review'),
-                ),
-               
-                
-                # Accordion(
-                # AccordionGroup(
-                #     'Add SKOS semantic relationships',
-                #     'endpoint',
-                #     'related',
-                #     'broad_match',
-                #     'narrow_match',
-                #     'exact_match',
-                #     'related_match',
-                #     'close_match',
-                #     css_id="advanced_skos_fields"
-                # ),
-                # ),
+                         Field('needs_review'),
+                         ),
                 HTML("<br>"),
                 ButtonHolder(Submit('submit', 'save')),
             )
-            )
+        )
         self.helper.render_required_fields = True
 
 
@@ -743,5 +704,5 @@ class SkosConceptFormHelper(FormHelper):
                 'collection',
                 'broader_concept',
                 css_id="basic_search_fields"
-                ),
-            )
+            ),
+        )

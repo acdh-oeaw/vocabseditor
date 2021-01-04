@@ -19,19 +19,19 @@ from reversion.models import Version
 from django.db import transaction
 from django.shortcuts import redirect
 from .skos_import import *
-from django.contrib import messages 
+from django.contrib import messages
 
 
 class BaseDetailView(DetailView):
 
     def get_queryset(self, **kwargs):
         qs = get_objects_for_user(self.request.user,
-            perms=[
-            'view_{}'.format(self.model.__name__.lower()),
-            'change_{}'.format(self.model.__name__.lower()),
-            'delete_{}'.format(self.model.__name__.lower()),
-            ],
-            klass=self.model)
+                                  perms=[
+                                      'view_{}'.format(self.model.__name__.lower()),
+                                      'change_{}'.format(self.model.__name__.lower()),
+                                      'delete_{}'.format(self.model.__name__.lower()),
+                                  ],
+                                  klass=self.model)
         return qs
 
     def get_context_data(self, **kwargs):
@@ -44,12 +44,12 @@ class BaseDeleteView(DeleteView):
 
     def get_queryset(self, **kwargs):
         qs = get_objects_for_user(self.request.user,
-            perms=[
-            'view_{}'.format(self.model.__name__.lower()),
-            'change_{}'.format(self.model.__name__.lower()),
-            'delete_{}'.format(self.model.__name__.lower()),
-            ],
-            klass=self.model)
+                                  perms=[
+                                      'view_{}'.format(self.model.__name__.lower()),
+                                      'change_{}'.format(self.model.__name__.lower()),
+                                      'delete_{}'.format(self.model.__name__.lower()),
+                                  ],
+                                  klass=self.model)
         return qs
 
 
@@ -94,7 +94,6 @@ class SkosConceptSchemeListView(GenericListView):
 
 
 class SkosConceptSchemeDetailView(BaseDetailView):
-
     model = SkosConceptScheme
     template_name = 'vocabs/skosconceptscheme_detail.html'
 
@@ -105,7 +104,6 @@ class SkosConceptSchemeDetailView(BaseDetailView):
 
 
 class SkosConceptSchemeCreate(BaseCreateView):
-
     model = SkosConceptScheme
     form_class = SkosConceptSchemeForm
     success_url = None
@@ -131,17 +129,17 @@ class SkosConceptSchemeCreate(BaseCreateView):
             form.instance.created_by = self.request.user
             # cs should be saved first because fk object are related to it
             self.object = form.save(commit=False)
-            if titles.is_valid():                
+            if titles.is_valid():
                 titles.instance = self.object
                 titles.save(commit=False)
             else:
                 return super(SkosConceptSchemeCreate, self).form_invalid(form)
-            if descriptions.is_valid():                
+            if descriptions.is_valid():
                 descriptions.instance = self.object
                 descriptions.save(commit=False)
             else:
                 return super(SkosConceptSchemeCreate, self).form_invalid(form)
-            if sources.is_valid():                
+            if sources.is_valid():
                 sources.instance = self.object
                 sources.save(commit=False)
             else:
@@ -150,7 +148,7 @@ class SkosConceptSchemeCreate(BaseCreateView):
             titles.save()
             descriptions.save()
             sources.save()
-            
+
         return super(SkosConceptSchemeCreate, self).form_valid(form)
 
     def get_success_url(self):
@@ -162,14 +160,13 @@ class SkosConceptSchemeCreate(BaseCreateView):
 
 
 class SkosConceptSchemeUpdate(BaseUpdateView):
-
     model = SkosConceptScheme
     form_class = SkosConceptSchemeForm
     permission_required = (
         'view_skosconceptscheme',
         'change_skosconceptscheme',
         'delete_skosconceptscheme',
-        )
+    )
     success_url = None
 
     def get_context_data(self, **kwargs):
@@ -177,13 +174,13 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
         if self.request.POST:
             data['titles'] = ConceptSchemeTitleFormSet(
                 self.request.POST, instance=self.object
-                )
+            )
             data['descriptions'] = ConceptSchemeDescriptionFormSet(
                 self.request.POST, instance=self.object
-                )
+            )
             data['sources'] = ConceptSchemeSourceFormSet(
                 self.request.POST, instance=self.object
-                )
+            )
         else:
             data['titles'] = ConceptSchemeTitleFormSet(instance=self.object)
             data['descriptions'] = ConceptSchemeDescriptionFormSet(instance=self.object)
@@ -200,7 +197,7 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
                 titles.instance = self.object
                 titles.save()
             else:
-                #raise forms.ValidationError("Both fields should be filled")
+                # raise forms.ValidationError("Both fields should be filled")
                 return super(SkosConceptSchemeUpdate, self).form_invalid(form)
             if descriptions.is_valid():
                 descriptions.instance = self.object
@@ -274,13 +271,11 @@ class SkosCollectionListView(GenericListView):
 
 
 class SkosCollectionDetailView(BaseDetailView):
-
     model = SkosCollection
     template_name = 'vocabs/skoscollection_detail.html'
 
 
 class SkosCollectionCreate(BaseCreateView):
-
     model = SkosCollection
     form_class = SkosCollectionForm
     success_url = None
@@ -341,14 +336,13 @@ class SkosCollectionCreate(BaseCreateView):
 
 
 class SkosCollectionUpdate(BaseUpdateView):
-
     model = SkosCollection
     form_class = SkosCollectionForm
     permission_required = (
         'view_skoscollection',
         'change_skoscollection',
         'delete_skoscollection',
-        )
+    )
     success_url = None
 
     def get_context_data(self, **kwargs):
@@ -427,7 +421,6 @@ class SkosConceptListView(GenericListView):
 
 
 class SkosConceptDetailView(BaseDetailView):
-
     model = SkosConcept
     template_name = 'vocabs/skosconcept_detail.html'
     success_url = None
@@ -438,7 +431,6 @@ class SkosConceptDetailView(BaseDetailView):
 
 
 class SkosConceptCreate(BaseCreateView):
-
     model = SkosConcept
     form_class = SkosConceptForm
 
@@ -500,14 +492,13 @@ class SkosConceptCreate(BaseCreateView):
 
 
 class SkosConceptUpdate(BaseUpdateView):
-
     model = SkosConcept
     form_class = SkosConceptForm
     permission_required = (
         'view_skosconcept',
         'change_skosconcept',
         'delete_skosconcept',
-        )
+    )
     success_url = None
 
     def get_context_data(self, **kwargs):
@@ -582,7 +573,7 @@ class SkosConceptDL(GenericListView):
             response['Content-Disposition'] = 'attachment; filename="{}.ttl"'.format(filename)
         else:
             response['Content-Disposition'] = 'attachment; filename="{}.rdf"'.format(filename)
-        g = graph_construct_qs(self.get_queryset()) 
+        g = graph_construct_qs(self.get_queryset())
         result = g.serialize(destination=response, format=get_format)
         return response
 
