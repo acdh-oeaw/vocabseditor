@@ -42,7 +42,7 @@ notebook==6.1.5
 numpy==1.15.2
 itypes==1.2.0
 Jinja2==2.11.2
-lxml==4.5.2
+lxml==4.6.2
 MarkupSafe==1.1.1
 numpy==1.19.2
 openapi-codec==1.3.2
