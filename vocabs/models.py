@@ -11,6 +11,12 @@ import reversion
 from mptt.models import MPTTModel, TreeForeignKey
 
 
+try:
+    notation_for_uri = settings.VOCABS_SETTINGS['notation_for_uri']
+except KeyError:
+    notation_for_uri = False
+
+
 DEFAULT_URI = "https://vocabs.acdh.oeaw.ac.at/"
 
 try:
@@ -208,7 +214,7 @@ class SkosConceptScheme(models.Model):
 class ConceptSchemeTitle(models.Model):
     """
     A Class for ConceptScheme titles in other languages.
-    
+
     """
     concept_scheme = models.ForeignKey(
         SkosConceptScheme,
@@ -233,7 +239,7 @@ class ConceptSchemeTitle(models.Model):
 class ConceptSchemeDescription(models.Model):
     """
     A Class for ConceptScheme descriptions in other languages.
-    
+
     """
     concept_scheme = models.ForeignKey(
         SkosConceptScheme,
@@ -258,7 +264,7 @@ class ConceptSchemeDescription(models.Model):
 class ConceptSchemeSource(models.Model):
     """
     A Class for ConceptScheme source information.
-    
+
     """
     concept_scheme = models.ForeignKey(
         SkosConceptScheme,
@@ -392,7 +398,7 @@ class SkosCollection(models.Model):
 class CollectionLabel(models.Model):
     """
     A Class for Collection labels/names in other languages.
-    
+
     """
     collection = models.ForeignKey(
         SkosCollection,
@@ -453,7 +459,7 @@ class CollectionNote(models.Model):
 class CollectionSource(models.Model):
     """
     A Class for Collection source information.
-    
+
     """
     collection = models.ForeignKey(
         SkosCollection,
@@ -616,6 +622,17 @@ class SkosConcept(MPTTModel):
         self.date_modified = timezone.now()
         super(SkosConcept, self).save(*args, **kwargs)
 
+    def create_uri(self):
+        mcs = self.scheme.identifier
+        if self.legacy_id:
+            concept_uri = f"{self.legacy_id}"
+        else:
+            if notation_for_uri:
+                concept_uri = f"{mcs}#concept__{slugify(self.notation, allow_unicode=False)}__{self.id}"
+            else:
+                concept_uri = f"{mcs}#concept{self.id}"
+        return concept_uri
+
     # change for template tag
     def creator_as_list(self):
         return self.creator.split(';')
@@ -664,7 +681,7 @@ class SkosConcept(MPTTModel):
 class ConceptLabel(models.Model):
     """
     A Class for Concept labels of any type.
-    
+
     """
     concept = models.ForeignKey(
         SkosConcept,
@@ -725,7 +742,7 @@ class ConceptNote(models.Model):
 class ConceptSource(models.Model):
     """
     A Class for Concept source information.
-    
+
     """
     concept = models.ForeignKey(
         SkosConcept,

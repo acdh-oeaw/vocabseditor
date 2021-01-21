@@ -36,15 +36,29 @@ INSTALLED_APPS = [
     'browsing',
     'vocabs',
     'mptt',
-    'rest_framework_swagger',
+    'drf_yasg',
     'django_extensions',
 ]
+
+SWAGGER_SETTINGS = {
+    'LOGOUT_URL': '/logout/',
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
+}
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -136,9 +150,9 @@ VOCABS_SETTINGS = {
     'default_lang': "en"
 }
 
+
 # Django guardian settings
 
 #ANONYMOUS_USER_NAME = 'public'
 
 # if ANONYMOUS_USER_NAME is set to None, anonymous user object permissions-are disabled.
-
