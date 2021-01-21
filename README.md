@@ -1,6 +1,6 @@
 # Vocabseditor
 
-![Build Status](https://travis-ci.com/zxenia/vocabseditor.svg?branch=master)
+![Build Status](https://travis-ci.com/acdh-oeaw/vocabseditor.svg?branch=master&status=passed)
 
 ## About
 
