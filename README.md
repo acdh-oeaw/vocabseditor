@@ -63,3 +63,23 @@ Run tests for the whole project:
  
   `coverage html `
 
+## Docker
+
+### building the image
+
+`docker build -t vocabseditor:latest .`
+
+### running the image
+
+To run the image you should provide an `.env` file to pass in needed environment variables; see example below:
+
+```
+DB_NAME=vocabseditor
+DB_USER=vocabseditor_user
+DB_PASSWORD=verysecret
+PROJECT_NAME=vocabseditor
+DJANGO_SUPERUSER_USERNAME=user1
+DJANGO_SUPERUSER_PASSWORD=pw1
+```
+
+`docker run -it -p 8020:8020 --rm --env-file .env_dev vocabseditor`

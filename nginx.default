@@ -1,6 +1,5 @@
 server {
     listen 8020;
-    server_name ${PROJECT_NAME}.sisyphos.arz.oeaw.ac.at;
 
     location /static/ {
         autoindex on;
