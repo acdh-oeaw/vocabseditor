@@ -1,6 +1,8 @@
 # Vocabseditor
 
-![Build Status](https://travis-ci.com/acdh-oeaw/vocabseditor.svg?branch=master&status=passed)
+![Build Status](https://github.com/acdh-oeaw/vocabseditor/workflows/Run%20Tests/badge.svg)
+
+![Docker Image](https://github.com/acdh-oeaw/vocabseditor/workflows/Publish%20Docker%20image/badge.svg)
 
 ## About
 
