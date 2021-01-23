@@ -11,7 +11,7 @@ PROJECT_NAME = os.environ.get('PROJECT_NAME', 'vocabseditor')
 
 BASE_URL = f"https://{PROJECT_NAME}.acdh.oeaw.ac.at"
 
-allowed_host = f"{PROJECT_NAME}.sisyphos.arz.oeaw.ac.at"
+allowed_host = os.environ.get('ALLOWED_HOST', '*')
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
