@@ -1,9 +1,10 @@
-name: Run Tests
+name: Test and Publish
 
 on: [push]
 
 jobs:
-  build:
+  test:
+    name: Test Application
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,3 +24,16 @@ jobs:
         python manage.py makemigrations --settings=vocabseditor.settings.dev
         python manage.py migrate --settings=vocabseditor.settings.dev
         python manage.py test --settings=vocabseditor.settings.dev
+
+  push_to_registry:
+    needs: test
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: docker build
+        run: docker build -t acdhch/vocabseditor .
+      - name: docker push
+        run: |
+          docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}" 
+          docker push acdhch/vocabseditor
