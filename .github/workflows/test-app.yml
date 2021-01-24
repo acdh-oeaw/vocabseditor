@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Rancher Deploy Action
-      uses: yantadeu/rancher-deploy-action@v0.0.3
+    - uses: yantadeu/rancher-deploy-action@v0.0.3
     - env:
         RANCHER_ACCESS_KEY: "${{ secrets.RANCHER_ACCESS_KEY }}"
         RANCHER_SECRET_KEY: "${{ secrets.RANCHER_SECRET_KEY }}"
