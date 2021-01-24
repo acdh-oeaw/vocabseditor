@@ -3,47 +3,61 @@ name: Test and Publish
 on: [push]
 
 jobs:
-  test:
-    name: Test Application
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.7, 3.8]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version:  ${{ matrix.python-version }}
-    - name: Cache pip
-      uses: actions/cache@v2
-      with:
-        # This path is specific to Ubuntu
-        path: ~/.cache/pip
-        # Look to see if there is a cache hit for the corresponding requirements file
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-          ${{ runner.os }}-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Test with pytest
-      run: |
-        python manage.py makemigrations --settings=vocabseditor.settings.dev
-        python manage.py migrate --settings=vocabseditor.settings.dev
-        python manage.py test --settings=vocabseditor.settings.dev
+  rancher:
+     name: Deploy to rancher
+     runs-on: ubuntu-latest
+     steps:
+     - name: Rancher Deploy Action
+       uses: yantadeu/rancher-deploy-action@v0.0.3
+       env:
+          RANCHER_ACCESS_KEY: ${{ secrets.RANCHER_ACCESS_KEY }}
+          RANCHER_SECRET_KEY: ${{ secrets.RANCHER_SECRET_KEY }}
+          RANCHER_URL_API: ${{ secrets.RANCHER_URL_API }}
+          SERVICE_NAME: 'vocabseditor:vocabsmanual'
+          DOCKER_IMAGE: 'acdhch/vocabseditor'
 
-  push_to_registry:
-    needs: test
-    name: Push Docker image to Docker Hub
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: docker build
-        run: docker build -t acdhch/vocabseditor .
-      - name: docker push
-        run: |
-          docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}" 
-          docker push acdhch/vocabseditor
+# jobs:
+#   test:
+#     name: Test Application
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         python-version: [3.7, 3.8]
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Set up Python
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version:  ${{ matrix.python-version }}
+#     - name: Cache pip
+#       uses: actions/cache@v2
+#       with:
+#         # This path is specific to Ubuntu
+#         path: ~/.cache/pip
+#         # Look to see if there is a cache hit for the corresponding requirements file
+#         key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+#         restore-keys: |
+#           ${{ runner.os }}-pip-
+#           ${{ runner.os }}-
+#     - name: Install dependencies
+#       run: |
+#         python -m pip install --upgrade pip
+#         pip install -r requirements.txt
+#     - name: Test with pytest
+#       run: |
+#         python manage.py makemigrations --settings=vocabseditor.settings.dev
+#         python manage.py migrate --settings=vocabseditor.settings.dev
+#         python manage.py test --settings=vocabseditor.settings.dev
+
+#   push_to_registry:
+#     needs: test
+#     name: Push Docker image to Docker Hub
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: docker build
+#         run: docker build -t acdhch/vocabseditor .
+#       - name: docker push
+#         run: |
+#           docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}" 
+#           docker push acdhch/vocabseditor
