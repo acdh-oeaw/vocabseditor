@@ -53,11 +53,11 @@ jobs:
     name: Deploy latest image via Rancher
     runs-on: ubuntu-latest
     steps:
-      - uses: yantadeu/rancher-deploy-action@v0.0.3
-      - env:
-          RANCHER_ACCESS_KEY: "${{ secrets.RANCHER_ACCESS_KEY }}"
-          RANCHER_SECRET_KEY: "${{ secrets.RANCHER_SECRET_KEY }}"
-          RANCHER_URL_API: "${{ secrets.RANCHER_URL_API }}"
-          SERVICE_NAME: 'vocabseditor:vocabsmanual'
-          DOCKER_IMAGE: 'acdhch/vocabseditor'
-          DOCKER_IMAGE_LATEST: 'acdhch/vocabseditor:latest'
+    - uses: yantadeu/rancher-deploy-action@v0.0.3
+    - env:
+        RANCHER_ACCESS_KEY: "${{ secrets.RANCHER_ACCESS_KEY }}"
+        RANCHER_SECRET_KEY: "${{ secrets.RANCHER_SECRET_KEY }}"
+        RANCHER_URL_API: "${{ secrets.RANCHER_URL_API }}"
+        SERVICE_NAME: 'vocabseditor:vocabsmanual'
+        DOCKER_IMAGE: 'acdhch/vocabseditor'
+        DOCKER_IMAGE_LATEST: 'acdhch/vocabseditor:latest'
