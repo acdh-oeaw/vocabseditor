@@ -8,4 +8,4 @@ jobs:
      runs-on: ubuntu-latest
      steps:
      - name: Rancher Deploy Action
-       run: "docker run --rm curlimages/curl:7.74.0  --request POST 'https://rancher.acdh-dev.oeaw.ac.at/v3/project/c-zdbh8:p-44gl8/workloads/deployment:vocabseditor:vocabsmanual?action=redeploy' --header 'Accept: application/json' --header 'Authorization: Bearer ${{ secrets.RANCHER_BARER_TOKEN }}"
+       run: "docker run --rm curlimages/curl:7.74.0  --request POST 'https://rancher.acdh-dev.oeaw.ac.at/v3/project/c-zdbh8:p-44gl8/workloads/deployment:vocabseditor:vocabsmanual?action=redeploy' --header 'Accept: application/json' --header 'Authorization: Bearer ${{ secrets.RANCHER_BARER_TOKEN }}'"
