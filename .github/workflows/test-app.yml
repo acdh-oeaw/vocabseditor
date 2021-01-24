@@ -1,4 +1,4 @@
-name: Test and Publish
+name: Test, Publish and Deploy
 
 on: [push]
 
@@ -47,3 +47,15 @@ jobs:
         run: |
           docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}" 
           docker push acdhch/vocabseditor
+  
+  deploy_via_rancher:
+    needs: push_to_registry
+    - name: Deploy latest image via rancher
+      uses: yantadeu/rancher-deploy-action@v0.0.3
+      env:
+        RANCHER_ACCESS_KEY: "${{ secrets.RANCHER_ACCESS_KEY }}"
+        RANCHER_SECRET_KEY: "${{ secrets.RANCHER_SECRET_KEY }}"
+        RANCHER_URL_API: "${{ secrets.RANCHER_URL_API }}"
+        SERVICE_NAME: 'vocabseditor:vocabsmanual'
+        DOCKER_IMAGE: 'acdhch/vocabseditor'
+        DOCKER_IMAGE_LATEST: 'acdhch/vocabseditor:latest'

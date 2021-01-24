@@ -2,8 +2,6 @@
 
 ![Build Status](https://github.com/acdh-oeaw/vocabseditor/workflows/Run%20Tests/badge.svg)
 
-![Docker Image](https://github.com/acdh-oeaw/vocabseditor/workflows/Publish%20Docker%20image/badge.svg)
-
 ## About
 
 The purpose of the Vocabseditor is to provide a service for collaborative work on controlled vocabularies development.
