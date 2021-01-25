@@ -7,16 +7,17 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '1234verysecret')
 DEBUG = os.environ.get('DEBUG', True)
 REDMINE_ID = os.environ.get('REDMINE_ID', 'vocabseditor')
 PROJECT_NAME = os.environ.get('PROJECT_NAME', 'vocabseditor')
+VOCABS_DEFAULT_PEFIX = os.environ.get(VOCABS_DEFAULT_PEFIX, 'default_prefix')
 
 
 BASE_URL = f"https://{PROJECT_NAME}.acdh.oeaw.ac.at"
 
-allowed_host = os.environ.get('ALLOWED_HOST', '*')
+ADD_ALLOWED_HOST = os.environ.get('ALLOWED_HOST', '*')
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "0.0.0.0",
-    allowed_host,
+    ADD_ALLOWED_HOST,
 ]
 
 
@@ -36,6 +37,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 VOCABS_SETTINGS = {
     'default_prefix': VOCABS_DEFAULT_PEFIX,
-    'default_ns': "http://www.vocabs/{}/".format(VOCABS_DEFAULT_PEFIX),
+    'default_ns': f"http://www.vocabs/{VOCABS_DEFAULT_PEFIX}/",
     'default_lang': "en"
 }
