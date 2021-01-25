@@ -5,7 +5,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '1234verysecret')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', True)
-REDMINE_ID = os.environ.get('REDMINE_ID', 'vocabseditor')
+REDMINE_ID = os.environ.get('REDMINE_ID', '12305')
 PROJECT_NAME = os.environ.get('PROJECT_NAME', 'vocabseditor')
 VOCABS_DEFAULT_PEFIX = os.environ.get(VOCABS_DEFAULT_PEFIX, 'default_prefix')
 
