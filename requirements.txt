@@ -1,6 +1,7 @@
 acdh-django-charts==0.5.3
 acdh-django-netvis==1.0.0
 chardet==3.0.4
+coverage==5.3.1
 Django==3.1.5
 django-autocomplete-light==3.8.1
 django-ckeditor==6.0.0
@@ -10,6 +11,7 @@ django-filter==2.4.0
 django-guardian==2.3.0
 django-js-asset==1.2.2
 django-leaflet==0.27.1
+django-nose==1.4.7
 django-mptt==0.11.0
 django-reversion==3.0.8
 django-super-deduper==0.1.4
