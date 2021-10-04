@@ -15,13 +15,14 @@ class DbpediaAC(object):
     """
     endpoint = 'http://lookup.dbpedia.org/api/search/'
     search_type = 'PrefixSearch?'
+    response_format = 'json'
 
     def payload(self, q):
         """
         returns a dictionary containing arguments to be
         passed in the URL’s query string
         """
-        return {'QueryString': q}
+        return {'QueryString': q, 'format': self.response_format}
 
     def get_url(self):
         """
@@ -34,7 +35,7 @@ class DbpediaAC(object):
         parses JSON response to return a list containing
         data in format 'uri - label'
         """
-        return [str(x['uri']) + ' - ' + str(x['label']) for x in response['results']]
+        return [str(x['resource'][0]) for x in response['docs']]
 
 
 class GndAC(object):
