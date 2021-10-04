@@ -1,6 +1,6 @@
 # Vocabseditor
 
-![Build Status](https://github.com/acdh-oeaw/vocabseditor/workflows/Run%20Tests/badge.svg)
+![Build Status](https://github.com/acdh-oeaw/vocabseditor/workflows/Run%20Tests/badge.svg)  [![Publish and Deploy](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/deploy.yml/badge.svg)](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/deploy.yml)
 
 ## About
 
