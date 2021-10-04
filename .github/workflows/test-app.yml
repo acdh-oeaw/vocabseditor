@@ -1,4 +1,4 @@
-name: Test and Publish
+name: Test
 
 on:
   push:
@@ -37,22 +37,3 @@ jobs:
         python manage.py makemigrations --settings=vocabseditor.settings.dev
         python manage.py migrate --settings=vocabseditor.settings.dev
         python manage.py test --settings=vocabseditor.settings.dev
-  push_to_registry:
-    needs: test
-    name: Push Docker image to Docker Hub
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: docker build
-        run: docker build -t acdhch/vocabseditor .
-      - name: docker push
-        run: |
-          docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_PASSWORD }}" 
-          docker push acdhch/vocabseditor
-  rancher:
-     needs: push_to_registry
-     name: Deploy to rancher
-     runs-on: ubuntu-latest
-     steps:
-     - name: Rancher Deploy Action
-       run: "docker run --rm curlimages/curl:7.74.0  --request POST 'https://rancher.acdh-dev.oeaw.ac.at/v3/project/c-zdbh8:p-44gl8/workloads/deployment:vocabseditor:vocabsmanual?action=redeploy' --header 'Accept: application/json' --header 'Authorization: Bearer ${{ secrets.RANCHER_BARER_TOKEN }}'"
