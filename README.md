@@ -65,19 +65,22 @@ Run tests for the whole project:
 
 ## Docker
 
+At the ACDH-CH we use a centralized database-server. So instead of spawning a database for each service our services are talking to a database on this centralized db-server. This setup is reflected in the dockerized setting as well, meaning it expects an already existing database (either on your host, e.g. accessible via 'localhost' or some remote one)
+
 ### building the image
 
-`docker build -t vocabseditor:latest .`
-`docker build -t vocabseditor:latest --no-cache .`
+* `docker build -t vocabseditor:latest .`
+* `docker build -t vocabseditor:latest --no-cache .`
 
 ### running the image
 
 To run the image you should provide an `.env` file to pass in needed environment variables; see example below:
 
 ```
-DB_NAME=db_name
-DB_USER=db_user
-DB_PASSWORD=db_pw
+DB_NAME=vocabs
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=localhost
 PROJECT_NAME=vocabseditor
 SECRET_KEY=randomstring
 DEBUG=True
@@ -86,6 +89,33 @@ DJANGO_SUPERUSER_PASSWORD=user_pw
 VOCABS_DEFAULT_PEFIX=myvocabs
 VOCABS_DEFAULT_PEFIX=de
 REDMINE_ID=12345
+MIGRATE=yes
 ```
 
-`docker run -it -p 8020:8020 --rm --env-file .env_dev vocabseditor`
+`docker run -it -p 8020:8020 --rm --env-file .env vocabseditor`
+
+### docker-compose
+
+```yml
+version: "3"
+services:
+  web:
+    build: .
+    environment:
+      - DB_NAME=vocabs
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=localhost
+      - PROJECT_NAME=vocabseditor
+      - SECRET_KEY=randomstring
+      - DEBUG=True
+      - DJANGO_SUPERUSER_USERNAME=user_name
+      - DJANGO_SUPERUSER_PASSWORD=user_pw
+      - VOCABS_DEFAULT_PEFIX=myvocabs
+      - VOCABS_DEFAULT_PEFIX=de
+      - REDMINE_ID=12345
+      - MIGRATE=yes
+    network_mode: host
+```
+
+

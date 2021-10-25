@@ -12,10 +12,9 @@ COPY nginx.default /etc/nginx/sites-available/default
 RUN mkdir -p /opt/app
 RUN mkdir -p /opt/app/vocabseditor
 COPY requirements.txt start-server.sh /opt/app/
+RUN pip install -r /opt/app/requirements.txt --no-cache-dir && pip install gunicorn --no-cache-dir
 COPY . /opt/app/vocabseditor/
 WORKDIR /opt/app
-RUN pip install -r requirements.txt --no-cache-dir
-RUN pip install gunicorn --no-cache-dir
 RUN chown -R www-data:www-data /opt/app
 
 # start server
