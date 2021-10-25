@@ -94,28 +94,11 @@ MIGRATE=yes
 
 `docker run -it -p 8020:8020 --rm --env-file .env vocabseditor`
 
-### docker-compose
+### docker-compose (using external database)
 
-```yml
-version: "3"
-services:
-  web:
-    build: .
-    environment:
-      - DB_NAME=vocabs
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_HOST=localhost
-      - PROJECT_NAME=vocabseditor
-      - SECRET_KEY=randomstring
-      - DEBUG=True
-      - DJANGO_SUPERUSER_USERNAME=user_name
-      - DJANGO_SUPERUSER_PASSWORD=user_pw
-      - VOCABS_DEFAULT_PEFIX=myvocabs
-      - VOCABS_DEFAULT_PEFIX=de
-      - REDMINE_ID=12345
-      - MIGRATE=yes
-    network_mode: host
-```
+`docker-compose up`
 
+### docker-compose-db (spawns own database)
+
+`docker-compose -f docker-compose-db.yml up`
 

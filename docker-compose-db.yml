@@ -1,0 +1,28 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=vocabseditor
+      - POSTGRES_USER=vocabseditor
+      - POSTGRES_PASSWORD=vocabseditor
+  web:
+    build: .
+    environment:
+      - DB_NAME=vocabseditor
+      - DB_USER=vocabseditor
+      - DB_PASSWORD=vocabseditor
+      - DB_HOST=db
+      - PROJECT_NAME=vocabseditor
+      - SECRET_KEY=randomstring
+      - DEBUG=True
+      - DJANGO_SUPERUSER_USERNAME=user_name
+      - DJANGO_SUPERUSER_PASSWORD=user_pw
+      - VOCABS_DEFAULT_PEFIX=myvocabs
+      - VOCABS_DEFAULT_PEFIX=de
+      - REDMINE_ID=12345
+      - MIGRATE=yes
+    depends_on:
+      - db
+    ports:
+      - 8020:8020
