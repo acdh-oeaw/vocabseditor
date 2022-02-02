@@ -11,4 +11,4 @@ fi
 if [ -n "$DJANGO_SUPERUSER_USERNAME" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ] ; then
     (echo "creating superuser ${DJANGO_SUPERUSER_USERNAME}" && python manage.py createsuperuser --no-input --noinput --email 'blank@email.com' --settings=vocabseditor.settings.docker)
 fi
-gunicorn vocabseditor.wsgi_docker --user www-data --bind 0.0.0.0:8010 --workers 3 & nginx -g "daemon off;"
+gunicorn vocabseditor.wsgi_docker --user www-data --bind 0.0.0.0:8010 --workers 3 --timeout 600 & nginx -g "daemon off;"
