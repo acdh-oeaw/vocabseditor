@@ -39,12 +39,26 @@ The application is implemented using Python and [Django](https://www.djangoproje
     
  
  ## Usage
+
+ ### Import via cmd-line
  
  Import an existing skos vocabulary (accepted formats are ttl, rdf): specify the file name, main language of the vocabulary, file format, your username
  
  Run e.g.
  
  `python manage.py import_skos_vocab your_vocabulary.ttl en ttl your_username`
+
+ ### Export via cmd-line
+
+ Run e.g. 
+
+* `python manage.py dl_scheme --scheme-id 5 --filename hansi --format rdf`
+
+ Serializes all SkosConcepts related to SkosConceptScheme with ID 5 as RDF/XML to a file named `hansi.rdf`
+
+ * `python manage.py dl_scheme --scheme-id 5`
+
+ Serializes all SkosConcepts related to SkosConceptScheme with ID 5 as turtle to a file named `dump.ttl`
  
  
  More information on how to use the tool in the [Vocabs editor Wiki](https://github.com/acdh-oeaw/vocabseditor/wiki).
