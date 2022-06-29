@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     'vocabs',
     'mptt',
     'drf_yasg',
-    'django_extensions',
+    # 'django_extensions',
 ]
 
 SWAGGER_SETTINGS = {
