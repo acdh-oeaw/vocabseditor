@@ -4,7 +4,7 @@ from pathlib import Path
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 SECRET_KEY = os.environ.get('SECRET_KEY', '1234verysecret')
 
-
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     'vocabs',
     'mptt',
     'drf_yasg',
-    'django_extensions',
+    # 'django_extensions',
 ]
 
 SWAGGER_SETTINGS = {

@@ -1,48 +1,48 @@
-from django.conf.urls import url
+from django.urls import path
 from . import views
 
 
 app_name = 'vocabs'
 
 urlpatterns = [
-    url(r'^concepts/$', views.SkosConceptListView.as_view(), name='browse_vocabs'),
-    url(r'^concepts/(?P<pk>[0-9]+)$', views.SkosConceptDetailView.as_view(), name='skosconcept_detail'),
-    url(r'^concepts/create/$', views.SkosConceptCreate.as_view(), name='skosconcept_create'),
-    url(r'^concepts/update/(?P<pk>[0-9]+)$', views.SkosConceptUpdate.as_view(), name='skosconcept_update'),
-    url(r'^concepts/delete/(?P<pk>[0-9]+)$', views.SkosConceptDelete.as_view(), name='skosconcept_delete'),
-    url(r'^scheme/$', views.SkosConceptSchemeListView.as_view(), name='browse_schemes'),
-    url(
-        r'^scheme/(?P<pk>[0-9]+)$', views.SkosConceptSchemeDetailView.as_view(),
+    path('concepts/', views.SkosConceptListView.as_view(), name='browse_vocabs'),
+    path('concepts/<int:pk>', views.SkosConceptDetailView.as_view(), name='skosconcept_detail'),
+    path('concepts/create/', views.SkosConceptCreate.as_view(), name='skosconcept_create'),
+    path('concepts/update/<int:pk>', views.SkosConceptUpdate.as_view(), name='skosconcept_update'),
+    path('concepts/delete/<int:pk>', views.SkosConceptDelete.as_view(), name='skosconcept_delete'),
+    path('scheme/', views.SkosConceptSchemeListView.as_view(), name='browse_schemes'),
+    path(
+        'scheme/<int:pk>', views.SkosConceptSchemeDetailView.as_view(),
         name='skosconceptscheme_detail'),
-    url(
-        r'^scheme/create/$', views.SkosConceptSchemeCreate.as_view(),
+    path(
+        'scheme/create/', views.SkosConceptSchemeCreate.as_view(),
         name='skosconceptscheme_create'),
-    url(
-        r'^scheme/update/(?P<pk>[0-9]+)$', views.SkosConceptSchemeUpdate.as_view(),
+    path(
+        'scheme/update/<int:pk>', views.SkosConceptSchemeUpdate.as_view(),
         name='skosconceptscheme_update'),
-    url(
-        r'^scheme/delete/(?P<pk>[0-9]+)$',
+    path(
+        'scheme/delete/<int:pk>',
         views.SkosConceptSchemeDelete.as_view(),
         name='skosconceptscheme_delete',
     ),
-    url(
-        r'^vocabs-download/$', views.SkosConceptDL.as_view(),
+    path(
+        'vocabs-download/', views.SkosConceptDL.as_view(),
         name='vocabs-download'),
-    url(
-        r'^collection/$', views.SkosCollectionListView.as_view(),
+    path(
+        'collection/', views.SkosCollectionListView.as_view(),
         name='browse_skoscollections'),
-    url(
-        r'^collection/(?P<pk>[0-9]+)$', views.SkosCollectionDetailView.as_view(),
+    path(
+        'collection/<int:pk>', views.SkosCollectionDetailView.as_view(),
         name='skoscollection_detail'),
-    url(
-        r'^collection/create/$', views.SkosCollectionCreate.as_view(),
+    path(
+        'collection/create/', views.SkosCollectionCreate.as_view(),
         name='skoscollection_create'),
-    url(
-        r'^collection/update/(?P<pk>[0-9]+)$', views.SkosCollectionUpdate.as_view(),
+    path(
+        'collection/update/<int:pk>', views.SkosCollectionUpdate.as_view(),
         name='skoscollection_update'),
-    url(
-        r'^collection/delete/(?P<pk>[0-9]+)$', views.SkosCollectionDelete.as_view(),
+    path(
+        'collection/delete/<int:pk>', views.SkosCollectionDelete.as_view(),
         name='skoscollection_delete',
     ),
-    url(r'^import/$', views.file_upload, name='import'),
+    path('import/', views.file_upload, name='import'),
 ]
