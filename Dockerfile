@@ -1,4 +1,4 @@
-FROM python:3.8-buster
+FROM python:3.8.13-slim-bullseye
 
 
 RUN apt-get update -y && apt-get upgrade -y

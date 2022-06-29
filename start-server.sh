@@ -1,4 +1,4 @@
-!/usr/bin/env bash
+#!/usr/bin/env bash
 # start-server.sh
 echo "Hello from Project Vocabseditor"
 python manage.py collectstatic --no-input

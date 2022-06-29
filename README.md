@@ -30,8 +30,6 @@ The application is implemented using Python and [Django](https://www.djangoproje
     `python manage.py migrate`
 
     `python manage.py runserver`
-    
-1. After the above commands are executed the sqlite database is created automatically in the project's root folder 
 
 1. Development server runs at `localhost:8000`
 
