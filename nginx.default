@@ -4,7 +4,11 @@ server {
 
     location /static/ {
         autoindex on;
-        alias /opt/app/vocabseditor/staticfiles/;
+        alias /opt/app/staticfiles/;
+    }
+    location /media/ {
+        autoindex on;
+        alias /opt/app/media/;
     }
 
     location / {

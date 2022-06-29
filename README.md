@@ -19,23 +19,25 @@ The application is implemented using Python and [Django](https://www.djangoproje
 
 1. Clone the repo
 
-2. Create and activate virtual environment, run `pip install -r requirements.txt`
+1. Create and activate virtual environment, run `pip install -r requirements.txt`
 
-3. Run
+1. Evaluate and adapt environement variables used in `vocabseditor/settings.py`
 
-    `python manage.py makemigrations --settings=vocabseditor.settings.dev`
+1. Run
 
-    `python manage.py migrate --settings=vocabseditor.settings.dev`
+    `python manage.py makemigrations`
 
-    `python manage.py runserver --settings=vocabseditor.settings.dev`
+    `python manage.py migrate`
+
+    `python manage.py runserver`
     
-4. After the above commands are executed the sqlite database is created automatically in the project's root folder 
+1. After the above commands are executed the sqlite database is created automatically in the project's root folder 
 
-5. Development server runs at `localhost:8000`
+1. Development server runs at `localhost:8000`
 
-6. Create admin user
+1. Create admin user
 
-    `python manage.py createsuperuser --settings=vocabseditor.settings.dev`
+    `python manage.py createsuperuser`
     
  
  ## Usage
@@ -69,11 +71,11 @@ Tests are located in `/tests` directory in an individual app folder.
 
 Run tests for the whole project:
 
- `python manage.py test --settings=vocabseditor.settings.dev`
+ `python manage.py test`
  
  Run tests with coverage:
  
-  `coverage run manage.py test --settings=vocabseditor.settings.dev `
+  `coverage run manage.py test `
  
   `coverage html `
 

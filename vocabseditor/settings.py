@@ -12,10 +12,7 @@ if os.environ.get('DEBUG'):
     DEBUG = True
 else:
     DEBUG = False
-REDMINE_ID = os.environ.get('REDMINE_ID', '12305')
-PROJECT_NAME = os.environ.get('PROJECT_NAME', 'vocabseditor')
-VOCABS_DEFAULT_PEFIX = os.environ.get('VOCABS_DEFAULT_PEFIX', 'vocabseditor')
-BASE_URL = f"https://{PROJECT_NAME}.acdh.oeaw.ac.at"
+
 ADD_ALLOWED_HOST = os.environ.get('ALLOWED_HOST', '*')
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -23,7 +20,15 @@ ALLOWED_HOSTS = [
     ADD_ALLOWED_HOST,
 ]
 
-DATABASES = {
+if os.environ.get('SQLITE'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DB_TYP', 'django.db.backends.postgresql'),
         'NAME': os.environ.get('DB_NAME', 'vocabseditor'),
@@ -157,12 +162,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles/')
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 
 
-VOCABS_DEFAULT_PEFIX = os.path.basename(BASE_DIR)
+REDMINE_ID = os.environ.get('REDMINE_ID', '12305')
+PROJECT_NAME = os.environ.get('PROJECT_NAME', 'vocabseditor')
+VOCABS_DEFAULT_PEFIX = os.environ.get('VOCABS_DEFAULT_PEFIX', 'vocabseditor')
+BASE_URL = f"https://{PROJECT_NAME}.acdh.oeaw.ac.at"
+
 VOCABS_SETTINGS = {
     'default_prefix': VOCABS_DEFAULT_PEFIX,
     'default_ns': "http://www.vocabs/{}/".format(VOCABS_DEFAULT_PEFIX),
