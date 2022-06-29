@@ -1,10 +1,11 @@
+acdh-django-browsing
 Django>=4.0.5,<5
-django-autocomplete-light==3.9.4
 django-crispy-forms==1.14.0
-django-filter==22.1
 django-guardian==2.4.0
 django-mptt==0.13.4
 djangorestframework>=3.13.1,<4
+djangorestframework-guardian==0.3.0
 django-reversion==5.0.1
-django-tables2==2.4.1
 drf-yasg==1.20.0
+psycopg2-binary==2.9.3
+rdflib==6.1.1
