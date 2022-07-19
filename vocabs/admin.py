@@ -1,5 +1,18 @@
 from django.contrib import admin
-from .models import *
+from .models import (
+    SkosConcept,
+    SkosConceptScheme,
+    SkosCollection,
+    ConceptSchemeTitle,
+    ConceptSchemeDescription,
+    ConceptSchemeSource,
+    CollectionLabel,
+    CollectionNote,
+    CollectionSource,
+    ConceptLabel,
+    ConceptNote,
+    ConceptSource
+)
 from guardian.admin import GuardedModelAdmin
 from reversion.admin import VersionAdmin
 from mptt.admin import MPTTModelAdmin
@@ -8,18 +21,17 @@ from mptt.admin import MPTTModelAdmin
 # With object permissions support
 @admin.register(SkosConcept)
 class SkosConceptAdmin(MPTTModelAdmin, GuardedModelAdmin, VersionAdmin):
-	pass
+    pass
 
 
 class SkosCollectionAdmin(GuardedModelAdmin, VersionAdmin):
-	pass
+    pass
 
 
 class SkosConceptSchemeAdmin(GuardedModelAdmin, VersionAdmin):
-	pass
+    pass
 
 
-#admin.site.register(SkosConcept, SkosConceptAdmin)
 admin.site.register(SkosCollection, SkosCollectionAdmin)
 admin.site.register(SkosConceptScheme, SkosConceptSchemeAdmin)
 admin.site.register(ConceptSchemeTitle)
