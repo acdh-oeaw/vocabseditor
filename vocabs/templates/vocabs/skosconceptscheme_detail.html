@@ -257,6 +257,15 @@
                 <li><a href="{% url 'vocabs:vocabs-download' %}?format=turtle&scheme={{object.id}}">Turtle</a></li>
             </td>
         </tr>
+        <tr>
+            <th>
+                <abbr title="export runs in the background, use this option for bigger Vocabuluaries"></abbr>export async</abbr>
+            </th>
+            <td>
+                <li><a href="{% url 'vocabs:export' %}?schema-id={{object.id}}">RDF/XML</a></li>
+                <li><a href="{% url 'vocabs:export' %}?format=turtle&schema-id={{object.id}}">Turtle</a></li>
+            </td>
+        </tr>
         {% endif %}
         
         </table>
