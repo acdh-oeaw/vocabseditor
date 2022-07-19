@@ -15,7 +15,7 @@ class Formset(LayoutObject):
 
     def __init__(self, formset_name_in_context, template=None):
         self.formset_name_in_context = formset_name_in_context
-        
+
         # crispy_forms/layout.py:302 requires us to have a fields property
         self.fields = []
 

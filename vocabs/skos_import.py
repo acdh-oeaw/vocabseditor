@@ -388,7 +388,6 @@ class SkosImporter(object):
 
             for concept in concept_scheme_has_concepts:
                 concept_legacy_id = concept.get("legacy_id")
-                concept_inscheme = concept.get("scheme")
                 concept_notation = concept.get("notation", "")
                 concept_creator = concept.get("creator", "")
                 concept_contributor = concept.get("contributor", "")

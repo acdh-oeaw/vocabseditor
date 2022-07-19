@@ -4,11 +4,36 @@ from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django_tables2 import RequestConfig
 from .models import SkosConcept, SkosConceptScheme, SkosCollection
-from .forms import *
-from .tables import *
-from .filters import SkosConceptListFilter, SkosConceptSchemeListFilter, SkosCollectionListFilter
+from .forms import (
+    UploadFileForm,
+    SkosConceptSchemeFormHelper,
+    SkosConceptSchemeForm,
+    SkosCollectionFormHelper,
+    SkosCollectionForm,
+    SkosConceptFormHelper,
+    SkosConceptForm,
+    ConceptNoteFormSet,
+    ConceptLabelFormSet,
+    ConceptSchemeSourceFormSet,
+    ConceptSourceFormSet,
+    CollectionSourceFormSet,
+    CollectionNoteFormSet,
+    CollectionLabelFormSet,
+    ConceptSchemeTitleFormSet,
+    ConceptSchemeDescriptionFormSet
+)
+from .tables import (
+    SkosCollectionTable,
+    SkosConceptSchemeTable,
+    SkosConceptTable
+)
+from .filters import (
+    SkosConceptListFilter,
+    SkosConceptSchemeListFilter,
+    SkosCollectionListFilter
+)
 from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
-from .rdf_utils import *
+from .rdf_utils import graph_construct_qs
 from django.shortcuts import render
 from django.http import HttpResponse
 import time
@@ -18,7 +43,7 @@ from django.contrib.auth.decorators import login_required
 from reversion.models import Version
 from django.db import transaction
 from django.shortcuts import redirect
-from .skos_import import *
+from .skos_import import SkosImporter
 from django.contrib import messages
 
 
@@ -571,7 +596,7 @@ class SkosConceptDL(GenericListView):
         else:
             response['Content-Disposition'] = 'attachment; filename="{}.rdf"'.format(filename)
         g = graph_construct_qs(self.get_queryset())
-        result = g.serialize(destination=response, format=get_format)
+        g.serialize(destination=response, format=get_format)
         return response
 
 
