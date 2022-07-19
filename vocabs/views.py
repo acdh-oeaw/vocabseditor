@@ -14,7 +14,7 @@ from django.http import HttpResponse
 import time
 import datetime
 from guardian.shortcuts import get_objects_for_user
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from reversion.models import Version
 from django.db import transaction
 from django.shortcuts import redirect
@@ -161,8 +161,7 @@ class SkosConceptSchemeCreate(BaseCreateView):
 
 class SkosConceptSchemeUpdate(BaseUpdateView):
     model = SkosConceptScheme
-    form_class = SkosConceptSchemeForm
-    permission_required = (
+    form_class = SkosConceptSchemeForm = (
         'view_skosconceptscheme',
         'change_skosconceptscheme',
         'delete_skosconceptscheme',
@@ -337,8 +336,7 @@ class SkosCollectionCreate(BaseCreateView):
 
 class SkosCollectionUpdate(BaseUpdateView):
     model = SkosCollection
-    form_class = SkosCollectionForm
-    permission_required = (
+    form_class = SkosCollectionForm = (
         'view_skoscollection',
         'change_skoscollection',
         'delete_skoscollection',
@@ -493,8 +491,7 @@ class SkosConceptCreate(BaseCreateView):
 
 class SkosConceptUpdate(BaseUpdateView):
     model = SkosConcept
-    form_class = SkosConceptForm
-    permission_required = (
+    form_class = SkosConceptForm = (
         'view_skosconcept',
         'change_skosconcept',
         'delete_skosconcept',

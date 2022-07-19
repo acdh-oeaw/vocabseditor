@@ -1,9 +1,23 @@
 from rdflib import Graph, Namespace, RDF, URIRef
-from rdflib.namespace import DC, RDFS, SKOS
-from .models import *
+from .models import (
+    SkosCollection,
+    SkosConcept,
+    SkosConceptScheme,
+    ConceptSchemeTitle,
+    ConceptSchemeDescription,
+    ConceptSchemeSource,
+    CollectionLabel,
+    CollectionNote,
+    CollectionSource,
+    ConceptLabel,
+    ConceptNote,
+    ConceptSource
+)
 import re
 import logging
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import User
+
 from django.db import transaction
 
 
@@ -86,7 +100,7 @@ class SkosImporter(object):
                 concept_scheme["contributor"] = ";".join(
                     [contr for contrp in allow_properties('contributor') for contr in g.objects(cs, contrp)])
                 concept_scheme["language"] = ";".join(
-                    [l for lp in allow_properties('language') for l in g.objects(cs, lp)])
+                    [lang for lp in allow_properties('language') for lang in g.objects(cs, lp)])
                 concept_scheme["subject"] = ";".join(
                     [s for sp in allow_properties('subject') for s in g.objects(cs, sp)])
                 concept_scheme["publisher"] = ";".join(

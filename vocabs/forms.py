@@ -2,14 +2,27 @@ from dal import autocomplete
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, Div, HTML, ButtonHolder
-from crispy_forms.bootstrap import *
-from .models import *
+from crispy_forms.bootstrap import Field
+from .models import (
+    SkosCollection,
+    SkosConcept,
+    SkosConceptScheme,
+    ConceptSchemeTitle,
+    ConceptSchemeDescription,
+    ConceptSchemeSource,
+    CollectionLabel,
+    CollectionNote,
+    CollectionSource,
+    ConceptLabel,
+    ConceptNote,
+    ConceptSource
+)
 from django.forms.models import inlineformset_factory
-from .custom_layout_object import *
+from .custom_layout_object import Formset
 from mptt.forms import TreeNodeChoiceField
 from django.forms import BaseInlineFormSet
 import re
-from .endpoints import *
+from .endpoints import ENDPOINT_CHOICES
 
 
 class GenericFilterFormHelper(FormHelper):
@@ -40,14 +53,14 @@ class UploadFileForm(forms.Form):
 
 
 def custom_name_errors(field_name):
-    name_errors = {'required': '{} is required when language provided'.format(field_name)}
-    name_errors['invalid']: 'Enter a valid value'
+    name_errors = {'required': f'{field_name} is required when language provided'}
+    name_errors['invalid'] = 'Enter a valid value'
     return name_errors
 
 
 def custom_lang_errors(field_name):
-    lang_errors = {'required': 'Language is required when {} provided'.format(field_name.lower())}
-    lang_errors['invalid']: 'Enter a valid value'
+    lang_errors = {'required': f'Language is required when {field_name.lower()} provided'}
+    lang_errors['invalid'] = 'Enter a valid value'
     return lang_errors
 
 
