@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'reversion',
     'guardian',
     'crispy_forms',
+    'django_celery_results',
     'django_filters',
     'django_tables2',
     'rest_framework',
@@ -177,6 +178,10 @@ VOCABS_SETTINGS = {
     'default_ns': "http://www.vocabs/{}/".format(VOCABS_DEFAULT_PEFIX),
     'default_lang': "en"
 }
+
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BROKER_URL = os.environ.get('amqp://')
+CELERY_TASK_TRACK_STARTED = True
 
 
 # Django guardian settings

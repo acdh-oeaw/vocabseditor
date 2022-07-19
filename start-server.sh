@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 # start-server.sh
 echo "Hello from Project Vocabseditor"
+echo "starting rabbitmq"
+rabbitmq-server > rabbit_mq.log 1>&1 &
+
+echo "starting celery server"
+celery -A vocabseditor worker -l INFO  > celery.log 2>&1 &
+
 python manage.py collectstatic --no-input
 if [ -n "$MIGRATE" ] ; then
     (echo "making migrations and running them"
