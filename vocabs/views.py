@@ -1,3 +1,7 @@
+import time
+import datetime
+from django.shortcuts import render
+from django.http import HttpResponse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
 from django.utils.decorators import method_decorator
@@ -22,22 +26,20 @@ from .forms import (
     ConceptSchemeTitleFormSet,
     ConceptSchemeDescriptionFormSet
 )
-from .tables import (
+from vocabs.tables import (
     SkosCollectionTable,
     SkosConceptSchemeTable,
     SkosConceptTable
 )
-from .filters import (
+from vocabs.filters import (
     SkosConceptListFilter,
     SkosConceptSchemeListFilter,
     SkosCollectionListFilter
 )
 from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
-from .rdf_utils import graph_construct_qs
-from django.shortcuts import render
-from django.http import HttpResponse
-import time
-import datetime
+from vocabs.rdf_utils import graph_construct_qs, RDF_FORMATS
+from vocabs.tasks import export_concept_schema
+
 from guardian.shortcuts import get_objects_for_user
 from django.contrib.auth.decorators import login_required
 from reversion.models import Version
@@ -591,11 +593,9 @@ class SkosConceptDL(GenericListView):
         response = HttpResponse(content_type='application/xml; charset=utf-8')
         filename = "download_{}".format(timestamp)
         get_format = self.request.GET.get('format', default='pretty-xml')
-        if get_format == 'turtle':
-            response['Content-Disposition'] = 'attachment; filename="{}.ttl"'.format(filename)
-        else:
-            response['Content-Disposition'] = 'attachment; filename="{}.rdf"'.format(filename)
-        g = graph_construct_qs(self.get_queryset())
+        qs = self.get_queryset()
+        response['Content-Disposition'] = f'attachment; filename="{filename}.{RDF_FORMATS[get_format]}"'
+        g = graph_construct_qs(qs)
         g.serialize(destination=response, format=get_format)
         return response
 
@@ -626,3 +626,12 @@ def file_upload(request):
     else:
         form = UploadFileForm()
     return render(request, 'vocabs/upload.html', {'form': form})
+
+
+def export_async(request):
+    get_format = request.GET.get('format', default='pretty-xml')
+    schema_id = request.GET.get('schema-id')
+    now = datetime.datetime.now()
+    export_path = export_concept_schema.delay(schema_id, get_format)
+    html = f"<html><body>Export started at {now}, check {export_path}.</body></html>"
+    return HttpResponse(html)

@@ -14,7 +14,7 @@ COPY requirements.txt start-server.sh /opt/app/
 RUN pip install -r /opt/app/requirements.txt --no-cache-dir
 COPY . /opt/app
 WORKDIR /opt/app
-RUN chown -R www-data:www-data /opt/app
+RUN chown -R www-data:www-data /opt/app && chmod -R 755 /opt/app/media
 
 # start server
 EXPOSE 80

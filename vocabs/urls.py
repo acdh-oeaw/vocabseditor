@@ -28,6 +28,7 @@ urlpatterns = [
     path(
         'vocabs-download/', views.SkosConceptDL.as_view(),
         name='vocabs-download'),
+    path('export/', views.export_async),
     path(
         'collection/', views.SkosCollectionListView.as_view(),
         name='browse_skoscollections'),
