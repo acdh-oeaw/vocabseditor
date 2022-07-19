@@ -3,6 +3,7 @@ USER = {
     "password": "12345"
 }
 
+
 def concept_scheme(user):
     return {
         "title": "Test Concept Scheme",

@@ -14,11 +14,11 @@ class VocabsTest(TestCase):
         rv = self.client.get('/vocabs/scheme/')
         self.assertContains(rv, 'Concept Schemes')
         rv = self.client.get('/vocabs/scheme/create/', follow=True)
-        #self.assertContains(rv, 'Namespace')
+        self.assertContains(rv, ':title')
 
-    def test_concept_schema_detail(self):
-        rv = self.client.get('/vocabs/create/')
-        #self.assertContains(rv, 'Pref label')
+    def test_concept_detail(self):
+        rv = self.client.get('/vocabs/concepts/create/')
+        self.assertContains(rv, 'kos:prefLabel')
         form_data = {'pref_label': 'test concept'}
-        self.client.post('/vocabs/create/', form_data, follow=True)
-        #self.assertContains(rv, 'Skos broadmatch')
+        rv = self.client.post('/vocabs/concepts/create/', form_data, follow=True)
+        self.assertContains(rv, 'test concept')

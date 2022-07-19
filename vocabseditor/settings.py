@@ -29,15 +29,15 @@ if os.environ.get('SQLITE'):
     }
 else:
     DATABASES = {
-    'default': {
-        'ENGINE': os.environ.get('DB_TYP', 'django.db.backends.postgresql'),
-        'NAME': os.environ.get('DB_NAME', 'vocabseditor'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432')
+        'default': {
+            'ENGINE': os.environ.get('DB_TYP', 'django.db.backends.postgresql'),
+            'NAME': os.environ.get('DB_NAME', 'vocabseditor'),
+            'USER': os.environ.get('DB_USER', 'postgres'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
+            'HOST': os.environ.get('DB_HOST', 'localhost'),
+            'PORT': os.environ.get('DB_PORT', '5432')
+        }
     }
-}
 
 # Application definition
 
@@ -122,7 +122,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'vocabseditor.wsgi.application'
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend', # this is default
+    'django.contrib.auth.backends.ModelBackend',  # this is default
     'guardian.backends.ObjectPermissionBackend',
 )
 
@@ -186,6 +186,6 @@ CELERY_TASK_TRACK_STARTED = True
 
 # Django guardian settings
 
-#ANONYMOUS_USER_NAME = 'public'
+# ANONYMOUS_USER_NAME = 'public'
 
 # if ANONYMOUS_USER_NAME is set to None, anonymous user object permissions-are disabled.

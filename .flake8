@@ -3,6 +3,7 @@ ignore = D203 W504
 max-line-length = 120
 exclude =
     */migrations,
+    manage.py
     .git,
     build,
     env
