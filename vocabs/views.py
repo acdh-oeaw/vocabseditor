@@ -38,14 +38,13 @@ from vocabs.filters import (
 )
 from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 from vocabs.rdf_utils import graph_construct_qs, RDF_FORMATS
-from vocabs.tasks import export_concept_schema
 
 from guardian.shortcuts import get_objects_for_user
 from django.contrib.auth.decorators import login_required
 from reversion.models import Version
 from django.db import transaction
 from django.shortcuts import redirect
-from .skos_import import SkosImporter
+from vocabs.skos_import import SkosImporter
 from django.contrib import messages
 
 
@@ -626,12 +625,3 @@ def file_upload(request):
     else:
         form = UploadFileForm()
     return render(request, 'vocabs/upload.html', {'form': form})
-
-
-def export_async(request):
-    get_format = request.GET.get('format', default='pretty-xml')
-    schema_id = request.GET.get('schema-id')
-    now = datetime.datetime.now()
-    export_path = export_concept_schema.delay(schema_id, get_format)
-    html = f"<html><body>Export started at {now}, check {export_path}.</body></html>"
-    return HttpResponse(html)

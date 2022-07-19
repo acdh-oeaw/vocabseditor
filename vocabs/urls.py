@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from vocabs.export_views import export_async, TaskResultListView
 
 
 app_name = 'vocabs'
@@ -28,7 +29,6 @@ urlpatterns = [
     path(
         'vocabs-download/', views.SkosConceptDL.as_view(),
         name='vocabs-download'),
-    path('export/', views.export_async),
     path(
         'collection/', views.SkosCollectionListView.as_view(),
         name='browse_skoscollections'),
@@ -46,4 +46,6 @@ urlpatterns = [
         name='skoscollection_delete',
     ),
     path('import/', views.file_upload, name='import'),
+    path('export/', export_async, name='export'),
+    path('export-status/', TaskResultListView.as_view(), name='export-status'),
 ]

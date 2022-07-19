@@ -1,0 +1,48 @@
+{% extends "webpage/base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Export Status</h2>
+                </div>
+                <div class="card-body">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Start</th>
+                        <th scope="col">End</th>
+                        <th scope="col">Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>{% for x in object_list %}
+                        <tr>
+                            <th scope="row">{{ x.task_id }}</th>
+                            <td>{% if x.status == "SUCCESS" %}
+                                <span class="badge badge-success">{{ x.status }}</span>
+                                {% elif x.status == "FAILURE" %}
+                                <span class="badge badge-danger">{{ x.status }}</span>
+                                {% else %}
+                                <span class="badge badge-primary">{{ x.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ x.date_created }}</td>
+                            <td>{{ x.date_done }}</td>
+                            <td>{% if x.status == "SUCCESS" %}
+                                <a href="/media/{{ x.result|cut:'"' }}">{{ x.result |cut:'"' }}</a>
+                                {% else %}
+                                {{ x.result }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>{% endfor %}
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -16,4 +16,4 @@ def export_concept_schema(schema_id, export_format):
     export_path = os.path.join(settings.MEDIA_ROOT, file_name)
     g.serialize(export_path, format=export_format)
     os.chmod(export_path, 0o0755)  # this is needed because I don't get docker permission/user things
-    return export_path
+    return file_name
