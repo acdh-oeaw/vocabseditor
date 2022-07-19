@@ -1,5 +1,9 @@
 from rest_framework import serializers
-from .models import *
+from .models import (
+    SkosConceptScheme,
+    SkosCollection,
+    SkosConcept
+)
 from django.contrib.auth.models import User
 
 

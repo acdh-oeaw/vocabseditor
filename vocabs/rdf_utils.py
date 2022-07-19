@@ -1,6 +1,5 @@
 import rdflib
 from rdflib import Literal, Namespace, RDF, URIRef, XSD
-from rdflib.namespace import DC, RDFS, SKOS
 
 
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
