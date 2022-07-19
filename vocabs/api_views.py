@@ -3,8 +3,16 @@ from rest_framework import pagination
 from rest_framework_guardian import filters
 
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import *
-from .serializers import *
+from .models import (
+    SkosConceptScheme,
+    SkosCollection,
+    SkosConcept
+)
+from .serializers import (
+    SkosCollectionSerializer,
+    SkosConceptSchemeSerializer,
+    SkosConceptSerializer
+)
 from rest_framework.settings import api_settings
 from rest_framework.permissions import DjangoObjectPermissions
 

@@ -1,10 +1,12 @@
+import requests
+import json
+
 from dal import autocomplete
 from .models import SkosConcept, SkosConceptScheme, SkosCollection
 from guardian.shortcuts import get_objects_for_user
 from django.contrib.auth.models import User
 from mptt.settings import DEFAULT_LEVEL_INDICATOR
-import requests, json
-from .endpoints import *
+from .endpoints import ENDPOINT, DbpediaAC
 
 
 ################ Global autocomplete for external concepts ################
@@ -33,7 +35,6 @@ def global_autocomplete(request, endpoint):
 class ExternalLinkAC(autocomplete.Select2ListView):
 
     def get_list(self):
-        choices = []
         endpoint = self.forwarded.get('endpoint', None)
         global_ac = global_autocomplete(self.request, endpoint=endpoint)
         return global_ac

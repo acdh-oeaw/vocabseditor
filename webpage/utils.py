@@ -1,7 +1,7 @@
 import django_filters
 from django.views.generic.edit import CreateView, UpdateView
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
+from crispy_forms.layout import Submit
 from django_tables2 import SingleTableView, RequestConfig
 
 

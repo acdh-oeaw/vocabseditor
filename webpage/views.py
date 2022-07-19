@@ -1,14 +1,19 @@
+import requests
 from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.template import RequestContext, loader
+from django.template import loader
 from django.views.generic import TemplateView, DetailView
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from .forms import form_user_login
 from reversion.models import Version
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from vocabs.models import *
+from vocabs.models import (
+    SkosCollection,
+    SkosConcept,
+    SkosConceptScheme
+)
 from .metadata import PROJECT_METADATA as PM
 from copy import deepcopy
 
@@ -30,7 +35,6 @@ class ImprintView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        imprint_url = get_imprint_url()
         r = requests.get(get_imprint_url())
 
         if r.status_code == 200:
@@ -56,7 +60,7 @@ class GenericWebpageView(TemplateView):
         try:
             loader.select_template([template_name])
             template_name = "webpage/{}.html".format(self.kwargs.get("template", 'index'))
-        except:
+        except Exception as e: # noqa F841
             template_name = "webpage/index.html"
         return [template_name]
 
