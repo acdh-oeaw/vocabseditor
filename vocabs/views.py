@@ -1,15 +1,19 @@
 import time
 import datetime
-from django.shortcuts import render
+from guardian.shortcuts import get_objects_for_user
+from django.contrib.auth.decorators import login_required
+from reversion.models import Version
+from django.db import transaction
+from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 from django.http import HttpResponse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
 from django_tables2 import RequestConfig
-from .models import SkosConcept, SkosConceptScheme, SkosCollection
-from .forms import (
-    UploadFileForm,
+
+from vocabs.models import SkosConcept, SkosConceptScheme, SkosCollection
+from vocabs.forms import (
     SkosConceptSchemeFormHelper,
     SkosConceptSchemeForm,
     SkosCollectionFormHelper,
@@ -36,16 +40,7 @@ from vocabs.filters import (
     SkosConceptSchemeListFilter,
     SkosCollectionListFilter
 )
-from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 from vocabs.rdf_utils import graph_construct_qs, RDF_FORMATS
-
-from guardian.shortcuts import get_objects_for_user
-from django.contrib.auth.decorators import login_required
-from reversion.models import Version
-from django.db import transaction
-from django.shortcuts import redirect
-from vocabs.skos_import import SkosImporter
-from django.contrib import messages
 
 
 class BaseDetailView(DetailView):
@@ -597,31 +592,3 @@ class SkosConceptDL(GenericListView):
         g = graph_construct_qs(qs)
         g.serialize(destination=response, format=get_format)
         return response
-
-
-###################################################
-# SKOS vocabulary upload
-###################################################
-
-@login_required
-def file_upload(request):
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            file = request.FILES['file']
-            file_format = file.name.split('.')[-1]
-            if file_format in ['ttl', 'rdf']:
-                if file_format == 'ttl':
-                    skos_vocab = SkosImporter(file=file, file_format="ttl", language=form.cleaned_data['language'])
-                else:
-                    skos_vocab = SkosImporter(file=file, language=form.cleaned_data['language'])
-                try:
-                    skos_vocab.upload_data(user=request.user.username)
-                    return redirect('vocabs:browse_schemes')
-                except Exception as error:
-                    messages.error(request, error)
-            else:
-                messages.error(request, "Upload rdf or ttl file")
-    else:
-        form = UploadFileForm()
-    return render(request, 'vocabs/upload.html', {'form': form})

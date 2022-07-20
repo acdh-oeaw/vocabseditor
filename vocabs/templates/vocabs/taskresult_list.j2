@@ -11,7 +11,7 @@
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
-                        <th scope="col">ID</th>
+                        <th scope="col">Job</th>
                         <th scope="col">Status</th>
                         <th scope="col">Start</th>
                         <th scope="col">End</th>
@@ -20,7 +20,7 @@
                     </thead>
                     <tbody>{% for x in object_list %}
                         <tr>
-                            <th scope="row">{{ x.task_id }}</th>
+                            <th scope="row"><abbr title="{{ x.task_id }}">{{ x.task_name }}</a></th>
                             <td>{% if x.status == "SUCCESS" %}
                                 <span class="badge badge-success">{{ x.status }}</span>
                                 {% elif x.status == "FAILURE" %}
@@ -32,7 +32,7 @@
                             <td>{{ x.date_created }}</td>
                             <td>{{ x.date_done }}</td>
                             <td>{% if x.status == "SUCCESS" %}
-                                <a href="/media/{{ x.result|cut:'"' }}">{{ x.result |cut:'"' }}</a>
+                                <a href="{{ x.result|cut:'"' }}">{{ x.result |cut:'"' }}</a>
                                 {% else %}
                                 {{ x.result }}
                                 {% endif %}

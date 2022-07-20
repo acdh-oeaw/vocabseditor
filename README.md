@@ -106,7 +106,7 @@ REDMINE_ID=12345
 MIGRATE=yes
 ```
 
-`docker run -it -p 8020:8020 --rm --env-file .env vocabseditor`
+`docker run -it -p 8020:8020 --rm --name vocabseditor --env-file .env vocabseditor`
 
 ### docker-compose (using external database)
 

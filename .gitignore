@@ -33,3 +33,5 @@ s_wsgy.py
 .env_dev
 vocabseditor/settings/pg_local.py
 .env_secret
+media/uploads/*.rdf
+media/uploads/*.ttl
