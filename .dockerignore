@@ -1,3 +1,6 @@
 myenv
 env
 db.sqlite3
+cover
+media/uploads/*.rdf
+media/uploads/*.ttl

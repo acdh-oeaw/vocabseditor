@@ -486,7 +486,8 @@ class SkosImporter(object):
                         logging.info(e)
                 else:
                     pass
-            return SkosConcept.objects.rebuild()
+            SkosConcept.objects.rebuild()
+            return concept_scheme.get_absolute_url()
         else:
             pass
         return

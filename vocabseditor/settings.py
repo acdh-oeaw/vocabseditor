@@ -182,6 +182,7 @@ VOCABS_SETTINGS = {
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_BROKER_URL = os.environ.get('amqp://')
 CELERY_TASK_TRACK_STARTED = True
+CELERY_RESULT_EXTENDED = True
 
 
 # Django guardian settings
