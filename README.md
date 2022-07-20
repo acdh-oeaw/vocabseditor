@@ -1,6 +1,7 @@
 # Vocabseditor
 
 ![Build Status](https://github.com/acdh-oeaw/vocabseditor/workflows/Run%20Tests/badge.svg)  [![Publish and Deploy](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/deploy.yml/badge.svg)](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/deploy.yml)
+[![flake8 Lint](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/lint.yml/badge.svg)](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/lint.yml)
 
 ## About
 
