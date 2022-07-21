@@ -1,6 +1,38 @@
-myenv
-env
-db.sqlite3
-cover
+
+# Byte-compiled
+__pycache__/
+*.pyc
+
+# sqlite
+/*.sqlite3
+
+# test coverage
+.coverage
+cover/
+htmlcov/
+
+# IDE
+.idea
+
+# migrations
+vocabs/migrations/*
+webpage/migrations/*
+
+
+# Ipython Notebook checkpoints
+.ipynb_checkpoints
+
+# Ipython Notebook
+.ipynb
+
+# envs
+
+env/
+server.py
+s_wsgy.py
+.env_dev
+vocabseditor/settings/pg_local.py
+.env_secret
 media/uploads/*.rdf
 media/uploads/*.ttl
+Untitled.ipynb

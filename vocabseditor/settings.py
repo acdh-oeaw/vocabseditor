@@ -184,6 +184,9 @@ CELERY_BROKER_URL = os.environ.get('amqp://')
 CELERY_TASK_TRACK_STARTED = True
 CELERY_RESULT_EXTENDED = True
 
+GHPAT = os.environ.get('GHPAT')
+GHREPO = "csae8092/whatever"
+
 
 # Django guardian settings
 
