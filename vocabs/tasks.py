@@ -23,6 +23,8 @@ def export_concept_schema(schema_id, export_format):
     files = glob.glob(f"{settings.MEDIA_ROOT}*.*", recursive=False)
     push_to_gh(
         files,
+        ghpat=settings.GHPAT,
+        repo_name=settings.GHREPO,
         commit_message=commit_message
     )
     return f"/media/{file_name}"
