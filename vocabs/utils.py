@@ -12,7 +12,6 @@ def push_to_gh(
     commit_message="some message"
 ):
     g = Github(ghpat)
-    print(f"ghpat: {ghpat}, repo_name: {repo_name}")
     repo = g.get_repo(repo_name)
     master_ref = repo.get_git_ref(f'heads/{branch}')
     master_sha = master_ref.object.sha
