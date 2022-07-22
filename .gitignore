@@ -35,3 +35,7 @@ vocabseditor/settings/pg_local.py
 .env_secret
 media/uploads/*.rdf
 media/uploads/*.ttl
+Untitled.ipynb
+media/*.rdf
+media/*.ttl
+Untitled1.ipynb
