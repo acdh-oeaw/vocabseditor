@@ -8,7 +8,7 @@ def push_to_gh(
     files,
     ghpat=settings.GHPAT,
     repo_name=settings.GHREPO,
-    branch="main",
+    branch="master",
     commit_message="some message"
 ):
     g = Github(ghpat)

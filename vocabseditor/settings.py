@@ -185,7 +185,7 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_RESULT_EXTENDED = True
 
 GHPAT = os.environ.get('GHPAT')
-GHREPO = os.environ.get('GHREPO', 'acdh-oeaw/vocabseditor')
+GHREPO = os.environ.get('GHREPO', 'acdh-oeaw/vocabseditor-dumps')
 
 
 # Django guardian settings
