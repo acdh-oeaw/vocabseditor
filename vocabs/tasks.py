@@ -1,5 +1,4 @@
 import os
-import glob
 from celery import shared_task
 from django.conf import settings
 from django.utils.text import slugify
@@ -20,7 +19,7 @@ def export_concept_schema(schema_id, export_format):
     g.serialize(export_path, format=export_format)
     os.chmod(export_path, 0o0755)  # this is needed because I don't get docker permission/user things
     commit_message = f"{file_name} exported from vocabseditor"
-    files = glob.glob(f"{settings.MEDIA_ROOT}*.*", recursive=False)
+    files = [export_path]
     push_to_gh(
         files,
         ghpat=settings.GHPAT,
