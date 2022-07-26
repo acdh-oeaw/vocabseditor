@@ -21,7 +21,7 @@ def push_to_gh(
         _, file_name = os.path.split(entry)
         with open(entry) as input_file:
             data = input_file.read()
-        element = InputGitTreeElement(f"vocabs/{file_name}", '100644', 'blob', data)
+        element = InputGitTreeElement(f"dumps/{file_name}", '100644', 'blob', data)
         element_list.append(element)
     tree = repo.create_git_tree(element_list, base_tree)
     parent = repo.get_git_commit(master_sha)
