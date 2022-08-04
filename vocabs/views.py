@@ -182,11 +182,7 @@ class SkosConceptSchemeCreate(BaseCreateView):
 
 class SkosConceptSchemeUpdate(BaseUpdateView):
     model = SkosConceptScheme
-    form_class = SkosConceptSchemeForm = (
-        'view_skosconceptscheme',
-        'change_skosconceptscheme',
-        'delete_skosconceptscheme',
-    )
+    form_class = SkosConceptSchemeForm
     success_url = None
 
     def get_context_data(self, **kwargs):
@@ -357,11 +353,7 @@ class SkosCollectionCreate(BaseCreateView):
 
 class SkosCollectionUpdate(BaseUpdateView):
     model = SkosCollection
-    form_class = SkosCollectionForm = (
-        'view_skoscollection',
-        'change_skoscollection',
-        'delete_skoscollection',
-    )
+    form_class = SkosCollectionForm
     success_url = None
 
     def get_context_data(self, **kwargs):
@@ -512,11 +504,7 @@ class SkosConceptCreate(BaseCreateView):
 
 class SkosConceptUpdate(BaseUpdateView):
     model = SkosConcept
-    form_class = SkosConceptForm = (
-        'view_skosconcept',
-        'change_skosconcept',
-        'delete_skosconcept',
-    )
+    form_class = SkosConceptForm
     success_url = None
 
     def get_context_data(self, **kwargs):
