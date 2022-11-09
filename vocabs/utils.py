@@ -53,3 +53,10 @@ def handle_uploaded_file(file):
         for chunk in file.chunks():
             destination.write(chunk)
     return full_file_name
+
+
+def delete_legacy_ids(concept_scheme):
+    for x in concept_scheme.has_concepts.all():
+        x.legacy_id = ""
+        x.save()
+    return "done"
