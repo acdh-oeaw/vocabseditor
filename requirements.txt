@@ -8,7 +8,7 @@ django-mptt==0.13.4
 djangorestframework>=3.13.1,<4
 djangorestframework-guardian==0.3.0
 django-reversion==5.0.1
-drf-yasg==1.20.0
+drf-yasg>=1.21.4,<2
 gunicorn==20.1.0
 psycopg2-binary==2.9.3
 PyGithub==1.55
