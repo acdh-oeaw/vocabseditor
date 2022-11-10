@@ -22,6 +22,9 @@ urlpatterns = [
         'scheme/update/<int:pk>', views.SkosConceptSchemeUpdate.as_view(),
         name='skosconceptscheme_update'),
     path(
+        'scheme/remove-keys/<int:pk>', views.delete_legacy_id_view,
+        name='skosconceptscheme_remove_keys'),
+    path(
         'scheme/delete/<int:pk>',
         views.SkosConceptSchemeDelete.as_view(),
         name='skosconceptscheme_delete',

@@ -287,7 +287,11 @@
            </li>
            {% endfor %}
         </div>
+        
         </div>
+        {% if user.is_authenticated %}
+        <a href="{% url 'vocabs:skosconceptscheme_remove_keys' pk=object.id %}" class="btn btn-outline-danger" type="button">Remove legacy ids</a>
+        {% endif %}
         {% endif %}
         {% endif %}
         <!--change history ends here-->
