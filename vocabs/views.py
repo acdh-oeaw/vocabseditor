@@ -1,5 +1,6 @@
 import time
 import datetime
+from django.shortcuts import get_object_or_404, redirect
 from guardian.shortcuts import get_objects_for_user
 from django.contrib.auth.decorators import login_required
 from reversion.models import Version
@@ -41,6 +42,7 @@ from vocabs.filters import (
     SkosCollectionListFilter
 )
 from vocabs.rdf_utils import graph_construct_qs, RDF_FORMATS
+from vocabs.utils import delete_legacy_ids
 
 
 class BaseDetailView(DetailView):
@@ -122,6 +124,13 @@ class SkosConceptSchemeDetailView(BaseDetailView):
         context = super(SkosConceptSchemeDetailView, self).get_context_data(**kwargs)
         context["concepts"] = SkosConcept.objects.filter(scheme=self.kwargs.get('pk'))
         return context
+
+
+@login_required
+def delete_legacy_id_view(request, pk):
+    obj = get_object_or_404(SkosConceptScheme, pk=pk)
+    delete_legacy_ids(obj)
+    return redirect(obj)
 
 
 class SkosConceptSchemeCreate(BaseCreateView):

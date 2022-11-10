@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     # 'django_extensions',
 ]
+if DEBUG:
+    INSTALLED_APPS = INSTALLED_APPS + ['django_extensions']
 
 SWAGGER_SETTINGS = {
     'LOGOUT_URL': '/logout/',
