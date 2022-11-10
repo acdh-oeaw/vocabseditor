@@ -1,5 +1,6 @@
 import rdflib
 from rdflib import Literal, Namespace, RDF, URIRef, XSD
+from django.conf import settings
 
 
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
@@ -8,6 +9,8 @@ DCT = Namespace("http://purl.org/dc/terms/")
 RDFS = Namespace("http://www.w3.org/2000/01/rdf-schema#")
 OWL = Namespace("http://www.w3.org/2002/07/owl#")
 VOCABS = Namespace("https://vocabs.acdh.oeaw.ac.at/create-concept-scheme/")
+VOCABS_SEPARATOR = getattr(settings, 'VOCABS_SEPARATOR', '/')
+
 
 RDF_FORMATS = {
     "xml": "rdf",
@@ -88,7 +91,7 @@ def graph_construct_qs(results):
         # if obj.legacy_id:
         #     concept = URIRef(obj.legacy_id)
         # else:
-        #     concept = URIRef(main_concept_scheme + "#concept" + str(obj.id))
+        #     concept = URIRef(main_concept_scheme + VOCABS_SEPARATOR + "concept" + str(obj.id))
         concept = URIRef(obj.create_uri())
         g.add((concept, RDF.type, SKOS.Concept))
         g.add((concept, SKOS.prefLabel, Literal(obj.pref_label, lang=obj.pref_label_lang)))
@@ -97,7 +100,7 @@ def graph_construct_qs(results):
         g.add((concept, SKOS.inScheme, main_concept_scheme))
         if obj.collection.all():
             for x in obj.collection.all():
-                collection = URIRef(main_concept_scheme + "#collection" + str(x.id))
+                collection = URIRef(main_concept_scheme + VOCABS_SEPARATOR + "collection" + str(x.id))
                 g.add((collection, RDF.type, SKOS.Collection))
                 g.add((collection, DCT.created, Literal(x.date_created, datatype=XSD.dateTime)))
                 g.add((collection, DCT.modified, Literal(x.date_modified, datatype=XSD.dateTime)))
@@ -148,7 +151,13 @@ def graph_construct_qs(results):
                         if y.legacy_id:
                             g.add((collection, SKOS.member, URIRef(y.legacy_id)))
                         else:
-                            g.add((collection, SKOS.member, URIRef(main_concept_scheme + "#concept" + str(y.id))))
+                            g.add(
+                                (
+                                    collection,
+                                    SKOS.member,
+                                    URIRef(main_concept_scheme + VOCABS_SEPARATOR + "concept" + str(y.id))
+                                )
+                            )
         # Concept properties
         if obj.has_labels.all():
             for label in obj.has_labels.all():
@@ -191,13 +200,24 @@ def graph_construct_qs(results):
             if obj.broader_concept.legacy_id:
                 g.add((concept, SKOS.broader, URIRef(obj.broader_concept.legacy_id)))
             else:
-                g.add((concept, SKOS.broader, URIRef(main_concept_scheme + "#concept" + str(obj.broader_concept.id))))
+                g.add(
+                    (
+                        concept,
+                        SKOS.broader,
+                        URIRef(main_concept_scheme + VOCABS_SEPARATOR + "concept" + str(obj.broader_concept.id)))
+                )
         if obj.narrower_concepts.all():
             for x in obj.narrower_concepts.all():
                 if x.legacy_id:
                     g.add((concept, SKOS.narrower, URIRef(x.legacy_id)))
                 else:
-                    g.add((concept, SKOS.narrower, URIRef(main_concept_scheme + "#concept" + str(x.id))))
+                    g.add(
+                        (
+                            concept,
+                            SKOS.narrower,
+                            URIRef(main_concept_scheme + VOCABS_SEPARATOR + "concept" + str(x.id))
+                        )
+                    )
         # modelling external matches
         # skos:related
         if obj.related:

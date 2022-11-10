@@ -16,6 +16,7 @@ try:
 except KeyError:
     notation_for_uri = False
 
+VOCABS_SEPARATOR = getattr(settings, 'VOCABS_SEPARATOR', '/')
 
 DEFAULT_URI = "https://vocabs.acdh.oeaw.ac.at/"
 
@@ -628,9 +629,10 @@ class SkosConcept(MPTTModel):
             concept_uri = f"{self.legacy_id}"
         else:
             if notation_for_uri:
-                concept_uri = f"{mcs}#concept__{slugify(self.notation, allow_unicode=False)}__{self.id}"
+                tmp = slugify(self.notation, allow_unicode=False)
+                concept_uri = f"{mcs}{VOCABS_SEPARATOR}concept__{tmp}__{self.id}"
             else:
-                concept_uri = f"{mcs}#concept{self.id}"
+                concept_uri = f"{mcs}{VOCABS_SEPARATOR}concept{self.id}"
         return concept_uri
 
     # change for template tag

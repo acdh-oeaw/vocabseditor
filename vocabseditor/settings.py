@@ -173,6 +173,7 @@ MEDIA_URL = 'media/'
 REDMINE_ID = os.environ.get('REDMINE_ID', '12305')
 PROJECT_NAME = os.environ.get('PROJECT_NAME', 'vocabseditor')
 VOCABS_DEFAULT_PEFIX = os.environ.get('VOCABS_DEFAULT_PEFIX', 'vocabseditor')
+VOCABS_SEPARATOR = os.environ.get('VOCABS_SEPARATOR', '/')
 BASE_URL = f"https://{PROJECT_NAME}.acdh.oeaw.ac.at"
 
 VOCABS_SETTINGS = {
