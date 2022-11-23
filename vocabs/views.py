@@ -42,7 +42,7 @@ from vocabs.filters import (
     SkosCollectionListFilter
 )
 from vocabs.rdf_utils import graph_construct_qs, RDF_FORMATS
-from vocabs.utils import delete_legacy_ids
+from vocabs.utils import delete_legacy_ids, delete_skos_notations
 
 
 class BaseDetailView(DetailView):
@@ -130,6 +130,13 @@ class SkosConceptSchemeDetailView(BaseDetailView):
 def delete_legacy_id_view(request, pk):
     obj = get_object_or_404(SkosConceptScheme, pk=pk)
     delete_legacy_ids(obj)
+    return redirect(obj)
+
+
+@login_required
+def delete_notation_view(request, pk):
+    obj = get_object_or_404(SkosConceptScheme, pk=pk)
+    delete_skos_notations(obj)
     return redirect(obj)
 
 

@@ -290,7 +290,8 @@
         
         </div>
         {% if user.is_authenticated %}
-        <a href="{% url 'vocabs:skosconceptscheme_remove_keys' pk=object.id %}" class="btn btn-outline-danger" type="button">Remove legacy ids</a>
+        <a href="{% url 'vocabs:skosconceptscheme_remove_keys' pk=object.id %}" class="btn btn-outline-danger" type="button" style="margin: 5px;">Remove legacy ids</a>
+        <a href="{% url 'vocabs:skosconceptscheme_remove_notations' pk=object.id %}" class="btn btn-outline-danger" type="button" style="margin: 5px;">Remove Skos Notations</a>
         {% endif %}
         {% endif %}
         {% endif %}
