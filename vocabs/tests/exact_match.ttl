@@ -1,0 +1,30 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vocab: <https://vocabs.acdh.oeaw.ac.at/testit/> .
+
+<https://chronontology.dainst.org/period/vpg0DvwPQxyc> skos:exactMatch vocab:100 .
+
+vocab:100 a skos:Concept ;
+    dct:source "ACDH-CH" ;
+    skos:exactMatch <https://chronontology.dainst.org/period/vpg0DvwPQxyc> ;
+    skos:narrowMatch <http://www.eionet.europa.eu/gemet/concept/3252> ;
+    skos:exactMatch <https://d-nb.info/gnd/1197273174> ;
+    skos:definition "Level 1 of the test-it"@en ;
+    skos:inScheme vocab:testitSchema ;
+    skos:prefLabel "Level 1"@en ;
+    skos:topConceptOf vocab:testitSchema .
+
+vocab:testitSchema a skos:ConceptScheme ;
+    rdfs:label "Test it Thesaurus"@en ;
+    dc:creator "Klaus Illmayer" ;
+    dc:description "Test if import of exactmatch works"@en ;
+    dc:language "en" ;
+    dc:publisher "ACDH-CH" ;
+    dc:subject "Test" ;
+    dc:title "Test-it exactmatch"@en ;
+    dct:created "2022-11-18" ;
+    owl:versionInfo "1.0" ;
+    skos:hasTopConcept vocab:100 .

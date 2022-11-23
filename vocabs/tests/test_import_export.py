@@ -35,6 +35,15 @@ class TestSkosImport(TestCase):
         self.assertEqual(len(SkosCollection.objects.all()), 6)
         self.assertEqual(len(SkosConcept.objects.all()), 114)
 
+    def test_related_concepts(self):
+        test_file = os.path.join(os.path.dirname(__file__), "exact_match.ttl")
+        skos_vocab = SkosImporter(file=test_file, language="en")
+        skos_vocab.upload_data(self.user)
+        item = SkosConcept.objects.filter(
+            exact_match__contains='https://d-nb.info/gnd/1197273174'
+        )
+        self.assertEqual(item.count(), 1)
+
 
 class TestSkosExport(TestCase):
     """ Test module for SKOS export functionality. """

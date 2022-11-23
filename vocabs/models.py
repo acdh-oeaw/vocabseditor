@@ -52,6 +52,16 @@ NOTE_TYPES = (
 )
 
 
+SKOS_RELATION_TYPES = [
+    ('related', 'related'),
+    ('broadMatch', 'broad_match'),
+    ('narrowMatch', 'narrow_match'),
+    ('exactMatch', 'exact_match'),
+    ('relatedMatch', 'related_match'),
+    ('closeMatch', 'close_match')
+]
+
+
 ######################################################################
 #
 # SkosConceptScheme
