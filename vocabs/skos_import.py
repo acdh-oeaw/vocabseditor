@@ -24,7 +24,6 @@ from django.db import transaction
 
 logging.getLogger().setLevel(logging.INFO)
 
-SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 DC = Namespace("http://purl.org/dc/elements/1.1/")
 DCT = Namespace("http://purl.org/dc/terms/")
 RDFS = Namespace("http://www.w3.org/2000/01/rdf-schema#")
