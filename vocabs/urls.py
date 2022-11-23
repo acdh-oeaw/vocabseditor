@@ -25,6 +25,9 @@ urlpatterns = [
         'scheme/remove-keys/<int:pk>', views.delete_legacy_id_view,
         name='skosconceptscheme_remove_keys'),
     path(
+        'scheme/remove-notations/<int:pk>', views.delete_notation_view,
+        name='skosconceptscheme_remove_notations'),
+    path(
         'scheme/delete/<int:pk>',
         views.SkosConceptSchemeDelete.as_view(),
         name='skosconceptscheme_delete',

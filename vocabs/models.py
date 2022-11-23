@@ -618,15 +618,15 @@ class SkosConcept(MPTTModel):
         return "{}{}".format("https://whatever", self.get_absolute_url)
 
     def save(self, *args, **kwargs):
-        if self.notation == "":
-            temp_notation = slugify(self.pref_label, allow_unicode=True)
-            concepts = len(SkosConcept.objects.filter(notation=temp_notation))
-            if concepts < 1:
-                self.notation = temp_notation
-            else:
-                self.notation = "{}-{}".format(temp_notation, concepts)
-        else:
-            pass
+        # if self.notation == "":
+        #     temp_notation = slugify(self.pref_label, allow_unicode=True)
+        #     concepts = len(SkosConcept.objects.filter(notation=temp_notation))
+        #     if concepts < 1:
+        #         self.notation = temp_notation
+        #     else:
+        #         self.notation = "{}-{}".format(temp_notation, concepts)
+        # else:
+        #     pass
 
         if not self.id:
             self.date_created = timezone.now()
