@@ -95,7 +95,8 @@ def graph_construct_qs(results):
         concept = URIRef(obj.create_uri())
         g.add((concept, RDF.type, SKOS.Concept))
         g.add((concept, SKOS.prefLabel, Literal(obj.pref_label, lang=obj.pref_label_lang)))
-        g.add((concept, SKOS.notation, Literal(obj.notation)))
+        if obj.notation:
+            g.add((concept, SKOS.notation, Literal(obj.notation)))
         # each concept must have skos:inScheme main_concept_scheme
         g.add((concept, SKOS.inScheme, main_concept_scheme))
         if obj.collection.all():

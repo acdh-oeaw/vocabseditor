@@ -8,6 +8,7 @@ from .constants import USER
 from ..models import SkosConceptScheme, SkosCollection, SkosConcept
 from ..skos_import import SkosImporter
 from ..rdf_utils import graph_construct_qs
+from ..utils import delete_legacy_ids, delete_skos_notations
 
 
 EXAMPLE_SKOS_IMPORT = os.path.join(os.path.dirname(__file__), "example_skos_import.rdf")
@@ -43,6 +44,12 @@ class TestSkosImport(TestCase):
             exact_match__contains='https://d-nb.info/gnd/1197273174'
         )
         self.assertEqual(item.count(), 1)
+        concept_scheme = item.first().scheme
+        delete_legacy_ids(concept_scheme)
+        delete_skos_notations(concept_scheme)
+        for x in concept_scheme.has_concepts.all():
+            self.assertEqual(x.legacy_id, "")
+            self.assertEqual(x.notation, "")
 
 
 class TestSkosExport(TestCase):

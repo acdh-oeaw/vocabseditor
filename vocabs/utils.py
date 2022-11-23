@@ -60,3 +60,10 @@ def delete_legacy_ids(concept_scheme):
         x.legacy_id = ""
         x.save()
     return "done"
+
+
+def delete_skos_notations(concept_scheme):
+    for x in concept_scheme.has_concepts.all():
+        x.notation = ""
+        x.save()
+    return "done"
