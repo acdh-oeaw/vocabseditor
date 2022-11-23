@@ -1,4 +1,4 @@
-from rdflib import Graph, Namespace, RDF, URIRef
+from rdflib import Graph, Namespace, RDF, URIRef, SKOS
 from .models import (
     SkosCollection,
     SkosConcept,
@@ -11,7 +11,8 @@ from .models import (
     CollectionSource,
     ConceptLabel,
     ConceptNote,
-    ConceptSource
+    ConceptSource,
+    SKOS_RELATION_TYPES
 )
 import re
 import logging
@@ -198,6 +199,14 @@ class SkosImporter(object):
             concepts = []
             for c in g.subjects(RDF.type, SKOS.Concept):
                 concept = {"legacy_id": str(c)}
+                # process skos:exactMatch etc.
+                for rel_type in SKOS_RELATION_TYPES:
+                    cur_subj = URIRef(concept['legacy_id'])
+                    pred = SKOS[rel_type[0]]
+                    if (cur_subj, pred, None) in g:
+                        concept[rel_type[1]] = set()
+                        for s, _, o in g.triples((cur_subj, pred, None)):
+                            concept[rel_type[1]].add(f"{o}")
                 # Concept pref labels
                 pref_labels = []
                 for pref_label in g.preferredLabel(c):
@@ -416,6 +425,10 @@ class SkosImporter(object):
                     notation=concept_notation, creator=concept_creator,
                     contributor=concept_contributor, created_by=User.objects.get(username=user)
                 )
+                for rel_type in SKOS_RELATION_TYPES:
+                    if concept.get(rel_type[1]):
+                        values = ",".join(concept.get(rel_type[1]))
+                        setattr(new_concept, rel_type[1], values)
                 new_concept.save()
 
                 # concept to collections
