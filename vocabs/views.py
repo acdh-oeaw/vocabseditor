@@ -11,7 +11,6 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
 from django.utils.decorators import method_decorator
 from django.urls import reverse_lazy
-from django_tables2 import RequestConfig
 
 from vocabs.models import SkosConcept, SkosConceptScheme, SkosCollection
 from vocabs.forms import (
