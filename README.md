@@ -87,6 +87,13 @@ At the ACDH-CH we use a centralized database-server. So instead of spawning a da
 * `docker build -t vocabseditor:latest .`
 * `docker build -t vocabseditor:latest --no-cache .`
 
+### using published image
+
+Docker images are publshed via GitHubs container registry: https://github.com/acdh-oeaw/vocabseditor/pkgs/container/vocabseditor
+
+To use them run e.g. 
+`docker run -it -p 8020:8020 --name vocabseditor --env-file .env_local_docker ghcr.io/acdh-oeaw/vocabseditor:lates`
+
 ### running the image
 
 To run the image you should provide an `.env` file to pass in needed environment variables; see example below:
