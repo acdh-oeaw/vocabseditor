@@ -399,6 +399,22 @@ class SkosCollection(models.Model):
 
     def contributor_as_list(self):
         return self.contributor.split(';')
+    
+    def create_uri(self):
+        mcs = self.scheme.identifier
+        if mcs.endswith(VOCABS_SEPARATOR):
+            pass
+        else:
+            mcs = f"{mcs}{VOCABS_SEPARATOR}"
+        if self.legacy_id:
+            item_uri = f"{self.legacy_id}"
+        else:
+            if notation_for_uri:
+                tmp = slugify(self.notation, allow_unicode=False)
+                item_uri = f"{mcs}collection__{tmp}__{self.id}"
+            else:
+                item_uri = f"{mcs}collection{self.id}"
+        return item_uri
 
 
 ######################################################################
@@ -635,15 +651,19 @@ class SkosConcept(MPTTModel):
 
     def create_uri(self):
         mcs = self.scheme.identifier
+        if mcs.endswith(VOCABS_SEPARATOR):
+            pass
+        else:
+            mcs = f"{mcs}{VOCABS_SEPARATOR}"
         if self.legacy_id:
-            concept_uri = f"{self.legacy_id}"
+            item_uri = f"{self.legacy_id}"
         else:
             if notation_for_uri:
                 tmp = slugify(self.notation, allow_unicode=False)
-                concept_uri = f"{mcs}{VOCABS_SEPARATOR}concept__{tmp}__{self.id}"
+                item_uri = f"{mcs}concept__{tmp}__{self.id}"
             else:
-                concept_uri = f"{mcs}{VOCABS_SEPARATOR}concept{self.id}"
-        return concept_uri
+                item_uri = f"{mcs}concept{self.id}"
+        return item_uri
 
     # change for template tag
     def creator_as_list(self):
