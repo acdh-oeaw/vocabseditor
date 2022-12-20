@@ -35,7 +35,10 @@ def graph_construct_qs(results):
     for obj in results:
         # Creating Main Concept Scheme
         if obj.scheme:
-            main_concept_scheme = URIRef(obj.scheme.identifier)
+            if obj.scheme.legacy_id is not None:
+                main_concept_scheme = URIRef(obj.scheme.legacy_id)
+            else:
+                main_concept_scheme = URIRef(obj.scheme.identifier)
             g.add((main_concept_scheme, RDF.type, SKOS.ConceptScheme))
             # Concept Scheme properties
             if obj.scheme.title:
@@ -101,7 +104,7 @@ def graph_construct_qs(results):
         g.add((concept, SKOS.inScheme, main_concept_scheme))
         if obj.collection.all():
             for x in obj.collection.all():
-                collection = URIRef(main_concept_scheme + VOCABS_SEPARATOR + "collection" + str(x.id))
+                collection = URIRef(x.create_uri())
                 g.add((collection, RDF.type, SKOS.Collection))
                 g.add((collection, DCT.created, Literal(x.date_created, datatype=XSD.dateTime)))
                 g.add((collection, DCT.modified, Literal(x.date_modified, datatype=XSD.dateTime)))
@@ -156,7 +159,7 @@ def graph_construct_qs(results):
                                 (
                                     collection,
                                     SKOS.member,
-                                    URIRef(main_concept_scheme + VOCABS_SEPARATOR + "concept" + str(y.id))
+                                    URIRef(y.create_uri())
                                 )
                             )
         # Concept properties
@@ -198,27 +201,10 @@ def graph_construct_qs(results):
             g.add((concept, SKOS.topConceptOf, main_concept_scheme))
         # modelling broader/narrower relationships
         if obj.broader_concept:
-            if obj.broader_concept.legacy_id:
-                g.add((concept, SKOS.broader, URIRef(obj.broader_concept.legacy_id)))
-            else:
-                g.add(
-                    (
-                        concept,
-                        SKOS.broader,
-                        URIRef(main_concept_scheme + VOCABS_SEPARATOR + "concept" + str(obj.broader_concept.id)))
-                )
+            g.add((concept, SKOS.broader, URIRef(obj.broader_concept.create_uri())))
         if obj.narrower_concepts.all():
             for x in obj.narrower_concepts.all():
-                if x.legacy_id:
-                    g.add((concept, SKOS.narrower, URIRef(x.legacy_id)))
-                else:
-                    g.add(
-                        (
-                            concept,
-                            SKOS.narrower,
-                            URIRef(main_concept_scheme + VOCABS_SEPARATOR + "concept" + str(x.id))
-                        )
-                    )
+                g.add((concept, SKOS.narrower, URIRef(x.create_uri())))
         # modelling external matches
         # skos:related
         if obj.related:
