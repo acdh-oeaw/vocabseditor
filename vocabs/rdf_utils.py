@@ -35,7 +35,7 @@ def graph_construct_qs(results):
     for obj in results:
         # Creating Main Concept Scheme
         if obj.scheme:
-            if obj.scheme.legacy_id is not None:
+            if obj.scheme.legacy_id:
                 main_concept_scheme = URIRef(obj.scheme.legacy_id)
             else:
                 main_concept_scheme = URIRef(obj.scheme.identifier)

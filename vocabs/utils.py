@@ -56,9 +56,11 @@ def handle_uploaded_file(file):
 
 
 def delete_legacy_ids(concept_scheme):
+    concept_scheme.legacy_id = ""
     for x in concept_scheme.has_concepts.all():
         x.legacy_id = ""
         x.save()
+    concept_scheme.save()
     return "done"
 
 
