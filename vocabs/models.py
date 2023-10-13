@@ -86,7 +86,7 @@ class SkosConceptScheme(models.Model):
         verbose_name="dc:title",
     )
     title_lang = models.CharField(
-        max_length=3,
+        max_length=53,
         blank=True,
         verbose_name="dc:title language",
         default=DEFAULT_LANG,
@@ -250,7 +250,7 @@ class ConceptSchemeTitle(models.Model):
         help_text="Other title for new concept scheme",
     )
     language = models.CharField(
-        max_length=3,
+        max_length=53,
         verbose_name="dc:title language",
         help_text="Language of title given above",
     )
@@ -276,7 +276,7 @@ class ConceptSchemeDescription(models.Model):
         verbose_name="dc:description", help_text="Description of concept scheme"
     )
     language = models.CharField(
-        max_length=3,
+        max_length=53,
         verbose_name="dc:description language",
         help_text="Language of description given above",
     )
@@ -303,7 +303,7 @@ class ConceptSchemeSource(models.Model):
         help_text="Verbal description of a concept scheme's source",
     )
     language = models.CharField(
-        max_length=3,
+        max_length=53,
         verbose_name="dc:source language",
         help_text="Language of source given above",
     )
@@ -459,7 +459,7 @@ class CollectionLabel(models.Model):
         help_text="Other label for this collection",
     )
     language = models.CharField(
-        max_length=3, verbose_name="language", help_text="Language of label given above"
+        max_length=53, verbose_name="language", help_text="Language of label given above"
     )
     label_type = models.CharField(
         choices=LABEL_TYPES,
@@ -492,7 +492,7 @@ class CollectionNote(models.Model):
         help_text="Provide some information about this collection",
     )
     language = models.CharField(
-        max_length=3, verbose_name="language", help_text="Language of note given above"
+        max_length=53, verbose_name="language", help_text="Language of note given above"
     )
     note_type = models.CharField(
         choices=NOTE_TYPES,
@@ -524,7 +524,7 @@ class CollectionSource(models.Model):
         help_text="Verbal description of the collection's source",
     )
     language = models.CharField(
-        max_length=3,
+        max_length=53,
         verbose_name="language",
         help_text="Language of source given above",
     )
@@ -764,7 +764,7 @@ class ConceptLabel(models.Model):
         max_length=500, verbose_name="label", help_text="Other label for this concept"
     )
     language = models.CharField(
-        max_length=3, verbose_name="language", help_text="Language of label given above"
+        max_length=53, verbose_name="language", help_text="Language of label given above"
     )
     label_type = models.CharField(
         choices=LABEL_TYPES,
@@ -797,7 +797,7 @@ class ConceptNote(models.Model):
         help_text="Provide some information about this concept",
     )
     language = models.CharField(
-        max_length=3, verbose_name="language", help_text="Language of note given above"
+        max_length=53, verbose_name="language", help_text="Language of note given above"
     )
     note_type = models.CharField(
         choices=NOTE_TYPES,
@@ -828,7 +828,7 @@ class ConceptSource(models.Model):
         verbose_name="dc:source", help_text="Verbal description of the concept's source"
     )
     language = models.CharField(
-        max_length=3,
+        max_length=53,
         verbose_name="language",
         help_text="Language of source given above",
     )
