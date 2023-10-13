@@ -1,3 +1,5 @@
+import re
+
 from dal import autocomplete
 from django import forms
 from crispy_forms.helper import FormHelper
@@ -20,8 +22,6 @@ from .models import (
 from django.forms.models import inlineformset_factory
 from .custom_layout_object import Formset
 from mptt.forms import TreeNodeChoiceField
-from django.forms import BaseInlineFormSet
-import re
 from .endpoints import ENDPOINT_CHOICES
 
 
@@ -69,32 +69,6 @@ def custom_lang_errors(field_name):
 ######################################################################
 
 
-# We also want to verify that all formsets have both fields a name and a language filled out.
-# We could simply set the fields as required on the form itself,
-# however this will prevent our users from submitting empty forms,
-# which is not the behaviour we’re looking for here. From a usability perspective, it would be better
-# to simply ignore forms that are completely empty, raising errors only if a form is partially incomplete.
-
-class CustomInlineFormSet(BaseInlineFormSet):
-    def clean(self):
-        super(CustomInlineFormSet, self).clean()
-        if any(self.errors):
-            return
-        for form in self.forms:
-            if form.cleaned_data:
-                name = form.cleaned_data['name']
-                language = form.cleaned_data['language']
-                # Check that formset has both fields - a name and a language - filled out
-                if name and not language:
-                    raise forms.ValidationError(
-                        'All names must have a lanaguge.'
-                    )
-                elif language and not name:
-                    raise forms.ValidationError(
-                        'All languages must have a name.'
-                    )
-
-
 class ConceptSchemeTitleForm(forms.ModelForm):
     name = forms.CharField(
         label=ConceptSchemeTitle._meta.get_field('name').verbose_name,
@@ -104,6 +78,7 @@ class ConceptSchemeTitleForm(forms.ModelForm):
         )
     )
     language = forms.CharField(
+        required=False,
         label=ConceptSchemeTitle._meta.get_field('language').verbose_name,
         help_text=ConceptSchemeTitle._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
@@ -141,6 +116,7 @@ class ConceptSchemeDescriptionForm(forms.ModelForm):
         widget=forms.Textarea
     )
     language = forms.CharField(
+        required=False,
         label=ConceptSchemeDescription._meta.get_field('language').verbose_name,
         help_text=ConceptSchemeDescription._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
@@ -178,6 +154,7 @@ class ConceptSchemeSourceForm(forms.ModelForm):
         widget=forms.Textarea
     )
     language = forms.CharField(
+        required=False,
         label=ConceptSchemeSource._meta.get_field('language').verbose_name,
         help_text=ConceptSchemeSource._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
@@ -289,6 +266,7 @@ class CollectionLabelForm(forms.ModelForm):
         )
     )
     language = forms.CharField(
+        required=False,
         label=CollectionLabel._meta.get_field('language').verbose_name,
         help_text=CollectionLabel._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
@@ -326,6 +304,7 @@ class CollectionNoteForm(forms.ModelForm):
         widget=forms.Textarea
     )
     language = forms.CharField(
+        required=False,
         label=CollectionNote._meta.get_field('language').verbose_name,
         help_text=CollectionNote._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
@@ -363,6 +342,7 @@ class CollectionSourceForm(forms.ModelForm):
         widget=forms.Textarea
     )
     language = forms.CharField(
+        required=False,
         label=CollectionSource._meta.get_field('language').verbose_name,
         help_text=CollectionSource._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
@@ -466,6 +446,7 @@ class ConceptLabelForm(forms.ModelForm):
         )
     )
     language = forms.CharField(
+        required=False,
         label=ConceptLabel._meta.get_field('language').verbose_name,
         help_text=ConceptLabel._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
@@ -503,6 +484,7 @@ class ConceptNoteForm(forms.ModelForm):
         widget=forms.Textarea
     )
     language = forms.CharField(
+        required=False,
         label=ConceptNote._meta.get_field('language').verbose_name,
         help_text=ConceptNote._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
@@ -540,6 +522,7 @@ class ConceptSourceForm(forms.ModelForm):
         widget=forms.Textarea
     )
     language = forms.CharField(
+        required=False,
         label=ConceptSource._meta.get_field('language').verbose_name,
         help_text=ConceptSource._meta.get_field('language').help_text,
         error_messages=custom_lang_errors(
