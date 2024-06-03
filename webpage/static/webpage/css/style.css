@@ -1,13 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
-
 html {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #F1F1F1;
 }
 
 /*remove round corners everywhere*/
@@ -16,40 +15,46 @@ body {
 }*/
 
 header {
-    flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 
-.main-content{
-    flex: 1 0 auto;
+.main-content {
+  flex: 1 0 auto;
 }
 
 footer {
-    flex: 0 0 auto;
-    left: 0;
-    right: 0;
-    margin-top: 20px;
+  background-color: white;
+  flex: 0 0 auto;
+  left: 0;
+  right: 0;
+  margin-top: 20px;
 }
 
 
 .card {
-	border-top: 5px solid #88dbdf;
-	overflow: hidden;
+  border-top: 5px solid #88dbdf;
+  overflow: hidden;
 }
 
-a, .btn-link {
-    /*color: #88dbdf;*/
-    /*color: #3b89ad;*/
-    color: #1796d1;
+a,
+.btn-link {
+  /*color: #88dbdf;*/
+  /*color: #3b89ad;*/
+  color: #1796d1;
 }
+
 .help-block {
-	font-size: 0.9em;
+  font-size: 0.9em;
 }
+
 .create-label {
-	font-weight: 700;
+  font-weight: 700;
 }
+
 .control-label {
-    font-weight: 700;
+  font-weight: 700;
 }
+
 .index-btn-group {
   margin-top: 50px;
 }
@@ -57,56 +62,63 @@ a, .btn-link {
 .index-btn {
   margin: 10px;
 }
+
 /* override select2 css for select FK and select M2M */
 
 .select2 {
-  width: 100% !important; /* overrides computed width */
+  width: 100% !important;
+  /* overrides computed width */
 }
+
 .select2-container--default .select2-selection--single {
-    height: 38px !important;
+  height: 38px !important;
 }
+
 /*#div_id_top_concept > label {
     font-weight: 700;
 }*/
 
-#workflow > img {
-   display: block;
-   margin: auto auto;
-   width: 80%;
+#workflow>img {
+  display: block;
+  margin: auto auto;
+  width: 80%;
 }
 
-#main_accordion > .panel >.panel-heading {
+#main_accordion>.panel>.panel-heading {
   margin: 15px 15px 15px 15px;
 }
+
 textarea {
-  /*height: 38px;*/ /*one line*/
+  /*height: 38px;*/
+  /*one line*/
   height: 150px;
 }
 
 
 /*fixing the height of select2multiple field, overring fundament*/
 
-.modelselect2multiple, .select2multiple, .select2-selection--multiple {
+.modelselect2multiple,
+.select2multiple,
+.select2-selection--multiple {
   padding: 0;
 }
 
 /*---------- css for dynamic forms ----------*/
-.add-row {
+.add-row {}
 
-}
-.delete-row {
- 
-}
+.delete-row {}
+
 .dynamic-form {
-  margin-bottom:20px;
+  margin-bottom: 20px;
   /*padding-bottom:20px;*/
-  border-bottom:1px dotted #ccc;
+  border-bottom: 1px dotted #ccc;
 }
 
 .formset-div {
   margin-bottom: 20px;
   border-bottom: 1px dotted #ccc;
 }
+
 /*---------------------------------------------*/
 
 .card-collapse {
@@ -115,49 +127,75 @@ textarea {
 
 /*to override a django's feature to capitalize a first character of a field's verbose name */
 label:first-letter {
-    text-transform: lowercase;
+  text-transform: lowercase;
 }
 
 /*loader for file import hidden/shown*/
 
 .hidden {
-   display: none;
-    }
+  display: none;
+}
+
 .shown {
-   display: block;
-    }
+  display: block;
+}
+
 .loader {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index:999;
-    width: 150px;
-    height: 150px;
-    margin: -75px 0 0 -75px;
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #007bff;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-    }
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 999;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #007bff;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
 
-    /* Safari */
-    @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-    }
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
 
-    @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .navbar {
-	border-bottom: 5px solid #88dbdf;
-	margin-bottom: 20px;
+  border-bottom: 5px solid #88dbdf;
+  margin-bottom: 20px;
+  background-color: white;
 }
-.helpdesk{
+
+.helpdesk {
   margin-left: auto !important;
+}
+
+.helpdesk-button {
+	display: block;
+	background-color: #FFFFFF;
+	border: 1px solid #88dbdf;
+	border-radius: 20px;
+	padding: 5px 20px;
+	font-size: 11px;
+	font-weight: 600;
+	color: #88dbdf;
+	transition: background-color ease .2s, color ease .2s;
 }
