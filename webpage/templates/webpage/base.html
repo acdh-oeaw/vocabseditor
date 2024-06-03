@@ -2,7 +2,7 @@
 {% load static %}
 {% load webpage_extras %}
 {% load browsing_extras %}
-<html lang="en">
+<html lang="en" class="h-100">
 
 <head>
     <meta charset="utf-8">
@@ -50,13 +50,13 @@
     {% endblock %}
 </head>
 
-<body>
+<body class="d-flex flex-column h-100">
     {% include 'webpage/partials/navbar.html' %}
-
-
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+    <main class="flex-shrink-0">
+        <div id="content" class="pt-5">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
     {% include 'webpage/partials/footer.html' %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
