@@ -18,25 +18,12 @@ from .metadata import PROJECT_METADATA as PM
 from copy import deepcopy
 
 
-def get_imprint_url():
-    try:
-        base_url = settings.ACDH_IMPRINT_URL
-    except AttributeError:
-        base_url = "https://provide-an-acdh-imprint-url/"
-    try:
-        redmine_id = settings.REDMINE_ID
-    except AttributeError:
-        redmine_id = "go-register-a-redmine-service-issue"
-    return "{}{}".format(base_url, redmine_id)
-
-
 class ImprintView(TemplateView):
     template_name = 'webpage/imprint.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        r = requests.get(get_imprint_url())
-
+        r = requests.get("https://imprint.acdh.oeaw.ac.at/12305")
         if r.status_code == 200:
             context['imprint_body'] = "{}".format(r.text)
         else:
