@@ -30,7 +30,7 @@
                 </li>
             </ul>
             {% if user.is_authenticated %}
-            <a href="{% url 'webpage:user_logout' %}"><i class="bi bi-person-check"></i></a>
+            <a href="{% url 'webpage:user_logout' %}" title="Hi {{ user.username }}! Click here to log out"><i class="bi bi-person-check"></i></a>
             {% else %}
             <a href="{% url 'webpage:user_login' %}"><i class="bi bi-box-arrow-in-right"></i></a>
             {% endif %}
