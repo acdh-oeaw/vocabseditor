@@ -51,13 +51,13 @@
                 {% if user.is_authenticated %}
                     <small>
                         <a href="{% url 'vocabs:skoscollection_update' pk=object.id %}">
-                            <i class="far fa-edit" title="edit"></i>
+                            <i class="bi bi-pencil-square"></i>
                         </a>
                     </small>
                     |
                     <small>
                         <a href="{% url 'vocabs:skoscollection_delete' pk=object.id %}">
-                            <i class="far fa-trash-alt" title="delete"></i>
+                            <i class="bi bi-trash3"></i>
                         </a>
                     </small>
                 {% endif %}
