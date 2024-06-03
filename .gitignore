@@ -28,6 +28,7 @@ webpage/migrations/*
 # envs
 
 env/
+venv/
 server.py
 s_wsgy.py
 .env_dev

@@ -8,7 +8,6 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    font-family: 'Fira Sans' !important;
 }
 
 /*remove round corners everywhere*/
@@ -33,8 +32,8 @@ footer {
 
 
 .card {
-    overflow: visible;
-    margin-bottom: 20px;
+	border-top: 5px solid #88dbdf;
+	overflow: hidden;
 }
 
 a, .btn-link {
@@ -153,4 +152,9 @@ label:first-letter {
     @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.navbar {
+	border-bottom: 5px solid #88dbdf;
+	margin-bottom: 20px;
 }

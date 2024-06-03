@@ -1,0 +1,40 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><img src="{% static 'webpage/img/vocabs-editor-normal.png' %}"
+                alt="Vocabs editor" title="Vocabs editor" width="135" height="50" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'webpage:staticpage' template='about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://vocabs.acdh.oeaw.ac.at/en/">Vocabs Homepage</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Curation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'vocabs:browse_schemes' %}">Concept Schemes</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'vocabs:browse_skoscollections' %}">Collections</a>
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'vocabs:browse_vocabs' %}">Concepts</a></li>
+                    </ul>
+                </li>
+            </ul>
+            {% if user.is_authenticated %}
+            <a href="{% url 'webpage:user_logout' %}"><i class="bi bi-person-check"></i></a>
+            {% else %}
+            <a href="{% url 'webpage:user_login' %}"><i class="bi bi-box-arrow-in-right"></i></a>
+            {% endif %}
+
+        </div>
+    </div>
+</nav>
