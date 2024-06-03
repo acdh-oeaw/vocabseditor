@@ -12,6 +12,7 @@ urlpatterns = [
     path('project-info/', views.project_info, name='project_info'),
     path('accounts/login/', views.user_login, name='user_login'),
     path('logout/', views.user_logout, name='user_logout'),
+    path('imprint/', views.ImprintView.as_view(), name='imprint'),
     path('<slug:template>', views.GenericWebpageView.as_view(), name='staticpage'),
     path('user/<int:pk>', views.UserDetailView.as_view(), name='user_detail'),
 ]

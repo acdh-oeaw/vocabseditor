@@ -6,10 +6,12 @@
 <div class="container">
 <div class="card imprint">
 <div class="card-header">
-    <h1>Imprint | Impressum</h1>
+    <h1>Imprint</h1>
 </div>
 <div class="card-body">
-<div id="imprint-content"></div>
+<div id="imprint-content">
+    {{ imprint_body|safe }}
+</div>
 </div>
 </div>
 </div>

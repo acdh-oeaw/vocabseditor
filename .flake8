@@ -7,3 +7,4 @@ exclude =
     .git,
     build,
     env
+    venv
