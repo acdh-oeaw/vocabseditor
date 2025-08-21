@@ -1,8 +1,8 @@
 # Vocabseditor
 
-[![Publish and Deploy](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/deploy.yml/badge.svg)](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/deploy.yml)
+
 [![flake8 Lint](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/lint.yml/badge.svg)](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/lint.yml)
-[![Test](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/test-app.yml/badge.svg)](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/test-app.yml)
+[![Test](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/test.yml/badge.svg)](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/test.yml)
 
 ## About
 
