@@ -21,7 +21,7 @@ dependencies = [
     "gunicorn>=23.0.0",
     "psycopg2-binary>=2.9.10",
     "pygithub>=2.7.0",
-    "rdflib>=7.1.4",
+    "rdflib==6.1",
 ]
 
 [dependency-groups]
