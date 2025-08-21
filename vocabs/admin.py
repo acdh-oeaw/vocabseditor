@@ -1,21 +1,23 @@
 from django.contrib import admin
+from guardian.admin import GuardedModelAdmin
+from mptt.admin import MPTTModelAdmin
+from reversion.admin import VersionAdmin
+
 from .models import (
-    SkosConcept,
-    SkosConceptScheme,
-    SkosCollection,
-    ConceptSchemeTitle,
-    ConceptSchemeDescription,
-    ConceptSchemeSource,
     CollectionLabel,
     CollectionNote,
     CollectionSource,
     ConceptLabel,
     ConceptNote,
-    ConceptSource
+    ConceptSchemeDescription,
+    ConceptSchemeSource,
+    ConceptSchemeTitle,
+    ConceptSource,
+    CustomProperty,
+    SkosCollection,
+    SkosConcept,
+    SkosConceptScheme,
 )
-from guardian.admin import GuardedModelAdmin
-from reversion.admin import VersionAdmin
-from mptt.admin import MPTTModelAdmin
 
 
 # With object permissions support
@@ -43,3 +45,4 @@ admin.site.register(CollectionSource)
 admin.site.register(ConceptLabel)
 admin.site.register(ConceptNote)
 admin.site.register(ConceptSource)
+admin.site.register(CustomProperty)
