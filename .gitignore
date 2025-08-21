@@ -42,3 +42,4 @@ media/*.ttl
 Untitled1.ipynb
 dump.sql
 .secret
+celery.log
