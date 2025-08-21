@@ -1,15 +1,14 @@
+import reversion
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.signals import m2m_changed, post_save
+from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.text import slugify
-from django.contrib.auth.models import User
-from django.db.models.signals import post_save, m2m_changed
 from guardian.shortcuts import assign_perm, remove_perm
-from django.dispatch import receiver
-import reversion
 from mptt.models import MPTTModel, TreeForeignKey
-
 
 try:
     notation_for_uri = settings.VOCABS_SETTINGS["notation_for_uri"]
@@ -459,7 +458,9 @@ class CollectionLabel(models.Model):
         help_text="Other label for this collection",
     )
     language = models.CharField(
-        max_length=53, verbose_name="language", help_text="Language of label given above"
+        max_length=53,
+        verbose_name="language",
+        help_text="Language of label given above",
     )
     label_type = models.CharField(
         choices=LABEL_TYPES,
@@ -764,7 +765,9 @@ class ConceptLabel(models.Model):
         max_length=500, verbose_name="label", help_text="Other label for this concept"
     )
     language = models.CharField(
-        max_length=53, verbose_name="language", help_text="Language of label given above"
+        max_length=53,
+        verbose_name="language",
+        help_text="Language of label given above",
     )
     label_type = models.CharField(
         choices=LABEL_TYPES,

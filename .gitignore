@@ -14,10 +14,6 @@ htmlcov/
 # IDE
 .idea
 
-# migrations
-vocabs/migrations/*
-webpage/migrations/*
-
 
 # Ipython Notebook checkpoints
 .ipynb_checkpoints
