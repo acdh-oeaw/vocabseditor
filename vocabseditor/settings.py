@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "reversion",
     "guardian",
     "crispy_forms",
+    "crispy_bootstrap5",
     "django_celery_results",
     "django_filters",
     "django_tables2",
@@ -72,7 +73,8 @@ SWAGGER_SETTINGS = {
     "SECURITY_DEFINITIONS": {"basic": {"type": "basic"}},
 }
 
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": (
