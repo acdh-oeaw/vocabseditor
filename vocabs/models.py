@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from guardian.shortcuts import assign_perm, remove_perm
 from mptt.models import MPTTModel, TreeForeignKey
+from rdflib import XSD, Literal, URIRef
 
 try:
     notation_for_uri = settings.VOCABS_SETTINGS["notation_for_uri"]
@@ -33,6 +34,23 @@ try:
     DEFAULT_LANG = settings.VOCABS_SETTINGS["default_lang"]
 except KeyError:
     DEFAULT_LANG = "en"
+
+
+try:
+    CUSTOM_PROPS = settings.VOCAPS_CUSTOM_PROPERTIES
+except AttributeError:
+    CUSTOM_PROPS = [
+        {
+            "prop_uri": "http://xmlns.com/foaf/0.1/homepage",
+            "prop_type": "object",
+            "prop_label": "Homepage",
+        },
+    ]
+
+CUSTOM_PROPS_URIS = [(x["prop_uri"], x["prop_label"]) for x in CUSTOM_PROPS]
+CUSTOM_PORPS_TYPES = {}
+for x in CUSTOM_PROPS:
+    CUSTOM_PORPS_TYPES[x["prop_uri"]] = x["prop_type"]
 
 LABEL_TYPES = (
     ("prefLabel", "prefLabel"),
@@ -59,6 +77,49 @@ SKOS_RELATION_TYPES = [
     ("relatedMatch", "related_match"),
     ("closeMatch", "close_match"),
 ]
+
+
+class CustomProperty(models.Model):
+    prop_uri = models.CharField(
+        max_length=300,
+        verbose_name="URL of the property",
+        help_text="e.g. foaf:homepage",
+        choices=CUSTOM_PROPS_URIS,
+    )
+    prop_value = models.CharField(
+        max_length=300,
+        verbose_name="Poperty value",
+        help_text="e.g. 'http://foo-bar' or a date 'YYYY-MM-DD'",
+    )
+    prop_lang = models.CharField(
+        max_length=3,
+        default=DEFAULT_LANG,
+        verbose_name="Language",
+        help_text=f"e.g. 'de', defaults to '{DEFAULT_LANG}'",
+    )
+
+    class Meta:
+        ordering = ["id"]
+        verbose_name = "Custom property"
+        verbose_name_plural = "Custom properties"
+
+    def __str__(self):
+        return f"{self.prop_value} ({self.prop_uri})"
+
+    def get_predicate_object(self):
+        predicate = URIRef(self.prop_uri)
+        prop_type = CUSTOM_PORPS_TYPES[self.prop_uri]
+        if prop_type == "object":
+            obj = URIRef(self.prop_value)
+        elif prop_type == "xsd:date":
+            obj = Literal(self.prop_value, datatype=XSD.date)
+        else:
+            obj = Literal(self.prop_value, lang=self.prop_lang)
+        return predicate, obj
+
+    def save(self, *args, **kwargs):
+        self.get_rdf_object()
+        super(CustomProperty, self).save(*args, **kwargs)
 
 
 ######################################################################
@@ -168,6 +229,9 @@ class SkosConceptScheme(models.Model):
         related_name="skos_cs_curated",
         blank=True,
         help_text="The selected user(s) will be able to view and edit this Concept Scheme",
+    )
+    custom_props = models.ManyToManyField(
+        "CustomProperty", blank=True, null=True, verbose_name="Custom properties"
     )
 
     class Meta:

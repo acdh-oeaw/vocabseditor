@@ -187,6 +187,24 @@ CELERY_RESULT_EXTENDED = True
 GHPAT = os.environ.get("GHPAT")
 GHREPO = os.environ.get("GHREPO", "acdh-oeaw/vocabseditor-dumps")
 
+VOCAPS_CUSTOM_PROPERTIES = [
+    {
+        "prop_uri": "http://xmlns.com/foaf/0.1/homepage",
+        "prop_type": "object",
+        "prop_label": "Homepage",
+    },
+    {
+        "prop_uri": "http://purl.org/dc/terms/rightsHolder",
+        "prop_type": "xsd:string",
+        "prop_label": "Rights Holder",
+    },
+    {
+        "prop_uri": "http://purl.org/dc/terms/created",
+        "prop_type": "xsd:date",
+        "prop_label": "Date Created",
+    },
+]
+
 
 # Django guardian settings
 
