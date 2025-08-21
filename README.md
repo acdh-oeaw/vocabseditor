@@ -3,6 +3,7 @@
 
 [![flake8 Lint](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/lint.yml/badge.svg)](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/lint.yml)
 [![Test](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/test.yml/badge.svg)](https://github.com/acdh-oeaw/vocabseditor/actions/workflows/test.yml)
+[![codecov](https://codecov.io/gh/acdh-oeaw/vocabseditor/branch/main/graph/badge.svg?token=YMEC63Y9LW)](https://codecov.io/gh/acdh-oeaw/vocabseditor)
 
 ## About
 
