@@ -4,7 +4,7 @@ import re
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
-from rdflib import RDF, SKOS, Graph, Namespace, URIRef
+from rdflib import RDF, SKOS, Namespace, URIRef
 
 from .models import (
     SKOS_RELATION_TYPES,
@@ -21,6 +21,7 @@ from .models import (
     SkosConcept,
     SkosConceptScheme,
 )
+from .utils import MyGraph as Graph
 
 logging.getLogger().setLevel(logging.INFO)
 
