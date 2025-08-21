@@ -1,77 +1,76 @@
-import time
 import datetime
-from django.shortcuts import get_object_or_404, redirect
-from guardian.shortcuts import get_objects_for_user
+import time
+
+from browsing.utils import BaseCreateView, BaseUpdateView, GenericListView
 from django.contrib.auth.decorators import login_required
-from reversion.models import Version
 from django.db import transaction
-from browsing.browsing_utils import GenericListView, BaseCreateView, BaseUpdateView
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
-from django.utils.decorators import method_decorator
-from django.urls import reverse_lazy
+from guardian.shortcuts import get_objects_for_user
+from reversion.models import Version
 
-from vocabs.models import SkosConcept, SkosConceptScheme, SkosCollection
-from vocabs.forms import (
-    SkosConceptSchemeFormHelper,
-    SkosConceptSchemeForm,
-    SkosCollectionFormHelper,
-    SkosCollectionForm,
-    SkosConceptFormHelper,
-    SkosConceptForm,
-    ConceptNoteFormSet,
-    ConceptLabelFormSet,
-    ConceptSchemeSourceFormSet,
-    ConceptSourceFormSet,
-    CollectionSourceFormSet,
-    CollectionNoteFormSet,
-    CollectionLabelFormSet,
-    ConceptSchemeTitleFormSet,
-    ConceptSchemeDescriptionFormSet
-)
-from vocabs.tables import (
-    SkosCollectionTable,
-    SkosConceptSchemeTable,
-    SkosConceptTable
-)
 from vocabs.filters import (
+    SkosCollectionListFilter,
     SkosConceptListFilter,
     SkosConceptSchemeListFilter,
-    SkosCollectionListFilter
 )
-from vocabs.rdf_utils import graph_construct_qs, RDF_FORMATS
+from vocabs.forms import (
+    CollectionLabelFormSet,
+    CollectionNoteFormSet,
+    CollectionSourceFormSet,
+    ConceptLabelFormSet,
+    ConceptNoteFormSet,
+    ConceptSchemeDescriptionFormSet,
+    ConceptSchemeSourceFormSet,
+    ConceptSchemeTitleFormSet,
+    ConceptSourceFormSet,
+    SkosCollectionForm,
+    SkosCollectionFormHelper,
+    SkosConceptForm,
+    SkosConceptFormHelper,
+    SkosConceptSchemeForm,
+    SkosConceptSchemeFormHelper,
+)
+from vocabs.models import SkosCollection, SkosConcept, SkosConceptScheme
+from vocabs.rdf_utils import RDF_FORMATS, graph_construct_qs
+from vocabs.tables import SkosCollectionTable, SkosConceptSchemeTable, SkosConceptTable
 from vocabs.utils import delete_legacy_ids, delete_skos_notations
 
 
 class BaseDetailView(DetailView):
-
     def get_queryset(self, **kwargs):
-        qs = get_objects_for_user(self.request.user,
-                                  perms=[
-                                      'view_{}'.format(self.model.__name__.lower()),
-                                      'change_{}'.format(self.model.__name__.lower()),
-                                      'delete_{}'.format(self.model.__name__.lower()),
-                                  ],
-                                  klass=self.model)
+        qs = get_objects_for_user(
+            self.request.user,
+            perms=[
+                "view_{}".format(self.model.__name__.lower()),
+                "change_{}".format(self.model.__name__.lower()),
+                "delete_{}".format(self.model.__name__.lower()),
+            ],
+            klass=self.model,
+        )
         return qs
 
     def get_context_data(self, **kwargs):
         context = super(BaseDetailView, self).get_context_data(**kwargs)
-        context['history'] = Version.objects.get_for_object(self.object)
+        context["history"] = Version.objects.get_for_object(self.object)
         return context
 
 
 class BaseDeleteView(DeleteView):
-
     def get_queryset(self, **kwargs):
-        qs = get_objects_for_user(self.request.user,
-                                  perms=[
-                                      'view_{}'.format(self.model.__name__.lower()),
-                                      'change_{}'.format(self.model.__name__.lower()),
-                                      'delete_{}'.format(self.model.__name__.lower()),
-                                  ],
-                                  klass=self.model)
+        qs = get_objects_for_user(
+            self.request.user,
+            perms=[
+                "view_{}".format(self.model.__name__.lower()),
+                "change_{}".format(self.model.__name__.lower()),
+                "delete_{}".format(self.model.__name__.lower()),
+            ],
+            klass=self.model,
+        )
         return qs
 
 
@@ -81,24 +80,25 @@ class BaseDeleteView(DeleteView):
 #
 ######################################################################
 
+
 class SkosConceptSchemeListView(GenericListView):
     model = SkosConceptScheme
     table_class = SkosConceptSchemeTable
     filter_class = SkosConceptSchemeListFilter
     formhelper_class = SkosConceptSchemeFormHelper
     init_columns = [
-        'id',
-        'title',
+        "id",
+        "title",
     ]
 
 
 class SkosConceptSchemeDetailView(BaseDetailView):
     model = SkosConceptScheme
-    template_name = 'vocabs/skosconceptscheme_detail.html'
+    template_name = "vocabs/skosconceptscheme_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super(SkosConceptSchemeDetailView, self).get_context_data(**kwargs)
-        context["concepts"] = SkosConcept.objects.filter(scheme=self.kwargs.get('pk'))
+        context["concepts"] = SkosConcept.objects.filter(scheme=self.kwargs.get("pk"))
         return context
 
 
@@ -124,20 +124,20 @@ class SkosConceptSchemeCreate(BaseCreateView):
     def get_context_data(self, **kwargs):
         data = super(SkosConceptSchemeCreate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['titles'] = ConceptSchemeTitleFormSet(self.request.POST)
-            data['descriptions'] = ConceptSchemeDescriptionFormSet(self.request.POST)
-            data['sources'] = ConceptSchemeSourceFormSet(self.request.POST)
+            data["titles"] = ConceptSchemeTitleFormSet(self.request.POST)
+            data["descriptions"] = ConceptSchemeDescriptionFormSet(self.request.POST)
+            data["sources"] = ConceptSchemeSourceFormSet(self.request.POST)
         else:
-            data['titles'] = ConceptSchemeTitleFormSet()
-            data['descriptions'] = ConceptSchemeDescriptionFormSet()
-            data['sources'] = ConceptSchemeSourceFormSet()
+            data["titles"] = ConceptSchemeTitleFormSet()
+            data["descriptions"] = ConceptSchemeDescriptionFormSet()
+            data["sources"] = ConceptSchemeSourceFormSet()
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        titles = context['titles']
-        descriptions = context['descriptions']
-        sources = context['sources']
+        titles = context["titles"]
+        descriptions = context["descriptions"]
+        sources = context["sources"]
         with transaction.atomic():
             form.instance.created_by = self.request.user
             # cs should be saved first because fk object are related to it
@@ -165,7 +165,9 @@ class SkosConceptSchemeCreate(BaseCreateView):
         return super(SkosConceptSchemeCreate, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('vocabs:skosconceptscheme_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy(
+            "vocabs:skosconceptscheme_detail", kwargs={"pk": self.object.pk}
+        )
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -180,26 +182,26 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
     def get_context_data(self, **kwargs):
         data = super(SkosConceptSchemeUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['titles'] = ConceptSchemeTitleFormSet(
+            data["titles"] = ConceptSchemeTitleFormSet(
                 self.request.POST, instance=self.object
             )
-            data['descriptions'] = ConceptSchemeDescriptionFormSet(
+            data["descriptions"] = ConceptSchemeDescriptionFormSet(
                 self.request.POST, instance=self.object
             )
-            data['sources'] = ConceptSchemeSourceFormSet(
+            data["sources"] = ConceptSchemeSourceFormSet(
                 self.request.POST, instance=self.object
             )
         else:
-            data['titles'] = ConceptSchemeTitleFormSet(instance=self.object)
-            data['descriptions'] = ConceptSchemeDescriptionFormSet(instance=self.object)
-            data['sources'] = ConceptSchemeSourceFormSet(instance=self.object)
+            data["titles"] = ConceptSchemeTitleFormSet(instance=self.object)
+            data["descriptions"] = ConceptSchemeDescriptionFormSet(instance=self.object)
+            data["sources"] = ConceptSchemeSourceFormSet(instance=self.object)
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        titles = context['titles']
-        descriptions = context['descriptions']
-        sources = context['sources']
+        titles = context["titles"]
+        descriptions = context["descriptions"]
+        sources = context["sources"]
         with transaction.atomic():
             if titles.is_valid():
                 titles.instance = self.object
@@ -220,7 +222,9 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
         return super(SkosConceptSchemeUpdate, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('vocabs:skosconceptscheme_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy(
+            "vocabs:skosconceptscheme_detail", kwargs={"pk": self.object.pk}
+        )
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -229,8 +233,8 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
 
 class SkosConceptSchemeDelete(BaseDeleteView):
     model = SkosConceptScheme
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('vocabs:browse_schemes')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("vocabs:browse_schemes")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -243,21 +247,22 @@ class SkosConceptSchemeDelete(BaseDeleteView):
 #
 ######################################################################
 
+
 class SkosCollectionListView(GenericListView):
     model = SkosCollection
     table_class = SkosCollectionTable
     filter_class = SkosCollectionListFilter
     formhelper_class = SkosCollectionFormHelper
     init_columns = [
-        'id',
-        'name',
-        'scheme',
+        "id",
+        "name",
+        "scheme",
     ]
 
 
 class SkosCollectionDetailView(BaseDetailView):
     model = SkosCollection
-    template_name = 'vocabs/skoscollection_detail.html'
+    template_name = "vocabs/skoscollection_detail.html"
 
 
 class SkosCollectionCreate(BaseCreateView):
@@ -268,20 +273,20 @@ class SkosCollectionCreate(BaseCreateView):
     def get_context_data(self, **kwargs):
         data = super(SkosCollectionCreate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['labels'] = CollectionLabelFormSet(self.request.POST)
-            data['notes'] = CollectionNoteFormSet(self.request.POST)
-            data['sources'] = CollectionSourceFormSet(self.request.POST)
+            data["labels"] = CollectionLabelFormSet(self.request.POST)
+            data["notes"] = CollectionNoteFormSet(self.request.POST)
+            data["sources"] = CollectionSourceFormSet(self.request.POST)
         else:
-            data['labels'] = CollectionLabelFormSet()
-            data['notes'] = CollectionNoteFormSet()
-            data['sources'] = CollectionSourceFormSet()
+            data["labels"] = CollectionLabelFormSet()
+            data["notes"] = CollectionNoteFormSet()
+            data["sources"] = CollectionSourceFormSet()
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        labels = context['labels']
-        notes = context['notes']
-        sources = context['sources']
+        labels = context["labels"]
+        notes = context["notes"]
+        sources = context["sources"]
         with transaction.atomic():
             form.instance.created_by = self.request.user
             self.object = form.save(commit=False)
@@ -308,12 +313,16 @@ class SkosCollectionCreate(BaseCreateView):
 
     def get_initial(self):
         initial = super(SkosCollectionCreate, self).get_initial()
-        if self.request.GET.get('scheme'):
-            initial['scheme'] = SkosConceptScheme.objects.get(pk=self.request.GET.get('scheme'))
+        if self.request.GET.get("scheme"):
+            initial["scheme"] = SkosConceptScheme.objects.get(
+                pk=self.request.GET.get("scheme")
+            )
         return initial
 
     def get_success_url(self):
-        return reverse_lazy('vocabs:skoscollection_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy(
+            "vocabs:skoscollection_detail", kwargs={"pk": self.object.pk}
+        )
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -328,20 +337,26 @@ class SkosCollectionUpdate(BaseUpdateView):
     def get_context_data(self, **kwargs):
         data = super(SkosCollectionUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['labels'] = CollectionLabelFormSet(self.request.POST, instance=self.object)
-            data['notes'] = CollectionNoteFormSet(self.request.POST, instance=self.object)
-            data['sources'] = CollectionSourceFormSet(self.request.POST, instance=self.object)
+            data["labels"] = CollectionLabelFormSet(
+                self.request.POST, instance=self.object
+            )
+            data["notes"] = CollectionNoteFormSet(
+                self.request.POST, instance=self.object
+            )
+            data["sources"] = CollectionSourceFormSet(
+                self.request.POST, instance=self.object
+            )
         else:
-            data['labels'] = CollectionLabelFormSet(instance=self.object)
-            data['notes'] = CollectionNoteFormSet(instance=self.object)
-            data['sources'] = CollectionSourceFormSet(instance=self.object)
+            data["labels"] = CollectionLabelFormSet(instance=self.object)
+            data["notes"] = CollectionNoteFormSet(instance=self.object)
+            data["sources"] = CollectionSourceFormSet(instance=self.object)
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        labels = context['labels']
-        notes = context['notes']
-        sources = context['sources']
+        labels = context["labels"]
+        notes = context["notes"]
+        sources = context["sources"]
         with transaction.atomic():
             if labels.is_valid():
                 labels.instance = self.object
@@ -361,7 +376,9 @@ class SkosCollectionUpdate(BaseUpdateView):
         return super(SkosCollectionUpdate, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('vocabs:skoscollection_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy(
+            "vocabs:skoscollection_detail", kwargs={"pk": self.object.pk}
+        )
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -370,8 +387,8 @@ class SkosCollectionUpdate(BaseUpdateView):
 
 class SkosCollectionDelete(BaseDeleteView):
     model = SkosCollection
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('vocabs:browse_skoscollections')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("vocabs:browse_skoscollections")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -384,25 +401,26 @@ class SkosCollectionDelete(BaseDeleteView):
 #
 ######################################################################
 
+
 class SkosConceptListView(GenericListView):
     model = SkosConcept
     table_class = SkosConceptTable
     filter_class = SkosConceptListFilter
     formhelper_class = SkosConceptFormHelper
     init_columns = [
-        'id',
-        'pref_label',
-        'scheme',
+        "id",
+        "pref_label",
+        "scheme",
     ]
 
     def get_queryset(self, **kwargs):
         qs = super(SkosConceptListView, self).get_queryset()
-        return qs.order_by('id')
+        return qs.order_by("id")
 
 
 class SkosConceptDetailView(BaseDetailView):
     model = SkosConcept
-    template_name = 'vocabs/skosconcept_detail.html'
+    template_name = "vocabs/skosconcept_detail.html"
     success_url = None
 
     def get_context_data(self, **kwargs):
@@ -417,20 +435,20 @@ class SkosConceptCreate(BaseCreateView):
     def get_context_data(self, **kwargs):
         data = super(SkosConceptCreate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['labels'] = ConceptLabelFormSet(self.request.POST)
-            data['notes'] = ConceptNoteFormSet(self.request.POST)
-            data['sources'] = ConceptSourceFormSet(self.request.POST)
+            data["labels"] = ConceptLabelFormSet(self.request.POST)
+            data["notes"] = ConceptNoteFormSet(self.request.POST)
+            data["sources"] = ConceptSourceFormSet(self.request.POST)
         else:
-            data['labels'] = ConceptLabelFormSet()
-            data['notes'] = ConceptNoteFormSet()
-            data['sources'] = ConceptSourceFormSet()
+            data["labels"] = ConceptLabelFormSet()
+            data["notes"] = ConceptNoteFormSet()
+            data["sources"] = ConceptSourceFormSet()
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        labels = context['labels']
-        notes = context['notes']
-        sources = context['sources']
+        labels = context["labels"]
+        notes = context["notes"]
+        sources = context["sources"]
         with transaction.atomic():
             form.instance.created_by = self.request.user
             self.object = form.save(commit=False)
@@ -457,14 +475,18 @@ class SkosConceptCreate(BaseCreateView):
 
     def get_initial(self):
         initial = super(SkosConceptCreate, self).get_initial()
-        if self.request.GET.get('scheme'):
-            initial['scheme'] = SkosConceptScheme.objects.get(pk=self.request.GET.get('scheme'))
-        if self.request.GET.get('collection'):
-            initial['collection'] = SkosCollection.objects.get(pk=self.request.GET.get('collection'))
+        if self.request.GET.get("scheme"):
+            initial["scheme"] = SkosConceptScheme.objects.get(
+                pk=self.request.GET.get("scheme")
+            )
+        if self.request.GET.get("collection"):
+            initial["collection"] = SkosCollection.objects.get(
+                pk=self.request.GET.get("collection")
+            )
         return initial
 
     def get_success_url(self):
-        return reverse_lazy('vocabs:skosconcept_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy("vocabs:skosconcept_detail", kwargs={"pk": self.object.pk})
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -479,20 +501,24 @@ class SkosConceptUpdate(BaseUpdateView):
     def get_context_data(self, **kwargs):
         data = super(SkosConceptUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['labels'] = ConceptLabelFormSet(self.request.POST, instance=self.object)
-            data['notes'] = ConceptNoteFormSet(self.request.POST, instance=self.object)
-            data['sources'] = ConceptSourceFormSet(self.request.POST, instance=self.object)
+            data["labels"] = ConceptLabelFormSet(
+                self.request.POST, instance=self.object
+            )
+            data["notes"] = ConceptNoteFormSet(self.request.POST, instance=self.object)
+            data["sources"] = ConceptSourceFormSet(
+                self.request.POST, instance=self.object
+            )
         else:
-            data['labels'] = ConceptLabelFormSet(instance=self.object)
-            data['notes'] = ConceptNoteFormSet(instance=self.object)
-            data['sources'] = ConceptSourceFormSet(instance=self.object)
+            data["labels"] = ConceptLabelFormSet(instance=self.object)
+            data["notes"] = ConceptNoteFormSet(instance=self.object)
+            data["sources"] = ConceptSourceFormSet(instance=self.object)
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        labels = context['labels']
-        notes = context['notes']
-        sources = context['sources']
+        labels = context["labels"]
+        notes = context["notes"]
+        sources = context["sources"]
         with transaction.atomic():
             if labels.is_valid():
                 labels.instance = self.object
@@ -512,7 +538,7 @@ class SkosConceptUpdate(BaseUpdateView):
         return super(SkosConceptUpdate, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('vocabs:skosconcept_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy("vocabs:skosconcept_detail", kwargs={"pk": self.object.pk})
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -521,8 +547,8 @@ class SkosConceptUpdate(BaseUpdateView):
 
 class SkosConceptDelete(BaseDeleteView):
     model = SkosConcept
-    template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('vocabs:browse_vocabs')
+    template_name = "webpage/confirm_delete.html"
+    success_url = reverse_lazy("vocabs:browse_vocabs")
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -533,6 +559,7 @@ class SkosConceptDelete(BaseDeleteView):
 # SkosConcepts download as one ConceptScheme
 ###################################################
 
+
 class SkosConceptDL(GenericListView):
     model = SkosConcept
     table_class = SkosConceptTable
@@ -540,12 +567,16 @@ class SkosConceptDL(GenericListView):
     formhelper_class = SkosConceptFormHelper
 
     def render_to_response(self, context):
-        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H-%M-%S')
-        response = HttpResponse(content_type='application/xml; charset=utf-8')
+        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime(
+            "%Y-%m-%d-%H-%M-%S"
+        )
+        response = HttpResponse(content_type="application/xml; charset=utf-8")
         filename = "download_{}".format(timestamp)
-        get_format = self.request.GET.get('format', default='pretty-xml')
+        get_format = self.request.GET.get("format", default="pretty-xml")
         qs = self.get_queryset()
-        response['Content-Disposition'] = f'attachment; filename="{filename}.{RDF_FORMATS[get_format]}"'
+        response["Content-Disposition"] = (
+            f'attachment; filename="{filename}.{RDF_FORMATS[get_format]}"'
+        )
         g = graph_construct_qs(qs)
         g.serialize(destination=response, format=get_format)
         return response

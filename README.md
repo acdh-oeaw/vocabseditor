@@ -87,6 +87,9 @@ At the ACDH-CH we use a centralized database-server. So instead of spawning a da
 
 * `docker build -t vocabseditor:latest .`
 * `docker build -t vocabseditor:latest --no-cache .`
+```
+docker run -it --network="host" --rm --name vocabseditor --env-file .env vocabseditor
+```
 
 ### using published image
 
@@ -115,7 +118,10 @@ REDMINE_ID=12345
 MIGRATE=yes
 ```
 
-`docker run -it -p 8020:8020 --rm --name vocabseditor --env-file .env vocabseditor`
+```
+docker run -it --network="host" --rm --name vocabseditor --env-file .env vocabseditor
+```
+
 
 ### docker-compose (using external database)
 

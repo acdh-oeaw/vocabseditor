@@ -9,10 +9,10 @@ services:
   web:
     build: .
     environment:
-      - DB_NAME=vocabseditor
-      - DB_USER=vocabseditor
-      - DB_PASSWORD=vocabseditor
-      - DB_HOST=db
+      - POSTGRES_DB=vocabseditor
+      - POSTGRES_USER=vocabseditor
+      - POSTGRES_PASSWORD=vocabseditor
+      - POSTGRES_HOST=db
       - PROJECT_NAME=vocabseditor
       - SECRET_KEY=randomstring
       - DEBUG=True

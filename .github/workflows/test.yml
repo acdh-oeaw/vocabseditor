@@ -1,0 +1,40 @@
+name: Test
+on: 
+  push:
+jobs:
+  test:
+    name: Test Application
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_DB: github_actions
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: github_actions
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+    - name: checkout the repo  
+      uses: actions/checkout@v5
+    - name: Install the latest version of uv
+      uses: astral-sh/setup-uv@v6
+    - name: install dependencies
+      run: uv sync --locked
+    - name: Run migrations
+      run: uv run manage.py migrate
+    - name: Run tests
+      run: uv run coverage run manage.py test
+    - name: Create Coverage Report
+      run: uv run coverage xml
+    - name: "Upload coverage to Codecov"
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{secrets.CODECOV_TOKEN}}
+        files: ./coverage.xml
+        fail_ci_if_error: false
+        verbose: true

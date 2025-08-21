@@ -14,10 +14,6 @@ htmlcov/
 # IDE
 .idea
 
-# migrations
-vocabs/migrations/*
-webpage/migrations/*
-
 
 # Ipython Notebook checkpoints
 .ipynb_checkpoints
@@ -41,3 +37,5 @@ media/*.rdf
 media/*.ttl
 Untitled1.ipynb
 dump.sql
+.secret
+celery.log

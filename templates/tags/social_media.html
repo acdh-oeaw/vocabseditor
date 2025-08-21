@@ -1,0 +1,9 @@
+<div class="container">
+<div class="row" style="padding-top: 20px;">
+    {% for x in sm_items %}
+        <div class="col-sm">
+            <a href="{{ x.1 }}"><i class="{{x.0}}"></i></a>
+        </div>
+    {% endfor %}
+</div>
+</div>

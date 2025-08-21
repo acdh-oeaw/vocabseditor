@@ -1,0 +1,47 @@
+{% load static %}
+<footer class="mt-auto">
+    <div class="container pt-5">
+        <div class="footer-wrapper">
+            <div class="row">
+                <div class="col-md-1">
+                    <a href="https://www.oeaw.ac.at/acdh/acdh-home/" target="_blank" rel="noopener"
+                        aria-label="ACDH">
+                        <img src="{% static 'webpage/img/acdh_logo.png' %}" alt="ACDH"
+                            title="Austrian Centre for Digital Humanities" />
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <p>
+                        ACDH-CH
+                        <br>
+                        Austrian Centre for Digital Humanities and Cultural Heritage
+                        <br>
+                        Austrian Academy of Sciences
+                    </p>
+                    <p>
+                        Bäckerstraße 13,
+                        <br>
+                        1010 Vienna
+                    </p>
+                    <p>
+                        T: +43 1 51581-2200
+                        <br>
+                        E: <a href="mailto:acdh-helpdesk@oeaw.ac.at">acdh(at)oeaw.ac.at</a>
+                    </p>
+                    <p>
+                        
+                    </p>
+                </div>
+                <div class="col-md-4 helpdesk">
+                    <h3>HELPDESK</h3>
+                    <p>ACDH runs a helpdesk offering advice for questions related to various digital humanities
+                        topics.</p>
+                    <p><a class="helpdesk-button" href="mailto:acdh-helpdesk@oeaw.ac.at">ASK US!</a></p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center pb-3">
+                <a href="https://github.com/acdh-oeaw/vocabseditor" title="link to code repo"><i class="bi bi-github pe-2"></i></a><a class="ps-2" href="{% url 'webpage:imprint' %}">Imprint</a>
+            </div>
+        </div>
+    </div>
+</footer>
