@@ -1,0 +1,31 @@
+[project]
+name = "vocabseditor"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "acdh-django-browsing>=3.2",
+    "celery>=5.5.3",
+    "crispy-bootstrap5>=2025.6",
+    "django>=5.2.5",
+    "django-autocomplete-light>=3.12.1",
+    "django-celery-results>=2.6.0",
+    "django-crispy-forms>=2.4",
+    "django-extensions>=4.1",
+    "django-guardian>=3.0.3",
+    "django-mptt>=0.17.0",
+    "django-reversion>=5.1.0",
+    "djangorestframework>=3.16.1",
+    "djangorestframework-guardian>=0.4.0",
+    "gunicorn>=23.0.0",
+    "psycopg2-binary>=2.9.10",
+    "pygithub>=2.7.0",
+    "rdflib>=7.1.4",
+]
+
+[dependency-groups]
+dev = [
+    "coverage>=7.10.4",
+    "ruff>=0.12.9",
+]

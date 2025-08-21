@@ -3,10 +3,10 @@ services:
   web:
     build: .
     environment:
-      - DB_NAME=vocabs
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_HOST=localhost
+      - POSTGRES_DB=vocabs
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=localhost
       - PROJECT_NAME=vocabseditor
       - SECRET_KEY=randomstring
       - DEBUG=True

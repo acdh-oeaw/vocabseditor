@@ -14,10 +14,6 @@ htmlcov/
 # IDE
 .idea
 
-# migrations
-vocabs/migrations/*
-webpage/migrations/*
-
 
 # Ipython Notebook checkpoints
 .ipynb_checkpoints
@@ -26,7 +22,11 @@ webpage/migrations/*
 .ipynb
 
 # envs
-
+.venv
+.vscode
+.github
+.git
+.secret
 env/
 server.py
 s_wsgy.py

@@ -1,0 +1,232 @@
+[2025-08-21 07:25:13,637: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+ 
+ -------------- celery@csae8092 v5.5.3 (immunity)
+--- ***** ----- 
+-- ******* ---- Linux-6.14.0-27-generic-x86_64-with-glibc2.39 2025-08-21 07:25:13
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         vocabseditor:0x72963da909b0
+- ** ---------- .> transport:   amqp://guest:**@localhost:5672//
+- ** ---------- .> results:     
+- *** --- * --- .> concurrency: 16 (prefork)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . Export
+  . Import
+  . vocabseditor.celery.debug_task
+
+[2025-08-21 07:25:15,500: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2025-08-21 07:25:17,502: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2025-08-21 07:25:21,505: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2025-08-21 07:25:27,508: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2025-08-21 07:25:35,511: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 10.00 seconds... (5/100)
+
+[2025-08-21 07:25:45,515: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 12.00 seconds... (6/100)
+
+[2025-08-21 07:25:57,520: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 14.00 seconds... (7/100)
+
+[2025-08-21 07:26:11,526: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 16.00 seconds... (8/100)
+
+[2025-08-21 07:26:27,534: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 18.00 seconds... (9/100)
+
+[2025-08-21 07:26:45,541: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 20.00 seconds... (10/100)
+
+[2025-08-21 07:27:05,547: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 22.00 seconds... (11/100)
+
+[2025-08-21 07:27:27,556: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 24.00 seconds... (12/100)
+
+[2025-08-21 07:27:51,563: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 26.00 seconds... (13/100)
+
+[2025-08-21 07:28:17,573: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 28.00 seconds... (14/100)
+
+[2025-08-21 07:28:45,578: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 30.00 seconds... (15/100)
+
+[2025-08-21 07:29:15,583: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2025-08-21 07:29:47,589: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2025-08-21 07:30:19,598: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2025-08-21 07:30:51,605: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2025-08-21 07:31:23,613: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2025-08-21 07:31:55,624: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2025-08-21 07:32:27,635: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2025-08-21 07:32:59,642: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2025-08-21 07:33:31,648: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2025-08-21 07:34:03,657: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 32.00 seconds... (16/100)
+
+[2025-08-21 07:34:35,671: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2025-08-21 07:34:35,676: INFO/MainProcess] mingle: searching for neighbors
+[2025-08-21 07:34:35,683: WARNING/MainProcess] No hostname was supplied. Reverting to default 'localhost'
+[2025-08-21 07:34:36,709: INFO/MainProcess] mingle: all alone
+[2025-08-21 07:34:36,725: WARNING/MainProcess] /home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/kombu/pidbox.py:72: UserWarning: A node named celery@csae8092 is already using this process mailbox!
+
+Maybe you forgot to shutdown the other node or did not do so properly?
+Or if you meant to start multiple nodes on the same host please make sure
+you give each node a unique node name!
+
+  warnings.warn(W_PIDBOX_IN_USE.format(node=self))
+
+[2025-08-21 07:34:36,729: INFO/MainProcess] celery@csae8092 ready.
+[2025-08-21 07:37:13,142: ERROR/MainProcess] Error cleaning up after event loop: RecoverableConnectionError(None, 'Socket was disconnected', None, '')
+Traceback (most recent call last):
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/celery/worker/loops.py", line 97, in asynloop
+    next(loop)
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/kombu/asynchronous/hub.py", line 373, in create_loop
+    cb(*cbargs)
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/kombu/transport/base.py", line 248, in on_readable
+    reader(loop)
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/kombu/transport/base.py", line 230, in _read
+    drain_events(timeout=0)
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/amqp/connection.py", line 526, in drain_events
+    while not self.blocking_read(timeout):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/amqp/connection.py", line 531, in blocking_read
+    frame = self.transport.read_frame()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/amqp/transport.py", line 297, in read_frame
+    frame_header = read(7, True)
+                   ^^^^^^^^^^^^^
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/amqp/transport.py", line 632, in _read
+    s = recv(n - len(rbuf))
+        ^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [Errno 104] Connection reset by peer
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/celery/worker/loops.py", line 102, in asynloop
+    hub.reset()
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/kombu/asynchronous/hub.py", line 116, in reset
+    self.close()
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/kombu/asynchronous/hub.py", line 275, in close
+    item()
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/vine/promises.py", line 161, in __call__
+    return self.throw()
+           ^^^^^^^^^^^^
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/vine/promises.py", line 158, in __call__
+    retval = fun(*final_args, **final_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/kombu/transport/base.py", line 228, in _read
+    raise RecoverableConnectionError('Socket was disconnected')
+amqp.exceptions.RecoverableConnectionError: Socket was disconnected
+[2025-08-21 07:37:13,145: WARNING/MainProcess] consumer: Connection to broker lost. Trying to re-establish the connection...
+Traceback (most recent call last):
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/celery/worker/consumer/consumer.py", line 341, in start
+    blueprint.start(self)
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/celery/bootsteps.py", line 116, in start
+    step.start(parent)
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/celery/worker/consumer/consumer.py", line 772, in start
+    c.loop(*c.loop_args())
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/celery/worker/loops.py", line 97, in asynloop
+    next(loop)
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/kombu/asynchronous/hub.py", line 373, in create_loop
+    cb(*cbargs)
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/kombu/transport/base.py", line 248, in on_readable
+    reader(loop)
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/kombu/transport/base.py", line 230, in _read
+    drain_events(timeout=0)
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/amqp/connection.py", line 526, in drain_events
+    while not self.blocking_read(timeout):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/amqp/connection.py", line 531, in blocking_read
+    frame = self.transport.read_frame()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/amqp/transport.py", line 297, in read_frame
+    frame_header = read(7, True)
+                   ^^^^^^^^^^^^^
+  File "/home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/amqp/transport.py", line 632, in _read
+    s = recv(n - len(rbuf))
+        ^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [Errno 104] Connection reset by peer
+[2025-08-21 07:37:13,146: WARNING/MainProcess] /home/csae8092/repos/vocabseditor/.venv/lib/python3.12/site-packages/celery/worker/consumer/consumer.py:392: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  warnings.warn(CANCEL_TASKS_BY_DEFAULT, CPendingDeprecationWarning)
+
+[2025-08-21 07:37:13,148: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 2.00 seconds... (1/100)
+
+[2025-08-21 07:37:15,150: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 4.00 seconds... (2/100)
+
+[2025-08-21 07:37:19,152: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 6.00 seconds... (3/100)
+
+[2025-08-21 07:37:25,156: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 8.00 seconds... (4/100)
+
+[2025-08-21 07:37:33,160: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 10.00 seconds... (5/100)
+
+[2025-08-21 07:37:43,164: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 12.00 seconds... (6/100)
+
+[2025-08-21 07:37:55,168: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 14.00 seconds... (7/100)
+
+[2025-08-21 07:38:09,174: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 16.00 seconds... (8/100)
+
+[2025-08-21 07:38:25,178: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 18.00 seconds... (9/100)
+
+[2025-08-21 07:38:43,185: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 20.00 seconds... (10/100)
+
+[2025-08-21 07:39:03,193: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 22.00 seconds... (11/100)
+
+[2025-08-21 07:39:25,201: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 24.00 seconds... (12/100)
+
+[2025-08-21 07:39:49,208: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 26.00 seconds... (13/100)
+
+[2025-08-21 07:40:15,219: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused.
+Trying again in 28.00 seconds... (14/100)
+
