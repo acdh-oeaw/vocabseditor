@@ -31,6 +31,5 @@ dev = [
 ]
 
 [tool.ruff]
-# In addition to the standard set of exclusions, omit all tests, plus a specific file.
 extend-exclude = ["manage.py",]
 line-length = 120
