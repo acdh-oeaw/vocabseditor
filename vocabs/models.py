@@ -225,7 +225,7 @@ class SkosConceptScheme(models.Model):
         blank=True,
         help_text="The selected user(s) will be able to view and edit this Concept Scheme",
     )
-    custom_props = models.ManyToManyField("CustomProperty", blank=True, null=True, verbose_name="Custom properties")
+    custom_prop = models.ManyToManyField("CustomProperty", blank=True, verbose_name="Custom properties")
 
     class Meta:
         ordering = ["id"]

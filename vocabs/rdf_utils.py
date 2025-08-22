@@ -133,7 +133,7 @@ def graph_construct_qs(results):
                 )
             else:
                 pass
-            for custom_prop in obj.scheme.custom_props.all():
+            for custom_prop in obj.scheme.custom_prop.all():
                 predicate, object = custom_prop.get_predicate_object()
                 g.add((main_concept_scheme, predicate, object))
         else:

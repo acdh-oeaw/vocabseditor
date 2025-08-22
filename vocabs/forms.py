@@ -580,7 +580,7 @@ class AutocompleteCharField(forms.CharField):
 
     def to_python(self, value):
         """Normalize data to keep only URIs."""
-        clean_value = ",".join(re.findall("(?P<url>https?://[^\s\,]+)", value))
+        clean_value = ",".join(re.findall(r"(?P<url>https?://[^\s\,]+)", value))
         return clean_value
 
 
