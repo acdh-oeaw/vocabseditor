@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from guardian.shortcuts import assign_perm, remove_perm
 from mptt.models import MPTTModel, TreeForeignKey
-from rdflib import RDF, SKOS, XSD, Graph, Literal, URIRef
+from rdflib import DC, DCTERMS, OWL, RDF, RDFS, SKOS, XSD, Graph, Literal, URIRef
 
 try:
     notation_for_uri = settings.VOCABS_SETTINGS["notation_for_uri"]
@@ -267,9 +267,46 @@ class SkosConceptScheme(models.Model):
         g = Graph()
         subj = self.get_subject()
         g.add((subj, RDF.type, SKOS.ConceptScheme))
+        if self.title:
+            title_value = Literal(self.title, lang=self.title_lang)
+            g.add((subj, DC.title, title_value))
+            g.add((subj, RDFS.label, title_value))
         for x in self.has_custom_properties.all():
             predicate, object = x.get_predicate_object()
             g.add((subj, predicate, object))
+        for relation_name in ["has_titles", "has_descriptions", "has_sources"]:
+            for x in getattr(self, relation_name).all():
+                g = g + x.as_graph()
+        if self.creator:
+            for i in self.creator.split(";"):
+                g.add((subj, DC.creator, Literal(i.strip())))
+        if self.contributor:
+            for i in self.contributor.split(";"):
+                g.add((subj, DC.contributor, Literal(i.strip())))
+        if self.language:
+            for i in self.language.split(";"):
+                g.add((subj, DC.language, Literal(i.strip())))
+        if self.subject:
+            for i in self.subject.split(";"):
+                g.add((subj, DC.subject, Literal(i.strip())))
+        if self.coverage:
+            for i in self.coverage.split(";"):
+                g.add((subj, DC.coverage, Literal(i.strip())))
+        # the rest of the properties
+        if self.license:
+            g.add((subj, DCTERMS.license, Literal(self.license)))
+        if self.version:
+            g.add((subj, OWL.versionInfo, Literal(self.version)))
+        if self.publisher:
+            g.add((subj, DC.publisher, Literal(self.publisher)))
+        if self.relation:
+            g.add((subj, DC.relation, URIRef(self.relation)))
+        if self.owner:
+            g.add((subj, DCTERMS.rightsHolder, Literal(self.owner)))
+        g.add((subj, DCTERMS.created, Literal(self.date_created, datatype=XSD.dateTime)))
+        g.add((subj, DCTERMS.modified, Literal(self.date_modified, datatype=XSD.dateTime)))
+        if self.date_issued:
+            g.add((subj, DCTERMS.issued, Literal(self.date_issued, datatype=XSD.date)))
         return g
 
     @classmethod
@@ -331,6 +368,14 @@ class ConceptSchemeTitle(models.Model):
     def __str__(self):
         return "{}".format(self.name)
 
+    def as_graph(self):
+        g = Graph()
+        subj = self.concept_scheme.get_subject()
+        obj = Literal(self.name, lang=self.language)
+        g.add((subj, DC.title, obj))
+        g.add((subj, RDFS.label, obj))
+        return g
+
 
 class ConceptSchemeDescription(models.Model):
     """
@@ -351,6 +396,13 @@ class ConceptSchemeDescription(models.Model):
         verbose_name="dc:description language",
         help_text="Language of description given above",
     )
+
+    def as_graph(self):
+        g = Graph()
+        subj = self.concept_scheme.get_subject()
+        obj = Literal(self.name, lang=self.language)
+        g.add((subj, DC.description, obj))
+        return g
 
     def __str__(self):
         return self.name
@@ -378,6 +430,13 @@ class ConceptSchemeSource(models.Model):
         verbose_name="dc:source language",
         help_text="Language of source given above",
     )
+
+    def as_graph(self):
+        g = Graph()
+        subj = self.concept_scheme.get_subject()
+        obj = Literal(self.name, lang=self.language)
+        g.add((subj, DC.source, obj))
+        return g
 
     def __str__(self):
         return "{}".format(self.name)
