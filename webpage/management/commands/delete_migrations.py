@@ -15,7 +15,7 @@ class Command(BaseCommand):
         counter = 0
         for root, dirs, files in os.walk(cwd):
             for file in files:
-                if 'migrations' in os.path.join(root, file) and '00' in os.path.join(root, file):
+                if "migrations" in os.path.join(root, file) and "00" in os.path.join(root, file):
                     deleted_files.append((os.path.join(root, file)))
                     os.remove(os.path.join(root, file))
                     counter = +1

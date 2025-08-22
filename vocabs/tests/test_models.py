@@ -1,17 +1,12 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 
-from .constants import (
-    USER,
-    concept_scheme,
-    collection,
-    concept
-)
+from .constants import USER, concept_scheme, collection, concept
 from ..models import SkosConceptScheme, SkosCollection, SkosConcept
 
 
 class ConceptSchemeTest(TestCase):
-    """ Test module for SkosConceptScheme model """
+    """Test module for SkosConceptScheme model"""
 
     def setUp(self):
         self.user = User.objects.create_user(**USER)
@@ -24,7 +19,7 @@ class ConceptSchemeTest(TestCase):
 
 
 class CollectionTest(TestCase):
-    """ Test module for SkosCollection model """
+    """Test module for SkosCollection model"""
 
     def setUp(self):
         self.user = User.objects.create_user(**USER)
@@ -38,7 +33,7 @@ class CollectionTest(TestCase):
 
 
 class ConceptTest(TestCase):
-    """ Test module for SkosConcept model """
+    """Test module for SkosConcept model"""
 
     def setUp(self):
         self.user = User.objects.create_user(**USER)

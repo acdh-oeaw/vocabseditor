@@ -24,23 +24,16 @@ def export_concept_schema(schema_id, export_format):
         files,
         ghpat=settings.GHPAT,
         repo_name=settings.GHREPO,
-        commit_message=commit_message
+        commit_message=commit_message,
     )
     return f"/media/{file_name}"
 
 
 @shared_task(name="Import")
 def import_concept_schema(full_path, user_name, file_format=None, language=None):
-    if file_format == 'ttl':
-        skos_vocab = SkosImporter(
-            file=full_path,
-            file_format="ttl",
-            language=language
-        )
+    if file_format == "ttl":
+        skos_vocab = SkosImporter(file=full_path, file_format="ttl", language=language)
     else:
-        skos_vocab = SkosImporter(
-            file=full_path,
-            language=language
-        )
+        skos_vocab = SkosImporter(file=full_path, language=language)
     result = skos_vocab.upload_data(user=user_name)
     return result

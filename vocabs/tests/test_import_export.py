@@ -16,7 +16,7 @@ EXAMPLE_SKOS_EXPORT = os.path.join(os.path.dirname(__file__), "example_skos_expo
 
 
 class TestSkosImport(TestCase):
-    """ Test module for SKOS import functionality. """
+    """Test module for SKOS import functionality."""
 
     def setUp(self) -> None:
         self.user = User.objects.create_user(**USER)
@@ -26,7 +26,10 @@ class TestSkosImport(TestCase):
 
     def test_parsing_to_graph(self):
         self.assertEqual(type(self.concept_scheme), dict)
-        self.assertEqual(self.concept_scheme["identifier"], "https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme")
+        self.assertEqual(
+            self.concept_scheme["identifier"],
+            "https://vocabs.acdh.oeaw.ac.at/dhataxonomy/ConceptScheme",
+        )
         self.assertEqual(type(self.concept_scheme["title"]), list)
         self.assertEqual(self.concept_scheme["title"][0]["title"], "DHA Taxonomy")
         self.assertEqual(self.concept_scheme["title"][0]["lang"], "en")
@@ -40,9 +43,7 @@ class TestSkosImport(TestCase):
         test_file = os.path.join(os.path.dirname(__file__), "exact_match.ttl")
         skos_vocab = SkosImporter(file=test_file, language="en")
         skos_vocab.upload_data(self.user)
-        item = SkosConcept.objects.filter(
-            exact_match__contains='https://d-nb.info/gnd/1197273174'
-        )
+        item = SkosConcept.objects.filter(exact_match__contains="https://d-nb.info/gnd/1197273174")
         self.assertEqual(item.count(), 1)
         concept_scheme = item.first().scheme
         delete_legacy_ids(concept_scheme)
@@ -53,7 +54,7 @@ class TestSkosImport(TestCase):
 
 
 class TestSkosExport(TestCase):
-    """ Test module for SKOS export functionality. """
+    """Test module for SKOS export functionality."""
 
     def setUp(self) -> None:
         self.user = User.objects.create_user(**USER)

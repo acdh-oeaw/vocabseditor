@@ -152,9 +152,7 @@ class SkosConceptScheme(models.Model):
         default=DEFAULT_LANG,
         help_text="Language of title given above",
     )
-    identifier = models.URLField(
-        blank=True, help_text="URI to unambiguously identify current Concept Scheme"
-    )
+    identifier = models.URLField(blank=True, help_text="URI to unambiguously identify current Concept Scheme")
     creator = models.TextField(
         blank=True,
         verbose_name="dc:creator",
@@ -170,14 +168,12 @@ class SkosConceptScheme(models.Model):
     language = models.TextField(
         blank=True,
         verbose_name="dc:language",
-        help_text="Language(s) used in concept scheme<br>"
-        "If more than one list all using a semicolon ;",
+        help_text="Language(s) used in concept scheme<br>If more than one list all using a semicolon ;",
     )
     subject = models.TextField(
         blank=True,
         verbose_name="dc:subject",
-        help_text="The subject of the vocabulary<br>"
-        "If more than one list all using a semicolon ;",
+        help_text="The subject of the vocabulary<br>If more than one list all using a semicolon ;",
     )
     version = models.CharField(max_length=300, blank=True, help_text="Current version")
     publisher = models.CharField(
@@ -200,8 +196,7 @@ class SkosConceptScheme(models.Model):
     relation = models.URLField(
         blank=True,
         verbose_name="dc:relation",
-        help_text="Related resource or project<br>"
-        "E.g. in case of relation to a project, add link to a project website",
+        help_text="Related resource or project<br>E.g. in case of relation to a project, add link to a project website",
     )
     coverage = models.TextField(
         blank=True,
@@ -230,9 +225,7 @@ class SkosConceptScheme(models.Model):
         blank=True,
         help_text="The selected user(s) will be able to view and edit this Concept Scheme",
     )
-    custom_props = models.ManyToManyField(
-        "CustomProperty", blank=True, null=True, verbose_name="Custom properties"
-    )
+    custom_props = models.ManyToManyField("CustomProperty", blank=True, null=True, verbose_name="Custom properties")
 
     class Meta:
         ordering = ["id"]
@@ -335,9 +328,7 @@ class ConceptSchemeDescription(models.Model):
         help_text="Which Skos:ConceptScheme current Description belongs to",
         on_delete=models.CASCADE,
     )
-    name = models.TextField(
-        verbose_name="dc:description", help_text="Description of concept scheme"
-    )
+    name = models.TextField(verbose_name="dc:description", help_text="Description of concept scheme")
     language = models.CharField(
         max_length=53,
         verbose_name="dc:description language",
@@ -556,9 +547,7 @@ class CollectionNote(models.Model):
         verbose_name="documentary note",
         help_text="Provide some information about this collection",
     )
-    language = models.CharField(
-        max_length=53, verbose_name="language", help_text="Language of note given above"
-    )
+    language = models.CharField(max_length=53, verbose_name="language", help_text="Language of note given above")
     note_type = models.CharField(
         choices=NOTE_TYPES,
         verbose_name="note type",
@@ -636,9 +625,7 @@ class SkosConcept(MPTTModel):
         on_delete=models.CASCADE,
         help_text="Concept scheme to which this concept belongs",
     )
-    top_concept = models.BooleanField(
-        null=True, help_text="Is this concept a top concept of concept scheme?"
-    )
+    top_concept = models.BooleanField(null=True, help_text="Is this concept a top concept of concept scheme?")
     collection = models.ManyToManyField(
         SkosCollection,
         blank=True,
@@ -699,8 +686,7 @@ class SkosConcept(MPTTModel):
     creator = models.TextField(
         blank=True,
         verbose_name="dc:creator",
-        help_text="Person or organisation that created this concept<br>"
-        "If more than one list all using a semicolon ;",
+        help_text="Person or organisation that created this concept<br>If more than one list all using a semicolon ;",
     )
     contributor = models.TextField(
         blank=True,
@@ -708,15 +694,9 @@ class SkosConcept(MPTTModel):
         help_text="Person or organisation that made contributions to this concept<br>"
         "If more than one list all using a semicolon ;",
     )
-    needs_review = models.BooleanField(
-        null=True, help_text="Check if this concept needs to be reviewed"
-    )
-    date_created = models.DateTimeField(
-        editable=False, default=timezone.now, verbose_name="dct:created"
-    )
-    date_modified = models.DateTimeField(
-        editable=False, default=timezone.now, verbose_name="dct:modified"
-    )
+    needs_review = models.BooleanField(null=True, help_text="Check if this concept needs to be reviewed")
+    date_created = models.DateTimeField(editable=False, default=timezone.now, verbose_name="dct:created")
+    date_modified = models.DateTimeField(editable=False, default=timezone.now, verbose_name="dct:modified")
     created_by = models.ForeignKey(
         User,
         related_name="skos_concept_created",
@@ -825,9 +805,7 @@ class ConceptLabel(models.Model):
         help_text="Which Skos:Concept current label belongs to",
         on_delete=models.CASCADE,
     )
-    name = models.CharField(
-        max_length=500, verbose_name="label", help_text="Other label for this concept"
-    )
+    name = models.CharField(max_length=500, verbose_name="label", help_text="Other label for this concept")
     language = models.CharField(
         max_length=53,
         verbose_name="language",
@@ -863,9 +841,7 @@ class ConceptNote(models.Model):
         verbose_name="documentary note",
         help_text="Provide some information about this concept",
     )
-    language = models.CharField(
-        max_length=53, verbose_name="language", help_text="Language of note given above"
-    )
+    language = models.CharField(max_length=53, verbose_name="language", help_text="Language of note given above")
     note_type = models.CharField(
         choices=NOTE_TYPES,
         verbose_name="note type",
@@ -891,9 +867,7 @@ class ConceptSource(models.Model):
         help_text="Which Skos:Concept current source belongs to",
         on_delete=models.CASCADE,
     )
-    name = models.TextField(
-        verbose_name="dc:source", help_text="Verbal description of the concept's source"
-    )
+    name = models.TextField(verbose_name="dc:source", help_text="Verbal description of the concept's source")
     language = models.CharField(
         max_length=53,
         verbose_name="language",
@@ -923,18 +897,14 @@ def get_all_children(self, include_self=True):
 #############################################################################
 
 
-@receiver(
-    post_save, sender=SkosConceptScheme, dispatch_uid="create_perms_cs_created_by"
-)
+@receiver(post_save, sender=SkosConceptScheme, dispatch_uid="create_perms_cs_created_by")
 def create_perms_cs_created_by(sender, instance, **kwargs):
     assign_perm("delete_skosconceptscheme", instance.created_by, instance)
     assign_perm("change_skosconceptscheme", instance.created_by, instance)
     assign_perm("view_skosconceptscheme", instance.created_by, instance)
 
 
-@receiver(
-    post_save, sender=SkosCollection, dispatch_uid="create_perms_collection_created_by"
-)
+@receiver(post_save, sender=SkosCollection, dispatch_uid="create_perms_collection_created_by")
 def create_perms_collection_created_by(sender, instance, **kwargs):
     assign_perm("delete_skoscollection", instance.created_by, instance)
     assign_perm("change_skoscollection", instance.created_by, instance)

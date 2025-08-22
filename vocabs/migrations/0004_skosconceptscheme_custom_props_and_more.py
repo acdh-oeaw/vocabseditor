@@ -4,20 +4,29 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('vocabs', '0003_customproperty_prop_lang'),
+        ("vocabs", "0003_customproperty_prop_lang"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='skosconceptscheme',
-            name='custom_props',
-            field=models.ManyToManyField(blank=True, null=True, to='vocabs.customproperty', verbose_name='Custom properties'),
+            model_name="skosconceptscheme",
+            name="custom_props",
+            field=models.ManyToManyField(
+                blank=True,
+                null=True,
+                to="vocabs.customproperty",
+                verbose_name="Custom properties",
+            ),
         ),
         migrations.AlterField(
-            model_name='customproperty',
-            name='prop_lang',
-            field=models.CharField(default='en', help_text="e.g. 'de', defaults to 'en'", max_length=3, verbose_name='Language'),
+            model_name="customproperty",
+            name="prop_lang",
+            field=models.CharField(
+                default="en",
+                help_text="e.g. 'de', defaults to 'en'",
+                max_length=3,
+                verbose_name="Language",
+            ),
         ),
     ]

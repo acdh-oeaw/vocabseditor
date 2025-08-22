@@ -9,25 +9,21 @@ from .forms import form_user_login
 from reversion.models import Version
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from vocabs.models import (
-    SkosCollection,
-    SkosConcept,
-    SkosConceptScheme
-)
+from vocabs.models import SkosCollection, SkosConcept, SkosConceptScheme
 from .metadata import PROJECT_METADATA as PM
 from copy import deepcopy
 
 
 class ImprintView(TemplateView):
-    template_name = 'webpage/imprint.html'
+    template_name = "webpage/imprint.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         r = requests.get("https://imprint.acdh.oeaw.ac.at/12305")
         if r.status_code == 200:
-            context['imprint_body'] = "{}".format(r.text)
+            context["imprint_body"] = "{}".format(r.text)
         else:
-            context['imprint_body'] = """
+            context["imprint_body"] = """
             On of our services is currently not available. Please try it later or write an email to
             acdh@oeaw.ac.at; if you are service provide, make sure that you provided ACDH_IMPRINT_URL and REDMINE_ID
             """
@@ -35,19 +31,19 @@ class ImprintView(TemplateView):
 
 
 class GenericWebpageView(TemplateView):
-    template_name = 'webpage/index.html'
+    template_name = "webpage/index.html"
 
     def get_context_data(self, **kwargs):
         context = super(GenericWebpageView, self).get_context_data(**kwargs)
-        context['apps'] = settings.INSTALLED_APPS
+        context["apps"] = settings.INSTALLED_APPS
         return context
 
     def get_template_names(self):
-        template_name = "webpage/{}.html".format(self.kwargs.get("template", 'index'))
+        template_name = "webpage/{}.html".format(self.kwargs.get("template", "index"))
         try:
             loader.select_template([template_name])
-            template_name = "webpage/{}.html".format(self.kwargs.get("template", 'index'))
-        except Exception as e: # noqa F841
+            template_name = "webpage/{}.html".format(self.kwargs.get("template", "index"))
+        except Exception as e:  # noqa F841
             template_name = "webpage/index.html"
         return [template_name]
 
@@ -56,24 +52,26 @@ class GenericWebpageView(TemplateView):
 #               User detail view                                #
 #################################################################
 
+
 class UserDetailView(DetailView):
     model = get_user_model()
-    template_name = 'webpage/user_detail.html'
+    template_name = "webpage/user_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super(UserDetailView, self).get_context_data()
-        current_user = self.kwargs['pk']
+        current_user = self.kwargs["pk"]
         versions = Version.objects.filter(revision__user__id=current_user)[:500]
-        context['versions'] = versions
-        context['created_cs'] = SkosConceptScheme.objects.filter(created_by=current_user)
-        context['curated_cs'] = SkosConceptScheme.objects.filter(curator=current_user)
-        context['created_collections'] = SkosCollection.objects.filter(created_by=current_user)
-        context['created_concepts'] = SkosConcept.objects.filter(created_by=current_user)
+        context["versions"] = versions
+        context["created_cs"] = SkosConceptScheme.objects.filter(created_by=current_user)
+        context["curated_cs"] = SkosConceptScheme.objects.filter(curator=current_user)
+        context["created_collections"] = SkosCollection.objects.filter(created_by=current_user)
+        context["created_concepts"] = SkosConcept.objects.filter(created_by=current_user)
         return context
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(UserDetailView, self).dispatch(*args, **kwargs)
+
 
 #################################################################
 #               views for login/logout                          #
@@ -81,18 +79,18 @@ class UserDetailView(DetailView):
 
 
 def user_login(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = form_user_login(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = authenticate(username=cd['username'], password=cd['password'])
+            user = authenticate(username=cd["username"], password=cd["password"])
             if user and user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(request.GET.get('next', '/'))
-            return HttpResponse('user does not exist')
+                return HttpResponseRedirect(request.GET.get("next", "/"))
+            return HttpResponse("user does not exist")
     else:
         form = form_user_login()
-        return render(request, 'webpage/user_login.html', {'form': form})
+        return render(request, "webpage/user_login.html", {"form": form})
 
 
 def user_logout(request):
@@ -101,7 +99,7 @@ def user_logout(request):
 
 
 def handler404(request, exception):
-    return render(request, 'webpage/404-error.html', locals())
+    return render(request, "webpage/404-error.html", locals())
 
 
 #################################################################
@@ -110,7 +108,6 @@ def handler404(request, exception):
 
 
 def project_info(request):
-
     """
     returns a dict providing metadata about the current project
     """
@@ -120,8 +117,8 @@ def project_info(request):
     if request.user.is_authenticated:
         pass
     else:
-        del info_dict['matomo_id']
-        del info_dict['matomo_url']
-    info_dict['base_tech'] = 'django'
-    info_dict['framework'] = 'djangobaseproject'
+        del info_dict["matomo_id"]
+        del info_dict["matomo_url"]
+    info_dict["base_tech"] = "django"
+    info_dict["framework"] = "djangobaseproject"
     return JsonResponse(info_dict)

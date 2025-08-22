@@ -1,15 +1,8 @@
-USER = {
-    "username": "testuser",
-    "password": "12345"
-}
+USER = {"username": "testuser", "password": "12345"}
 
 
 def concept_scheme(user):
-    return {
-        "title": "Test Concept Scheme",
-        "title_lang": "en",
-        "created_by": user
-    }
+    return {"title": "Test Concept Scheme", "title_lang": "en", "created_by": user}
 
 
 def collection(concept_scheme, user):
@@ -17,7 +10,7 @@ def collection(concept_scheme, user):
         "name": "Test Collection",
         "label_lang": "en",
         "scheme": concept_scheme,
-        "created_by": user
+        "created_by": user,
     }
 
 
@@ -27,5 +20,5 @@ def concept(concept_scheme, label, user, broader=None):
         "pref_label_lang": "en",
         "scheme": concept_scheme,
         "broader_concept": broader,
-        "created_by": user
+        "created_by": user,
     }
