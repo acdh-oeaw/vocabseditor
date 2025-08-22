@@ -97,6 +97,13 @@ class CustomProperty(models.Model):
         verbose_name="Language",
         help_text=f"e.g. 'de', defaults to '{DEFAULT_LANG}'",
     )
+    concept_scheme = models.ForeignKey(
+        "SkosConceptScheme",
+        related_name="has_custom_properties",
+        verbose_name="skos:ConceptScheme",
+        help_text="Skos:ConceptScheme of this custom property ",
+        on_delete=models.CASCADE,
+    )
 
     class Meta:
         ordering = ["id"]
@@ -116,10 +123,6 @@ class CustomProperty(models.Model):
         else:
             obj = Literal(self.prop_value, lang=self.prop_lang)
         return predicate, obj
-
-    def save(self, *args, **kwargs):
-        self.get_rdf_object()
-        super(CustomProperty, self).save(*args, **kwargs)
 
 
 ######################################################################
@@ -225,7 +228,6 @@ class SkosConceptScheme(models.Model):
         blank=True,
         help_text="The selected user(s) will be able to view and edit this Concept Scheme",
     )
-    custom_prop = models.ManyToManyField("CustomProperty", blank=True, verbose_name="Custom properties")
 
     class Meta:
         ordering = ["id"]

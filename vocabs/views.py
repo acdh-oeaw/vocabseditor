@@ -28,6 +28,7 @@ from vocabs.forms import (
     ConceptSchemeSourceFormSet,
     ConceptSchemeTitleFormSet,
     ConceptSourceFormSet,
+    CustomPropertyFormSet,
     SkosCollectionForm,
     SkosCollectionFormHelper,
     SkosConceptForm,
@@ -127,10 +128,12 @@ class SkosConceptSchemeCreate(BaseCreateView):
             data["titles"] = ConceptSchemeTitleFormSet(self.request.POST)
             data["descriptions"] = ConceptSchemeDescriptionFormSet(self.request.POST)
             data["sources"] = ConceptSchemeSourceFormSet(self.request.POST)
+            data["custom_properties"] = CustomPropertyFormSet(self.request.POST)
         else:
             data["titles"] = ConceptSchemeTitleFormSet()
             data["descriptions"] = ConceptSchemeDescriptionFormSet()
             data["sources"] = ConceptSchemeSourceFormSet()
+            data["custom_properties"] = CustomPropertyFormSet()
         return data
 
     def form_valid(self, form):
@@ -138,6 +141,7 @@ class SkosConceptSchemeCreate(BaseCreateView):
         titles = context["titles"]
         descriptions = context["descriptions"]
         sources = context["sources"]
+        custom_properties = context["custom_properties"]
         with transaction.atomic():
             form.instance.created_by = self.request.user
             # cs should be saved first because fk object are related to it
@@ -155,6 +159,11 @@ class SkosConceptSchemeCreate(BaseCreateView):
             if sources.is_valid():
                 sources.instance = self.object
                 sources.save(commit=False)
+            else:
+                return super(SkosConceptSchemeCreate, self).form_invalid(form)
+            if custom_properties.is_valid():
+                custom_properties.instance = self.object
+                custom_properties.save(commit=False)
             else:
                 return super(SkosConceptSchemeCreate, self).form_invalid(form)
             self.object = form.save()
@@ -183,10 +192,12 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
             data["titles"] = ConceptSchemeTitleFormSet(self.request.POST, instance=self.object)
             data["descriptions"] = ConceptSchemeDescriptionFormSet(self.request.POST, instance=self.object)
             data["sources"] = ConceptSchemeSourceFormSet(self.request.POST, instance=self.object)
+            data["custom_properties"] = CustomPropertyFormSet(self.request.POST, instance=self.object)
         else:
             data["titles"] = ConceptSchemeTitleFormSet(instance=self.object)
             data["descriptions"] = ConceptSchemeDescriptionFormSet(instance=self.object)
             data["sources"] = ConceptSchemeSourceFormSet(instance=self.object)
+            data["custom_properties"] = CustomPropertyFormSet(instance=self.object)
         return data
 
     def form_valid(self, form):
@@ -194,6 +205,7 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
         titles = context["titles"]
         descriptions = context["descriptions"]
         sources = context["sources"]
+        custom_properties = context["custom_properties"]
         with transaction.atomic():
             if titles.is_valid():
                 titles.instance = self.object
@@ -211,6 +223,11 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
                 sources.save()
             else:
                 return super(SkosConceptSchemeUpdate, self).form_invalid(form)
+            if custom_properties.is_valid():
+                custom_properties.instance = self.object
+                custom_properties.save()
+            else:
+                return super(SkosConceptSchemeCreate, self).form_invalid(form)
         return super(SkosConceptSchemeUpdate, self).form_valid(form)
 
     def get_success_url(self):
