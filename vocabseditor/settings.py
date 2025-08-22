@@ -183,7 +183,7 @@ CELERY_RESULT_EXTENDED = True
 GHPAT = os.environ.get("GHPAT")
 GHREPO = os.environ.get("GHREPO", "acdh-oeaw/vocabseditor-dumps")
 
-VOCAPS_CUSTOM_PROPERTIES = [
+VOCABS_CUSTOM_PROPERTIES = [
     {
         "prop_uri": "http://xmlns.com/foaf/0.1/homepage",
         "prop_type": "object",

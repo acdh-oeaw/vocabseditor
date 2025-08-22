@@ -37,7 +37,7 @@ except KeyError:
 
 
 try:
-    CUSTOM_PROPS = settings.VOCAPS_CUSTOM_PROPERTIES
+    CUSTOM_PROPS = settings.VOCABS_CUSTOM_PROPERTIES
 except AttributeError:
     CUSTOM_PROPS = [
         {
