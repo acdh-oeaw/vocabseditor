@@ -227,7 +227,7 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
                 custom_properties.instance = self.object
                 custom_properties.save()
             else:
-                return super(SkosConceptSchemeCreate, self).form_invalid(form)
+                return super(SkosConceptSchemeUpdate, self).form_invalid(form)
         return super(SkosConceptSchemeUpdate, self).form_valid(form)
 
     def get_success_url(self):
