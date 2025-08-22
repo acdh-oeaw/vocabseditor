@@ -128,7 +128,7 @@ def graph_construct_qs(results):
                     (
                         main_concept_scheme,
                         DCT.issued,
-                        Literal(obj.scheme.date_issued, datatype=XSD.dateTime),
+                        Literal(obj.scheme.date_issued, datatype=XSD.date),
                     )
                 )
             for x in obj.scheme.has_custom_properties.all():
