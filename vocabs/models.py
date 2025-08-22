@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from guardian.shortcuts import assign_perm, remove_perm
 from mptt.models import MPTTModel, TreeForeignKey
-from rdflib import XSD, Literal, URIRef
+from rdflib import RDF, SKOS, XSD, Graph, Literal, URIRef
 
 try:
     notation_for_uri = settings.VOCABS_SETTINGS["notation_for_uri"]
@@ -256,6 +256,21 @@ class SkosConceptScheme(models.Model):
 
     def coverage_as_list(self):
         return self.coverage.split(";")
+
+    def get_subject(self):
+        if self.legacy_id:
+            return URIRef(self.legacy_id)
+        else:
+            return URIRef(self.identifier)
+
+    def as_graph(self):
+        g = Graph()
+        subj = self.get_subject()
+        g.add((subj, RDF.type, SKOS.ConceptScheme))
+        for x in self.has_custom_properties.all():
+            predicate, object = x.get_predicate_object()
+            g.add((subj, predicate, object))
+        return g
 
     @classmethod
     def get_listview_url(self):

@@ -34,11 +34,9 @@ def graph_construct_qs(results):
     for obj in results:
         # Creating Main Concept Scheme
         if obj.scheme:
-            if obj.scheme.legacy_id:
-                main_concept_scheme = URIRef(obj.scheme.legacy_id)
-            else:
-                main_concept_scheme = URIRef(obj.scheme.identifier)
-            g.add((main_concept_scheme, RDF.type, SKOS.ConceptScheme))
+            main_concept_scheme = obj.scheme.get_subject()
+            main_concept_scheme_graph = obj.scheme.as_graph()
+            g = g + main_concept_scheme_graph
             # Concept Scheme properties
             if obj.scheme.title:
                 g.add(
@@ -131,9 +129,6 @@ def graph_construct_qs(results):
                         Literal(obj.scheme.date_issued, datatype=XSD.date),
                     )
                 )
-            for x in obj.scheme.has_custom_properties.all():
-                predicate, object = x.get_predicate_object()
-                g.add((main_concept_scheme, predicate, object))
         else:
             main_concept_scheme = URIRef(VOCABS)
             g.add((main_concept_scheme, RDF.type, SKOS.ConceptScheme))
