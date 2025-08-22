@@ -206,6 +206,16 @@
             </td>
         </tr>
         {% endif %}
+        {% if object.has_custom_properties.all %}
+        <tr>
+            <th>Custom properties ({{ object.has_custom_properties.all|length }})</th>
+            <td>
+                {% for x in object.has_custom_properties.all %}
+                <li>{{ x }}</li>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endif %}
         {% if object.has_concepts.all %}
          <tr>
             <th>number of concepts</th>
