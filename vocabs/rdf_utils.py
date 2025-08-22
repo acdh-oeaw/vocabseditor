@@ -131,8 +131,9 @@ def graph_construct_qs(results):
                         Literal(obj.scheme.date_issued, datatype=XSD.dateTime),
                     )
                 )
-            else:
-                pass
+            for x in obj.scheme.has_custom_properties.all():
+                predicate, object = x.get_predicate_object()
+                g.add((main_concept_scheme, predicate, object))
         else:
             main_concept_scheme = URIRef(VOCABS)
             g.add((main_concept_scheme, RDF.type, SKOS.ConceptScheme))
