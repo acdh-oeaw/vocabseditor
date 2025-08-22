@@ -20,6 +20,7 @@ from .models import (
     ConceptSchemeSource,
     ConceptSchemeTitle,
     ConceptSource,
+    CustomProperty,
     SkosCollection,
     SkosConcept,
     SkosConceptScheme,
@@ -66,6 +67,30 @@ def custom_lang_errors(field_name):
     lang_errors = {"required": f"Language is required when {field_name.lower()} provided"}
     lang_errors["invalid"] = "Enter a valid value"
     return lang_errors
+
+
+class CustomPropertyForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CustomPropertyForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = "form-horizontal"
+        self.helper.label_class = "col-md-2 create-label"
+        self.helper.field_class = "col-md-10"
+
+    class Meta:
+        model = CustomProperty
+        fields = "__all__"
+
+
+CustomPropertyFormSet = inlineformset_factory(
+    SkosConceptScheme,
+    CustomProperty,
+    form=CustomPropertyForm,
+    fields=["prop_uri", "prop_value", "prop_lang"],
+    extra=1,
+    can_delete=True,
+)
 
 
 ######################################################################
@@ -239,6 +264,11 @@ class SkosConceptSchemeForm(forms.ModelForm):
                 Field("legacy_id"),
                 Field("date_issued", placeholder="YYYY-MM-DD"),
                 Field("curator"),
+                Fieldset(
+                    "Add custom properties",
+                    Formset("custom_properties"),
+                    css_class="formset-div",
+                ),
                 HTML("<br>"),
                 ButtonHolder(Submit("submit", "save")),
             )
