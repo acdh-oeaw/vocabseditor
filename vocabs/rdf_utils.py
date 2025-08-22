@@ -102,19 +102,13 @@ def graph_construct_qs(results):
             if obj.scheme.license:
                 g.add((main_concept_scheme, DCT.license, Literal(obj.scheme.license)))
             if obj.scheme.version:
-                g.add(
-                    (main_concept_scheme, OWL.versionInfo, Literal(obj.scheme.version))
-                )
+                g.add((main_concept_scheme, OWL.versionInfo, Literal(obj.scheme.version)))
             if obj.scheme.publisher:
-                g.add(
-                    (main_concept_scheme, DC.publisher, Literal(obj.scheme.publisher))
-                )
+                g.add((main_concept_scheme, DC.publisher, Literal(obj.scheme.publisher)))
             if obj.scheme.relation:
                 g.add((main_concept_scheme, DC.relation, URIRef(obj.scheme.relation)))
             if obj.scheme.owner:
-                g.add(
-                    (main_concept_scheme, DCT.rightsHolder, Literal(obj.scheme.owner))
-                )
+                g.add((main_concept_scheme, DCT.rightsHolder, Literal(obj.scheme.owner)))
             g.add(
                 (
                     main_concept_scheme,
@@ -153,9 +147,7 @@ def graph_construct_qs(results):
         #     concept = URIRef(main_concept_scheme + VOCABS_SEPARATOR + "concept" + str(obj.id))
         concept = URIRef(obj.create_uri())
         g.add((concept, RDF.type, SKOS.Concept))
-        g.add(
-            (concept, SKOS.prefLabel, Literal(obj.pref_label, lang=obj.pref_label_lang))
-        )
+        g.add((concept, SKOS.prefLabel, Literal(obj.pref_label, lang=obj.pref_label_lang)))
         if obj.notation != "":
             g.add((concept, SKOS.notation, Literal(obj.notation)))
         # each concept must have skos:inScheme main_concept_scheme
@@ -179,9 +171,7 @@ def graph_construct_qs(results):
                     )
                 )
                 if x.name:
-                    g.add(
-                        (collection, SKOS.prefLabel, Literal(x.name, lang=x.label_lang))
-                    )
+                    g.add((collection, SKOS.prefLabel, Literal(x.name, lang=x.label_lang)))
                 # Collection labels
                 if x.has_labels.all():
                     for label in x.has_labels.all():
@@ -387,9 +377,7 @@ def graph_construct_qs(results):
                         )
                     )
                 elif note.note_type == "example":
-                    g.add(
-                        (concept, SKOS.example, Literal(note.name, lang=note.language))
-                    )
+                    g.add((concept, SKOS.example, Literal(note.name, lang=note.language)))
                 else:
                     g.add((concept, SKOS.note, Literal(note.name, lang=note.language)))
         if obj.has_sources.all():
@@ -438,9 +426,7 @@ def graph_construct_qs(results):
             for i in obj.contributor.split(";"):
                 g.add((concept, DC.contributor, Literal(i.strip())))
         if obj.date_created:
-            g.add(
-                (concept, DCT.created, Literal(obj.date_created, datatype=XSD.dateTime))
-            )
+            g.add((concept, DCT.created, Literal(obj.date_created, datatype=XSD.dateTime)))
         if obj.date_modified:
             g.add(
                 (

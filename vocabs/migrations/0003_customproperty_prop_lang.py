@@ -4,15 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('vocabs', '0002_customproperty'),
+        ("vocabs", "0002_customproperty"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='customproperty',
-            name='prop_lang',
-            field=models.CharField(default='en', help_text="e.g. 'de', defaults to en", max_length=3, verbose_name='Language'),
+            model_name="customproperty",
+            name="prop_lang",
+            field=models.CharField(
+                default="en",
+                help_text="e.g. 'de', defaults to en",
+                max_length=3,
+                verbose_name="Language",
+            ),
         ),
     ]

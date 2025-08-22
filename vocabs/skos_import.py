@@ -108,28 +108,16 @@ class SkosImporter(object):
                     [c for cp in allow_properties("creator") for c in g.objects(cs, cp)]
                 )
                 concept_scheme["contributor"] = ";".join(
-                    [
-                        contr
-                        for contrp in allow_properties("contributor")
-                        for contr in g.objects(cs, contrp)
-                    ]
+                    [contr for contrp in allow_properties("contributor") for contr in g.objects(cs, contrp)]
                 )
                 concept_scheme["language"] = ";".join(
-                    [
-                        lang
-                        for lp in allow_properties("language")
-                        for lang in g.objects(cs, lp)
-                    ]
+                    [lang for lp in allow_properties("language") for lang in g.objects(cs, lp)]
                 )
                 concept_scheme["subject"] = ";".join(
                     [s for sp in allow_properties("subject") for s in g.objects(cs, sp)]
                 )
                 concept_scheme["publisher"] = ";".join(
-                    [
-                        p
-                        for pp in allow_properties("publisher")
-                        for p in g.objects(cs, pp)
-                    ]
+                    [p for pp in allow_properties("publisher") for p in g.objects(cs, pp)]
                 )
                 for license in g.objects(cs, DCT.license):
                     concept_scheme["license"] = str(license)
@@ -254,15 +242,9 @@ class SkosImporter(object):
                     concept["scheme"] = str(scheme)
                 for notation in g.objects(c, SKOS.notation):
                     concept["notation"] = str(notation)
-                concept["creator"] = ";".join(
-                    [c for cp in allow_properties("creator") for c in g.objects(cs, cp)]
-                )
+                concept["creator"] = ";".join([c for cp in allow_properties("creator") for c in g.objects(cs, cp)])
                 concept["contributor"] = ";".join(
-                    [
-                        contr
-                        for contrp in allow_properties("contributor")
-                        for contr in g.objects(cs, contrp)
-                    ]
+                    [contr for contrp in allow_properties("contributor") for contr in g.objects(cs, contrp)]
                 )
                 for broader_concept in g.objects(c, SKOS.broader):
                     concept["broader_concept"] = str(broader_concept)
@@ -413,9 +395,7 @@ class SkosImporter(object):
                             col_other_labels.append(other_label)
                     new_collection = SkosCollection.objects.create(
                         scheme=concept_scheme,
-                        name=col_main_label.get(
-                            "label", "no label in specified language"
-                        ),
+                        name=col_main_label.get("label", "no label in specified language"),
                         legacy_id=col.get("legacy_id"),
                         label_lang=col_main_label.get("lang", self.language),
                         created_by=User.objects.get(username=user),
@@ -477,9 +457,7 @@ class SkosImporter(object):
                             "lang": pref_label.get("lang", self.language),
                         }
                         other_pref_labels.append(other_pref_label)
-                concept_pref_label = main_pref_label.get(
-                    "label", "no label in this language"
-                )
+                concept_pref_label = main_pref_label.get("label", "no label in this language")
                 concept_pref_label_lang = main_pref_label.get("lang", self.language)
                 new_concept = SkosConcept.objects.create(
                     legacy_id=concept_legacy_id,
@@ -506,9 +484,7 @@ class SkosImporter(object):
                         else:
                             pass
                     if len(collections) > 0:
-                        member_of_collections = SkosCollection.objects.filter(
-                            legacy_id__in=collections
-                        )
+                        member_of_collections = SkosCollection.objects.filter(legacy_id__in=collections)
                         new_concept.collection.set(member_of_collections)
                 else:
                     pass
@@ -565,16 +541,10 @@ class SkosImporter(object):
             # add relationships
             for concept in concept_scheme_has_concepts:
                 if concept.get("broader_concept") is not None:
-                    local_concepts = SkosConcept.objects.filter(
-                        scheme=concept_scheme.id
-                    )
+                    local_concepts = SkosConcept.objects.filter(scheme=concept_scheme.id)
                     try:
-                        local_concepts.filter(
-                            legacy_id=concept.get("legacy_id")
-                        ).update(
-                            broader_concept=local_concepts.get(
-                                legacy_id=concept.get("broader_concept")
-                            )
+                        local_concepts.filter(legacy_id=concept.get("legacy_id")).update(
+                            broader_concept=local_concepts.get(legacy_id=concept.get("broader_concept"))
                         )
                     except ObjectDoesNotExist as e:
                         pass

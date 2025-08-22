@@ -165,9 +165,7 @@ class SkosConceptSchemeCreate(BaseCreateView):
         return super(SkosConceptSchemeCreate, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy(
-            "vocabs:skosconceptscheme_detail", kwargs={"pk": self.object.pk}
-        )
+        return reverse_lazy("vocabs:skosconceptscheme_detail", kwargs={"pk": self.object.pk})
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -182,15 +180,9 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
     def get_context_data(self, **kwargs):
         data = super(SkosConceptSchemeUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data["titles"] = ConceptSchemeTitleFormSet(
-                self.request.POST, instance=self.object
-            )
-            data["descriptions"] = ConceptSchemeDescriptionFormSet(
-                self.request.POST, instance=self.object
-            )
-            data["sources"] = ConceptSchemeSourceFormSet(
-                self.request.POST, instance=self.object
-            )
+            data["titles"] = ConceptSchemeTitleFormSet(self.request.POST, instance=self.object)
+            data["descriptions"] = ConceptSchemeDescriptionFormSet(self.request.POST, instance=self.object)
+            data["sources"] = ConceptSchemeSourceFormSet(self.request.POST, instance=self.object)
         else:
             data["titles"] = ConceptSchemeTitleFormSet(instance=self.object)
             data["descriptions"] = ConceptSchemeDescriptionFormSet(instance=self.object)
@@ -222,9 +214,7 @@ class SkosConceptSchemeUpdate(BaseUpdateView):
         return super(SkosConceptSchemeUpdate, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy(
-            "vocabs:skosconceptscheme_detail", kwargs={"pk": self.object.pk}
-        )
+        return reverse_lazy("vocabs:skosconceptscheme_detail", kwargs={"pk": self.object.pk})
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -314,15 +304,11 @@ class SkosCollectionCreate(BaseCreateView):
     def get_initial(self):
         initial = super(SkosCollectionCreate, self).get_initial()
         if self.request.GET.get("scheme"):
-            initial["scheme"] = SkosConceptScheme.objects.get(
-                pk=self.request.GET.get("scheme")
-            )
+            initial["scheme"] = SkosConceptScheme.objects.get(pk=self.request.GET.get("scheme"))
         return initial
 
     def get_success_url(self):
-        return reverse_lazy(
-            "vocabs:skoscollection_detail", kwargs={"pk": self.object.pk}
-        )
+        return reverse_lazy("vocabs:skoscollection_detail", kwargs={"pk": self.object.pk})
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -337,15 +323,9 @@ class SkosCollectionUpdate(BaseUpdateView):
     def get_context_data(self, **kwargs):
         data = super(SkosCollectionUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data["labels"] = CollectionLabelFormSet(
-                self.request.POST, instance=self.object
-            )
-            data["notes"] = CollectionNoteFormSet(
-                self.request.POST, instance=self.object
-            )
-            data["sources"] = CollectionSourceFormSet(
-                self.request.POST, instance=self.object
-            )
+            data["labels"] = CollectionLabelFormSet(self.request.POST, instance=self.object)
+            data["notes"] = CollectionNoteFormSet(self.request.POST, instance=self.object)
+            data["sources"] = CollectionSourceFormSet(self.request.POST, instance=self.object)
         else:
             data["labels"] = CollectionLabelFormSet(instance=self.object)
             data["notes"] = CollectionNoteFormSet(instance=self.object)
@@ -376,9 +356,7 @@ class SkosCollectionUpdate(BaseUpdateView):
         return super(SkosCollectionUpdate, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy(
-            "vocabs:skoscollection_detail", kwargs={"pk": self.object.pk}
-        )
+        return reverse_lazy("vocabs:skoscollection_detail", kwargs={"pk": self.object.pk})
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -476,13 +454,9 @@ class SkosConceptCreate(BaseCreateView):
     def get_initial(self):
         initial = super(SkosConceptCreate, self).get_initial()
         if self.request.GET.get("scheme"):
-            initial["scheme"] = SkosConceptScheme.objects.get(
-                pk=self.request.GET.get("scheme")
-            )
+            initial["scheme"] = SkosConceptScheme.objects.get(pk=self.request.GET.get("scheme"))
         if self.request.GET.get("collection"):
-            initial["collection"] = SkosCollection.objects.get(
-                pk=self.request.GET.get("collection")
-            )
+            initial["collection"] = SkosCollection.objects.get(pk=self.request.GET.get("collection"))
         return initial
 
     def get_success_url(self):
@@ -501,13 +475,9 @@ class SkosConceptUpdate(BaseUpdateView):
     def get_context_data(self, **kwargs):
         data = super(SkosConceptUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data["labels"] = ConceptLabelFormSet(
-                self.request.POST, instance=self.object
-            )
+            data["labels"] = ConceptLabelFormSet(self.request.POST, instance=self.object)
             data["notes"] = ConceptNoteFormSet(self.request.POST, instance=self.object)
-            data["sources"] = ConceptSourceFormSet(
-                self.request.POST, instance=self.object
-            )
+            data["sources"] = ConceptSourceFormSet(self.request.POST, instance=self.object)
         else:
             data["labels"] = ConceptLabelFormSet(instance=self.object)
             data["notes"] = ConceptNoteFormSet(instance=self.object)
@@ -567,16 +537,12 @@ class SkosConceptDL(GenericListView):
     formhelper_class = SkosConceptFormHelper
 
     def render_to_response(self, context):
-        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime(
-            "%Y-%m-%d-%H-%M-%S"
-        )
+        timestamp = datetime.datetime.fromtimestamp(time.time()).strftime("%Y-%m-%d-%H-%M-%S")
         response = HttpResponse(content_type="application/xml; charset=utf-8")
         filename = "download_{}".format(timestamp)
         get_format = self.request.GET.get("format", default="pretty-xml")
         qs = self.get_queryset()
-        response["Content-Disposition"] = (
-            f'attachment; filename="{filename}.{RDF_FORMATS[get_format]}"'
-        )
+        response["Content-Disposition"] = f'attachment; filename="{filename}.{RDF_FORMATS[get_format]}"'
         g = graph_construct_qs(qs)
         g.serialize(destination=response, format=get_format)
         return response

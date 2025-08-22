@@ -29,3 +29,8 @@ dev = [
     "coverage>=7.10.4",
     "ruff>=0.12.9",
 ]
+
+[tool.ruff]
+# In addition to the standard set of exclusions, omit all tests, plus a specific file.
+extend-exclude = ["manage.py",]
+line-length = 120

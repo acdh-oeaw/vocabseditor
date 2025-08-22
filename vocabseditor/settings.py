@@ -30,9 +30,7 @@ if os.environ.get("SQLITE"):
 else:
     DATABASES = {
         "default": {
-            "ENGINE": os.environ.get(
-                "DB_ENGINE", "django.db.backends.postgresql_psycopg2"
-            ),
+            "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.postgresql_psycopg2"),
             "NAME": os.environ.get("POSTGRES_DB", "vocabseditor"),
             "USER": os.environ.get("POSTGRES_USER", "postgres"),
             "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "postgres"),
@@ -77,9 +75,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": (
-        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
-    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticatedOrReadOnly",),
 }
 
 AUTHENTICATION_BACKENDS = [
