@@ -11,6 +11,15 @@ from guardian.shortcuts import assign_perm, remove_perm
 from mptt.models import MPTTModel, TreeForeignKey
 from rdflib import DC, DCTERMS, OWL, RDF, RDFS, SKOS, XSD, Graph, Literal, URIRef
 
+
+def set_extra(self, **kwargs):
+    self.extra = kwargs
+    return self
+
+
+models.Field.set_extra = set_extra
+
+
 try:
     notation_for_uri = settings.VOCABS_SETTINGS["notation_for_uri"]
 except KeyError:
@@ -82,7 +91,7 @@ SKOS_RELATION_TYPES = [
 class CustomProperty(models.Model):
     prop_uri = models.CharField(
         max_length=300,
-        verbose_name="URL of the property",
+        verbose_name="Property",
         help_text="e.g. foaf:homepage",
         choices=CUSTOM_PROPS_URIS,
     )
@@ -161,52 +170,55 @@ class SkosConceptScheme(models.Model):
         verbose_name="dc:creator",
         help_text="Person or organisation primarily responsible for making current concept scheme<br>"
         "If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.creator, splitter=";")
     contributor = models.TextField(
         blank=True,
         verbose_name="dc:contributor",
         help_text="Person or organisation that made contributions to the vocabulary<br>"
         "If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.contributor, splitter=";")
     language = models.TextField(
         blank=True,
         verbose_name="dc:language",
         help_text="Language(s) used in concept scheme<br>If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.language, splitter=";")
     subject = models.TextField(
         blank=True,
         verbose_name="dc:subject",
         help_text="The subject of the vocabulary<br>If more than one list all using a semicolon ;",
-    )
-    version = models.CharField(max_length=300, blank=True, help_text="Current version")
+    ).set_extra(predicate=DC.subject, splitter=";")
+    version = models.CharField(
+        max_length=300, blank=True, verbose_name="owl:versionInfo", help_text="Current version"
+    ).set_extra(predicate=OWL.versionInfo)
     publisher = models.CharField(
         max_length=300,
         blank=True,
         help_text="Organisation responsible for making the vocabulary available",
         verbose_name="dc:publisher",
-    )
+    ).set_extra(predicate=DC.publisher)
     license = models.CharField(
         max_length=300,
         blank=True,
         verbose_name="dct:license",
         help_text="Information about license applied to the vocabulary",
-    )
+    ).set_extra(predicate=DCTERMS.license)
     owner = models.CharField(
         max_length=300,
         blank=True,
+        verbose_name="dct:rightsHolder",
         help_text="Person or organisation that owns the rights for the vocabulary",
-    )
+    ).set_extra(predicate=DCTERMS.rightsHolder)
     relation = models.URLField(
         blank=True,
         verbose_name="dc:relation",
         help_text="Related resource or project<br>E.g. in case of relation to a project, add link to a project website",
-    )
+    ).set_extra(predicate=DC.relation)
     coverage = models.TextField(
         blank=True,
         verbose_name="dc:coverage",
         help_text="Spatial or temporal frame that the vocabulary relates to<br>"
         "If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.coverage, splitter=";")
     legacy_id = models.CharField(max_length=200, blank=True)
     date_created = models.DateTimeField(editable=False, default=timezone.now)
     date_modified = models.DateTimeField(editable=False, default=timezone.now)
@@ -242,21 +254,6 @@ class SkosConceptScheme(models.Model):
             self.identifier = DEFAULT_URI + slugify(self.title, allow_unicode=True)
         super(SkosConceptScheme, self).save(*args, **kwargs)
 
-    def creator_as_list(self):
-        return self.creator.split(";")
-
-    def contributor_as_list(self):
-        return self.contributor.split(";")
-
-    def language_as_list(self):
-        return self.language.split(";")
-
-    def subject_as_list(self):
-        return self.subject.split(";")
-
-    def coverage_as_list(self):
-        return self.coverage.split(";")
-
     def get_subject(self):
         if self.legacy_id:
             return URIRef(self.legacy_id)
@@ -277,32 +274,20 @@ class SkosConceptScheme(models.Model):
         for relation_name in ["has_titles", "has_descriptions", "has_sources"]:
             for x in getattr(self, relation_name).all():
                 g = g + x.as_graph()
-        if self.creator:
-            for i in self.creator.split(";"):
-                g.add((subj, DC.creator, Literal(i.strip())))
-        if self.contributor:
-            for i in self.contributor.split(";"):
-                g.add((subj, DC.contributor, Literal(i.strip())))
-        if self.language:
-            for i in self.language.split(";"):
-                g.add((subj, DC.language, Literal(i.strip())))
-        if self.subject:
-            for i in self.subject.split(";"):
-                g.add((subj, DC.subject, Literal(i.strip())))
-        if self.coverage:
-            for i in self.coverage.split(";"):
-                g.add((subj, DC.coverage, Literal(i.strip())))
-        # the rest of the properties
-        if self.license:
-            g.add((subj, DCTERMS.license, Literal(self.license)))
-        if self.version:
-            g.add((subj, OWL.versionInfo, Literal(self.version)))
-        if self.publisher:
-            g.add((subj, DC.publisher, Literal(self.publisher)))
-        if self.relation:
-            g.add((subj, DC.relation, URIRef(self.relation)))
-        if self.owner:
-            g.add((subj, DCTERMS.rightsHolder, Literal(self.owner)))
+        # Process fields with set_extra predicate information
+        for field in self._meta.fields:
+            if hasattr(field, "extra") and "predicate" in field.extra:
+                value = getattr(self, field.name)
+                if value:
+                    predicate = field.extra["predicate"]
+                    if "splitter" in field.extra:
+                        splitter = field.extra["splitter"]
+                        for item in value.split(splitter):
+                            item = item.strip()
+                            if item:
+                                g.add((subj, predicate, Literal(item)))
+                    else:
+                        g.add((subj, predicate, Literal(value)))
         g.add((subj, DCTERMS.created, Literal(self.date_created, datatype=XSD.dateTime)))
         g.add((subj, DCTERMS.modified, Literal(self.date_modified, datatype=XSD.dateTime)))
         if self.date_issued:
