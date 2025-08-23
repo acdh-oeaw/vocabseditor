@@ -552,6 +552,8 @@ class SkosCollection(models.Model):
             g.add((subj, SKOS.prefLabel, Literal(self.name, lang=self.label_lang)))
         for x in self.has_labels.all():
             g = g + x.as_graph()
+        for x in self.has_notes.all():
+            g = g + x.as_graph()
         return modelprops_to_graph(self, subj, g)
 
 
@@ -636,7 +638,28 @@ class CollectionNote(models.Model):
     )
 
     def __str__(self):
-        return "{}".format(self.name)
+        return f"{self.name}"
+
+    def as_graph(self):
+        collection = self.collection.get_subject()
+        g = Graph()
+        if self.note_type == "note":
+            g.add((collection, SKOS.note, Literal(self.name, lang=self.language)))
+        elif self.note_type == "scopeNote":
+            g.add((collection, SKOS.scopeNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "changeNote":
+            g.add((collection, SKOS.changeNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "editorialNote":
+            g.add((collection, SKOS.editorialNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "historyNote":
+            g.add((collection, SKOS.historyNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "definition":
+            g.add((collection, SKOS.definition, Literal(self.name, lang=self.language)))
+        elif self.note_type == "example":
+            g.add((collection, SKOS.example, Literal(self.name, lang=self.language)))
+        else:
+            g.add((collection, SKOS.note, Literal(self.name, lang=self.language)))
+        return g
 
 
 class CollectionSource(models.Model):
