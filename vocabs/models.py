@@ -439,7 +439,7 @@ class SkosCollection(models.Model):
         max_length=300,
         verbose_name="skos:prefLabel",
         help_text="Collection label or name",
-    ).set_extra(predicate=SKOS.prefLabel, lang="label_lang")
+    )
     label_lang = models.CharField(
         max_length=3,
         blank=True,
@@ -548,6 +548,10 @@ class SkosCollection(models.Model):
         g = Graph()
         subj = self.get_subject()
         g.add((subj, RDF.type, SKOS.ConceptScheme))
+        if self.name:
+            g.add((subj, SKOS.prefLabel, Literal(self.name, lang=self.label_lang)))
+        for x in self.has_labels.all():
+            g = g + x.as_graph()
         return modelprops_to_graph(self, subj, g)
 
 
@@ -588,7 +592,20 @@ class CollectionLabel(models.Model):
     )
 
     def __str__(self):
-        return "{}".format(self.name)
+        return f"{self.name}"
+
+    def as_graph(self):
+        subj = self.collection.get_subject()
+        g = Graph()
+        if self.label_type == "prefLabel":
+            g.add((subj, SKOS.prefLabel, Literal(self.name, lang=self.language)))
+        elif self.label_type == "altLabel":
+            g.add((subj, SKOS.altLabel, Literal(self.name, lang=self.language)))
+        elif self.label_type == "hiddenLabel":
+            g.add((subj, SKOS.hiddenLabel, Literal(self.name, lang=self.language)))
+        else:
+            g.add((subj, SKOS.altLabel, Literal(self.name, lang=self.language)))
+        return g
 
 
 class CollectionNote(models.Model):

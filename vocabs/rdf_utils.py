@@ -53,43 +53,6 @@ def graph_construct_qs(results):
                 collection = x.get_subject()
                 collection_graph = x.as_graph()
                 g = g + collection_graph
-                if x.name:
-                    g.add((collection, SKOS.prefLabel, Literal(x.name, lang=x.label_lang)))
-                # Collection labels
-                if x.has_labels.all():
-                    for label in x.has_labels.all():
-                        if label.label_type == "prefLabel":
-                            g.add(
-                                (
-                                    collection,
-                                    SKOS.prefLabel,
-                                    Literal(label.name, lang=label.language),
-                                )
-                            )
-                        elif label.label_type == "altLabel":
-                            g.add(
-                                (
-                                    collection,
-                                    SKOS.altLabel,
-                                    Literal(label.name, lang=label.language),
-                                )
-                            )
-                        elif label.label_type == "hiddenLabel":
-                            g.add(
-                                (
-                                    collection,
-                                    SKOS.hiddenLabel,
-                                    Literal(label.name, lang=label.language),
-                                )
-                            )
-                        else:
-                            g.add(
-                                (
-                                    collection,
-                                    SKOS.altLabel,
-                                    Literal(label.name, lang=label.language),
-                                )
-                            )
                 # Collection notes
                 if x.has_notes.all():
                     for note in x.has_notes.all():
