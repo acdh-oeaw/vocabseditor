@@ -50,22 +50,9 @@ def graph_construct_qs(results):
         g.add((concept, SKOS.inScheme, main_concept_scheme))
         if obj.collection.all():
             for x in obj.collection.all():
-                collection = URIRef(x.create_uri())
-                g.add((collection, RDF.type, SKOS.Collection))
-                g.add(
-                    (
-                        collection,
-                        DCT.created,
-                        Literal(x.date_created, datatype=XSD.dateTime),
-                    )
-                )
-                g.add(
-                    (
-                        collection,
-                        DCT.modified,
-                        Literal(x.date_modified, datatype=XSD.dateTime),
-                    )
-                )
+                collection = x.get_subject()
+                collection_graph = x.as_graph()
+                g = g + collection_graph
                 if x.name:
                     g.add((collection, SKOS.prefLabel, Literal(x.name, lang=x.label_lang)))
                 # Collection labels

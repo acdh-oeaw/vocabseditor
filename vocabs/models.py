@@ -11,6 +11,8 @@ from guardian.shortcuts import assign_perm, remove_perm
 from mptt.models import MPTTModel, TreeForeignKey
 from rdflib import DC, DCTERMS, OWL, RDF, RDFS, SKOS, XSD, Graph, Literal, URIRef
 
+from .utils import modelprops_to_graph
+
 
 def set_extra(self, **kwargs):
     self.extra = kwargs
@@ -220,13 +222,17 @@ class SkosConceptScheme(models.Model):
         "If more than one list all using a semicolon ;",
     ).set_extra(predicate=DC.coverage, splitter=";")
     legacy_id = models.CharField(max_length=200, blank=True)
-    date_created = models.DateTimeField(editable=False, default=timezone.now)
-    date_modified = models.DateTimeField(editable=False, default=timezone.now)
+    date_created = models.DateTimeField(editable=False, default=timezone.now).set_extra(
+        predicate=DCTERMS.created, datatype=XSD.dateTime
+    )
+    date_modified = models.DateTimeField(editable=False, default=timezone.now).set_extra(
+        predicate=DCTERMS.modified, datatype=XSD.dateTime
+    )
     date_issued = models.DateField(
         blank=True,
         null=True,
         help_text="Date of official publication of this concept scheme",
-    )
+    ).set_extra(predicate=DCTERMS.issued, datatype=XSD.date)
     created_by = models.ForeignKey(
         User,
         related_name="skos_cs_created",
@@ -274,25 +280,7 @@ class SkosConceptScheme(models.Model):
         for relation_name in ["has_titles", "has_descriptions", "has_sources"]:
             for x in getattr(self, relation_name).all():
                 g = g + x.as_graph()
-        # Process fields with set_extra predicate information
-        for field in self._meta.fields:
-            if hasattr(field, "extra") and "predicate" in field.extra:
-                value = getattr(self, field.name)
-                if value:
-                    predicate = field.extra["predicate"]
-                    if "splitter" in field.extra:
-                        splitter = field.extra["splitter"]
-                        for item in value.split(splitter):
-                            item = item.strip()
-                            if item:
-                                g.add((subj, predicate, Literal(item)))
-                    else:
-                        g.add((subj, predicate, Literal(value)))
-        g.add((subj, DCTERMS.created, Literal(self.date_created, datatype=XSD.dateTime)))
-        g.add((subj, DCTERMS.modified, Literal(self.date_modified, datatype=XSD.dateTime)))
-        if self.date_issued:
-            g.add((subj, DCTERMS.issued, Literal(self.date_issued, datatype=XSD.date)))
-        return g
+        return modelprops_to_graph(self, subj, g)
 
     @classmethod
     def get_listview_url(self):
@@ -451,7 +439,7 @@ class SkosCollection(models.Model):
         max_length=300,
         verbose_name="skos:prefLabel",
         help_text="Collection label or name",
-    )
+    ).set_extra(predicate=SKOS.prefLabel, lang="label_lang")
     label_lang = models.CharField(
         max_length=3,
         blank=True,
@@ -472,17 +460,21 @@ class SkosCollection(models.Model):
         verbose_name="dc:creator",
         help_text="Person or organisation that created this collection<br>"
         "If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.creator, lang="label_lang", splitter=";")
     contributor = models.TextField(
         blank=True,
         verbose_name="dc:contributor",
         help_text="Person or organisation that made contributions to the collection<br>"
         "If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.contributor, lang="label_lang", splitter=";")
     legacy_id = models.CharField(max_length=200, blank=True)
     # meta autosaved fields
-    date_created = models.DateTimeField(editable=False, default=timezone.now)
-    date_modified = models.DateTimeField(editable=False, default=timezone.now)
+    date_created = models.DateTimeField(editable=False, default=timezone.now).set_extra(
+        predicate=DCTERMS.created, datatype=XSD.dateTime
+    )
+    date_modified = models.DateTimeField(editable=False, default=timezone.now).set_extra(
+        predicate=DCTERMS.modified, datatype=XSD.dateTime
+    )
     created_by = models.ForeignKey(
         User,
         related_name="skos_collection_created",
@@ -548,6 +540,15 @@ class SkosCollection(models.Model):
             else:
                 item_uri = f"{mcs}collection{self.id}"
         return item_uri
+
+    def get_subject(self):
+        return URIRef(self.create_uri())
+
+    def as_graph(self):
+        g = Graph()
+        subj = self.get_subject()
+        g.add((subj, RDF.type, SKOS.ConceptScheme))
+        return modelprops_to_graph(self, subj, g)
 
 
 ######################################################################

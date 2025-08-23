@@ -2,7 +2,7 @@ import os
 
 from django.conf import settings
 from github import Github, InputGitTreeElement
-from rdflib import Graph, namespace
+from rdflib import Graph, Literal, namespace
 
 
 class MyGraph(Graph):
@@ -80,6 +80,30 @@ class MyGraph(Graph):
             else:
                 return [(labelProp, l_) for l_ in labels]
         return default
+
+
+def modelprops_to_graph(obj, subj, g):
+    for field in obj._meta.fields:
+        if hasattr(field, "extra") and "predicate" in field.extra:
+            value = getattr(obj, field.name)
+            if value:
+                predicate = field.extra["predicate"]
+                if "splitter" in field.extra:
+                    splitter = field.extra["splitter"]
+                    for item in value.split(splitter):
+                        item = item.strip()
+                        if item:
+                            try:
+                                g.add((subj, predicate, Literal(item, datatype=field.extra["datatype"])))
+                            except KeyError:
+                                g.add((subj, predicate, Literal(item)))
+                            g.add((subj, predicate, Literal(item)))
+                else:
+                    try:
+                        g.add((subj, predicate, Literal(value, datatype=field.extra["datatype"])))
+                    except KeyError:
+                        g.add((subj, predicate, Literal(value)))
+    return g
 
 
 def push_to_gh(
