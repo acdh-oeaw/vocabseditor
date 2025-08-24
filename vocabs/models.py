@@ -756,32 +756,32 @@ class SkosConcept(MPTTModel):
         blank=True,
         verbose_name="skos:related",
         help_text="An associative relationship between two concepts",
-    )
+    ).set_extra(predicate=SKOS.related, splitter=",")
     broad_match = models.TextField(
         blank=True,
         verbose_name="skos:broadMatch",
         help_text="External concept with a broader meaning",
-    )
+    ).set_extra(predicate=SKOS.broadMatch, splitter=",")
     narrow_match = models.TextField(
         blank=True,
         verbose_name="skos:narrowMatch",
         help_text="External concept with a narrower meaning",
-    )
+    ).set_extra(predicate=SKOS.narrowMatch, splitter=",")
     exact_match = models.TextField(
         blank=True,
         verbose_name="skos:exactMatch",
         help_text="External concept that can be used interchangeably and has the exact same meaning",
-    )
+    ).set_extra(predicate=SKOS.exactMatch, splitter=",")
     related_match = models.TextField(
         blank=True,
         verbose_name="skos:relatedMatch",
         help_text="External concept that has an associative relationship with this concept",
-    )
+    ).set_extra(predicate=SKOS.relatedMatch, splitter=",")
     close_match = models.TextField(
         blank=True,
         verbose_name="skos:closeMatch",
         help_text="External concept that has a similar meaning",
-    )
+    ).set_extra(predicate=SKOS.closeMatch, splitter=",")
     ###########################################################################
     # if using legacy_id as URI change it for URLField
     legacy_id = models.CharField(max_length=200, blank=True)
@@ -789,16 +789,20 @@ class SkosConcept(MPTTModel):
         blank=True,
         verbose_name="dc:creator",
         help_text="Person or organisation that created this concept<br>If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.creator, splitter=";")
     contributor = models.TextField(
         blank=True,
         verbose_name="dc:contributor",
         help_text="Person or organisation that made contributions to this concept<br>"
         "If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.contributor, splitter=";")
     needs_review = models.BooleanField(null=True, help_text="Check if this concept needs to be reviewed")
-    date_created = models.DateTimeField(editable=False, default=timezone.now, verbose_name="dct:created")
-    date_modified = models.DateTimeField(editable=False, default=timezone.now, verbose_name="dct:modified")
+    date_created = models.DateTimeField(editable=False, default=timezone.now, verbose_name="dct:created").set_extra(
+        predicate=DCTERMS.created
+    )
+    date_modified = models.DateTimeField(editable=False, default=timezone.now, verbose_name="dct:modified").set_extra(
+        predicate=DCTERMS.modified
+    )
     created_by = models.ForeignKey(
         User,
         related_name="skos_concept_created",
@@ -818,16 +822,6 @@ class SkosConcept(MPTTModel):
         return "{}{}".format("https://whatever", self.get_absolute_url)
 
     def save(self, *args, **kwargs):
-        # if self.notation == "":
-        #     temp_notation = slugify(self.pref_label, allow_unicode=True)
-        #     concepts = len(SkosConcept.objects.filter(notation=temp_notation))
-        #     if concepts < 1:
-        #         self.notation = temp_notation
-        #     else:
-        #         self.notation = "{}-{}".format(temp_notation, concepts)
-        # else:
-        #     pass
-
         if not self.id:
             self.date_created = timezone.now()
         self.date_modified = timezone.now()
@@ -855,12 +849,21 @@ class SkosConcept(MPTTModel):
     def as_graph(self):
         g = Graph()
         subj = self.get_subject()
+        main_concept_scheme = self.scheme.get_subject()
         g.add((subj, RDF.type, SKOS.Concept))
         g.add((subj, SKOS.prefLabel, Literal(self.pref_label, lang=self.pref_label_lang)))
-        g.add((subj, SKOS.inScheme, self.scheme.get_subject()))
+        g.add((subj, SKOS.inScheme, main_concept_scheme))
         if self.notation != "":
             g.add((subj, SKOS.notation, Literal(self.notation)))
-        return g
+        if self.broader_concept:
+            g.add((subj, SKOS.broader, URIRef(self.broader_concept.create_uri())))
+        else:
+            g.add((main_concept_scheme, SKOS.hasTopConcept, URIRef(subj)))
+            g.add((subj, SKOS.topConceptOf, main_concept_scheme))
+        if self.narrower_concepts.all():
+            for x in self.narrower_concepts.all():
+                g.add((subj, SKOS.narrower, URIRef(x.create_uri())))
+        return modelprops_to_graph(self, subj, g)
 
     # change for template tag
     def creator_as_list(self):

@@ -1,6 +1,6 @@
 import rdflib
 from django.conf import settings
-from rdflib import XSD, Literal, Namespace, URIRef
+from rdflib import Literal, Namespace, URIRef
 
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 DC = Namespace("http://purl.org/dc/elements/1.1/")
@@ -152,56 +152,4 @@ def graph_construct_qs(results):
         if obj.has_sources.all():
             for source in obj.has_sources.all():
                 g.add((concept, DC.source, Literal(source.name, lang=source.language)))
-        # top concepts
-        if not obj.broader_concept:
-            g.add((main_concept_scheme, SKOS.hasTopConcept, URIRef(concept)))
-            g.add((concept, SKOS.topConceptOf, main_concept_scheme))
-        # modelling broader/narrower relationships
-        if obj.broader_concept:
-            g.add((concept, SKOS.broader, URIRef(obj.broader_concept.create_uri())))
-        if obj.narrower_concepts.all():
-            for x in obj.narrower_concepts.all():
-                g.add((concept, SKOS.narrower, URIRef(x.create_uri())))
-        # modelling external matches
-        # skos:related
-        if obj.related:
-            for x in obj.related_as_list():
-                g.add((concept, SKOS.related, URIRef(x)))
-        # skos:broadMatch
-        if obj.broad_match:
-            for x in obj.broad_match_as_list():
-                g.add((concept, SKOS.broadMatch, URIRef(x)))
-        # skos:narrowMatch
-        if obj.narrow_match:
-            for x in obj.narrow_match_as_list():
-                g.add((concept, SKOS.narrowMatch, URIRef(x)))
-        # skos:exactMatch
-        if obj.exact_match:
-            for x in obj.exact_match_as_list():
-                g.add((concept, SKOS.exactMatch, URIRef(x)))
-        # skos:relatedMatch
-        if obj.related_match:
-            for x in obj.related_match_as_list():
-                g.add((concept, SKOS.relatedMatch, URIRef(x)))
-        # skos:closeMatch
-        if obj.close_match:
-            for x in obj.close_match_as_list():
-                g.add((concept, SKOS.closeMatch, URIRef(x)))
-        # meta
-        if obj.creator:
-            for i in obj.creator.split(";"):
-                g.add((concept, DC.creator, Literal(i.strip())))
-        if obj.contributor:
-            for i in obj.contributor.split(";"):
-                g.add((concept, DC.contributor, Literal(i.strip())))
-        if obj.date_created:
-            g.add((concept, DCT.created, Literal(obj.date_created, datatype=XSD.dateTime)))
-        if obj.date_modified:
-            g.add(
-                (
-                    concept,
-                    DCT.modified,
-                    Literal(obj.date_modified, datatype=XSD.dateTime),
-                )
-            )
     return g
