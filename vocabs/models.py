@@ -849,6 +849,19 @@ class SkosConcept(MPTTModel):
                 item_uri = f"{mcs}concept{self.id}"
         return item_uri
 
+    def get_subject(self):
+        return URIRef(self.create_uri())
+
+    def as_graph(self):
+        g = Graph()
+        subj = self.get_subject()
+        g.add((subj, RDF.type, SKOS.Concept))
+        g.add((subj, SKOS.prefLabel, Literal(self.pref_label, lang=self.pref_label_lang)))
+        g.add((subj, SKOS.inScheme, self.scheme.get_subject()))
+        if self.notation != "":
+            g.add((subj, SKOS.notation, Literal(self.notation)))
+        return g
+
     # change for template tag
     def creator_as_list(self):
         return self.creator.split(";")

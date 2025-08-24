@@ -1,6 +1,6 @@
 import rdflib
 from django.conf import settings
-from rdflib import RDF, XSD, Literal, Namespace, URIRef
+from rdflib import XSD, Literal, Namespace, URIRef
 
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 DC = Namespace("http://purl.org/dc/elements/1.1/")
@@ -35,19 +35,9 @@ def graph_construct_qs(results):
     main_concept_scheme_graph = results.first().scheme.as_graph()
     g = g + main_concept_scheme_graph
     for obj in results:
-        # Concept properties
-        # TODO user entered URI
-        # if obj.legacy_id:
-        #     concept = URIRef(obj.legacy_id)
-        # else:
-        #     concept = URIRef(main_concept_scheme + VOCABS_SEPARATOR + "concept" + str(obj.id))
         concept = URIRef(obj.create_uri())
-        g.add((concept, RDF.type, SKOS.Concept))
-        g.add((concept, SKOS.prefLabel, Literal(obj.pref_label, lang=obj.pref_label_lang)))
-        if obj.notation != "":
-            g.add((concept, SKOS.notation, Literal(obj.notation)))
-        # each concept must have skos:inScheme main_concept_scheme
         g.add((concept, SKOS.inScheme, main_concept_scheme))
+        g = g + obj.as_graph()
         if obj.collection.all():
             for x in obj.collection.all():
                 collection = x.get_subject()
