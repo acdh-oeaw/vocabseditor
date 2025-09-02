@@ -968,8 +968,29 @@ class ConceptNote(models.Model):
         help_text="Choose note type",
     )
 
+    def as_graph(self):
+        subj = self.concept.get_subject()
+        g = Graph()
+        if self.note_type == "note":
+            g.add((subj, SKOS.note, Literal(self.name, lang=self.language)))
+        elif self.note_type == "scopeNote":
+            g.add((subj, SKOS.scopeNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "changeNote":
+            g.add((subj, SKOS.changeNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "editorialNote":
+            g.add((subj, SKOS.editorialNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "historyNote":
+            g.add((subj, SKOS.historyNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "definition":
+            g.add((subj, SKOS.definition, Literal(self.name, lang=self.language)))
+        elif self.note_type == "example":
+            g.add((subj, SKOS.example, Literal(self.name, lang=self.language)))
+        else:
+            g.add((subj, SKOS.note, Literal(self.name, lang=self.language)))
+        return g
+
     def __str__(self):
-        return "{}".format(self.name)
+        return f"{self.name}"
 
 
 class ConceptSource(models.Model):
