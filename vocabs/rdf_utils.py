@@ -101,10 +101,4 @@ def graph_construct_qs(results):
                             Literal(label.name, lang=label.language),
                         )
                     )
-        if obj.has_notes.all():
-            for note in obj.has_notes.all():
-                g = g + note.as_graph()
-        if obj.has_sources.all():
-            for source in obj.has_sources.all():
-                g.add((concept, DC.source, Literal(source.name, lang=source.language)))
     return g

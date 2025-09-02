@@ -860,9 +860,12 @@ class SkosConcept(MPTTModel):
         else:
             g.add((main_concept_scheme, SKOS.hasTopConcept, URIRef(subj)))
             g.add((subj, SKOS.topConceptOf, main_concept_scheme))
-        if self.narrower_concepts.all():
-            for x in self.narrower_concepts.all():
-                g.add((subj, SKOS.narrower, URIRef(x.create_uri())))
+        for x in self.narrower_concepts.all():
+            g.add((subj, SKOS.narrower, URIRef(x.create_uri())))
+        for note in self.has_notes.all():
+            g = g + note.as_graph()
+        for source in self.has_sources.all():
+            g.add((subj, DC.source, Literal(source.name, lang=source.language)))
         return modelprops_to_graph(self, subj, g)
 
     # change for template tag
@@ -1014,7 +1017,7 @@ class ConceptSource(models.Model):
     )
 
     def __str__(self):
-        return "{}".format(self.name)
+        return f"{self.name}"
 
 
 def get_all_children(self, include_self=True):
