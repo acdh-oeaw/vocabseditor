@@ -26,11 +26,6 @@ RDF_FORMATS = {
 
 def graph_construct_qs(results):
     g = rdflib.Graph()
-    g.bind("skos", SKOS)
-    g.bind("dc", DC)
-    g.bind("dct", DCT)
-    g.bind("rdfs", RDFS)
-    g.bind("owl", OWL)
     main_concept_scheme = results.first().scheme.get_subject()
     main_concept_scheme_graph = results.first().scheme.as_graph()
     g = g + main_concept_scheme_graph
@@ -43,16 +38,6 @@ def graph_construct_qs(results):
                 collection = x.get_subject()
                 collection_graph = x.as_graph()
                 g = g + collection_graph
-                # Collection sources
-                if x.has_sources.all():
-                    for source in x.has_sources.all():
-                        g.add(
-                            (
-                                collection,
-                                DC.source,
-                                Literal(source.name, lang=source.language),
-                            )
-                        )
                 if x.creator:
                     for i in x.creator.split(";"):
                         g.add((collection, DC.creator, Literal(i.strip())))
@@ -65,40 +50,4 @@ def graph_construct_qs(results):
                             g.add((collection, SKOS.member, URIRef(y.legacy_id)))
                         else:
                             g.add((collection, SKOS.member, URIRef(y.create_uri())))
-        # Concept properties
-        if obj.has_labels.all():
-            for label in obj.has_labels.all():
-                if label.label_type == "prefLabel":
-                    g.add(
-                        (
-                            concept,
-                            SKOS.prefLabel,
-                            Literal(label.name, lang=label.language),
-                        )
-                    )
-                elif label.label_type == "altLabel":
-                    g.add(
-                        (
-                            concept,
-                            SKOS.altLabel,
-                            Literal(label.name, lang=label.language),
-                        )
-                    )
-                elif label.label_type == "hiddenLabel":
-                    g.add(
-                        (
-                            concept,
-                            SKOS.hiddenLabel,
-                            Literal(label.name, lang=label.language),
-                        )
-                    )
-                # if label.label_type is not set then make it altLabel
-                else:
-                    g.add(
-                        (
-                            concept,
-                            SKOS.altLabel,
-                            Literal(label.name, lang=label.language),
-                        )
-                    )
     return g

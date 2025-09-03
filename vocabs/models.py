@@ -547,13 +547,21 @@ class SkosCollection(models.Model):
     def as_graph(self):
         g = Graph()
         subj = self.get_subject()
-        g.add((subj, RDF.type, SKOS.ConceptScheme))
+        g.add((subj, RDF.type, SKOS.Collection))
         if self.name:
             g.add((subj, SKOS.prefLabel, Literal(self.name, lang=self.label_lang)))
         for x in self.has_labels.all():
             g = g + x.as_graph()
         for x in self.has_notes.all():
             g = g + x.as_graph()
+        for source in self.has_sources.all():
+            g.add(
+                (
+                    subj,
+                    DC.source,
+                    Literal(source.name, lang=source.language),
+                )
+            )
         return modelprops_to_graph(self, subj, g)
 
 
@@ -866,6 +874,15 @@ class SkosConcept(MPTTModel):
             g = g + note.as_graph()
         for source in self.has_sources.all():
             g.add((subj, DC.source, Literal(source.name, lang=source.language)))
+        for label in self.has_labels.all():
+            if label.label_type == "prefLabel":
+                g.add((subj, SKOS.prefLabel, Literal(label.name, lang=label.language)))
+            elif label.label_type == "altLabel":
+                g.add((subj, SKOS.altLabel, Literal(label.name, lang=label.language)))
+            elif label.label_type == "hiddenLabel":
+                g.add((subj, SKOS.hiddenLabel, Literal(label.name, lang=label.language)))
+            else:
+                g.add((subj, SKOS.altLabel, Literal(label.name, lang=label.language)))
         return modelprops_to_graph(self, subj, g)
 
     # change for template tag
@@ -941,7 +958,7 @@ class ConceptLabel(models.Model):
     )
 
     def __str__(self):
-        return "{}".format(self.name)
+        return f"{self.name}"
 
 
 class ConceptNote(models.Model):
