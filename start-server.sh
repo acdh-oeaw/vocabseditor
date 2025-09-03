@@ -8,11 +8,8 @@ echo "starting celery server"
 uv run celery -A vocabseditor worker -l INFO  > celery.log 2>&1 &
 
 uv run manage.py collectstatic --no-input
-if [ -n "$MIGRATE" ] ; then
-    (echo "making migrations and running them"
-    uv run manage.py makemigrations --no-input
-    uv run manage.py migrate --no-input)
-fi
+uv run manage.py migrate --no-input
+
 if [ -n "$DJANGO_SUPERUSER_USERNAME" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ] ; then
     (echo "creating superuser ${DJANGO_SUPERUSER_USERNAME}" && uv run manage.py createsuperuser --no-input --noinput --email 'blank@email.com')
 fi
