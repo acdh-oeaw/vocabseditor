@@ -9,7 +9,18 @@ from django.utils import timezone
 from django.utils.text import slugify
 from guardian.shortcuts import assign_perm, remove_perm
 from mptt.models import MPTTModel, TreeForeignKey
-from rdflib import XSD, Literal, URIRef
+from rdflib import DC, DCTERMS, OWL, RDF, RDFS, SKOS, XSD, Graph, Literal, URIRef
+
+from .utils import modelprops_to_graph
+
+
+def set_extra(self, **kwargs):
+    self.extra = kwargs
+    return self
+
+
+models.Field.set_extra = set_extra
+
 
 try:
     notation_for_uri = settings.VOCABS_SETTINGS["notation_for_uri"]
@@ -82,7 +93,7 @@ SKOS_RELATION_TYPES = [
 class CustomProperty(models.Model):
     prop_uri = models.CharField(
         max_length=300,
-        verbose_name="URL of the property",
+        verbose_name="Property",
         help_text="e.g. foaf:homepage",
         choices=CUSTOM_PROPS_URIS,
     )
@@ -161,60 +172,67 @@ class SkosConceptScheme(models.Model):
         verbose_name="dc:creator",
         help_text="Person or organisation primarily responsible for making current concept scheme<br>"
         "If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.creator, splitter=";")
     contributor = models.TextField(
         blank=True,
         verbose_name="dc:contributor",
         help_text="Person or organisation that made contributions to the vocabulary<br>"
         "If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.contributor, splitter=";")
     language = models.TextField(
         blank=True,
         verbose_name="dc:language",
         help_text="Language(s) used in concept scheme<br>If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.language, splitter=";")
     subject = models.TextField(
         blank=True,
         verbose_name="dc:subject",
         help_text="The subject of the vocabulary<br>If more than one list all using a semicolon ;",
-    )
-    version = models.CharField(max_length=300, blank=True, help_text="Current version")
+    ).set_extra(predicate=DC.subject, splitter=";")
+    version = models.CharField(
+        max_length=300, blank=True, verbose_name="owl:versionInfo", help_text="Current version"
+    ).set_extra(predicate=OWL.versionInfo)
     publisher = models.CharField(
         max_length=300,
         blank=True,
         help_text="Organisation responsible for making the vocabulary available",
         verbose_name="dc:publisher",
-    )
+    ).set_extra(predicate=DC.publisher)
     license = models.CharField(
         max_length=300,
         blank=True,
         verbose_name="dct:license",
         help_text="Information about license applied to the vocabulary",
-    )
+    ).set_extra(predicate=DCTERMS.license)
     owner = models.CharField(
         max_length=300,
         blank=True,
+        verbose_name="dct:rightsHolder",
         help_text="Person or organisation that owns the rights for the vocabulary",
-    )
+    ).set_extra(predicate=DCTERMS.rightsHolder)
     relation = models.URLField(
         blank=True,
         verbose_name="dc:relation",
         help_text="Related resource or project<br>E.g. in case of relation to a project, add link to a project website",
-    )
+    ).set_extra(predicate=DC.relation)
     coverage = models.TextField(
         blank=True,
         verbose_name="dc:coverage",
         help_text="Spatial or temporal frame that the vocabulary relates to<br>"
         "If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.coverage, splitter=";")
     legacy_id = models.CharField(max_length=200, blank=True)
-    date_created = models.DateTimeField(editable=False, default=timezone.now)
-    date_modified = models.DateTimeField(editable=False, default=timezone.now)
+    date_created = models.DateTimeField(editable=False, default=timezone.now).set_extra(
+        predicate=DCTERMS.created, datatype=XSD.dateTime
+    )
+    date_modified = models.DateTimeField(editable=False, default=timezone.now).set_extra(
+        predicate=DCTERMS.modified, datatype=XSD.dateTime
+    )
     date_issued = models.DateField(
         blank=True,
         null=True,
         help_text="Date of official publication of this concept scheme",
-    )
+    ).set_extra(predicate=DCTERMS.issued, datatype=XSD.date)
     created_by = models.ForeignKey(
         User,
         related_name="skos_cs_created",
@@ -242,20 +260,27 @@ class SkosConceptScheme(models.Model):
             self.identifier = DEFAULT_URI + slugify(self.title, allow_unicode=True)
         super(SkosConceptScheme, self).save(*args, **kwargs)
 
-    def creator_as_list(self):
-        return self.creator.split(";")
+    def get_subject(self):
+        if self.legacy_id:
+            return URIRef(self.legacy_id)
+        else:
+            return URIRef(self.identifier)
 
-    def contributor_as_list(self):
-        return self.contributor.split(";")
-
-    def language_as_list(self):
-        return self.language.split(";")
-
-    def subject_as_list(self):
-        return self.subject.split(";")
-
-    def coverage_as_list(self):
-        return self.coverage.split(";")
+    def as_graph(self):
+        g = Graph()
+        subj = self.get_subject()
+        g.add((subj, RDF.type, SKOS.ConceptScheme))
+        if self.title:
+            title_value = Literal(self.title, lang=self.title_lang)
+            g.add((subj, DC.title, title_value))
+            g.add((subj, RDFS.label, title_value))
+        for x in self.has_custom_properties.all():
+            predicate, object = x.get_predicate_object()
+            g.add((subj, predicate, object))
+        for relation_name in ["has_titles", "has_descriptions", "has_sources"]:
+            for x in getattr(self, relation_name).all():
+                g = g + x.as_graph()
+        return modelprops_to_graph(self, subj, g)
 
     @classmethod
     def get_listview_url(self):
@@ -316,6 +341,14 @@ class ConceptSchemeTitle(models.Model):
     def __str__(self):
         return "{}".format(self.name)
 
+    def as_graph(self):
+        g = Graph()
+        subj = self.concept_scheme.get_subject()
+        obj = Literal(self.name, lang=self.language)
+        g.add((subj, DC.title, obj))
+        g.add((subj, RDFS.label, obj))
+        return g
+
 
 class ConceptSchemeDescription(models.Model):
     """
@@ -336,6 +369,13 @@ class ConceptSchemeDescription(models.Model):
         verbose_name="dc:description language",
         help_text="Language of description given above",
     )
+
+    def as_graph(self):
+        g = Graph()
+        subj = self.concept_scheme.get_subject()
+        obj = Literal(self.name, lang=self.language)
+        g.add((subj, DC.description, obj))
+        return g
 
     def __str__(self):
         return self.name
@@ -363,6 +403,13 @@ class ConceptSchemeSource(models.Model):
         verbose_name="dc:source language",
         help_text="Language of source given above",
     )
+
+    def as_graph(self):
+        g = Graph()
+        subj = self.concept_scheme.get_subject()
+        obj = Literal(self.name, lang=self.language)
+        g.add((subj, DC.source, obj))
+        return g
 
     def __str__(self):
         return "{}".format(self.name)
@@ -413,17 +460,21 @@ class SkosCollection(models.Model):
         verbose_name="dc:creator",
         help_text="Person or organisation that created this collection<br>"
         "If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.creator, lang="label_lang", splitter=";")
     contributor = models.TextField(
         blank=True,
         verbose_name="dc:contributor",
         help_text="Person or organisation that made contributions to the collection<br>"
         "If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.contributor, lang="label_lang", splitter=";")
     legacy_id = models.CharField(max_length=200, blank=True)
     # meta autosaved fields
-    date_created = models.DateTimeField(editable=False, default=timezone.now)
-    date_modified = models.DateTimeField(editable=False, default=timezone.now)
+    date_created = models.DateTimeField(editable=False, default=timezone.now).set_extra(
+        predicate=DCTERMS.created, datatype=XSD.dateTime
+    )
+    date_modified = models.DateTimeField(editable=False, default=timezone.now).set_extra(
+        predicate=DCTERMS.modified, datatype=XSD.dateTime
+    )
     created_by = models.ForeignKey(
         User,
         related_name="skos_collection_created",
@@ -490,6 +541,29 @@ class SkosCollection(models.Model):
                 item_uri = f"{mcs}collection{self.id}"
         return item_uri
 
+    def get_subject(self):
+        return URIRef(self.create_uri())
+
+    def as_graph(self):
+        g = Graph()
+        subj = self.get_subject()
+        g.add((subj, RDF.type, SKOS.Collection))
+        if self.name:
+            g.add((subj, SKOS.prefLabel, Literal(self.name, lang=self.label_lang)))
+        for x in self.has_labels.all():
+            g = g + x.as_graph()
+        for x in self.has_notes.all():
+            g = g + x.as_graph()
+        for source in self.has_sources.all():
+            g.add(
+                (
+                    subj,
+                    DC.source,
+                    Literal(source.name, lang=source.language),
+                )
+            )
+        return modelprops_to_graph(self, subj, g)
+
 
 ######################################################################
 #   Classes  to store labels and notes for Collection
@@ -528,7 +602,20 @@ class CollectionLabel(models.Model):
     )
 
     def __str__(self):
-        return "{}".format(self.name)
+        return f"{self.name}"
+
+    def as_graph(self):
+        subj = self.collection.get_subject()
+        g = Graph()
+        if self.label_type == "prefLabel":
+            g.add((subj, SKOS.prefLabel, Literal(self.name, lang=self.language)))
+        elif self.label_type == "altLabel":
+            g.add((subj, SKOS.altLabel, Literal(self.name, lang=self.language)))
+        elif self.label_type == "hiddenLabel":
+            g.add((subj, SKOS.hiddenLabel, Literal(self.name, lang=self.language)))
+        else:
+            g.add((subj, SKOS.altLabel, Literal(self.name, lang=self.language)))
+        return g
 
 
 class CollectionNote(models.Model):
@@ -559,7 +646,28 @@ class CollectionNote(models.Model):
     )
 
     def __str__(self):
-        return "{}".format(self.name)
+        return f"{self.name}"
+
+    def as_graph(self):
+        collection = self.collection.get_subject()
+        g = Graph()
+        if self.note_type == "note":
+            g.add((collection, SKOS.note, Literal(self.name, lang=self.language)))
+        elif self.note_type == "scopeNote":
+            g.add((collection, SKOS.scopeNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "changeNote":
+            g.add((collection, SKOS.changeNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "editorialNote":
+            g.add((collection, SKOS.editorialNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "historyNote":
+            g.add((collection, SKOS.historyNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "definition":
+            g.add((collection, SKOS.definition, Literal(self.name, lang=self.language)))
+        elif self.note_type == "example":
+            g.add((collection, SKOS.example, Literal(self.name, lang=self.language)))
+        else:
+            g.add((collection, SKOS.note, Literal(self.name, lang=self.language)))
+        return g
 
 
 class CollectionSource(models.Model):
@@ -656,32 +764,32 @@ class SkosConcept(MPTTModel):
         blank=True,
         verbose_name="skos:related",
         help_text="An associative relationship between two concepts",
-    )
+    ).set_extra(predicate=SKOS.related, splitter=",")
     broad_match = models.TextField(
         blank=True,
         verbose_name="skos:broadMatch",
         help_text="External concept with a broader meaning",
-    )
+    ).set_extra(predicate=SKOS.broadMatch, splitter=",")
     narrow_match = models.TextField(
         blank=True,
         verbose_name="skos:narrowMatch",
         help_text="External concept with a narrower meaning",
-    )
+    ).set_extra(predicate=SKOS.narrowMatch, splitter=",")
     exact_match = models.TextField(
         blank=True,
         verbose_name="skos:exactMatch",
         help_text="External concept that can be used interchangeably and has the exact same meaning",
-    )
+    ).set_extra(predicate=SKOS.exactMatch, splitter=",")
     related_match = models.TextField(
         blank=True,
         verbose_name="skos:relatedMatch",
         help_text="External concept that has an associative relationship with this concept",
-    )
+    ).set_extra(predicate=SKOS.relatedMatch, splitter=",")
     close_match = models.TextField(
         blank=True,
         verbose_name="skos:closeMatch",
         help_text="External concept that has a similar meaning",
-    )
+    ).set_extra(predicate=SKOS.closeMatch, splitter=",")
     ###########################################################################
     # if using legacy_id as URI change it for URLField
     legacy_id = models.CharField(max_length=200, blank=True)
@@ -689,16 +797,20 @@ class SkosConcept(MPTTModel):
         blank=True,
         verbose_name="dc:creator",
         help_text="Person or organisation that created this concept<br>If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.creator, splitter=";")
     contributor = models.TextField(
         blank=True,
         verbose_name="dc:contributor",
         help_text="Person or organisation that made contributions to this concept<br>"
         "If more than one list all using a semicolon ;",
-    )
+    ).set_extra(predicate=DC.contributor, splitter=";")
     needs_review = models.BooleanField(null=True, help_text="Check if this concept needs to be reviewed")
-    date_created = models.DateTimeField(editable=False, default=timezone.now, verbose_name="dct:created")
-    date_modified = models.DateTimeField(editable=False, default=timezone.now, verbose_name="dct:modified")
+    date_created = models.DateTimeField(editable=False, default=timezone.now, verbose_name="dct:created").set_extra(
+        predicate=DCTERMS.created
+    )
+    date_modified = models.DateTimeField(editable=False, default=timezone.now, verbose_name="dct:modified").set_extra(
+        predicate=DCTERMS.modified
+    )
     created_by = models.ForeignKey(
         User,
         related_name="skos_concept_created",
@@ -718,16 +830,6 @@ class SkosConcept(MPTTModel):
         return "{}{}".format("https://whatever", self.get_absolute_url)
 
     def save(self, *args, **kwargs):
-        # if self.notation == "":
-        #     temp_notation = slugify(self.pref_label, allow_unicode=True)
-        #     concepts = len(SkosConcept.objects.filter(notation=temp_notation))
-        #     if concepts < 1:
-        #         self.notation = temp_notation
-        #     else:
-        #         self.notation = "{}-{}".format(temp_notation, concepts)
-        # else:
-        #     pass
-
         if not self.id:
             self.date_created = timezone.now()
         self.date_modified = timezone.now()
@@ -748,6 +850,40 @@ class SkosConcept(MPTTModel):
             else:
                 item_uri = f"{mcs}concept{self.id}"
         return item_uri
+
+    def get_subject(self):
+        return URIRef(self.create_uri())
+
+    def as_graph(self):
+        g = Graph()
+        subj = self.get_subject()
+        main_concept_scheme = self.scheme.get_subject()
+        g.add((subj, RDF.type, SKOS.Concept))
+        g.add((subj, SKOS.prefLabel, Literal(self.pref_label, lang=self.pref_label_lang)))
+        g.add((subj, SKOS.inScheme, main_concept_scheme))
+        if self.notation != "":
+            g.add((subj, SKOS.notation, Literal(self.notation)))
+        if self.broader_concept:
+            g.add((subj, SKOS.broader, URIRef(self.broader_concept.create_uri())))
+        else:
+            g.add((main_concept_scheme, SKOS.hasTopConcept, URIRef(subj)))
+            g.add((subj, SKOS.topConceptOf, main_concept_scheme))
+        for x in self.narrower_concepts.all():
+            g.add((subj, SKOS.narrower, URIRef(x.create_uri())))
+        for note in self.has_notes.all():
+            g = g + note.as_graph()
+        for source in self.has_sources.all():
+            g.add((subj, DC.source, Literal(source.name, lang=source.language)))
+        for label in self.has_labels.all():
+            if label.label_type == "prefLabel":
+                g.add((subj, SKOS.prefLabel, Literal(label.name, lang=label.language)))
+            elif label.label_type == "altLabel":
+                g.add((subj, SKOS.altLabel, Literal(label.name, lang=label.language)))
+            elif label.label_type == "hiddenLabel":
+                g.add((subj, SKOS.hiddenLabel, Literal(label.name, lang=label.language)))
+            else:
+                g.add((subj, SKOS.altLabel, Literal(label.name, lang=label.language)))
+        return modelprops_to_graph(self, subj, g)
 
     # change for template tag
     def creator_as_list(self):
@@ -822,7 +958,7 @@ class ConceptLabel(models.Model):
     )
 
     def __str__(self):
-        return "{}".format(self.name)
+        return f"{self.name}"
 
 
 class ConceptNote(models.Model):
@@ -852,8 +988,29 @@ class ConceptNote(models.Model):
         help_text="Choose note type",
     )
 
+    def as_graph(self):
+        subj = self.concept.get_subject()
+        g = Graph()
+        if self.note_type == "note":
+            g.add((subj, SKOS.note, Literal(self.name, lang=self.language)))
+        elif self.note_type == "scopeNote":
+            g.add((subj, SKOS.scopeNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "changeNote":
+            g.add((subj, SKOS.changeNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "editorialNote":
+            g.add((subj, SKOS.editorialNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "historyNote":
+            g.add((subj, SKOS.historyNote, Literal(self.name, lang=self.language)))
+        elif self.note_type == "definition":
+            g.add((subj, SKOS.definition, Literal(self.name, lang=self.language)))
+        elif self.note_type == "example":
+            g.add((subj, SKOS.example, Literal(self.name, lang=self.language)))
+        else:
+            g.add((subj, SKOS.note, Literal(self.name, lang=self.language)))
+        return g
+
     def __str__(self):
-        return "{}".format(self.name)
+        return f"{self.name}"
 
 
 class ConceptSource(models.Model):
@@ -877,7 +1034,7 @@ class ConceptSource(models.Model):
     )
 
     def __str__(self):
-        return "{}".format(self.name)
+        return f"{self.name}"
 
 
 def get_all_children(self, include_self=True):
