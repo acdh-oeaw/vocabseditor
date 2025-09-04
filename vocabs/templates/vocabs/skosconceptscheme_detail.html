@@ -83,22 +83,14 @@
         {% endif %}
         {% if object.creator %}
         <tr>
-        <th class="w-25">dc:creator</th>
-        <td>
-        {% for creator in object.creator_as_list %}
-        <li>{{creator}}</li>
-        {% endfor %}
-        </td>
+            <th class="w-25">dc:creator</th>
+            <td>{{ object.creator }}</td>
         </tr>
         {% endif %}
         {% if object.contributor %}
         <tr>
-        <th class="w-25">dc:contributor</th>
-        <td>
-        {% for contributor in object.contributor_as_list %}
-        <li>{{contributor}}</li>
-        {% endfor %}
-        </td>
+            <th class="w-25">dc:contributor</th>
+            <td>{{ object.contributor }}</td>
         </tr>
         {% endif %}
 
