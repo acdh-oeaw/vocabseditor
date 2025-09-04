@@ -764,32 +764,32 @@ class SkosConcept(MPTTModel):
         blank=True,
         verbose_name="skos:related",
         help_text="An associative relationship between two concepts",
-    ).set_extra(predicate=SKOS.related, splitter=",")
+    ).set_extra(as_uri=True, predicate=SKOS.related, splitter=",")
     broad_match = models.TextField(
         blank=True,
         verbose_name="skos:broadMatch",
         help_text="External concept with a broader meaning",
-    ).set_extra(predicate=SKOS.broadMatch, splitter=",")
+    ).set_extra(as_uri=True, predicate=SKOS.broadMatch, splitter=",")
     narrow_match = models.TextField(
         blank=True,
         verbose_name="skos:narrowMatch",
         help_text="External concept with a narrower meaning",
-    ).set_extra(predicate=SKOS.narrowMatch, splitter=",")
+    ).set_extra(as_uri=True, predicate=SKOS.narrowMatch, splitter=",")
     exact_match = models.TextField(
         blank=True,
         verbose_name="skos:exactMatch",
         help_text="External concept that can be used interchangeably and has the exact same meaning",
-    ).set_extra(predicate=SKOS.exactMatch, splitter=",")
+    ).set_extra(as_uri=True, predicate=SKOS.exactMatch, splitter=",")
     related_match = models.TextField(
         blank=True,
         verbose_name="skos:relatedMatch",
         help_text="External concept that has an associative relationship with this concept",
-    ).set_extra(predicate=SKOS.relatedMatch, splitter=",")
+    ).set_extra(as_uri=True, predicate=SKOS.relatedMatch, splitter=",")
     close_match = models.TextField(
         blank=True,
         verbose_name="skos:closeMatch",
         help_text="External concept that has a similar meaning",
-    ).set_extra(predicate=SKOS.closeMatch, splitter=",")
+    ).set_extra(as_uri=True, predicate=SKOS.closeMatch, splitter=",")
     ###########################################################################
     # if using legacy_id as URI change it for URLField
     legacy_id = models.CharField(max_length=200, blank=True)
