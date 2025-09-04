@@ -92,6 +92,19 @@ class SkosConceptSchemeListView(GenericListView):
         "title",
     ]
 
+    def get_queryset(self, **kwargs):
+        qs = super(SkosConceptSchemeListView, self).get_queryset()
+        allowed = get_objects_for_user(
+            self.request.user,
+            perms=[
+                "view_{}".format(self.model.__name__.lower()),
+                "change_{}".format(self.model.__name__.lower()),
+                "delete_{}".format(self.model.__name__.lower()),
+            ],
+            klass=self.model,
+        )
+        return qs.filter(id__in=allowed)
+
 
 class SkosConceptSchemeDetailView(BaseDetailView):
     model = SkosConceptScheme
@@ -266,6 +279,19 @@ class SkosCollectionListView(GenericListView):
         "scheme",
     ]
 
+    def get_queryset(self, **kwargs):
+        qs = super(SkosCollectionListView, self).get_queryset()
+        allowed = get_objects_for_user(
+            self.request.user,
+            perms=[
+                "view_{}".format(self.model.__name__.lower()),
+                "change_{}".format(self.model.__name__.lower()),
+                "delete_{}".format(self.model.__name__.lower()),
+            ],
+            klass=self.model,
+        )
+        return qs.filter(id__in=allowed)
+
 
 class SkosCollectionDetailView(BaseDetailView):
     model = SkosCollection
@@ -410,7 +436,16 @@ class SkosConceptListView(GenericListView):
 
     def get_queryset(self, **kwargs):
         qs = super(SkosConceptListView, self).get_queryset()
-        return qs.order_by("id")
+        allowed = get_objects_for_user(
+            self.request.user,
+            perms=[
+                "view_{}".format(self.model.__name__.lower()),
+                "change_{}".format(self.model.__name__.lower()),
+                "delete_{}".format(self.model.__name__.lower()),
+            ],
+            klass=self.model,
+        )
+        return qs.filter(id__in=allowed).order_by("id")
 
 
 class SkosConceptDetailView(BaseDetailView):
