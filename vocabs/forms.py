@@ -281,8 +281,7 @@ class SkosConceptSchemeFormHelper(FormHelper):
         self.helper = FormHelper()
         self.form_class = "genericFilterForm"
         self.form_method = "GET"
-        self.helper.form_tag = False
-        self.add_input(Submit("Filter", "Search"))
+        self.form_tag = False
         self.layout = Layout(
             Fieldset("", "title", "creator", css_id="basic_search_fields"),
         )
@@ -458,8 +457,7 @@ class SkosCollectionFormHelper(FormHelper):
         self.helper = FormHelper()
         self.form_class = "genericFilterForm"
         self.form_method = "GET"
-        self.helper.form_tag = False
-        self.add_input(Submit("Filter", "Search"))
+        self.form_tag = False
         self.layout = Layout(
             Fieldset(
                 "",
@@ -728,8 +726,7 @@ class SkosConceptFormHelper(FormHelper):
         self.helper = FormHelper()
         self.form_class = "genericFilterForm"
         self.form_method = "GET"
-        self.helper.form_tag = False
-        self.add_input(Submit("Filter", "Search"))
+        self.form_tag = False
         self.layout = Layout(
             Fieldset(
                 "",
