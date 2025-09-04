@@ -2,7 +2,7 @@ import os
 
 from django.conf import settings
 from github import Github, InputGitTreeElement
-from rdflib import Graph, Literal, namespace
+from rdflib import Graph, Literal, URIRef, namespace
 
 
 class MyGraph(Graph):
@@ -93,11 +93,13 @@ def modelprops_to_graph(obj, subj, g):
                     for item in value.split(splitter):
                         item = item.strip()
                         if item:
-                            try:
-                                g.add((subj, predicate, Literal(item, datatype=field.extra["datatype"])))
-                            except KeyError:
-                                g.add((subj, predicate, Literal(item)))
-                            g.add((subj, predicate, Literal(item)))
+                            if field.extra.get("as_uri"):
+                                g.add((subj, predicate, URIRef(item)))
+                            else:
+                                try:
+                                    g.add((subj, predicate, Literal(item, datatype=field.extra["datatype"])))
+                                except KeyError:
+                                    g.add((subj, predicate, Literal(item)))
                 else:
                     try:
                         g.add((subj, predicate, Literal(value, datatype=field.extra["datatype"])))
